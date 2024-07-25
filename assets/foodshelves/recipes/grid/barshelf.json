@@ -1,0 +1,13 @@
+[
+  {
+    "ingredientPattern": "PPP,_S_",
+    "ingredients": {
+      "P": { "type": "item", "code": "game:plank-*", "quantity": 2 },
+      "S": { "type": "block", "code": "foodshelves:breadshelf-normal-east" }
+    },
+    "width": 3,
+    "height": 2,
+    "recipeGroup": 1,
+    "output": { "type": "block", "code": "barshelf-normal-east" }
+  }
+]

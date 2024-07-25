@@ -1,0 +1,76 @@
+{
+  "code": "sushishelf",
+  "class": "FoodShelves.BlockSushiShelf",
+  "entityclass": "FoodShelves.BlockEntitySushiShelf",
+  "creativeinventory": { "general": ["*-east"], "decorative": ["*-east"], "foodshelves": ["*-east"] },
+  "variantgroups": [
+    { "code": "type", "states": ["normal"] },
+    { "code": "side", "loadFromProperties": "abstract/horizontalorientation" }
+  ],
+  "attributes": {
+    "handbook": {
+      "groupBy": [ "sushishelf-*" ],
+      "extraSections": [
+        {
+          "title": "foodshelves:blockdesc-canhold-title",
+          "text": "foodshelves:blockdesc-sushishelf-text"
+        }
+      ]
+    },
+    "inventoryClassName": "sushishelf",
+    "attributeTransformCode": "onSushiShelfTransform"
+  },
+  "behaviors": [
+    { "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }
+  ],
+  "shape": {
+    "base": "block/wood/sushishelf",
+    "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
+  },
+  "textures": {
+	  "wood": { "base": "game:block/wood/shelf/wood" },
+	  "surface": { "base": "game:block/wood/shelf/surface" }
+  },
+  "heldTpIdleAnimation": "holdunderarm",
+  "blockmaterial": "Wood",
+  "lightAbsorption": 0,
+  "faceCullMode": "NeverCull",
+  "emitSideAo": { "all": false },
+  "sidesolid": { "all": false },
+  "sideopaque": { "all": false },
+  "replaceable": 999,
+  "resistance": 1.5,
+  "combustibleProps": {
+    "burnTemperature": 700,
+    "burnDuration": 60
+  },
+  "tpHandTransform": {
+	  "translation": { "x": -0.8, "y": -0.68, "z": -0.41 },
+	  "rotation": { "x": 99, "y": -10, "z": -6 },
+	  "scale": 0.5
+  },
+  "fpHandTransform": {
+    "translation": { "x": 0.08, "y": -0.2, "z": 0.6 },
+    "rotation": { "x": 33, "y": 134, "z": -102 }
+  },
+  "sounds": {
+    "place": "game:block/planks",
+    "hit": "game:block/planks",
+    "break": "game:block/planks"
+  },
+  "materialDensity": 400,
+  "collisionbox": { "x1": 0.125, "y1": 0, "z1": 0, "x2": 0.875, "y2": 1, "z2": 1, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+  "selectionBoxes": [
+	  { "x1": 0.125, "y1": 0, "z1": 0.0625, "x2": 0.9375, "y2": 0.25, "z2": 0.5, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	  { "x1": 0.125, "y1": 0, "z1": 0.5, "x2": 0.9375, "y2": 0.25, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	
+	  { "x1": 0.125, "y1": 0.25, "z1": 0.0625, "x2": 0.9375, "y2": 0.5, "z2": 0.5, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	  { "x1": 0.125, "y1": 0.25, "z1": 0.5, "x2": 0.9375, "y2": 0.5, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	
+	  { "x1": 0.125, "y1": 0.5, "z1": 0.0625, "x2": 0.9375, "y2": 0.75, "z2": 0.5, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	  { "x1": 0.125, "y1": 0.5, "z1": 0.5, "x2": 0.9375, "y2": 0.75, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	
+	  { "x1": 0.125, "y1": 0.75, "z1": 0.0625, "x2": 0.9375, "y2": 1, "z2": 0.5, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	  { "x1": 0.125, "y1": 0.75, "z1": 0.5, "x2": 0.9375, "y2": 1, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } }
+  ]
+}
