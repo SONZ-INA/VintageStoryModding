@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace FoodShelves;
+﻿namespace FoodShelves;
 
 public static class InfoDisplay {
     public enum InfoDisplayOptions {
@@ -114,8 +112,8 @@ public static class InfoDisplay {
         if (inv == null || inv.Empty) return "";
 
         StringBuilder dsc = new();
-        List<ItemStack> nonRotItems = new();
-        List<ItemStack> rotItems = new();
+        int nonRotItems = 0;
+        int rotItems = 0;
         double totalFreshHours = 0;
         int itemCount = 0;
         ItemStack soonestPerishStack = null;
@@ -127,7 +125,7 @@ public static class InfoDisplay {
             ItemStack stack = slot.Itemstack;
 
             if (stack.Item.Code.Path.StartsWith("rot")) {
-                rotItems.Add(stack);
+                rotItems++;
                 continue;
             }
 
@@ -137,7 +135,7 @@ public static class InfoDisplay {
                 foreach (var state in transitionStates) {
                     double freshHoursLeft = state.FreshHoursLeft / stack.Collectible.GetTransitionRateMul(Api.World, slot, state.Props.Type);
                     if (state.Props.Type == EnumTransitionType.Perish) {
-                        nonRotItems.Add(stack);
+                        nonRotItems++;
                         totalFreshHours += freshHoursLeft * stack.StackSize;
                         itemCount += stack.StackSize;
 
@@ -152,15 +150,13 @@ public static class InfoDisplay {
         }
 
         // Number of items inside
-        int totalItems = nonRotItems.Sum(stack => stack.StackSize);
-        if (totalItems > 0) {
-            dsc.AppendLine(Lang.Get("Fruits inside: {0}", totalItems));
+        if (nonRotItems > 0) {
+            dsc.AppendLine(Lang.Get("Fruits inside: {0}", nonRotItems));
         }
 
         // Number of rotten items
-        if (rotItems.Count > 0) {
-            int totalRotItems = rotItems.Sum(stack => stack.StackSize);
-            dsc.AppendLine(Lang.Get("Rotten fruits: {0}", totalRotItems));
+        if (rotItems > 0) {
+            dsc.AppendLine(Lang.Get("Rotten fruits: {0}", rotItems));
         }
 
         // Average perish rate

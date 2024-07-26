@@ -1,12 +1,12 @@
 ﻿namespace FoodShelves;
 
 public class BlockEntityBreadShelf : BlockEntityDisplay {
-    InventoryGeneric inv;
+    readonly InventoryGeneric inv;
     Block block;
 
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
-    public override string AttributeTransformCode => onBreadShelfTransform;
+    public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
     private const int shelfCount = 4;
     private const int segmentsPerShelf = 3;
@@ -14,9 +14,7 @@ public class BlockEntityBreadShelf : BlockEntityDisplay {
     static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByShelf;
 
-    public BlockEntityBreadShelf() {
-        inv = new InventoryGeneric(slotCount, Block?.Attributes?["inventoryClassName"].AsString() + "-0", Api, (_, inv) => new ItemSlotBreadShelf(inv));
-    }
+    public BlockEntityBreadShelf() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotBreadShelf(inv)); }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
@@ -43,7 +41,7 @@ public class BlockEntityBreadShelf : BlockEntityDisplay {
             else {
                 (Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf."));
             }
-            
+
             return false;
         }
     }

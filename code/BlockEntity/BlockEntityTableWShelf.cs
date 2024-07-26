@@ -1,12 +1,12 @@
 ﻿namespace FoodShelves;
 
 public class BlockEntityTableWShelf : BlockEntityDisplay {
-    InventoryGeneric inv;
+    readonly InventoryGeneric inv;
     Block block;
     
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
-    public override string AttributeTransformCode => onDisplayTransform;
+    public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
     private const int shelfCount = 1;
     private const int segmentsPerShelf = 1;
@@ -14,9 +14,7 @@ public class BlockEntityTableWShelf : BlockEntityDisplay {
     static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlock;
 
-    public BlockEntityTableWShelf() {
-        inv = new InventoryGeneric(slotCount, Block?.Attributes?["inventoryClassName"].AsString() + "-0", Api, (_, inv) => new ItemSlotTableWShelf(inv));
-    }
+    public BlockEntityTableWShelf() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotTableWShelf(inv)); }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);

@@ -1,21 +1,21 @@
 ﻿namespace FoodShelves;
 
-public class BlockEntityFruitBasket : BlockEntitySimpleRotatableBlock {
-    InventoryGeneric inv;
+public class BlockEntityFruitBasket : BlockEntityDisplay {
+    readonly InventoryGeneric inv;
+    Block block;
+    public float MeshAngle { get; set; }
 
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
-    public override string AttributeTransformCode => onFruitBasketTransform;
-    
+    public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
+
     private const int shelfCount = 1;
     private const int segmentsPerShelf = 1;
     private const int itemsPerSegment = 22;
     static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlockAverageAndSoonest;
 
-    public BlockEntityFruitBasket() {
-        inv = new InventoryGeneric(slotCount, Block?.Attributes?["inventoryClassName"].AsString() + "-0", Api, (_, inv) => new ItemSlotFruitBasket(inv));
-    }
+    public BlockEntityFruitBasket() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotFruitBasket(inv)); }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
@@ -119,6 +119,34 @@ public class BlockEntityFruitBasket : BlockEntitySimpleRotatableBlock {
 
         return tfMatrices;
     }
+
+    #region RotationRender
+
+    public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
+        bool skipmesh = base.OnTesselation(mesher, tesselator);
+
+        if (!skipmesh) {
+            MeshData meshData = GenBlockMesh(Api, this, tesselator, block);
+            if (meshData == null) return false;
+
+            mesher.AddMeshData(meshData.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0));
+        }
+
+        return true;
+    }
+
+        public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
+        base.FromTreeAttributes(tree, worldForResolving);
+        MeshAngle = tree.GetFloat("meshAngle", 0f);
+        RedrawAfterReceivingTreeAttributes(worldForResolving);
+    }
+
+    public override void ToTreeAttributes(ITreeAttribute tree) {
+        base.ToTreeAttributes(tree);
+        tree.SetFloat("meshAngle", MeshAngle);
+    }
+
+    #endregion
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);

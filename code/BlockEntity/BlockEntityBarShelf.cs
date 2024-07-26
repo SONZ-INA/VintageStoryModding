@@ -1,22 +1,20 @@
 ﻿namespace FoodShelves;
 
 public class BlockEntityBarShelf : BlockEntityDisplay {
-    InventoryGeneric inv;
+    readonly InventoryGeneric inv;
     Block block;
     
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
-    public override string AttributeTransformCode => onBarShelfTransform;
-    
+    public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
+
     private const int shelfCount = 4;
     private const int segmentsPerShelf = 3;
     private const int itemsPerSegment = 6;
     static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.BySegment;
 
-    public BlockEntityBarShelf() {
-        inv = new InventoryGeneric(slotCount, Block?.Attributes?["inventoryClassName"].AsString() + "-0", Api, (_, inv) => new ItemSlotBarShelf(inv));
-    }
+    public BlockEntityBarShelf() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotBarShelf(inv)); }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);

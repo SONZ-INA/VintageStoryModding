@@ -1,12 +1,12 @@
 ﻿namespace FoodShelves;
 
 public class BlockEntityPieShelf : BlockEntityDisplay {
-    InventoryGeneric inv;
+    readonly InventoryGeneric inv;
     Block block;
     
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
-    public override string AttributeTransformCode => onPieShelfTransform;
+    public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
     private const int shelfCount = 3;
     private const int segmentsPerShelf = 1;
@@ -14,9 +14,7 @@ public class BlockEntityPieShelf : BlockEntityDisplay {
     static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlock;
 
-    public BlockEntityPieShelf() {
-        inv = new InventoryGeneric(slotCount, Block?.Attributes?["inventoryClassName"].AsString() + "-0", Api, (_, inv) => new ItemSlotPieShelf(inv));
-    }
+    public BlockEntityPieShelf() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotPieShelf(inv)); }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);

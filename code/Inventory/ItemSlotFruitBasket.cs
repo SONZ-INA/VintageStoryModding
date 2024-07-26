@@ -1,7 +1,7 @@
 ﻿namespace FoodShelves;
 
 public class ItemSlotFruitBasket : ItemSlot {
-    public override int MaxSlotStackSize => 6;
+    public override int MaxSlotStackSize => 1;
 
     public ItemSlotFruitBasket(InventoryBase inventory) : base(inventory) {
         this.inventory = inventory;

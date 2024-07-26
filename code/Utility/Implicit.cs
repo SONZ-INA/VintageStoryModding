@@ -14,4 +14,4 @@ global using Vintagestory.GameContent;
 global using static FoodShelves.Restrictions;
 global using static FoodShelves.Transformations;
 global using static FoodShelves.InfoDisplay;
-global using static FoodShelves.Rotation;
+global using static FoodShelves.Meshing;
