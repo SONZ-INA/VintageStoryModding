@@ -72,4 +72,27 @@ public class Transformations {
     };
 
     #endregion
+
+    #region FruitBasket
+
+    public Dictionary<string, ModelTransform> FruitBasketTransformations = new() {
+        { "dehydratedfruit-*", new ModelTransform() {
+            Origin = new() { X = 0.5f, Y = 0.0f, Z = 0.5f },
+            Translation = new() { X = 0f, Y = 0.2f, Z = 0f }
+        }},
+        { "dryfruit-*", new ModelTransform() {
+            Origin = new() { X = 0.5f, Y = 0.0f, Z = 0.5f },
+            Translation = new() { X = 0f, Y = 0.2f, Z = 0f }
+        }}
+    };
+
+    public Dictionary<string, ModelTransform> FruitBasketDomainTransformations = new() {
+        { "wildcraftfruit:*", new ModelTransform() {
+            Origin = new() { X = 0.5f, Y = 0.0f, Z = 0.5f },
+            Scale = 0.9f,
+            Translation = new() { X = 0f, Y = 0.1f, Z = 0f }
+        }}
+    };
+
+    #endregion
 }

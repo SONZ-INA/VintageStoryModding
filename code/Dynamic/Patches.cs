@@ -57,6 +57,16 @@ public static class Patches {
         if (WildcardUtil.Match(FruitBasketCodes, obj.Code.Path.ToString())) {
             obj.EnsureAttributesNotNull();
             obj.Attributes.Token[FruitBasket] = JToken.FromObject(true);
+
+            ModelTransform transformation = obj.GetTransformation(Transformations.FruitBasketTransformations);
+            if (transformation != null) {
+                obj.Attributes.Token[onFruitBasketTransform] = JToken.FromObject(transformation);
+            }
+
+            ModelTransform transformationDomain = obj.GetFullTransformation(Transformations.FruitBasketDomainTransformations);
+            if (transformationDomain != null) {
+                obj.Attributes.Token[onFruitBasketTransform] = JToken.FromObject(transformationDomain);
+            }
         }
     }
 

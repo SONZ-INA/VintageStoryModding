@@ -10,4 +10,12 @@ public static class Extensions {
 
         return null;
     }
+
+    public static ModelTransform GetFullTransformation(this CollectibleObject obj, Dictionary<string, ModelTransform> transformations) {
+        foreach (KeyValuePair<string, ModelTransform> transformation in transformations) {
+            if (WildcardUtil.Match(transformation.Key, obj.Code.ToString())) return transformation.Value;
+        }
+
+        return null;
+    }
 }
