@@ -95,6 +95,8 @@ public static class Meshing {
                     if (contents[i] != null) {
                         capi.Tesselator.TesselateItem(contents[i].Item, out MeshData contentData);
 
+                        //MeshData contentData = GeneralizedTexturedGenMesh(capi, contents[i].Item);
+
                         float[] x = { .65f, .3f, .3f, .3f, .6f, .35f, .5f, .65f, .35f, .1f, .6f, .58f, .3f, .2f, -.1f, .1f, .1f, .25f, .2f, .55f, .6f, .3f };
                         float[] y = { 0, 0, 0, .25f, 0, .35f, .2f, -.3f, .3f, .2f, .4f, .4f, .4f, .5f, .57f, .05f, .3f, .52f, .55f, .45f, -.65f, .5f };
                         float[] z = { .05f, 0, .4f, .1f, .45f, .35f, .18f, .7f, .55f, .1f, .02f, .3f, .7f, -.15f, .15f, -.2f, .9f, .05f, .6f, .35f, -.2f, .6f };
@@ -124,5 +126,53 @@ public static class Meshing {
         }
 
         return basketMesh;
+    }
+
+    // GeneralizedTexturedGenMesh written specifically for expanded foods, i might need it so it's here
+    public static MeshData GeneralizedTexturedGenMesh(ICoreClientAPI capi, Item item) { // third passed attribute would be a Dictionary of keys and texture paths and
+                                                                                        // then iterate through them after Textures.Clear()
+        string shapePath = item.Shape?.Base?.ToString();
+        string itemName = item.Code?.ToString();
+        string modDomain = null;
+        int colonIndex = shapePath.IndexOf(':');
+
+        if (colonIndex != -1) {
+            itemName = itemName.Substring(colonIndex + 1);
+            modDomain = shapePath.Substring(0, colonIndex);
+            shapePath = shapePath.Substring(colonIndex + 1);
+        }
+        else {
+            capi.Logger.Debug(modDomain + " - GenMesh: Indexing for shapePath failed.");
+            return null;
+        }
+
+        string key = itemName + "Meshes" + item.Code.ToString();
+        Dictionary<string, MeshData> meshes = ObjectCacheUtil.GetOrCreate(capi, key, () => {
+            return new Dictionary<string, MeshData>();
+        });
+
+        AssetLocation shapeLocation = new(modDomain + ":shapes/" + shapePath + ".json"); // A generalized shape would go here, like a berrybread for example
+
+        Shape shape = capi.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
+        if (shape == null) return null;
+
+        var keys = new List<string>(shape.Textures.Keys); // we can get all available keys here. IT PASSES A REFERENCE SO DON'T REMOVE THE 'List<string>' PART!!
+        Shape shapeClone = shape.Clone(); // has to be cloned to work
+
+        shapeClone.Textures.Clear(); // remove all keys and values
+
+        // shapeClone.Textures.Remove("sides"); // Remove or .Clear() Textures to add new ones, 
+                                                // These textures are contained within `shapes` .json file.
+                                                // If it doesn't work, remove the "textures" {} from `blocktypes` .json files, i haven't tested it
+        AssetLocation ass = new("game:item/food/fruit/cherry"); // path to desired texture
+        foreach ( var x in keys ) {
+            shapeClone.Textures.Add(x, ass); // apply desired texture to the key, make sure to add *all* keys as it might crash
+        }
+
+        ITexPositionSource texSource = new ShapeTextureSource(capi, shapeClone, null); // get texture source of the newly modified shape
+        capi.Tesselator.TesselateShape(null, shapeClone, out MeshData block2, texSource); // tesselate shape here.
+                                                                                          // this will use the texSource to apply textures, that's why we got it as a ShapeTextureSource
+
+        return block2;
     }
 }
