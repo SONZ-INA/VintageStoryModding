@@ -60,7 +60,7 @@ public class BlockFruitBasket : BlockContainer {
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo) {
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
 
-        dsc.Append("<font color=\"orange\">Contents: </font>");
+        dsc.Append(Lang.Get("foodshelves:Contents: "));
         GetBlockContent(inSlot, dsc, world);
     }
 
