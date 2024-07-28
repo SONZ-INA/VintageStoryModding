@@ -39,7 +39,7 @@ public class BlockEntitySushiShelf : BlockEntityDisplay {
                 }
             }
             else {
-                (Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("Only sushi can be placed on this shelf."));
+                (Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only sushi can be placed on this shelf."));
             }
             
             return false;

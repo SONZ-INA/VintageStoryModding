@@ -39,7 +39,7 @@ public class BlockEntityBreadShelf : BlockEntityDisplay {
                 }
             }
             else {
-                (Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf."));
+                (Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf."));
             }
 
             return false;

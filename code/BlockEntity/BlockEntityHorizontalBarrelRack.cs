@@ -1,6 +1,6 @@
 ﻿namespace FoodShelves;
 
-public class BlockEntityPieShelf : BlockEntityDisplay {
+public class BlockEntityHorizontalBarrelRack : BlockEntityDisplay {
     readonly InventoryGeneric inv;
     Block block;
     
@@ -8,13 +8,13 @@ public class BlockEntityPieShelf : BlockEntityDisplay {
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
     public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
-    private const int shelfCount = 3;
+    private const int shelfCount = 1;
     private const int segmentsPerShelf = 1;
     private const int itemsPerSegment = 1;
     static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlock;
 
-    public BlockEntityPieShelf() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotPieShelf(inv)); }
+    public BlockEntityHorizontalBarrelRack() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotHorizontalBarrelRack(inv)); }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
@@ -29,7 +29,7 @@ public class BlockEntityPieShelf : BlockEntityDisplay {
             else return false;
         }
         else {
-            if (slot.PieShelfCheck()) {
+            if (slot.HorizontalBarrelRackCheck()) {
                 AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
 
                 if (TryPut(slot, blockSel)) {
@@ -39,7 +39,7 @@ public class BlockEntityPieShelf : BlockEntityDisplay {
                 }
             }
             else {
-                (Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only pies or cheese can be placed on this shelf."));
+                (Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only horizontal barrels can be placed on this rack."));
             }
 
             return false;
@@ -87,18 +87,12 @@ public class BlockEntityPieShelf : BlockEntityDisplay {
     protected override float[][] genTransformationMatrices() {
         float[][] tfMatrices = new float[slotCount][];
 
-        for (int index = 0; index < slotCount; index++) {
-            float x = 0f;
-            float y = index * 0.3f;
-            float z = 0f;
-
-            tfMatrices[index] =
-                new Matrixf()
-                .Translate(0.5f, 0, 0.5f)
-                .RotateYDeg(block.Shape.rotateY)
-                .Translate(x - 0.5f, y + 0.06f, z - 0.5f)
-                .Values;
-        }
+        tfMatrices[0] =
+            new Matrixf()
+            .Translate(0.5f, 0, 0.5f)
+            .RotateYDeg(block.Shape.rotateY)
+            .Translate(- 0.5f, 0, - 0.5f)
+            .Values;
 
         return tfMatrices;
     }

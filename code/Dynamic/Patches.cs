@@ -76,4 +76,11 @@ public static class Patches {
             obj.Attributes.Token[SeedShelf] = JToken.FromObject(true);
         }
     }
+
+    public static void PatchHorizontalBarrelRack(CollectibleObject obj) {
+        if (WildcardUtil.Match(HorizontalBarrelRackCodes, obj.Code.Path.ToString())) {
+            obj.EnsureAttributesNotNull();
+            obj.Attributes.Token[HorizontalBarrelRack] = JToken.FromObject(true);
+        }
+    }
 }

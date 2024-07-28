@@ -31,6 +31,11 @@ public class Core : ModSystem {
 
         api.RegisterBlockClass("FoodShelves.BlockFruitBasket", typeof(BlockFruitBasket));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityFruitBasket", typeof(BlockEntityFruitBasket));
+
+        api.RegisterBlockClass("FoodShelves.BlockHorizontalBarrelRack", typeof(BlockHorizontalBarrelRack));
+        api.RegisterBlockEntityClass("FoodShelves.BlockEntityHorizontalBarrelRack", typeof(BlockEntityHorizontalBarrelRack));
+
+        //api.RegisterBlockClass("FoodShelves.BlockHorizontalBarrel", typeof(BlockHorizontalBarrel));
     }
 
     public override void AssetsFinalize(ICoreAPI api) {
@@ -44,6 +49,7 @@ public class Core : ModSystem {
             PatchEggShelf(obj);
             PatchFruitBasket(obj);
             PatchSeedShelf(obj);
+            //PatchHorizontalBarrelRack(obj);
         }
     }
 }

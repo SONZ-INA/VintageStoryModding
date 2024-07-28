@@ -40,7 +40,7 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
                 }
             }
             else {
-                (Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("Only fruit can be placed on this shelf."));
+                (Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only fruit can be placed on this shelf."));
             }
 
             return false;

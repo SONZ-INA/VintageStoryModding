@@ -136,4 +136,17 @@ public static class Restrictions {
     };
 
     #endregion
+
+    #region HorizontalBarrelRack
+
+    public const string HorizontalBarrelRack = "horizontalbarrelrackcheck";
+
+    public static bool HorizontalBarrelRackCheck(this CollectibleObject obj) => obj?.Attributes?[HorizontalBarrelRack].AsBool() == true;
+    public static bool HorizontalBarrelRackCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[HorizontalBarrelRack].AsBool() == true;
+
+    public static readonly string[] HorizontalBarrelRackCodes = new string[] {
+        "*horizontalbarrel-*"
+    };
+
+    #endregion
 }

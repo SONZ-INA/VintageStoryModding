@@ -10,6 +10,7 @@ public class Transformations {
     public const string onEggShelfTransform = "onEggShelfTransform";
     public const string onFruitBasketTransform = "onFruitBasketTransform";
     public const string onSeedShelfTransform = "onSeedShelfTransform";
+    public const string onHorizontalBarrelRackTransform = "onHorizontalBarrelRackTransform";
 
     #region PieShelf
 
