@@ -42,8 +42,9 @@
   "Pour liquid into barrel.": "<font color=\"orange\">Pour liquid into barrel.</font>",
   "Pour liquid into held container.": "<font color=\"orange\">Pour liquid into held container.</font>",
 
-  "Contents": "<font color=\"orange\">Contents: </font>",
+  "Contents: ": "<font color=\"orange\">Contents: </font>",
   "Soonest: ": "Soonest: ",
+  "Empty.": "Empty.",
   "Fruit": "Fruit",
   "Fruits inside: {0}": "Fruits inside: {0}",
   "Rotten fruits: {0}": "Rotten fruits: {0}",

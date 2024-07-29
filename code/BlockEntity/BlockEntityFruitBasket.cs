@@ -150,6 +150,6 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, Api, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment);
+        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment);
     }
 }
