@@ -126,7 +126,7 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
         bool skipmesh = base.OnTesselation(mesher, tesselator);
 
         if (!skipmesh) {
-            MeshData meshData = GenBlockMesh(Api, this, tesselator, block);
+            MeshData meshData = GenBlockMesh(Api, this, tesselator);
             if (meshData == null) return false;
 
             mesher.AddMeshData(meshData.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0));
@@ -135,7 +135,7 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
         return true;
     }
 
-        public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
+    public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
         base.FromTreeAttributes(tree, worldForResolving);
         MeshAngle = tree.GetFloat("meshAngle", 0f);
         RedrawAfterReceivingTreeAttributes(worldForResolving);

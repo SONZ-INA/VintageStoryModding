@@ -13,6 +13,8 @@
   "block-tablewshelf-whitemarble-*": "White marble-topped table with a shelf",
   "block-tablewshelf-redmarble-*": "Pink marble-topped table with a shelf",
   "block-tablewshelf-greenmarble-*": "Green marble-topped table with a shelf",
+  "block-horizontalbarrel-normal-*": "Horizontal barrel",
+  "block-horizontalbarrelrack-*": "Horizontal barrel rack",
 
   "blockhelp-fruitbasket-add": "Add fruit",
   "blockhelp-fruitbasket-remove": "Remove fruit",
@@ -37,8 +39,8 @@
   "Only seeds can be placed on this shelf.": "Only seeds can be placed on this shelf.",
 
   "This barrel needs to be placed in a barrel rack.": "This barrel needs to be placed in a barrel rack.",
-  "Pour liquid into barrel.": "Pour liquid into barrel.",
-  "Pour liquid into held container.": "Pour liquid into held container.",
+  "Pour liquid into barrel.": "<font color=\"orange\">Pour liquid into barrel.</font>",
+  "Pour liquid into held container.": "<font color=\"orange\">Pour liquid into held container.</font>",
 
   "Contents": "<font color=\"orange\">Contents: </font>",
   "Soonest: ": "Soonest: ",

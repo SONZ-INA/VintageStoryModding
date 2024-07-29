@@ -83,7 +83,7 @@ public class BlockFruitBasket : BlockContainer {
 
         if (!meshrefs.TryGetValue(hashcode, out MultiTextureMeshRef meshRef)) {
             ItemStack[] contents = GetContents(api.World, itemstack);
-            MeshData meshdata = GenBlockWContentMesh(capi, itemstack, this, contents);
+            MeshData meshdata = GenBlockWContentMesh(capi, this, contents);
             meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(meshdata);
         }
 

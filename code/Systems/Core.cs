@@ -34,8 +34,6 @@ public class Core : ModSystem {
 
         api.RegisterBlockClass("FoodShelves.BlockHorizontalBarrelRack", typeof(BlockHorizontalBarrelRack));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityHorizontalBarrelRack", typeof(BlockEntityHorizontalBarrelRack));
-
-        //api.RegisterBlockClass("FoodShelves.BlockHorizontalBarrel", typeof(BlockHorizontalBarrel));
     }
 
     public override void AssetsFinalize(ICoreAPI api) {
