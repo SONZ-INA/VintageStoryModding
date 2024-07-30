@@ -25,8 +25,7 @@ public class BlockEntityBreadShelf : BlockEntityDisplay {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
         if (slot.Empty) {
-            if (TryTake(byPlayer, blockSel)) return true;
-            else return false;
+            return TryTake(byPlayer, blockSel);
         }
         else {
             if (slot.BreadShelfCheck()) {
