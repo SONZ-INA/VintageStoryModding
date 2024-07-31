@@ -47,7 +47,7 @@ public class BlockFruitBasket : BlockContainer {
     }
 
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
-        if (byPlayer.Entity.Controls.Sneak) {
+        if (byPlayer.Entity.Controls.ShiftKey) {
             if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityFruitBasket frbasket) 
                 return frbasket.OnInteract(byPlayer, blockSel);
         }
