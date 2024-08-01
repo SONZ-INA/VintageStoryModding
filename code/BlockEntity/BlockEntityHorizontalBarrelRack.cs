@@ -1,12 +1,11 @@
 ﻿namespace FoodShelves;
 
-public class BlockEntityHorizontalBarrelRack : BlockEntityDisplay {
+public class BlockEntityHorizontalBarrelRack : BlockEntityContainer {
     readonly InventoryGeneric inv;
     Block block;
     
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
-    public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
     private const int shelfCount = 1;
     private const int segmentsPerShelf = 1;
@@ -14,11 +13,18 @@ public class BlockEntityHorizontalBarrelRack : BlockEntityDisplay {
     static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlock;
 
-    public BlockEntityHorizontalBarrelRack() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotHorizontalBarrelRack(inv)); }
+    public BlockEntityHorizontalBarrelRack() { 
+        inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotHorizontalBarrelRack(inv));
+    }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
         base.Initialize(api);
+
+        // Patch "rack-top" to not be stackable
+        if (block.Code.Path.StartsWith("horizontalbarrelrack-top-")) {
+            block.SideSolid = new SmallBoolArray(0); 
+        }
     }
 
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
@@ -29,13 +35,29 @@ public class BlockEntityHorizontalBarrelRack : BlockEntityDisplay {
             else return false;
         }
         else {
-            if (slot.HorizontalBarrelRackCheck()) {
+            if (inv.Empty && slot.HorizontalBarrelRackCheck()) {
                 AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
 
                 if (TryPut(slot, blockSel)) {
                     Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
                     MarkDirty();
                     return true;
+                }
+            }
+            else if (!inv.Empty && blockSel.SelectionBoxIndex == 1) { // Putting liquid inside (only possible if there's a barrel inside)
+                // putting a barrel into a container makes it an item, so i cannot use block classes for the barrel itself, i have to code the rack like that
+                Api.Logger.Debug("SLCTION PASSD...");
+                BlockLiquidContainerBase block = inv[0].Itemstack.Block as BlockLiquidContainerBase;
+                CollectibleObject obj = slot.Itemstack.Collectible;
+                if (obj is ILiquidSource objLso) {
+                    Api.Logger.Debug("TRYING PUT LIQUID...");
+                    var contentStack = objLso.GetContent(slot.Itemstack);
+                    Api.Logger.Debug("   " + contentStack.ToString());
+                    int moved = block.TryPutLiquid(blockSel.Position, contentStack, objLso.CapacityLitres);
+                    Api.Logger.Debug("   " + moved);
+                }
+                else {
+                    Api.Logger.Debug("TRANSFR FAILD.");
                 }
             }
             else {
@@ -52,7 +74,7 @@ public class BlockEntityHorizontalBarrelRack : BlockEntityDisplay {
 
         if (inv[index].Empty) {
             int moved = slot.TryPutInto(Api.World, inv[index]);
-            MarkDirty();
+            MarkDirty(true);
             (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
 
             return moved > 0;
@@ -77,33 +99,46 @@ public class BlockEntityHorizontalBarrelRack : BlockEntityDisplay {
             }
 
             (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
-            MarkDirty();
+            MarkDirty(true);
             return true;
         }
 
         return false;
     }
 
-    protected override float[][] genTransformationMatrices() {
-        float[][] tfMatrices = new float[slotCount][];
+    public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
+        bool skipmesh = base.OnTesselation(mesher, tesselator);
 
-        tfMatrices[0] =
-            new Matrixf()
-            .Translate(0.5f, 0, 0.5f)
-            .RotateYDeg(block.Shape.rotateY)
-            .Translate(- 0.5f, 0, - 0.5f)
-            .Values;
+        if (!skipmesh) {
+            MeshData meshData = GenBlockMeshUnhashed(Api, this, tesselator);
+            if (meshData == null) return false;
 
-        return tfMatrices;
-    }
+            ItemStack[] stack = GetContentStacks();
+            if (stack[0].Block != null) {
+                MeshData substituteBarrelShape = SubstituteBlockShape(Api, tesselator, ShapeReferences.HorizontalBarrel, stack[0].Block);
+                meshData.AddMeshData(substituteBarrelShape.BlockYRotation(this));
+            }
 
-    public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
-        base.FromTreeAttributes(tree, worldForResolving);
-        RedrawAfterReceivingTreeAttributes(worldForResolving);
+            mesher.AddMeshData(meshData.Clone());
+        }
+
+        return true;
     }
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, Api, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment);
+
+        switch(forPlayer.CurrentBlockSelection.SelectionBoxIndex) {
+            case 1:
+                sb.AppendLine(Lang.Get("foodshelves:Pour liquid into barrel."));
+                break;
+            case 2:
+                sb.AppendLine(Lang.Get("foodshelves:Pour liquid into held container."));
+                break;
+            default: 
+                break;
+        }
+
+        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment);
     }
 }
