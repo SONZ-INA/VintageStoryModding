@@ -216,7 +216,7 @@ public static class Meshing {
                                                 // These textures are contained within `shapes` .json file.
                                                 // If it doesn't work, remove the "textures" {} from `blocktypes` .json files, i haven't tested it
         AssetLocation ass = new("game:item/food/fruit/cherry"); // path to desired texture
-        foreach ( var x in keys ) {
+        foreach (var x in keys) {
             shapeClone.Textures.Add(x, ass); // apply desired texture to the key, make sure to add *all* keys as it might crash
         }
 
