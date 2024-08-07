@@ -1,6 +1,6 @@
 {
 	"editor": {
-		"collapsedPaths": "Root/origin/origin lower ring,Root/origin,Root/origin/origin barrel,Root/origin/origin middle ring,Root/origin holder B,Root/origin holder F2,Root/origin/origin upper ring,Root/origin holder F,Root/origin holder B2,Root/origin/origin lid",
+		"collapsedPaths": "Root/origin holder B,Root/origin holder F2,Root/origin holder F,Root/origin holder B2",
 		"allAngles": false,
 		"entityTextureMode": false
 	},
@@ -410,9 +410,9 @@
 		},
 		{
 			"name": "origin holder F2",
-			"from": [ 32.0, 33.0, 0.0 ],
-			"to": [ 33.0, 41.0, 16.0 ],
-			"rotationOrigin": [ 32.0, 33.0, 0.0 ],
+			"from": [ 32.0, 32.0, 0.0 ],
+			"to": [ 33.0, 40.0, 16.0 ],
+			"rotationOrigin": [ 32.0, 32.0, 0.0 ],
 			"rotationZ": 180.0,
 			"faces": {
 				"north": { "texture": "#surface", "uv": [ 7.0, 3.0, 8.0, 11.0 ] },
@@ -609,9 +609,9 @@
 		},
 		{
 			"name": "origin holder B2",
-			"from": [ 0.0, 33.0, 0.0 ],
-			"to": [ 1.0, 41.0, 16.0 ],
-			"rotationOrigin": [ 0.0, 33.0, 0.0 ],
+			"from": [ 0.0, 32.0, 0.0 ],
+			"to": [ 1.0, 40.0, 16.0 ],
+			"rotationOrigin": [ 0.0, 32.0, 0.0 ],
 			"rotationY": 180.0,
 			"rotationZ": 180.0,
 			"faces": {
@@ -810,13 +810,13 @@
 		{
 			"name": "sidefence1",
 			"from": [ 0.0, 8.0, 1.5 ],
-			"to": [ 0.5, 25.0, 8.5 ],
+			"to": [ 0.5, 24.0, 8.5 ],
 			"rotationOrigin": [ 0.0, 8.0, 1.0 ],
 			"faces": {
-				"north": { "texture": "#surface", "uv": [ 0.0, 8.0, 16.0, 8.5 ], "rotation": 90, "autoUv": false },
-				"east": { "texture": "#surface", "uv": [ 0.0, 6.0, 16.0, 13.0 ], "rotation": 90, "autoUv": false },
-				"south": { "texture": "#surface", "uv": [ 0.0, 7.0, 16.0, 7.5 ], "rotation": 270, "autoUv": false },
-				"west": { "texture": "#surface", "uv": [ 0.0, 5.0, 16.0, 12.0 ], "rotation": 90, "autoUv": false },
+				"north": { "texture": "#surface", "uv": [ 0.0, 8.0, 16.0, 8.5 ], "rotation": 90 },
+				"east": { "texture": "#surface", "uv": [ 0.0, 6.0, 16.0, 13.0 ], "rotation": 90 },
+				"south": { "texture": "#surface", "uv": [ 0.0, 7.0, 16.0, 7.5 ], "rotation": 270 },
+				"west": { "texture": "#surface", "uv": [ 0.0, 5.0, 16.0, 12.0 ], "rotation": 90 },
 				"up": { "texture": "#surface", "uv": [ 3.0, 5.0, 3.5, 12.0 ] },
 				"down": { "texture": "#surface", "uv": [ 3.5, 5.0, 4.0, 12.0 ] }
 			}
@@ -824,13 +824,13 @@
 		{
 			"name": "sidefence2",
 			"from": [ 0.0, 8.0, -8.5 ],
-			"to": [ 0.5, 25.0, -1.5 ],
+			"to": [ 0.5, 24.0, -1.5 ],
 			"rotationOrigin": [ 0.0, 8.0, -9.0 ],
 			"faces": {
-				"north": { "texture": "#surface", "uv": [ 0.0, 8.0, 16.0, 8.5 ], "rotation": 90, "autoUv": false },
-				"east": { "texture": "#surface", "uv": [ 0.0, 6.0, 16.0, 13.0 ], "rotation": 90, "autoUv": false },
-				"south": { "texture": "#surface", "uv": [ 0.0, 7.0, 16.0, 7.5 ], "rotation": 270, "autoUv": false },
-				"west": { "texture": "#surface", "uv": [ 0.0, 5.0, 16.0, 12.0 ], "rotation": 90, "autoUv": false },
+				"north": { "texture": "#surface", "uv": [ 0.0, 8.0, 16.0, 8.5 ], "rotation": 90 },
+				"east": { "texture": "#surface", "uv": [ 0.0, 6.0, 16.0, 13.0 ], "rotation": 90 },
+				"south": { "texture": "#surface", "uv": [ 0.0, 7.0, 16.0, 7.5 ], "rotation": 270 },
+				"west": { "texture": "#surface", "uv": [ 0.0, 5.0, 16.0, 12.0 ], "rotation": 90 },
 				"up": { "texture": "#surface", "uv": [ 3.0, 5.0, 3.5, 12.0 ] },
 				"down": { "texture": "#surface", "uv": [ 3.5, 5.0, 4.0, 12.0 ] }
 			}
@@ -838,13 +838,13 @@
 		{
 			"name": "sidefence3",
 			"from": [ 31.5, 8.0, -8.5 ],
-			"to": [ 32.0, 25.0, -1.5 ],
+			"to": [ 32.0, 24.0, -1.5 ],
 			"rotationOrigin": [ 31.0, 8.0, -9.0 ],
 			"faces": {
-				"north": { "texture": "#surface", "uv": [ 0.0, 8.0, 16.0, 8.5 ], "rotation": 90, "autoUv": false },
-				"east": { "texture": "#surface", "uv": [ 0.0, 6.0, 16.0, 13.0 ], "rotation": 90, "autoUv": false },
-				"south": { "texture": "#surface", "uv": [ 0.0, 7.0, 16.0, 7.5 ], "rotation": 270, "autoUv": false },
-				"west": { "texture": "#surface", "uv": [ 0.0, 5.0, 16.0, 12.0 ], "rotation": 90, "autoUv": false },
+				"north": { "texture": "#surface", "uv": [ 0.0, 8.0, 16.0, 8.5 ], "rotation": 90 },
+				"east": { "texture": "#surface", "uv": [ 0.0, 6.0, 16.0, 13.0 ], "rotation": 90 },
+				"south": { "texture": "#surface", "uv": [ 0.0, 7.0, 16.0, 7.5 ], "rotation": 270 },
+				"west": { "texture": "#surface", "uv": [ 0.0, 5.0, 16.0, 12.0 ], "rotation": 90 },
 				"up": { "texture": "#surface", "uv": [ 3.0, 5.0, 3.5, 12.0 ] },
 				"down": { "texture": "#surface", "uv": [ 3.5, 5.0, 4.0, 12.0 ] }
 			}
@@ -852,13 +852,13 @@
 		{
 			"name": "sidefence4",
 			"from": [ 31.5, 8.0, 1.5 ],
-			"to": [ 32.0, 25.0, 8.5 ],
+			"to": [ 32.0, 24.0, 8.5 ],
 			"rotationOrigin": [ 0.0, 8.0, 1.0 ],
 			"faces": {
-				"north": { "texture": "#surface", "uv": [ 0.0, 8.0, 16.0, 8.5 ], "rotation": 90, "autoUv": false },
-				"east": { "texture": "#surface", "uv": [ 0.0, 6.0, 16.0, 13.0 ], "rotation": 90, "autoUv": false },
-				"south": { "texture": "#surface", "uv": [ 0.0, 7.0, 16.0, 7.5 ], "rotation": 270, "autoUv": false },
-				"west": { "texture": "#surface", "uv": [ 0.0, 5.0, 16.0, 12.0 ], "rotation": 90, "autoUv": false },
+				"north": { "texture": "#surface", "uv": [ 0.0, 8.0, 16.0, 8.5 ], "rotation": 90 },
+				"east": { "texture": "#surface", "uv": [ 0.0, 6.0, 16.0, 13.0 ], "rotation": 90 },
+				"south": { "texture": "#surface", "uv": [ 0.0, 7.0, 16.0, 7.5 ], "rotation": 270 },
+				"west": { "texture": "#surface", "uv": [ 0.0, 5.0, 16.0, 12.0 ], "rotation": 90 },
 				"up": { "texture": "#surface", "uv": [ 3.0, 5.0, 3.5, 12.0 ] },
 				"down": { "texture": "#surface", "uv": [ 3.5, 5.0, 4.0, 12.0 ] }
 			}
