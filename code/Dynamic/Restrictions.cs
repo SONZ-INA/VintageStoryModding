@@ -88,12 +88,9 @@ public static class Restrictions {
     public static bool TableWShelfCheck(this CollectibleObject obj) => obj?.Attributes?[TableWShelf].AsBool() == true;
     public static bool TableWShelfCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[TableWShelf].AsBool() == true;
 
-    public static readonly string[] TableWShelfCodes = new string[] {
-        // Expanded foods
-        "*claypot-*",
-        "*crock-*",
-        "*bowl-*"
-    };
+    //public static readonly string[] TableWShelfCodes = new string[] {
+        
+    //};
 
     #endregion
 
@@ -145,7 +142,21 @@ public static class Restrictions {
     public static bool HorizontalBarrelRackCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[HorizontalBarrelRack].AsBool() == true;
 
     public static readonly string[] HorizontalBarrelRackCodes = new string[] {
-        "*horizontalbarrel-*"
+        //"*horizontalbarrel-*"
+        "barrel"
+    };
+
+    #endregion
+
+    #region HorizontalBarrelRackBig
+
+    public const string HorizontalBarrelRackBig = "horizontalbarrelrackbigcheck";
+
+    public static bool HorizontalBarrelRackBigCheck(this CollectibleObject obj) => obj?.Attributes?[HorizontalBarrelRackBig].AsBool() == true;
+    public static bool HorizontalBarrelRackBigCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[HorizontalBarrelRackBig].AsBool() == true;
+
+    public static readonly Type[] HorizontalBarrelRackBigTypes = new Type[] {
+        typeof(BlockHorizontalBarrelBig)
     };
 
     #endregion

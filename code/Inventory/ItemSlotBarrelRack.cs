@@ -1,9 +1,9 @@
 ﻿namespace FoodShelves;
 
-public class ItemSlotHorizontalBarrelRack : ItemSlot {
+public class ItemSlotBarrelRack : ItemSlot {
     public override int MaxSlotStackSize => 1;
 
-    public ItemSlotHorizontalBarrelRack(InventoryBase inventory) : base(inventory) {
+    public ItemSlotBarrelRack(InventoryBase inventory) : base(inventory) {
         this.inventory = inventory;
     }
 

@@ -78,8 +78,8 @@
   "replaceable": 999,
   "resistance": 1.5,
   "combustibleProps": {
-    "burnTemperature": 700,
-    "burnDuration": 54
+    "burnTemperature": 600,
+    "burnDuration": 41
   },
   "tpHandTransform": {
 	  "translation": { "x": -0.8, "y": -0.68, "z": -0.41 },

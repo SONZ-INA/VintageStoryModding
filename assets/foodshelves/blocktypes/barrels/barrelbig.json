@@ -1,0 +1,59 @@
+{
+  "code": "horizontalbarrelbig",
+  "class": "FoodShelves.BlockHorizontalBarrelBig",
+  "creativeinventory": { "general": ["*"], "decorative": ["*"], "foodshelves": ["*"] },
+  "variantgroups": [
+    { "code": "type", "states": ["normal"] }
+  ],
+  "attributes": {
+    "handbook": {
+      "groupBy": [ "horizontalbarrelrack-*" ],
+      "extraSections": [
+        {
+          "title": "foodshelves:blockdesc-canhold-title",
+          "text": "foodshelves:blockdesc-horizontalbarrelbig-text"
+        }
+      ]
+    }
+  },
+  "shape": {
+    "base": "block/wood/barrel/horizontalbarrelbig"
+  },
+  "textures": {
+    "bottom": { "base": "block/wood/horizontalbarrelbig/bottom" },
+    "top": { "base": "block/wood/horizontalbarrelbig/top" },
+    "blackbronze4": { "base": "game:block/metal/sheet/blackbronze4" },
+    "aged": { "base": "game:block/wood/debarked/aged" }
+  },
+  "heldTpIdleAnimation": "holdunderarm",
+  "blockmaterial": "Wood",
+  "lightAbsorption": 1,
+  "faceCullMode": "NeverCull",
+  "emitSideAo": { "all": false },
+  "sidesolid": { "up": true },	
+  "sideopaque": { "all": false },
+  "replaceable": 999,
+  "resistance": 1.5,
+  "combustibleProps": {
+    "burnTemperature": 700,
+    "burnDuration": 54
+  },
+  "tpHandTransform": {
+	  "translation": { "x": -0.8, "y": -0.68, "z": -0.41 },
+	  "rotation": { "x": 99, "y": -10, "z": -6 },
+	  "scale": 0.5
+  },
+  "fpHandTransform": {
+    "translation": { "x": 0.08, "y": -0.2, "z": 0.6 },
+    "rotation": { "x": 33, "y": 134, "z": -102 }
+  },
+  "sounds": {
+    "place": "game:block/planks",
+    "hit": "game:block/planks",
+    "break": "game:block/planks"
+  },
+  "materialDensity": 400,
+  "collisionSelectionBoxes": [ 
+    { "x1": 0, "y1": 0, "z1": 0, "x2": 1, "y2": 1, "z2": 1 }
+  ]
+}

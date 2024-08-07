@@ -24,7 +24,7 @@
     { "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }
   ],
   "shape": {
-    "base": "block/wood/eggshelf",
+    "base": "block/wood/shelves/eggshelf",
     "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
   },
   "textures": {

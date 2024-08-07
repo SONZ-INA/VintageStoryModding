@@ -18,4 +18,9 @@ public static class Extensions {
 
         return null;
     }
+
+    public static MeshData BlockYRotation(this MeshData obj, BlockEntity BE) {
+        Block block = BE.Api.World.BlockAccessor.GetBlock(BE.Pos);
+        return obj.Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, block.Shape.rotateY * GameMath.DEG2RAD, 0);
+    }
 }

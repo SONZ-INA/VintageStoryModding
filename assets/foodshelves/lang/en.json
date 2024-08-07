@@ -14,7 +14,7 @@
   "block-tablewshelf-redmarble-*": "Pink marble-topped table with a shelf",
   "block-tablewshelf-greenmarble-*": "Green marble-topped table with a shelf",
   "block-horizontalbarrel-normal-*": "Horizontal barrel",
-  "block-horizontalbarrelrack-*": "Horizontal barrel rack",
+  "block-barrelrack-*": "Barrel rack",
 
   "blockhelp-fruitbasket-add": "Add fruit",
   "blockhelp-fruitbasket-remove": "Remove fruit",
@@ -37,10 +37,13 @@
   "Only eggs can be placed on this shelf.": "Only eggs can be placed on this shelf.",
   "Only fruit can be placed on this shelf.": "Only fruit can be placed on this shelf.",
   "Only seeds can be placed on this shelf.": "Only seeds can be placed on this shelf.",
+  "Only barrels can be placed on this rack.": "Only barrels can be placed on this rack.",
 
   "This barrel needs to be placed in a barrel rack.": "This barrel needs to be placed in a barrel rack.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Pour liquid into barrel.</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Pour liquid into held container.</font>",
+  "The barrel must be emptied before it can be picked up.": "The barrel must be emptied before it can be picked up.",
+  "Pour liquid into barrel.": "<font color=\"orange\">Pour liquid into barrel. (Shift for portion)</font>",
+  "Pour liquid into held container.": "<font color=\"orange\">Pour liquid into held container. (Shift for portion)</font>",
+  "Missing barrel.": "<font color=\"orange\">Missing barrel.</font>",
 
   "Contents: ": "<font color=\"orange\">Contents: </font>",
   "Soonest: ": "Soonest: ",

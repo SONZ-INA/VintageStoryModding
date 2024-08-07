@@ -11,8 +11,7 @@
 	"textures": {
 		"blackbronze4": "blackbronze4",
 		"bottom": "bottom",
-		"aged": "aged",
-		"wood": "wood"
+		"aged": "aged"
 	},
 	"elements": [
 		{
@@ -778,7 +777,7 @@
 								"south": { "texture": "#aged", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
 								"west": { "texture": "#aged", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
 								"up": { "texture": "#aged", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
-								"down": { "texture": "#wood", "uv": [ 0.0, 0.0, 1.0, 1.0 ] }
+								"down": { "texture": "#aged", "uv": [ 0.0, 0.0, 1.0, 1.0 ] }
 							},
 							"children": [
 								{
@@ -822,7 +821,7 @@
 								"south": { "texture": "#aged", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
 								"west": { "texture": "#aged", "uv": [ 0.0, 0.0, 0.5, 1.0 ] },
 								"up": { "texture": "#aged", "uv": [ 0.0, 0.0, 1.0, 0.5 ] },
-								"down": { "texture": "#wood", "uv": [ 0.0, 0.0, 1.0, 0.5 ] }
+								"down": { "texture": "#aged", "uv": [ 0.0, 0.0, 1.0, 0.5 ] }
 							}
 						}
 					]
