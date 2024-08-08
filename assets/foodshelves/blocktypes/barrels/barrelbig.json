@@ -10,7 +10,7 @@
       "groupBy": [ "horizontalbarrelrack-*" ],
       "extraSections": [
         {
-          "title": "foodshelves:blockdesc-canhold-title",
+          "title": "foodshelves:blockdesc-canbeplacedin-title",
           "text": "foodshelves:blockdesc-horizontalbarrelbig-text"
         }
       ]
@@ -25,27 +25,31 @@
     "blackbronze4": { "base": "game:block/metal/sheet/blackbronze4" },
     "aged": { "base": "game:block/wood/debarked/aged" }
   },
-  "heldTpIdleAnimation": "holdunderarm",
+  "heldTpIdleAnimation": "holdbothhandslarge",
+  "heldRightReadyAnimation": "heldblockready", 
+  "heldTpUseAnimation": "twohandplaceblock",
   "blockmaterial": "Wood",
-  "lightAbsorption": 1,
+  "lightAbsorption": 2,
+  "maxStackSize": 1,
   "faceCullMode": "NeverCull",
   "emitSideAo": { "all": false },
   "sidesolid": { "up": true },	
   "sideopaque": { "all": false },
   "replaceable": 999,
   "resistance": 1.5,
-  "combustibleProps": {
-    "burnTemperature": 700,
-    "burnDuration": 54
+  "guiTransform": {
+    "origin": { "x": 1, "y": 1, "z": 0 },
+    "scale": 0.5
   },
   "tpHandTransform": {
-	  "translation": { "x": -0.8, "y": -0.68, "z": -0.41 },
-	  "rotation": { "x": 99, "y": -10, "z": -6 },
-	  "scale": 0.5
+    "translation": { "x": -1.8, "y": -0.91, "z": -0.8 },
+	  "rotation": { "x": 88, "y": 25, "z": -78 },
+	  "scale": 0.25
   },
   "fpHandTransform": {
     "translation": { "x": 0.08, "y": -0.2, "z": 0.6 },
-    "rotation": { "x": 33, "y": 134, "z": -102 }
+    "rotation": { "x": 33, "y": 134, "z": -102 },
+    "scale": 0.25
   },
   "sounds": {
     "place": "game:block/planks",

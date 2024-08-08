@@ -13,13 +13,16 @@
   "block-tablewshelf-whitemarble-*": "White marble-topped table with a shelf",
   "block-tablewshelf-redmarble-*": "Pink marble-topped table with a shelf",
   "block-tablewshelf-greenmarble-*": "Green marble-topped table with a shelf",
-  "block-horizontalbarrel-normal-*": "Horizontal barrel",
   "block-barrelrack-*": "Barrel rack",
+  "block-horizontalbarrelbig-normal": "Big horizontal barrel",
+  "block-barrelrackbig-*": "Big barrel rack",
 
   "blockhelp-fruitbasket-add": "Add fruit",
   "blockhelp-fruitbasket-remove": "Remove fruit",
 
   "blockdesc-canhold-title": "Can hold:",
+  "blockdesc-canbeplacedin-title": "Can be placed in:",
+
   "blockdesc-breadshelf-text": "  -All bread types<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings<br>Wildcraft: Fruits and Nuts:<br>  -Pacoca<br>  -Halva<br>  -Marzipam",
   "blockdesc-eggshelf-text": "  -Raw or boiled eggs",
   "blockdesc-sushishelf-text": "Expanded Foods:<br>  -All Sushi",
@@ -28,6 +31,9 @@
   "blockdesc-seedshelf-text": "  -Any seed bag",
   "blockdesc-tablewshelf-text": "  -Anything that can be put on vanilla shelves",
   "blockdesc-fruitbasket-text": "  -All types of fruit",
+  "blockdesc-barrelrack-text": "  -Can only hold barrels. These barrels can only hold liquids.",
+  "blockdesc-barrelrackbig-text": "  -Can only hold big horizontal barrels. These barrels can only hold liquids.",
+  "blockdesc-horizontalbarrelbig-text": "  -This barrel can only be placed inside a big barrel rack.",
 
   "Only pies or cheese can be placed on this shelf.": "Only pies or cheese can be placed on this shelf.",
   "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.": "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.",

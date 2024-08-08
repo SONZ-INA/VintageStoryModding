@@ -28,11 +28,6 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
             CapacityLitres = block.Attributes["capacityLitres"].AsInt(50);
             (inv[1] as ItemSlotLiquidOnly).CapacityLitres = CapacityLitres;
         }
-
-        // Patch "rack-top" to not be stackable
-        if (block?.Code.Path.StartsWith("barrelrack-top-") == true) {
-            block.SideSolid = new SmallBoolArray(0); 
-        }
     }
 
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
@@ -169,7 +164,6 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
         return true;
     }
 
-
     // Copied from vanilla BlockLiquidContainerBase
     private int SplitStackAndPerformAction(Entity byEntity, ItemSlot slot, System.Func<ItemStack, int> action) {
         if (slot.Itemstack == null) {
@@ -180,8 +174,7 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
             int num = action(slot.Itemstack);
             if (num > 0) {
                 _ = slot.Itemstack.Collectible.MaxStackSize;
-                EntityPlayer obj = byEntity as EntityPlayer;
-                if (obj == null) {
+                if (byEntity is not EntityPlayer obj) {
                     return num;
                 }
 

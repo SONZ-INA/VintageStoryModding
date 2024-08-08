@@ -18,6 +18,6 @@
     "width": 2,
     "height": 2,
     "recipeGroup": 2,
-    "output": { "type": "block", "code": "barrelrack-top-north" }
+    "output": { "type": "block", "code": "barrelrack-top-north", "quantity": 2 }
   }
 ]
