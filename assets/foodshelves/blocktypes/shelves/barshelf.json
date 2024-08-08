@@ -25,7 +25,7 @@
     { "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }
   ],
   "shape": {
-    "base": "block/wood/barshelf",
+    "base": "block/wood/shelves/barshelf",
     "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
   },
   "textures": {
@@ -43,7 +43,7 @@
   "resistance": 1.5,
   "combustibleProps": {
     "burnTemperature": 700,
-    "burnDuration": 60
+    "burnDuration": 84
   },
   "tpHandTransform": {
 	  "translation": { "x": -0.8, "y": -0.68, "z": -0.41 },

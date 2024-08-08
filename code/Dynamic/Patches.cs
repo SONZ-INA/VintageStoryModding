@@ -83,4 +83,11 @@ public static class Patches {
             obj.Attributes.Token[HorizontalBarrelRack] = JToken.FromObject(true);
         }
     }
+
+    public static void PatchHorizontalBarrelRackBig(CollectibleObject obj) {
+        if (HorizontalBarrelRackBigTypes.Contains(obj.GetType())) {
+            obj.EnsureAttributesNotNull();
+            obj.Attributes.Token[HorizontalBarrelRackBig] = JToken.FromObject(true);
+        }
+    }
 }
