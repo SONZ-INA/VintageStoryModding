@@ -4,6 +4,7 @@ global using System.Collections.Generic;
 global using Newtonsoft.Json.Linq;
 
 global using Vintagestory.API.Common;
+global using Vintagestory.API.Common.Entities;
 global using Vintagestory.API.Datastructures;
 global using Vintagestory.API.Client;
 global using Vintagestory.API.Config;

@@ -1,4 +1,5 @@
-﻿using static FoodShelves.BlockBounds;
+﻿using System.Linq;
+using static FoodShelves.BlockBounds;
 
 namespace FoodShelves;
 
@@ -95,11 +96,7 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
     public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
         Block block = blockAccessor.GetBlock(pos);
         if (blockAccessor.GetBlockEntity(pos) is BlockEntityBarrelRack be && !be.Inventory.Empty) {
-            Cuboidf[] selectionBoxes = new Cuboidf[] {
-                new(0.01f, 0, 0, 1f, 0.999f, 1f),
-                new(0f, 0.75f, 0.4f, 0.125f, 0.88f, 0.6f),
-                new(0f, 0.1f, 0.32f, 0.125f, 0.3f, 0.68f)
-            };
+            Cuboidf[] selectionBoxes = SelectionBoxReferences.BarrelRackCuboids.Values.ToArray();
 
             int rotationAngle = GetRotationAngle(block);
 

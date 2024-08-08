@@ -1,4 +1,4 @@
-﻿using Vintagestory.API.Common.Entities;
+﻿using static FoodShelves.SelectionBoxReferences;
 using static Vintagestory.GameContent.BlockLiquidContainerBase;
 
 namespace FoodShelves;
@@ -33,7 +33,7 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
-        if (slot.Empty && byPlayer.CurrentBlockSelection.SelectionBoxIndex == 0) { // Take barrel from rack
+        if (slot.Empty && byPlayer.CurrentBlockSelection.SelectionBoxIndex == (int)BarrelRackPart.Base) { // Take barrel from rack
             if (inv[1].Empty) {
                 return TryTake(byPlayer, blockSel);
             }
@@ -42,7 +42,7 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
                 return false;
             }
         }
-        else if (!slot.Empty && byPlayer.CurrentBlockSelection.SelectionBoxIndex == 2) { // Fill container with liquid from barrel rack
+        else if (!slot.Empty && byPlayer.CurrentBlockSelection.SelectionBoxIndex == (int)BarrelRackPart.Tap) { // Fill container with liquid from barrel rack
             CollectibleObject collectible = slot.Itemstack?.Collectible;
             if (collectible is ILiquidSink objLsi) {
                 if (!objLsi.AllowHeldLiquidTransfer) {
@@ -78,7 +78,7 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
                     return true;
                 }
             }
-            else if (!inv.Empty && blockSel.SelectionBoxIndex == 1) { // Putting liquid inside the barrel (only possible if there's a barrel inside)
+            else if (!inv.Empty && blockSel.SelectionBoxIndex == (int)BarrelRackPart.Hole) { // Putting liquid inside the barrel (only possible if there's a barrel inside)
                 CollectibleObject obj = slot.Itemstack?.Collectible;
 
                 if (obj is ILiquidSource objLso) {
