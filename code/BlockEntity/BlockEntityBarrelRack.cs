@@ -42,14 +42,14 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
                 return false;
             }
         }
-        else if (!slot.Empty && byPlayer.CurrentBlockSelection.SelectionBoxIndex == (int)BarrelRackPart.Tap) { // Fill container with liquid from barrel rack
-            CollectibleObject collectible = slot.Itemstack?.Collectible;
-            if (collectible is ILiquidSink objLsi) {
+        else if (byPlayer.CurrentBlockSelection.SelectionBoxIndex == (int)BarrelRackPart.Tap) { // Fill container with liquid from barrel rack
+            ItemStack owncontentStack = block.GetContent(blockSel.Position);
+
+            if (slot.Itemstack?.Collectible is ILiquidSink objLsi) {
                 if (!objLsi.AllowHeldLiquidTransfer) {
                     return false;
                 }
 
-                ItemStack owncontentStack = block.GetContent(blockSel.Position);
                 if (owncontentStack == null) {
                     return false;
                 }
@@ -64,6 +64,10 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
                     block.DoLiquidMovedEffects(byPlayer, contentStack, num, EnumLiquidDirection.Fill);
                     return true;
                 }
+            }
+
+            if (slot.Empty && owncontentStack?.Collectible?.Code?.Path?.StartsWith("rot") == true) {
+                return TryTake(byPlayer, blockSel);
             }
 
             return false;
