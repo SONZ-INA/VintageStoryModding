@@ -38,7 +38,8 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
-        Api.Logger.Debug("slctd: " + byPlayer.CurrentBlockSelection.SelectionBoxIndex.ToString());
+        //if (byPlayer.CurrentBlockSelection.Block is BlockMultiblock x)
+        //    Api.Logger.Debug("chck: " + " /// " + x.OffsetInv.X + ", " + x.OffsetInv.Y + ", " + x.OffsetInv.Z);
 
         if (slot.Empty && byPlayer.CurrentBlockSelection.SelectionBoxIndex == 0) { // Take barrel from rack
             if (inv[1].Empty) {

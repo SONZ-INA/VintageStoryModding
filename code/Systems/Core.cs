@@ -35,10 +35,10 @@ public class Core : ModSystem {
         api.RegisterBlockClass("FoodShelves.BlockBarrelRack", typeof(BlockBarrelRack));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityBarrelRack", typeof(BlockEntityBarrelRack));
 
-        api.RegisterBlockClass("FoodShelves.BlockBarrelRackBig", typeof(BlockBarrelRackBig));
-        api.RegisterBlockEntityClass("FoodShelves.BlockEntityBarrelRackBig", typeof(BlockEntityBarrelRackBig));
+        //api.RegisterBlockClass("FoodShelves.BlockBarrelRackBig", typeof(BlockBarrelRackBig));
+        //api.RegisterBlockEntityClass("FoodShelves.BlockEntityBarrelRackBig", typeof(BlockEntityBarrelRackBig));
 
-        api.RegisterBlockClass("FoodShelves.BlockHorizontalBarrelBig", typeof(BlockHorizontalBarrelBig));
+        //api.RegisterBlockClass("FoodShelves.BlockHorizontalBarrelBig", typeof(BlockHorizontalBarrelBig));
     }
 
     public override void AssetsFinalize(ICoreAPI api) {
@@ -53,7 +53,7 @@ public class Core : ModSystem {
             PatchFruitBasket(obj);
             PatchSeedShelf(obj);
             PatchHorizontalBarrelRack(obj);
-            PatchHorizontalBarrelRackBig(obj);
+            //PatchHorizontalBarrelRackBig(obj);
         }
     }
 }

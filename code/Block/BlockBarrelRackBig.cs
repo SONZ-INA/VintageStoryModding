@@ -6,59 +6,10 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase {
     public override bool AllowHeldLiquidTransfer => false;
     public override int GetContainerSlotId(BlockPos pos) => 1;
     public override int GetContainerSlotId(ItemStack containerStack) => 1;
-    //private WorldInteraction[] interactionsTop, interactionsBottom;
 
     public override void OnLoaded(ICoreAPI api) {
         base.OnLoaded(api);
         PlacedPriorityInteract = true; // Needed to call OnBlockInteractStart when shifting with an item in hand
-
-        //interactionsTop = ObjectCacheUtil.GetOrCreate(api, "liquidContainerBase", delegate {
-        //    List<ItemStack> list = new();
-        //    foreach (CollectibleObject collectible in api.World.Collectibles) {
-        //        if (collectible is BlockLiquidContainerBase blockLiquidContainerBase && blockLiquidContainerBase.IsTopOpened && blockLiquidContainerBase.AllowHeldLiquidTransfer) {
-        //            list.Add(new ItemStack(collectible));
-        //        }
-        //    }
-
-        //    ItemStack[] itemstacks = list.ToArray();
-        //    return new WorldInteraction[2] {
-        //        new() {
-        //            ActionLangCode = "foodshelves:blockhelp-barrelrack-top-rightclick",
-        //            MouseButton = EnumMouseButton.Right,
-        //            Itemstacks = itemstacks
-        //        },
-        //        new() {
-        //            ActionLangCode = "blockhelp-bucket-rightclick-sneak",
-        //            MouseButton = EnumMouseButton.Right,
-        //            HotKeyCode = "shift",
-        //            Itemstacks = itemstacks
-        //        }
-        //    };
-        //});
-
-        //interactionsBottom = ObjectCacheUtil.GetOrCreate(api, "liquidContainerBase", delegate {
-        //    List<ItemStack> list = new();
-        //    foreach (CollectibleObject collectible in api.World.Collectibles) {
-        //        if (collectible is BlockLiquidContainerBase blockLiquidContainerBase && blockLiquidContainerBase.IsTopOpened && blockLiquidContainerBase.AllowHeldLiquidTransfer) {
-        //            list.Add(new ItemStack(collectible));
-        //        }
-        //    }
-
-        //    ItemStack[] itemstacks = list.ToArray();
-        //    return new WorldInteraction[2] {
-        //        new() {
-        //            ActionLangCode = "foodshelves:blockhelp-barrelrack-bottom-rightclick",
-        //            MouseButton = EnumMouseButton.Right,
-        //            Itemstacks = itemstacks
-        //        },
-        //        new() {
-        //            ActionLangCode = "blockhelp-bucket-rightclick-sprint",
-        //            MouseButton = EnumMouseButton.Right,
-        //            HotKeyCode = "shift",
-        //            Itemstacks = itemstacks
-        //        }
-        //    };
-        //});
     }
 
     public override bool DoParticalSelection(IWorldAccessor world, BlockPos pos) {
@@ -142,6 +93,9 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase {
     }
 
     public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
+        //BlockMultiblock bmb = blockAccessor.GetBlock(pos) as BlockMultiblock;
+        //api.Logger.Debug("chck: " + " /// " + bmb?.OffsetInv.X + ", " + bmb?.OffsetInv.Y + ", " + bmb?.OffsetInv.Z);
+
         Block block = blockAccessor.GetBlock(pos);
         if (blockAccessor.GetBlockEntity(pos) is BlockEntityBarrelRackBig be && !be.Inventory.Empty) {
             Cuboidf[] selectionBoxes = new Cuboidf[] {
