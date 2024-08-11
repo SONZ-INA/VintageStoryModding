@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using static FoodShelves.BlockBounds;
+using static FoodShelves.SelectionBoxReferences;
 
 namespace FoodShelves;
 
@@ -71,10 +72,10 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
         StringBuilder dsc = new();
 
         switch (forPlayer.CurrentBlockSelection.SelectionBoxIndex) {
-            case 1:
+            case (int)BarrelRackPart.Hole:
                 dsc.AppendLine(Lang.Get("foodshelves:Pour liquid into barrel."));
                 break;
-            case 2:
+            case (int)BarrelRackPart.Tap:
                 dsc.AppendLine(Lang.Get("foodshelves:Pour liquid into held container."));
                 break;
             default:

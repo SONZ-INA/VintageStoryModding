@@ -91,13 +91,13 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
                         bool shiftKey = byPlayer.Entity.Controls.ShiftKey;
                         float litres = (shiftKey ? objLso.TransferSizeLitres : objLso.CapacityLitres);
 
-                        int moved = block.TryPutLiquid(blockSel.Position, contentStack, litres);
+                        int moved = (int)(block?.TryPutLiquid(blockSel.Position, contentStack, litres));
                         if (moved > 0) {
                             SplitStackAndPerformAction(byPlayer.Entity, slot, delegate (ItemStack stack) {
                                 objLso.TryTakeContent(stack, moved);
                                 return moved;
                             });
-                            block.DoLiquidMovedEffects(byPlayer, contentStack, moved, EnumLiquidDirection.Pour);
+                            block?.DoLiquidMovedEffects(byPlayer, contentStack, moved, EnumLiquidDirection.Pour);
                             return true;
                         }
                     }

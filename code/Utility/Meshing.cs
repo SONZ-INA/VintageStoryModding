@@ -112,6 +112,9 @@ public static class Meshing {
     }
 
     public static MeshData GenBlockWContentMesh(ICoreClientAPI capi, Block block, ItemStack[] contents) {
+        if (block == null)
+            return null;
+
         // Block Region
         string shapePath = block.Shape?.Base?.ToString();
         string blockName = block.Code?.ToString();

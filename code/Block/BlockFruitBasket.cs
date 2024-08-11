@@ -1,4 +1,5 @@
-﻿namespace FoodShelves;
+﻿
+namespace FoodShelves;
 
 public class BlockFruitBasket : BlockContainer {
     WorldInteraction[] interactions;
@@ -36,6 +37,20 @@ public class BlockFruitBasket : BlockContainer {
 
     public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer) {
         return interactions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer));      
+    }
+
+    public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
+        // Prevent duplicating of items inside
+        if (world.BlockAccessor.GetBlockEntity(pos) is BlockEntityFruitBasket frbasket) {
+            ItemStack[] contents = frbasket.GetContentStacks();
+            ItemStack emptyFruitBasket = new(this);
+            world.SpawnItemEntity(emptyFruitBasket, pos.ToVec3d().Add(0.5, 0.5, 0.5));
+            for (int i = 0; i < contents.Length; i++) {
+                world.SpawnItemEntity(contents[i], pos.ToVec3d().Add(0.5, 0.5, 0.5));
+            }
+
+            world.BlockAccessor.SetBlock(0, pos);
+        }
     }
 
     // Rotation logic
@@ -82,7 +97,9 @@ public class BlockFruitBasket : BlockContainer {
         if (!meshrefs.TryGetValue(hashcode, out MultiTextureMeshRef meshRef)) {
             ItemStack[] contents = GetContents(api.World, itemstack);
             MeshData meshdata = GenBlockWContentMesh(capi, this, contents);
-            meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(meshdata);
+            if (meshdata != null) { 
+                meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(meshdata);
+            }
         }
 
         renderinfo.ModelRef = meshRef;
