@@ -1,8 +1,8 @@
 ﻿namespace FoodShelves;
 
 public static class Meshing {
-    public static void SetBlockMeshAngle(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, bool val) {
-        if (val && world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityFruitBasket frbasket) {
+    public static float GetBlockMeshAngle(BlockEntity blockEntity, IPlayer byPlayer, BlockSelection blockSel, bool val) {
+        if (val) {
             BlockPos targetPos = blockSel.DidOffset ? blockSel.Position.AddCopy(blockSel.Face.Opposite) : blockSel.Position;
             double dx = byPlayer.Entity.Pos.X - (targetPos.X + blockSel.HitPosition.X);
             double dz = byPlayer.Entity.Pos.Z - (targetPos.Z + blockSel.HitPosition.Z);
@@ -10,8 +10,10 @@ public static class Meshing {
 
             float deg22dot5rad = GameMath.PIHALF / 4;
             float roundRad = ((int)Math.Round(angleHor / deg22dot5rad)) * deg22dot5rad;
-            frbasket.MeshAngle = roundRad;
+            return roundRad;
         }
+
+        return 0;
     }
 
     public static MeshData GenBlockMesh(ICoreAPI Api, BlockEntity BE, ITesselatorAPI tesselator) {

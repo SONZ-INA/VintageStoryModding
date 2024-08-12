@@ -1,35 +1,35 @@
 {
-  "code": "fruitbasket",
-  "class": "FoodShelves.BlockFruitBasket",
-  "entityclass": "FoodShelves.BlockEntityFruitBasket",
+  "code": "vegetablebasket",
+  "class": "FoodShelves.BlockVegetableBasket",
+  "entityclass": "FoodShelves.BlockEntityVegetableBasket",
   "creativeinventory": { "general": ["*"], "decorative": ["*"], "foodshelves": ["*"] },
   "variantgroups": [
     { "code": "type", "states": ["normal"] }
   ],
   "attributes": {
     "handbook": {
-      "groupBy": [ "fruitbasket-*" ],
+      "groupBy": [ "vegetablebasket-*" ],
       "extraSections": [
         {
           "title": "foodshelves:blockdesc-canhold-title",
-          "text": "foodshelves:blockdesc-fruitbasket-text"
+          "text": "foodshelves:blockdesc-vegetablebasket-text"
         }
       ]
     },
-    "inventoryClassName": "fruitbasket",
-    "attributeTransformCode": "onFruitBasketTransform"
+    "inventoryClassName": "vegetablebasket",
+    "attributeTransformCode": "onVegetableBasketTransform"
   },
   "behaviors": [
     { "name": "UnstableFalling" },
     { "name": "RightClickPickup" }
   ],
   "shape": {
-    "base": "block/wood/fruitbasket",
+    "base": "block/wood/baskets/vegetablebasket",
     "scale": 0.8
   },
   "textures": {
     "sides": { "base": "game:block/wood/table/normal/sides" },
-    "top": { "base": "foodshelves:block/wood/fruitbasket/top" }
+    "top": { "base": "foodshelves:block/wood/vegetablebasket/top" }
   },
   "heldTpIdleAnimation": "holdbothhandslarge",
   "heldRightReadyAnimation": "heldblockready", 

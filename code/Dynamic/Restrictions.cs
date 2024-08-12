@@ -160,4 +160,17 @@ public static class Restrictions {
     };
 
     #endregion
+
+    #region VegetableBasket
+
+    public const string VegetableBasket = "vegetablebasketcheck";
+
+    public static bool VegetableBasketCheck(this CollectibleObject obj) => obj?.Attributes?[VegetableBasket].AsBool() == true;
+    public static bool VegetableBasketCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[VegetableBasket].AsBool() == true;
+
+    public static readonly string[] VegetableBasketCodes = new string[] {
+        "*vegetable-*"
+    };
+
+    #endregion
 }

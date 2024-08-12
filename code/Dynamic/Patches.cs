@@ -90,4 +90,11 @@ public static class Patches {
             obj.Attributes.Token[HorizontalBarrelRackBig] = JToken.FromObject(true);
         }
     }
+
+    public static void PatchVegetableBasket(CollectibleObject obj) {
+        if (WildcardUtil.Match(VegetableBasketCodes, obj.Code.Path.ToString())) {
+            obj.EnsureAttributesNotNull();
+            obj.Attributes.Token[VegetableBasket] = JToken.FromObject(true);
+        }
+    }
 }

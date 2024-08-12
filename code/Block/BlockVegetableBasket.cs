@@ -1,21 +1,20 @@
-﻿
-namespace FoodShelves;
+﻿namespace FoodShelves;
 
-public class BlockFruitBasket : BlockContainer {
+public class BlockVegetableBasket : BlockContainer {
     WorldInteraction[] interactions;
 
     public override void OnLoaded(ICoreAPI api) {
         base.OnLoaded(api);
         PlacedPriorityInteract = true; // Needed to call OnBlockInteractStart when shifting with an item in hand
 
-        interactions = ObjectCacheUtil.GetOrCreate(api, "fruitbasketBlockInteractions", () => {
-            List<ItemStack> fruitStackList = new();
+        interactions = ObjectCacheUtil.GetOrCreate(api, "vegetablebasketBlockInteractions", () => {
+            List<ItemStack> vegetableStackList = new();
 
             foreach(Item item in api.World.Items) {
                 if (item.Code == null) continue;
 
-                if (WildcardUtil.Match(FruitBasketCodes, item.Code.Path.ToString())) {
-                    fruitStackList.Add(new ItemStack(item));
+                if (WildcardUtil.Match(VegetableBasketCodes, item.Code.Path.ToString())) {
+                    vegetableStackList.Add(new ItemStack(item));
                 }
             }
 
@@ -24,7 +23,7 @@ public class BlockFruitBasket : BlockContainer {
                     ActionLangCode = "foodshelves:blockhelp-fruitbasket-add",
                     MouseButton = EnumMouseButton.Right,
                     HotKeyCode = "shift",
-                    Itemstacks = fruitStackList.ToArray()
+                    Itemstacks = vegetableStackList.ToArray()
                 },
                 new() {
                     ActionLangCode = "foodshelves:blockhelp-fruitbasket-remove",
@@ -41,10 +40,10 @@ public class BlockFruitBasket : BlockContainer {
 
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
         // Prevent duplicating of items inside
-        if (world.BlockAccessor.GetBlockEntity(pos) is BlockEntityFruitBasket frbasket) {
-            ItemStack[] contents = frbasket.GetContentStacks();
-            ItemStack emptyFruitBasket = new(this);
-            world.SpawnItemEntity(emptyFruitBasket, pos.ToVec3d().Add(0.5, 0.5, 0.5));
+        if (world.BlockAccessor.GetBlockEntity(pos) is BlockEntityVegetableBasket vgbasket) {
+            ItemStack[] contents = vgbasket.GetContentStacks();
+            ItemStack emptyVegetableBasket = new(this);
+            world.SpawnItemEntity(emptyVegetableBasket, pos.ToVec3d().Add(0.5, 0.5, 0.5));
             for (int i = 0; i < contents.Length; i++) {
                 world.SpawnItemEntity(contents[i], pos.ToVec3d().Add(0.5, 0.5, 0.5));
             }
@@ -56,7 +55,7 @@ public class BlockFruitBasket : BlockContainer {
     // Rotation logic
     public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack) {
         bool val = base.DoPlaceBlock(world, byPlayer, blockSel, byItemStack);
-        BlockEntityFruitBasket block = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityFruitBasket;
+        BlockEntityVegetableBasket block = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityVegetableBasket;
         block.MeshAngle = GetBlockMeshAngle(block, byPlayer, blockSel, val);
 
         return val;
@@ -64,7 +63,7 @@ public class BlockFruitBasket : BlockContainer {
 
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
         if (byPlayer.Entity.Controls.ShiftKey) {
-            if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityFruitBasket frbasket) 
+            if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityVegetableBasket frbasket) 
                 return frbasket.OnInteract(byPlayer, blockSel);
         }
 
