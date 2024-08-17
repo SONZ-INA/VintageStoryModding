@@ -116,7 +116,12 @@ public static class Restrictions {
     public static bool FruitBasketCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[FruitBasket].AsBool() == true;
 
     public static readonly string[] FruitBasketCodes = new string[] {
-        "*fruit-*"
+        "fruit-*",
+        "dehydratedfruit-*",
+        "wildtreedryfruit-*",
+        "wildtreecandiedfruit-*",
+        "wildcandiedfruit-*",
+        "candiedfruit-*"
     };
 
     #endregion
