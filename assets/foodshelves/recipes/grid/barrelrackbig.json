@@ -1,5 +1,6 @@
 [
   {
+    "enabled": false,
     "ingredientPattern": "PSP,SNS,PSP",
     "ingredients": {
       "S": { "type": "item", "code": "game:stick", "quantity": 8 },
@@ -12,6 +13,7 @@
     "output": { "type": "block", "code": "barrelrackbig-normal-north" }
   },
   {
+    "enabled": false,
     "ingredientPattern": "__,_B",
     "ingredients": {
       "B": { "type": "block", "code": "foodshelves:barrelrackbig-normal-north" }

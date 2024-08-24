@@ -1,5 +1,6 @@
 [
   {
+    "enabled": false,
     "ingredientPattern": "SPS,NP_,SPS",
     "ingredients": {
       "S": { "type": "item", "code": "game:stick", "quantity": 4 },

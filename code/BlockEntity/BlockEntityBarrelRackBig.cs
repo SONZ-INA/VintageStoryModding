@@ -108,7 +108,7 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
                 }
             }
             else {
-                (Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only barrels can be placed on this rack."));
+                (Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only barrels can be placed on this rack."));
             }
 
             return false;
