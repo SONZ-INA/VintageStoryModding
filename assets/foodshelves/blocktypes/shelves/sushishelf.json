@@ -2,7 +2,6 @@
   "code": "sushishelf",
   "class": "FoodShelves.BlockSushiShelf",
   "entityclass": "FoodShelves.BlockEntitySushiShelf",
-  "enabled": false,
   "creativeinventory": { "general": ["*-east"], "decorative": ["*-east"], "foodshelves": ["*-east"] },
   "variantgroups": [
     { "code": "type", "states": ["normal"] },

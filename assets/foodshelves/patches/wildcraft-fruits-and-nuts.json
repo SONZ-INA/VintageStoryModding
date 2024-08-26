@@ -9,7 +9,7 @@
   {
     "file": "foodshelves:recipes/grid/barshelf.json",
     "op": "replace",
-    "path": "/enabled",
+    "path": "/0/enabled",
     "value": true,
     "dependsOn": [ { "modid": "wildcraftfruit" } ]
   }
