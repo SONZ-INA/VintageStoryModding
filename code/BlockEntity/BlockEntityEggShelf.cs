@@ -38,7 +38,7 @@ public class BlockEntityEggShelf : BlockEntityDisplay {
                 }
             }
             else {
-                (Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only eggs can be placed on this shelf."));
+                (Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only eggs can be placed on this shelf."));
             }
 
             return false;

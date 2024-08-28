@@ -1,7 +1,7 @@
 ﻿namespace FoodShelves;
 
 public static class Meshing {
-    public static float GetBlockMeshAngle(BlockEntity blockEntity, IPlayer byPlayer, BlockSelection blockSel, bool val) {
+    public static float GetBlockMeshAngle(IPlayer byPlayer, BlockSelection blockSel, bool val) {
         if (val) {
             BlockPos targetPos = blockSel.DidOffset ? blockSel.Position.AddCopy(blockSel.Face.Opposite) : blockSel.Position;
             double dx = byPlayer.Entity.Pos.X - (targetPos.X + blockSel.HitPosition.X);
@@ -150,9 +150,8 @@ public static class Meshing {
         if (contents != null) {
             for (int i = 0; i < contents.Length; i++) {
                 if (contents[i] != null) {
+                    if (contents[i].Item == null) return basketMesh; // To fix the damn pumpkin bug on existing worlds
                     capi.Tesselator.TesselateItem(contents[i].Item, out MeshData contentData);
-
-                    //MeshData contentData = GeneralizedTexturedGenMesh(capi, contents[i].Item);
 
                     float[] x = { .65f, .3f, .3f, .3f, .6f, .35f, .5f, .65f, .35f, .1f, .6f, .58f, .3f, .2f, -.1f, .1f, .1f, .25f, .2f, .55f, .6f, .3f };
                     float[] y = { 0, 0, 0, .25f, 0, .35f, .2f, -.3f, .3f, .2f, .4f, .4f, .4f, .5f, .57f, .05f, .3f, .52f, .55f, .45f, -.65f, .5f };

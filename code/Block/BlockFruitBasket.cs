@@ -57,7 +57,7 @@ public class BlockFruitBasket : BlockContainer {
     public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack) {
         bool val = base.DoPlaceBlock(world, byPlayer, blockSel, byItemStack);
         BlockEntityFruitBasket block = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityFruitBasket;
-        block.MeshAngle = GetBlockMeshAngle(block, byPlayer, blockSel, val);
+        block.MeshAngle = GetBlockMeshAngle(byPlayer, blockSel, val);
 
         return val;
     }

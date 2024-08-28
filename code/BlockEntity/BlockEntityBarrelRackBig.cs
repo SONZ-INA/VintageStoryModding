@@ -46,7 +46,7 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
                 return TryTake(byPlayer, blockSel);
             }
             else {
-                (Api as ICoreClientAPI).TriggerIngameError(this, "canttake", Lang.Get("foodshelves:The barrel must be emptied before it can be picked up."));
+                (Api as ICoreClientAPI)?.TriggerIngameError(this, "canttake", Lang.Get("foodshelves:The barrel must be emptied before it can be picked up."));
                 return false;
             }
         }
@@ -108,7 +108,7 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
                 }
             }
             else {
-                (Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only barrels can be placed on this rack."));
+                (Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only barrels can be placed on this rack."));
             }
 
             return false;
