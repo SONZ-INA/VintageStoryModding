@@ -60,8 +60,8 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
 
                 int num = SplitStackAndPerformAction(byPlayer.Entity, slot, (ItemStack stack) => objLsi.TryPutLiquid(stack, owncontentStack, litres));
                 if (num > 0) {
-                    block.TryTakeContent(blockSel.Position, num);
-                    block.DoLiquidMovedEffects(byPlayer, contentStack, num, EnumLiquidDirection.Fill);
+                    block?.TryTakeContent(blockSel.Position, num);
+                    block?.DoLiquidMovedEffects(byPlayer, contentStack, num, EnumLiquidDirection.Fill);
                     return true;
                 }
             }
@@ -147,6 +147,10 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
         }
 
         return false;
+    }
+
+    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.5f);
     }
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {

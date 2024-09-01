@@ -37,6 +37,29 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
+        if (slot.Empty) { // Take barrel
+            if (inv[1].Empty) {
+                return TryTake(byPlayer, blockSel);
+            }
+            else {
+                (Api as ICoreClientAPI)?.TriggerIngameError(this, "canttake", Lang.Get("foodshelves:The barrel must be emptied before it can be picked up."));
+                return false;
+            }
+        }
+        else {
+            if (inv.Empty && slot.HorizontalBarrelRackBigCheck()) { // Put barrel in rack
+                AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
+
+                if (TryPut(slot, blockSel)) {
+                    Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
+                    MarkDirty();
+                    return true;
+                }
+            }
+            else { // Put/Take liquid
+
+            }
+        }
 
         if (slot.Empty && byPlayer.CurrentBlockSelection.SelectionBoxIndex == 0) { // Take barrel from rack
             if (inv[1].Empty) {
@@ -48,13 +71,13 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
             }
         }
         else if (!slot.Empty && byPlayer.CurrentBlockSelection.SelectionBoxIndex == 2) { // Fill container with liquid from barrel rack
-            CollectibleObject collectible = slot.Itemstack?.Collectible;
-            if (collectible is ILiquidSink objLsi) {
+            ItemStack owncontentStack = block.GetContent(blockSel.Position);
+
+            if (slot.Itemstack?.Collectible is ILiquidSink objLsi) {
                 if (!objLsi.AllowHeldLiquidTransfer) {
                     return false;
                 }
 
-                ItemStack owncontentStack = block.GetContent(blockSel.Position);
                 if (owncontentStack == null) {
                     return false;
                 }
@@ -65,10 +88,14 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
 
                 int num = SplitStackAndPerformAction(byPlayer.Entity, slot, (ItemStack stack) => objLsi.TryPutLiquid(stack, owncontentStack, litres));
                 if (num > 0) {
-                    block.TryTakeContent(blockSel.Position, num);
-                    block.DoLiquidMovedEffects(byPlayer, contentStack, num, EnumLiquidDirection.Fill);
+                    block?.TryTakeContent(blockSel.Position, num);
+                    block?.DoLiquidMovedEffects(byPlayer, contentStack, num, EnumLiquidDirection.Fill);
                     return true;
                 }
+            }
+
+            if (slot.Empty && owncontentStack?.Collectible?.Code?.Path?.StartsWith("rot") == true) {
+                return TryTake(byPlayer, blockSel);
             }
 
             return false;
@@ -148,6 +175,10 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
         }
 
         return false;
+    }
+
+    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.5f);
     }
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {

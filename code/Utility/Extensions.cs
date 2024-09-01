@@ -32,8 +32,7 @@ public static class Extensions {
         }
 
         if (blockAccessor.GetBlock(pos) is BlockMultiblock multiblock) {
-            BlockPos multiblockPos = new BlockPos(pos.X + multiblock.OffsetInv.X, pos.Y + multiblock.OffsetInv.Y, pos.Z + multiblock.OffsetInv.Z, pos.dimension);
-
+            BlockPos multiblockPos = new(pos.X + multiblock.OffsetInv.X, pos.Y + multiblock.OffsetInv.Y, pos.Z + multiblock.OffsetInv.Z, pos.dimension);
             return blockAccessor.GetBlockEntity<T>(multiblockPos);
         }
 
@@ -56,6 +55,7 @@ public static class Extensions {
         };
     }
 
+    // currently hardcoded for BarrelRackBig
     public static int[] GetMultiblockIndex(Vec3i offset, BlockEntity block) {
         char facing = GetFacingFromBlockCode(block);
 

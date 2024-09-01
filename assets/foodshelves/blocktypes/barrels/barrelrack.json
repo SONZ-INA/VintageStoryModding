@@ -48,7 +48,10 @@
   "faceCullMode": "NeverCull",
   "emitSideAo": { "all": false },
   "sidesolidByType": {
-    "barrelrack-normal-*": { "all": true },
+    "barrelrack-normal-*": {
+      "verticals": true,
+      "horizontals": false
+    },
     "barrelrack-top-*": { "all": false }
   },
   "sideopaque": { "all": false },

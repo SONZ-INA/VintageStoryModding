@@ -19,10 +19,6 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBox
         return base.OnBlockInteractStart(world, byPlayer, blockSel);
     }
 
-    public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer) {
-        return null;
-    }
-
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
         bool preventDefault = false;
         foreach (BlockBehavior behavior in BlockBehaviors) {
@@ -94,46 +90,16 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBox
         return base.GetSelectionBoxes(blockAccessor, pos);
     }
 
-    //public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
-    //    Block block = blockAccessor.GetBlock(pos);
-    //    if (block.Code.Path.StartsWith("barrelrackbig-top-")) {
-    //        if (blockAccessor.GetBlockEntity(pos) is BlockEntityBarrelRackBig be && be.Inventory.Empty) {
-    //            return new Cuboidf[] { new(0, 0, 0, 1f, 0.3f, 1f) };
-    //        }
-    //    }
-
-    //    return base.GetCollisionBoxes(blockAccessor, pos);
-    //}
-
     public Cuboidf[] MBGetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos, Vec3i offset) {
-        Block block = blockAccessor.GetBlock(pos);
-        if (block.Code.Path.StartsWith("barrelrackbig-top-")) {
-            if (blockAccessor.GetBlockEntity(pos) is BlockEntityBarrelRackBig be && be.Inventory.Empty) {
-                return new Cuboidf[] { new(0, 0, 0, 1f, 0.3f, 1f) };
-            }
-        }
-
         return base.GetCollisionBoxes(blockAccessor, pos);
     }
 
     public override string GetPlacedBlockInfo(IWorldAccessor world, BlockPos pos, IPlayer forPlayer) {
         StringBuilder dsc = new();
 
-        switch (forPlayer.CurrentBlockSelection.SelectionBoxIndex) {
-            case 1:
-                dsc.AppendLine(Lang.Get("foodshelves:Pour liquid into barrel."));
-                break;
-            case 2:
-                dsc.AppendLine(Lang.Get("foodshelves:Pour liquid into held container."));
-                break;
-            default:
-                break;
-        }
-
-        dsc.AppendLine();
-
-        if (forPlayer.CurrentBlockSelection.Block.GetSelectionBoxes(world.BlockAccessor, pos).Length == 1) {
-            dsc.AppendLine(Lang.Get("foodshelves:Missing barrel."));
+        BlockEntityBarrelRackBig be = GetBlockEntity<BlockEntityBarrelRackBig>(pos);
+        if (be != null && be.Inventory.Empty) {
+            dsc.Append(Lang.Get("foodshelves:Missing barrel."));
         }
         else {
             dsc.Append(base.GetPlacedBlockInfo(world, pos, forPlayer));
