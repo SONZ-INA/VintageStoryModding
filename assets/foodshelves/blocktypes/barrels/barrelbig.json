@@ -1,5 +1,4 @@
 {
-  "enabled": false,
   "code": "horizontalbarrelbig",
   "class": "FoodShelves.BlockHorizontalBarrelBig",
   "creativeinventory": { "general": ["*"], "decorative": ["*"], "foodshelves": ["*"] },

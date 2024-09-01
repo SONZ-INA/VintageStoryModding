@@ -1,5 +1,4 @@
 {
-  "enabled": false,
   "code": "barrelrackbig",
   "class": "FoodShelves.BlockBarrelRackBig",
   "entityclass": "FoodShelves.BlockEntityBarrelRackBig",
@@ -89,6 +88,6 @@
   },
   "materialDensity": 400,
   "collisionSelectionBoxes": [ 
-    { "x1": -1, "y1": 0, "z1": 0, "x2": 1, "y2": 2, "z2": 2 }
+    { "x1": 0, "y1": 0, "z1": -1, "x2": 2, "y2": 2, "z2": 1 }
   ]
 }

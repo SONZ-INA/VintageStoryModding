@@ -12,6 +12,7 @@ global using Vintagestory.API.Util;
 global using Vintagestory.API.MathTools;
 global using Vintagestory.GameContent;
 
+global using static FoodShelves.Extensions;
 global using static FoodShelves.Restrictions;
 global using static FoodShelves.Transformations;
 global using static FoodShelves.InfoDisplay;

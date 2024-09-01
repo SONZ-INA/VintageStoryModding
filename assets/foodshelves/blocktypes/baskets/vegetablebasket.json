@@ -31,9 +31,7 @@
     "sides": { "base": "game:block/wood/table/normal/sides" },
     "top": { "base": "foodshelves:block/wood/vegetablebasket/top" }
   },
-  "heldTpIdleAnimation": "holdbothhandslarge",
-  "heldRightReadyAnimation": "heldblockready", 
-  "heldTpUseAnimation": "twohandplaceblock",
+  "heldRightReadyAnimation": "helditemreadybucket", 
   "blockmaterial": "Wood",
   "lightAbsorption": 0,
   "maxStackSize": 4,
@@ -47,14 +45,11 @@
     "origin": { "x": 0.5, "y": 0.3, "z": 0.5 },
     "scale": 1.5
   },
-  "tpHandTransform": {
-	  "translation": { "x": -1.175, "y": -0.5, "z": -0.225 },
-	  "rotation": { "x": 20, "y": 11, "z": -81 },
-	  "scale": 0.8
-  },
-  "fpHandTransform": {
-    "scale": 1.5
-  },
+	"tpHandTransform": {
+		"translation": { "x": -0.65, "y": -0.55, "z": -0.625 },
+		"rotation": { "x": 0, "y": 0, "z": 0 },
+		"scale": 0.8
+	},
   "sounds": {
     "place": "game:block/planks",
     "hit": "game:block/planks",

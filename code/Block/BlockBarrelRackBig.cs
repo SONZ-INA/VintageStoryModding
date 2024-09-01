@@ -1,8 +1,6 @@
-﻿using static FoodShelves.BlockBounds;
+﻿namespace FoodShelves;
 
-namespace FoodShelves;
-
-public class BlockBarrelRackBig : BlockLiquidContainerBase {
+public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBoxes {
     public override bool AllowHeldLiquidTransfer => false;
     public override int GetContainerSlotId(BlockPos pos) => 1;
     public override int GetContainerSlotId(ItemStack containerStack) => 1;
@@ -55,7 +53,59 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase {
         world.BlockAccessor.SetBlock(0, pos);
     }
 
-    public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
+    // Selection box for master block
+    public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
+        BlockEntityBarrelRackBig be = blockAccessor.GetBlockEntity<BlockEntityBarrelRackBig>(pos);
+        if (be != null) {
+            int[] transformedIndex = GetMultiblockIndex(new Vec3i() { X = 0, Y = 0, Z = 0 }, be);
+            Cuboidf singleSelectionBox = new(
+                transformedIndex[0],
+                transformedIndex[1],
+                transformedIndex[2] - 1,
+                transformedIndex[0] + 2,
+                transformedIndex[1] + 2,
+                transformedIndex[2] + 1
+            );
+
+            return new Cuboidf[] { singleSelectionBox };
+        }
+
+        return base.GetSelectionBoxes(blockAccessor, pos);
+    }
+
+    // Selection boxes for multiblock parts
+    public Cuboidf[] MBGetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos, Vec3i offset) {
+        BlockEntityBarrelRackBig be = blockAccessor.GetBlockEntityExt<BlockEntityBarrelRackBig>(pos);
+        if (be != null) {
+            int[] transformedIndex = GetMultiblockIndex(offset, be);
+
+            Cuboidf singleSelectionBox = new(
+                transformedIndex[0],
+                transformedIndex[1],
+                transformedIndex[2] - 1,
+                transformedIndex[0] + 2,
+                transformedIndex[1] + 2,
+                transformedIndex[2] + 1
+            );
+
+            return new Cuboidf[] { singleSelectionBox };
+        }
+
+        return base.GetSelectionBoxes(blockAccessor, pos);
+    }
+
+    //public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
+    //    Block block = blockAccessor.GetBlock(pos);
+    //    if (block.Code.Path.StartsWith("barrelrackbig-top-")) {
+    //        if (blockAccessor.GetBlockEntity(pos) is BlockEntityBarrelRackBig be && be.Inventory.Empty) {
+    //            return new Cuboidf[] { new(0, 0, 0, 1f, 0.3f, 1f) };
+    //        }
+    //    }
+
+    //    return base.GetCollisionBoxes(blockAccessor, pos);
+    //}
+
+    public Cuboidf[] MBGetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos, Vec3i offset) {
         Block block = blockAccessor.GetBlock(pos);
         if (block.Code.Path.StartsWith("barrelrackbig-top-")) {
             if (blockAccessor.GetBlockEntity(pos) is BlockEntityBarrelRackBig be && be.Inventory.Empty) {
@@ -90,29 +140,5 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase {
         }
 
         return dsc.ToString();
-    }
-
-    public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
-        //BlockMultiblock bmb = blockAccessor.GetBlock(pos) as BlockMultiblock;
-        //api.Logger.Debug("chck: " + " /// " + bmb?.OffsetInv.X + ", " + bmb?.OffsetInv.Y + ", " + bmb?.OffsetInv.Z);
-
-        Block block = blockAccessor.GetBlock(pos);
-        if (blockAccessor.GetBlockEntity(pos) is BlockEntityBarrelRackBig be && !be.Inventory.Empty) {
-            Cuboidf[] selectionBoxes = new Cuboidf[] {
-                new(0.01f, 0, 0, 1f, 0.999f, 1f),
-                new(0f, 0.75f, 0.4f, 0.125f, 0.88f, 0.6f),
-                new(0f, 0.1f, 0.32f, 0.125f, 0.3f, 0.68f)
-            };
-
-            int rotationAngle = GetRotationAngle(block);
-
-            for (int i = 0; i < selectionBoxes.Length; i++) {
-                selectionBoxes[i] = RotateCuboid90Deg(selectionBoxes[i], rotationAngle);
-            }
-
-            return selectionBoxes;
-        }
-
-        return base.GetSelectionBoxes(blockAccessor, pos);
     }
 }
