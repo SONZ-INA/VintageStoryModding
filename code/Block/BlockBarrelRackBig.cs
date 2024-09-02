@@ -19,35 +19,40 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBox
         return base.OnBlockInteractStart(world, byPlayer, blockSel);
     }
 
-    public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
-        bool preventDefault = false;
-        foreach (BlockBehavior behavior in BlockBehaviors) {
-            EnumHandling handled = EnumHandling.PassThrough;
-
-            behavior.OnBlockBroken(world, pos, byPlayer, ref handled);
-            if (handled == EnumHandling.PreventDefault) preventDefault = true;
-            if (handled == EnumHandling.PreventSubsequent) return;
-        }
-
-        if (preventDefault) return;
-
-        if (world.Side == EnumAppSide.Server && (byPlayer == null || byPlayer.WorldData.CurrentGameMode != EnumGameMode.Creative)) {
-            ItemStack[] drops = new ItemStack[] { new(this) };
-
-            for (int i = 0; i < drops.Length; i++) {
-                world.SpawnItemEntity(drops[i], new Vec3d(pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5), null);
-            }
-
-            world.PlaySoundAt(Sounds.GetBreakSound(byPlayer), pos.X, pos.Y, pos.Z, byPlayer);
-        }
-
-        if (EntityClass != null) {
-            BlockEntity entity = world.BlockAccessor.GetBlockEntity(pos);
-            entity?.OnBlockBroken();
-        }
-
-        world.BlockAccessor.SetBlock(0, pos);
+    public bool BaseOnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
+        return base.OnBlockInteractStart(world, byPlayer, blockSel);
     }
+
+    // write differently, it drops the barrel and then the rack with the liquid inside                            
+    //public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
+    //    bool preventDefault = false;
+    //    foreach (BlockBehavior behavior in BlockBehaviors) {
+    //        EnumHandling handled = EnumHandling.PassThrough;
+
+    //        behavior.OnBlockBroken(world, pos, byPlayer, ref handled);
+    //        if (handled == EnumHandling.PreventDefault) preventDefault = true;
+    //        if (handled == EnumHandling.PreventSubsequent) return;
+    //    }
+
+    //    if (preventDefault) return;
+
+    //    if (world.Side == EnumAppSide.Server && (byPlayer == null || byPlayer.WorldData.CurrentGameMode != EnumGameMode.Creative)) {
+    //        ItemStack[] drops = new ItemStack[] { new(this) };
+
+    //        for (int i = 0; i < drops.Length; i++) {
+    //            world.SpawnItemEntity(drops[i], new Vec3d(pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5), null);
+    //        }
+
+    //        world.PlaySoundAt(Sounds.GetBreakSound(byPlayer), pos.X, pos.Y, pos.Z, byPlayer);
+    //    }
+
+    //    if (EntityClass != null) {
+    //        BlockEntity entity = world.BlockAccessor.GetBlockEntity(pos);
+    //        entity?.OnBlockBroken();
+    //    }
+
+    //    world.BlockAccessor.SetBlock(0, pos);
+    //}
 
     // Selection box for master block
     public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
