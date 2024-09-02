@@ -27,7 +27,7 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
         }
 
         // Patch "rack-top" to not be stackable
-        if (block?.Code.Path.StartsWith("horizontalbarrelrackbig-top-") == true) {
+        if (block?.Code.Path.StartsWith("barrelrackbig-top-") == true) {
             block.SideSolid = new SmallBoolArray(0); 
         }
     }

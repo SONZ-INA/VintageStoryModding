@@ -1,7 +1,7 @@
 ﻿namespace FoodShelves;
 
 public static class SelectionBoxReferences {
-    #region BarrelRack
+    #region BarrelRack // To be removed
 
     public enum BarrelRackPart {
         Base = 0,

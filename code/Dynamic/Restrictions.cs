@@ -147,7 +147,6 @@ public static class Restrictions {
     public static bool HorizontalBarrelRackCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[HorizontalBarrelRack].AsBool() == true;
 
     public static readonly string[] HorizontalBarrelRackCodes = new string[] {
-        //"*horizontalbarrel-*"
         "barrel"
     };
 
