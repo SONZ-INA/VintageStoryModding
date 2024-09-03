@@ -9,14 +9,6 @@ public static class Extensions {
 
     public static ModelTransform GetTransformation(this CollectibleObject obj, Dictionary<string, ModelTransform> transformations) {
         foreach (KeyValuePair<string, ModelTransform> transformation in transformations) {
-            if (WildcardUtil.Match(transformation.Key, obj.Code.Path.ToString())) return transformation.Value;
-        }
-
-        return null;
-    }
-
-    public static ModelTransform GetFullTransformation(this CollectibleObject obj, Dictionary<string, ModelTransform> transformations) {
-        foreach (KeyValuePair<string, ModelTransform> transformation in transformations) {
             if (WildcardUtil.Match(transformation.Key, obj.Code.ToString())) return transformation.Value;
         }
 

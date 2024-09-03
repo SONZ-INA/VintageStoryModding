@@ -1,10 +1,10 @@
 ﻿namespace FoodShelves;
 
-public static class Restrictions {
+public static class Restrictions
+{
     #region Shelveable
 
     public const string Shelvable = "shelvable";
-
     public static bool ShelvableCheck(this CollectibleObject obj) => obj?.Attributes?[Shelvable].AsBool() == true;
     public static bool ShelvableCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[Shelvable].AsBool() == true;
 

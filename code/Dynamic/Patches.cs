@@ -3,8 +3,6 @@
 namespace FoodShelves;
 
 public static class Patches {
-    private static readonly Transformations Transformations = new();
-
     #region Shelves
 
     public static void PatchPieShelf(CollectibleObject obj, PieShelfData data) {
@@ -12,7 +10,7 @@ public static class Patches {
             obj.EnsureAttributesNotNull();
             obj.Attributes.Token[PieShelf] = JToken.FromObject(true);
 
-            ModelTransform transformation = obj.GetTransformation(Transformations.PieShelfTransformations);
+            ModelTransform transformation = obj.GetTransformation(PieShelfTransformations);
             if (transformation != null) {
                 obj.Attributes.Token[onPieShelfTransform] = JToken.FromObject(transformation);
             }
@@ -24,7 +22,7 @@ public static class Patches {
             obj.EnsureAttributesNotNull();
             obj.Attributes.Token[BreadShelf] = JToken.FromObject(true);
 
-            ModelTransform transformation = obj.GetTransformation(Transformations.BreadShelfTransformations);
+            ModelTransform transformation = obj.GetTransformation(BreadShelfTransformations);
             if (transformation != null) {
                 obj.Attributes.Token[onBreadShelfTransform] = JToken.FromObject(transformation);
             }
@@ -36,7 +34,7 @@ public static class Patches {
             obj.EnsureAttributesNotNull();
             obj.Attributes.Token[BarShelf] = JToken.FromObject(true);
 
-            ModelTransform transformation = obj.GetTransformation(Transformations.BarShelfTransformations);
+            ModelTransform transformation = obj.GetTransformation(BarShelfTransformations);
             if (transformation != null) {
                 obj.Attributes.Token[onBarShelfTransform] = JToken.FromObject(transformation);
             }
@@ -73,14 +71,9 @@ public static class Patches {
             obj.EnsureAttributesNotNull();
             obj.Attributes.Token[FruitBasket] = JToken.FromObject(true);
 
-            ModelTransform transformation = obj.GetTransformation(Transformations.FruitBasketTransformations);
+            ModelTransform transformation = obj.GetTransformation(FruitBasketTransformations);
             if (transformation != null) {
                 obj.Attributes.Token[onFruitBasketTransform] = JToken.FromObject(transformation);
-            }
-
-            ModelTransform transformationDomain = obj.GetFullTransformation(Transformations.FruitBasketDomainTransformations);
-            if (transformationDomain != null) {
-                obj.Attributes.Token[onFruitBasketTransform] = JToken.FromObject(transformationDomain);
             }
         }
     }

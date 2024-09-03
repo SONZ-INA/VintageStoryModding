@@ -29,6 +29,7 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
     }
 
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
+        // Copied vanilla barrel method
         bool preventDefault = false;
         foreach (BlockBehavior behavior in BlockBehaviors) {
             EnumHandling handled = EnumHandling.PassThrough;
