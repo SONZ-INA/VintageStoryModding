@@ -44,20 +44,39 @@ public class Core : ModSystem {
         api.RegisterBlockClass("FoodShelves.BlockHorizontalBarrelBig", typeof(BlockHorizontalBarrelBig));
     }
 
+    public override void AssetsLoaded(ICoreAPI api) {
+        base.AssetsLoaded(api);
+
+        PieShelfData = api.LoadAsset<RestrictionData.PieShelfData>("foodshelves:config/restrictions/shelves/pieshelf.json");
+        BreadShelfData = api.LoadAsset<RestrictionData.BreadShelfData>("foodshelves:config/restrictions/shelves/breadshelf.json");
+        BarShelfData = api.LoadAsset<RestrictionData.BarShelfData>("foodshelves:config/restrictions/shelves/barshelf.json");
+        SushiShelfData = api.LoadAsset<RestrictionData.SushiShelfData>("foodshelves:config/restrictions/shelves/sushishelf.json");
+        EggShelfData = api.LoadAsset<RestrictionData.EggShelfData>("foodshelves:config/restrictions/shelves/eggshelf.json");
+        SeedShelfData = api.LoadAsset<RestrictionData.SeedShelfData>("foodshelves:config/restrictions/shelves/seedshelf.json");
+
+        FruitBasketData = api.LoadAsset<RestrictionData.FruitBasketData>("foodshelves:config/restrictions/baskets/fruitbasket.json"); ;
+        VegetableBasketData = api.LoadAsset<RestrictionData.VegetableBasketData>("foodshelves:config/restrictions/baskets/vegetablebasket.json");
+
+        BarrelRackData = api.LoadAsset<RestrictionData.BarrelRackData>("foodshelves:config/restrictions/barrels/barrelrack.json");
+        BarrelRackBigData = api.LoadAsset<RestrictionData.BarrelRackBigData>("foodshelves:config/restrictions/barrels/barrelrackbig.json");
+    }
+
     public override void AssetsFinalize(ICoreAPI api) {
         base.AssetsFinalize(api);
 
         foreach (CollectibleObject obj in api.World.Collectibles) {
-            PatchPieShelf(obj);
-            PatchBreadShelf(obj);
-            PatchBarShelf(obj);
-            PatchSushiShelf(obj);
-            PatchEggShelf(obj);
-            PatchFruitBasket(obj);
-            PatchSeedShelf(obj);
-            PatchHorizontalBarrelRack(obj);
-            PatchHorizontalBarrelRackBig(obj);
-            PatchVegetableBasket(obj);
+            PatchPieShelf(obj, PieShelfData);
+            PatchBreadShelf(obj, BreadShelfData);
+            PatchBarShelf(obj, BarShelfData);
+            PatchSushiShelf(obj, SushiShelfData);
+            PatchEggShelf(obj, EggShelfData);
+            PatchSeedShelf(obj, SeedShelfData);
+
+            PatchFruitBasket(obj, FruitBasketData);
+            PatchVegetableBasket(obj, VegetableBasketData);
+            
+            PatchBarrelRack(obj, BarrelRackData);
+            PatchBarrelRackBig(obj, BarrelRackBigData);
         }
     }
 }

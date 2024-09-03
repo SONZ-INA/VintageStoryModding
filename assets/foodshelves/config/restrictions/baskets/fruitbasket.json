@@ -1,0 +1,15 @@
+{
+  "FruitBasketTypes": [],
+  "FruitBasketCodes": [
+    "fruit-*",
+
+    "dehydratedfruit-*",
+    "candiedfruit-*",
+
+    "wildtreedryfruit-*",
+    "wildtreecandiedfruit-*",
+    "wildcandiedfruit-*",
+    "nut-marita",
+    "nut-pandan"
+  ]
+}

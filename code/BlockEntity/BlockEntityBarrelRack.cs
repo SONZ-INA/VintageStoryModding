@@ -45,7 +45,7 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
             }
         }
         else {
-            if (inv.Empty && slot.HorizontalBarrelRackCheck()) { // Put barrel in rack
+            if (inv.Empty && slot.BarrelRackCheck()) { // Put barrel in rack
                 AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
 
                 if (TryPut(slot, blockSel)) {

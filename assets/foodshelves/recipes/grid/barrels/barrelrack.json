@@ -19,5 +19,15 @@
     "height": 2,
     "recipeGroup": 2,
     "output": { "type": "block", "code": "barrelrack-top-north", "quantity": 2 }
+  },
+  {
+    "ingredientPattern": "__,_B",
+    "ingredients": {
+      "B": { "type": "block", "code": "foodshelves:barrelrack-top-north", "quantity": 2 }
+    },
+    "width": 2,
+    "height": 2,
+    "recipeGroup": 3,
+    "output": { "type": "block", "code": "barrelrack-normal-north" }
   }
 ]

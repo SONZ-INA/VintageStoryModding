@@ -22,7 +22,12 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBox
     public bool BaseOnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
         return base.OnBlockInteractStart(world, byPlayer, blockSel);
     }
-                           
+
+    public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer) {
+        if (world.BlockAccessor.GetBlockEntity(selection.Position) is BlockEntityBarrelRackBig be && be.Inventory.Empty) return null;
+        else return base.GetPlacedBlockInteractionHelp(world, selection, forPlayer);
+    }
+
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
         // First, check for behaviors preventing default, for example Reinforcement system
         bool preventDefault = false;

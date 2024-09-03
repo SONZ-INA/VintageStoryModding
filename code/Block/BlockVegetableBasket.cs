@@ -13,7 +13,7 @@ public class BlockVegetableBasket : BlockContainer {
             foreach(Item item in api.World.Items) {
                 if (item.Code == null) continue;
 
-                if (WildcardUtil.Match(VegetableBasketCodes, item.Code.Path.ToString())) {
+                if (WildcardUtil.Match(VegetableBasketData.VegetableBasketCodes, item.Code.Path.ToString())) {
                     vegetableStackList.Add(new ItemStack(item));
                 }
             }
@@ -77,8 +77,6 @@ public class BlockVegetableBasket : BlockContainer {
         GetBlockContent(inSlot, dsc, world);
     }
 
-    #region InventoryMeshRender
-
     // Mesh rendering for items when inside inventory
     private string meshRefsCacheKey => Code.ToShortString() + "meshRefs";
 
@@ -92,10 +90,10 @@ public class BlockVegetableBasket : BlockContainer {
             capi.ObjectCache[meshRefsCacheKey] = meshrefs = new Dictionary<int, MultiTextureMeshRef>();
         }
 
-        int hashcode = GetStackCacheHashCode(itemstack);
+        ItemStack[] contents = GetContents(api.World, itemstack);
+        int hashcode = GetStackCacheHashCodeFNV(contents);
 
         if (!meshrefs.TryGetValue(hashcode, out MultiTextureMeshRef meshRef)) {
-            ItemStack[] contents = GetContents(api.World, itemstack);
             MeshData meshdata = GenBlockWContentMesh(capi, this, contents);
             if (meshdata != null) { 
                 meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(meshdata);
@@ -104,34 +102,6 @@ public class BlockVegetableBasket : BlockContainer {
 
         renderinfo.ModelRef = meshRef;
     }
-
-    protected int GetStackCacheHashCode(ItemStack contentStack) {
-        if (contentStack == null || contentStack.StackSize == 0 || contentStack.Collectible == null || contentStack.Collectible.Code == null) {
-            return 0;
-        }
-
-        unchecked {
-            // FNV-1 hash since any other simpler one ends up colliding, fuck data structures & algorithms btw
-            const uint FNV_OFFSET_BASIS = 2166136261;
-            const uint FNV_32_PRIME = 16777619;
-
-            uint hash = FNV_OFFSET_BASIS;
-            ItemStack[] contents = GetContents(api.World, contentStack);
-
-            hash = (hash ^ (uint)contentStack.StackSize.GetHashCode()) * FNV_32_PRIME;
-
-            for (int i = 0; i < contents.Length; i++) {
-                if (contents[i] == null) continue;
-
-                uint collectibleHash = (uint)(contents[i].Collectible != null ? contents[i].Collectible.Code.GetHashCode() : 0);
-                hash = (hash ^ collectibleHash) * FNV_32_PRIME;
-            }
-
-            return (int)hash; 
-        }
-    }
-
-    #endregion
 
     private void GetBlockContent(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world) {
         if (inSlot.Itemstack == null) {

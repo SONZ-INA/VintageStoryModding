@@ -24,8 +24,8 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
     }
 
     public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer) {
-        //world.BlockAccessor.GetBlock()
-        return null; // return null if inv.empty otherwise return base
+        if (world.BlockAccessor.GetBlockEntity(selection.Position) is BlockEntityBarrelRack be && be.Inventory.Empty) return null;
+        else return base.GetPlacedBlockInteractionHelp(world, selection, forPlayer);
     }
 
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
