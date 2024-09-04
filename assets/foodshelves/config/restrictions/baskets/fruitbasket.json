@@ -4,11 +4,14 @@
     "fruit-*",
 
     "dehydratedfruit-*",
+    "dryfruit-*",
     "candiedfruit-*",
-
+    "wilddehydratedfruit-*",
+    "wilddryfruit-*",
     "wildtreedryfruit-*",
     "wildtreecandiedfruit-*",
     "wildcandiedfruit-*",
+
     "nut-marita",
     "nut-pandan"
   ]

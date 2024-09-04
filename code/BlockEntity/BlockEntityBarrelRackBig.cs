@@ -107,7 +107,8 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
     }
 
     protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.5f);
+        if (transType == EnumTransitionType.Perish) return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.5f);
+        else return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.8f); // Expanded Foods curing compitability
     }
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {

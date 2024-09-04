@@ -46,11 +46,6 @@
 	  "rotation": { "x": 88, "y": 25, "z": -78 },
 	  "scale": 0.25
   },
-  "fpHandTransform": {
-    "translation": { "x": 0.08, "y": -0.2, "z": 0.6 },
-    "rotation": { "x": 33, "y": 134, "z": -102 },
-    "scale": 0.25
-  },
   "sounds": {
     "place": "game:block/planks",
     "hit": "game:block/planks",

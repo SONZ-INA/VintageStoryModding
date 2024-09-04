@@ -50,10 +50,6 @@
 	  "rotation": { "x": 99, "y": -10, "z": -6 },
 	  "scale": 0.5
   },
-  "fpHandTransform": {
-    "translation": { "x": 0.08, "y": -0.2, "z": 0.6 },
-    "rotation": { "x": 33, "y": 134, "z": -102 }
-  },
   "sounds": {
     "place": "game:block/planks",
     "hit": "game:block/planks",
