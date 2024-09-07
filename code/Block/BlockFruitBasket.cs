@@ -74,7 +74,14 @@ public class BlockFruitBasket : BlockContainer {
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
 
         dsc.Append(Lang.Get("Contents: "));
-        GetBlockContent(inSlot, dsc, world);
+
+        if (inSlot.Itemstack == null) {
+            dsc.AppendLine(Lang.Get("Empty."));
+            return;
+        }
+
+        ItemStack[] contents = GetContents(world, inSlot.Itemstack);
+        PerishableInfoAverageAndSoonest(contents, dsc, world, "fruit");
     }
 
     // Mesh rendering for items when inside inventory
@@ -94,7 +101,8 @@ public class BlockFruitBasket : BlockContainer {
         int hashcode = GetStackCacheHashCodeFNV(contents);
 
         if (!meshrefs.TryGetValue(hashcode, out MultiTextureMeshRef meshRef)) {
-            MeshData meshdata = GenBlockWContentMesh(capi, this, contents);
+            GetTransformationMatrix(out float[,] transformationMatrix);
+            MeshData meshdata = GenBlockWContentMesh(capi, this, contents, transformationMatrix, FruitBasketTransformations);
             if (meshdata != null) { 
                 meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(meshdata);
             }
@@ -103,13 +111,15 @@ public class BlockFruitBasket : BlockContainer {
         renderinfo.ModelRef = meshRef;
     }
 
-    private void GetBlockContent(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world) {
-        if (inSlot.Itemstack == null) {
-            dsc.AppendLine(Lang.Get("Empty."));
-            return;
-        }
+    public static void GetTransformationMatrix(out float[,] transformationMatrix) {
+        float[] x = { .65f, .3f, .3f,  .3f,  .6f, .35f,  .5f, .65f, .35f, .1f,  .6f, .58f, .3f,   .2f, -.1f,  .1f, .1f, .25f,  .2f, .55f,   .6f, .3f };
+        float[] y = {    0,   0,   0, .25f,    0, .35f,  .2f, -.3f,  .3f, .2f,  .4f,  .4f, .4f,   .5f, .57f, .05f, .3f, .52f, .55f, .45f, -.65f, .5f };
+        float[] z = { .05f,   0, .4f,  .1f, .45f, .35f, .18f,  .7f, .55f, .1f, .02f,  .3f, .7f, -.15f, .15f, -.2f, .9f, .05f,  .6f, .35f,  -.2f, .6f };
 
-        ItemStack[] contents = GetContents(world, inSlot.Itemstack);
-        PerishableInfoAverageAndSoonest(contents, dsc, world);
+        float[] rX = {  -2,   0,   0,   -3,   -3,   28,   16,   -2,   20,  30,  -20,    5, -75,    -8,   10,   85,   0,    8,   15,   -8,    90, -10 };
+        float[] rY = {   4,  -2,  15,   -4,   10,   12,   30,    3,   -2,   4,   -5,   -2,   2,    20,   55,    2,  50,   15,    0,    0,    22,  10 };
+        float[] rZ = {   1,  -1,   0,   45,    1,   41,    5,   70,   10,  17,   -2,  -20,   3,    16,    7,    6, -20,    8,  -25,   15,    45, -10 };
+
+        transformationMatrix = GenTransformationMatrix(x, y, z, rX, rY, rZ);
     }
 }

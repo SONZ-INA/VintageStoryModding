@@ -2,7 +2,7 @@
 
 public class BlockEntityVegetableBasket : BlockEntityDisplay {
     readonly InventoryGeneric inv;
-    Block block;
+    BlockVegetableBasket block;
     public float MeshAngle { get; set; }
 
     public override InventoryBase Inventory => inv;
@@ -11,14 +11,16 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
 
     private const int shelfCount = 1;
     private const int segmentsPerShelf = 1;
-    private const int itemsPerSegment = 22;
+    private const int itemsPerSegment = 36;
     static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlockAverageAndSoonest;
 
-    public BlockEntityVegetableBasket() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotVegetableBasket(inv)); }
+    public BlockEntityVegetableBasket() { 
+        inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotVegetableBasket(inv)); 
+    }
 
     public override void Initialize(ICoreAPI api) {
-        block = api.World.BlockAccessor.GetBlock(Pos);
+        block = api.World.BlockAccessor.GetBlock(Pos) as BlockVegetableBasket;
         base.Initialize(api);
     }
 
@@ -48,9 +50,11 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
 
     private bool TryPut(ItemSlot slot, BlockSelection blockSel) {
         if (blockSel.SelectionBoxIndex != 0) return false;
+        BlockVegetableBasket.GetTransformationMatrix(inv[0]?.Itemstack?.Collectible?.Code?.Path, out float[,] transformationMatrix);
+        int offset = transformationMatrix.GetLength(1);
 
-        for (int i = 0; i < itemsPerSegment; i++) {
-            if (inv[i].Empty) {
+        for (int i = 0; i < offset; i++) {
+            if (inv[i].Empty && (inv[0].Empty || slot?.Itemstack?.Collectible?.Code == inv[0]?.Itemstack?.Collectible?.Code)) {
                 int moved = slot.TryPutInto(Api.World, inv[i]);
                 MarkDirty();
                 (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
@@ -86,34 +90,21 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
     }
 
     protected override float[][] genTransformationMatrices() {
-        float[][] tfMatrices = new float[slotCount][];
+        BlockVegetableBasket.GetTransformationMatrix(inv[0]?.Itemstack?.Collectible?.Code?.Path, out float[,] transformationMatrix);
+        int offset = transformationMatrix.GetLength(1);
+        float[][] tfMatrices = new float[offset][];
         
-        for (int shelf = 0; shelf < shelfCount; shelf++) {
-            for (int segment = 0; segment < segmentsPerShelf; segment++) {
-                for (int item = 0; item < itemsPerSegment; item++) {
-                    int index = shelf * (segmentsPerShelf * itemsPerSegment) + segment * itemsPerSegment + item;
-
-                    // This was hell and will be in the future when i need to tweak certain items
-                    float[] x = { .65f, .3f, .3f,  .3f,  .6f, .35f,  .5f, .65f, .35f, .1f,  .6f, .58f, .3f,   .2f, -.1f,  .1f, .1f, .25f,  .2f, .55f,   .6f, .3f };
-                    float[] y = {    0,   0,   0, .25f,    0, .35f,  .2f, -.3f,  .3f, .2f,  .4f,  .4f, .4f,   .5f, .57f, .05f, .3f, .52f, .55f, .45f, -.65f, .5f };
-                    float[] z = { .05f,   0, .4f,  .1f, .45f, .35f, .18f,  .7f, .55f, .1f, .02f,  .3f, .7f, -.15f, .15f, -.2f, .9f, .05f,  .6f, .35f,  -.2f, .6f };
-
-                    float[] rX = {  -2,   0,   0,   -3,   -3,   28,   16,   -2,   20,  30,  -20,    5, -75,    -8,   10,   85,   0,    8,   15,   -8,    90, -10 };
-                    float[] rY = {   4,  -2,  15,   -4,   10,   12,   30,    3,   -2,   4,   -5,   -2,   2,    20,   55,    2,  50,   15,    0,    0,    22,  10 };
-                    float[] rZ = {   1,  -1,   0,   45,    1,   41,    5,   70,   10,  17,   -2,  -20,   3,    16,    7,    6, -20,    8,  -25,   15,    45, -10 };
-
-                    tfMatrices[index] = 
-                        new Matrixf()
-                        .Translate(0.5f, 0, 0.5f)
-                        .RotateYDeg(block.Shape.rotateY + MeshAngle * GameMath.RAD2DEG)
-                        .RotateXDeg(rX[index])
-                        .RotateYDeg(rY[index])
-                        .RotateZDeg(rZ[index])
-                        .Scale(0.5f, 0.5f, 0.5f)
-                        .Translate(x[index] - 0.84375f, y[index], z[index] - 0.8125f)
-                        .Values;
-                }
-            }
+        for (int i = 0; i < offset; i++) {
+            tfMatrices[i] = 
+                new Matrixf()
+                .Translate(0.5f, 0, 0.5f)
+                .RotateYDeg(block.Shape.rotateY + MeshAngle * GameMath.RAD2DEG)
+                .RotateXDeg(transformationMatrix[3, i])
+                .RotateYDeg(transformationMatrix[4, i])
+                .RotateZDeg(transformationMatrix[5, i])
+                .Scale(0.5f, 0.5f, 0.5f)
+                .Translate(transformationMatrix[0, i] - 0.84375f, transformationMatrix[1, i], transformationMatrix[2, i] - 0.8125f)
+                .Values;
         }
 
         return tfMatrices;
@@ -149,6 +140,6 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment);
+        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment, "vegetable");
     }
 }

@@ -10,19 +10,14 @@ public class Core : ModSystem {
 
         api.RegisterBlockClass("FoodShelves.BlockPieShelf", typeof(BlockPieShelf));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityPieShelf", typeof(BlockEntityPieShelf));
-
         api.RegisterBlockClass("FoodShelves.BlockBreadShelf", typeof(BlockBreadShelf));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityBreadShelf", typeof(BlockEntityBreadShelf));
-
         api.RegisterBlockClass("FoodShelves.BlockBarShelf", typeof(BlockBarShelf));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityBarShelf", typeof(BlockEntityBarShelf));
-
         api.RegisterBlockClass("FoodShelves.BlockSushiShelf", typeof(BlockSushiShelf));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntitySushiShelf", typeof(BlockEntitySushiShelf));
-
         api.RegisterBlockClass("FoodShelves.BlockEggShelf", typeof(BlockEggShelf));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityEggShelf", typeof(BlockEntityEggShelf));
-
         api.RegisterBlockClass("FoodShelves.BlockSeedShelf", typeof(BlockSeedShelf));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntitySeedShelf", typeof(BlockEntitySeedShelf));
 
@@ -31,13 +26,11 @@ public class Core : ModSystem {
 
         api.RegisterBlockClass("FoodShelves.BlockFruitBasket", typeof(BlockFruitBasket));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityFruitBasket", typeof(BlockEntityFruitBasket));
-
-        api.RegisterBlockClass("FoodShelves.BlockBarrelRack", typeof(BlockBarrelRack));
-        api.RegisterBlockEntityClass("FoodShelves.BlockEntityBarrelRack", typeof(BlockEntityBarrelRack));
-
         api.RegisterBlockClass("FoodShelves.BlockVegetableBasket", typeof(BlockVegetableBasket));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityVegetableBasket", typeof(BlockEntityVegetableBasket));
 
+        api.RegisterBlockClass("FoodShelves.BlockBarrelRack", typeof(BlockBarrelRack));
+        api.RegisterBlockEntityClass("FoodShelves.BlockEntityBarrelRack", typeof(BlockEntityBarrelRack));
         api.RegisterBlockClass("FoodShelves.BlockBarrelRackBig", typeof(BlockBarrelRackBig));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityBarrelRackBig", typeof(BlockEntityBarrelRackBig));
 
@@ -60,6 +53,7 @@ public class Core : ModSystem {
         FruitBasketData = api.LoadAsset<RestrictionData.FruitBasketData>("foodshelves:config/restrictions/baskets/fruitbasket.json"); ;
         FruitBasketTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/baskets/fruitbasket.json");
         VegetableBasketData = api.LoadAsset<RestrictionData.VegetableBasketData>("foodshelves:config/restrictions/baskets/vegetablebasket.json");
+        VegetableBasketTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/baskets/vegetablebasket.json");
 
         BarrelRackData = api.LoadAsset<RestrictionData.BarrelRackData>("foodshelves:config/restrictions/barrels/barrelrack.json");
         BarrelRackBigData = api.LoadAsset<RestrictionData.BarrelRackBigData>("foodshelves:config/restrictions/barrels/barrelrackbig.json");

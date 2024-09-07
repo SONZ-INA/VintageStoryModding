@@ -6,8 +6,9 @@
   "block-barshelf-normal-*": "Bar Shelf",
   "block-sushishelf-normal-*": "Sushi Shelf",
   "block-eggshelf-normal-*": "Egg Shelf",
-  "block-fruitbasket-normal": "Fruit Basket",
   "block-seedshelf-normal-*": "Seed Shelf",
+  "block-fruitbasket-normal": "Fruit Basket",
+  "block-vegetablebasket-normal": "Vegetable Basket",
   "block-tablewshelf-normal-*": "Wooden table with a shelf",
   "block-tablewshelf-aged-*": "Aged table with a shelf",
   "block-tablewshelf-whitemarble-*": "White marble-topped table with a shelf",
@@ -19,6 +20,8 @@
 
   "blockhelp-fruitbasket-add": "Add fruit",
   "blockhelp-fruitbasket-remove": "Remove fruit",
+  "blockhelp-vegetablebasket-add": "Add vegetables",
+  "blockhelp-vegetablebasket-remove": "Remove vegetables",
 
   "blockdesc-canhold-title": "Can hold:",
   "blockdesc-canbeplacedin-title": "Can be placed in:",
@@ -31,6 +34,7 @@
   "blockdesc-seedshelf-text": "  -Any seed bag",
   "blockdesc-tablewshelf-text": "  -Anything that can be put on vanilla shelves",
   "blockdesc-fruitbasket-text": "  -All types of fruit",
+  "blockdesc-vegetablebasket-text": "  -Most vegetables",
   "blockdesc-barrelrack-text": "  -Can only hold barrels. These barrels can only hold liquids.",
   "blockdesc-barrelrackbig-text": "  -Can only hold big horizontal barrels. These barrels can only hold liquids.",
   "blockdesc-horizontalbarrelbig-text": "  -This barrel can only be placed inside a big barrel rack.",
@@ -41,8 +45,9 @@
   "Only sushi can be placed on this shelf.": "Only sushi can be placed on this shelf.",
   "Only crocks, cooking pots or bowls can be placed on this shelf.": "Only crocks, cooking pots or bowls can be placed on this shelf.",
   "Only eggs can be placed on this shelf.": "Only eggs can be placed on this shelf.",
-  "Only fruit can be placed on this shelf.": "Only fruit can be placed on this shelf.",
   "Only seeds can be placed on this shelf.": "Only seeds can be placed on this shelf.",
+  "Only fruit can be placed in this basket.": "Only fruit can be placed in this basket.",
+  "Only vegetables can be placed in this basket.": "Only vegetables can be placed in this basket.",
   "Only barrels can be placed on this rack.": "Only barrels can be placed on this rack.",
 
   "This barrel needs to be placed in a barrel rack.": "This barrel needs to be placed in a barrel rack.",
@@ -54,14 +59,19 @@
   "Contents: ": "<font color=\"orange\">Contents: </font>",
   "Soonest: ": "Soonest: ",
   "Empty.": "Empty.",
-  "Fruit": "Fruit",
-  "Fruits inside: {0}": "Fruits inside: {0}",
-  "Rotten fruits: {0}": "Rotten fruits: {0}",
   "Average perish rate: {0} years": "Average perish rate: {0} years",
   "Average perish rate: {0} days": "Average perish rate: {0} days",
   "Average perish rate: {0} hours": "Average perish rate: {0} hours",
   "will perish in {0} years": "will perish in {0} years",
   "will perish in {0} days": "will perish in {0} days",
   "will perish in {0} hours": "will perish in {0} hours",
-  "No fruit will perish soon.": "No fruit will perish soon."
+
+  "Fruit": "Fruit",
+  "Fruits inside: {0}": "Fruits inside: {0}",
+  "Rotten fruits: {0}": "Rotten fruits: {0}",
+  "No fruit will perish soon.": "No fruit will perish soon.",
+  "Vegetable": "Vegetable",
+  "Vegetables inside: {0}": "Vegetables inside: {0}",
+  "Rotten vegetables: {0}": "Rotten vegetables: {0}",
+  "No vegetable will perish soon.": "No vegetable will perish soon."
 }

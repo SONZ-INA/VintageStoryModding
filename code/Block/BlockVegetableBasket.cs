@@ -20,13 +20,13 @@ public class BlockVegetableBasket : BlockContainer {
 
             return new WorldInteraction[] {
                 new() {
-                    ActionLangCode = "foodshelves:blockhelp-fruitbasket-add",
+                    ActionLangCode = "foodshelves:blockhelp-vegetablebasket-add",
                     MouseButton = EnumMouseButton.Right,
                     HotKeyCode = "shift",
                     Itemstacks = vegetableStackList.ToArray()
                 },
                 new() {
-                    ActionLangCode = "foodshelves:blockhelp-fruitbasket-remove",
+                    ActionLangCode = "foodshelves:blockhelp-vegetablebasket-remove",
                     MouseButton = EnumMouseButton.Right,
                     HotKeyCode = "shift"
                 }
@@ -74,7 +74,14 @@ public class BlockVegetableBasket : BlockContainer {
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
 
         dsc.Append(Lang.Get("Contents: "));
-        GetBlockContent(inSlot, dsc, world);
+
+        if (inSlot.Itemstack == null) {
+            dsc.AppendLine(Lang.Get("Empty."));
+            return;
+        }
+
+        ItemStack[] contents = GetContents(world, inSlot.Itemstack);
+        PerishableInfoAverageAndSoonest(contents, dsc, world, "vegetable");
     }
 
     // Mesh rendering for items when inside inventory
@@ -94,7 +101,11 @@ public class BlockVegetableBasket : BlockContainer {
         int hashcode = GetStackCacheHashCodeFNV(contents);
 
         if (!meshrefs.TryGetValue(hashcode, out MultiTextureMeshRef meshRef)) {
-            MeshData meshdata = GenBlockWContentMesh(capi, this, contents);
+            string itemPath = "";
+            if (contents != null && contents.Length > 0 && contents[0] != null) itemPath = contents[0].Collectible.Code.Path.ToString();
+            GetTransformationMatrix(itemPath, out float[,] transformationMatrix);
+
+            MeshData meshdata = GenBlockWContentMesh(capi, this, contents, transformationMatrix, VegetableBasketTransformations);
             if (meshdata != null) { 
                 meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(meshdata);
             }
@@ -103,13 +114,40 @@ public class BlockVegetableBasket : BlockContainer {
         renderinfo.ModelRef = meshRef;
     }
 
-    private void GetBlockContent(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world) {
-        if (inSlot.Itemstack == null) {
-            dsc.AppendLine(Lang.Get("Empty."));
-            return;
+    public static void GetTransformationMatrix(string path, out float[,] transformationMatrix) {
+        float[] x, y, z, rX, rY, rZ;
+
+        switch (path) {
+            case "vegetable-cabbage":
+                x = new float[] { .75f, .3f, .3f, .3f, .65f, .35f,  .5f, .1f,  .6f, .58f, .2f, .25f };
+                y = new float[] {    0,   0,   0, .25f,   0, .35f,  .2f, .2f,  .4f,  .4f, .5f, .52f };
+                z = new float[] { .05f,   0, .4f, .1f, .45f, .35f, .18f, .1f, .02f,  .4f,  0f, .15f };
+
+                rX = new float[] {  -2,   0,   0,  -3,   -3,   28,   16,  30,    0,    5,  -8,    8 };
+                rY = new float[] {   4,  -2,  15,  -4,   10,   12,   30,   4,   -5,   -2,  20,   15 };
+                rZ = new float[] {   1,  -1,   0,  45,    1,   41,    5,  17,   -2,  -20,  16,    8 };
+                break;
+            case "vegetable-bellpepper":
+            case "vegetable-avocado":
+                x = new float[] { .75f, .3f, .19f,  .3f, .51f, .35f,  .05f,  .85f,   .7f,  .9f, .58f,   .4f };
+                y = new float[] {    0,   0,    0, .25f,    0, .35f,   .2f, -.25f, -.35f, .15f,  .4f, -.35f };
+                z = new float[] { .05f,   0,  .3f, .05f,  .4f, .25f, -.05f,  .05f,  .05f, .35f,  .3f,  -.3f };
+
+                rX = new float[] {  -2,   0,    0,   -3,   -3,   28,    16,    90,    90,   30,    5,    90 };
+                rY = new float[] {   4,  -2,   15,   -4,   10,   12,    30,     0,     0,    4,   -2,     0 };
+                rZ = new float[] {   1,  -1,    0,   45,    1,   41,     5,    12,    83,   17,  -20,    83 };
+                break;
+            default: // carrots and similar
+                x = new float[] { .75f, .74f,  .73f, .72f,  .71f, .70f, .15f, .15f, .15f, .15f, .15f, .15f, .75f, .74f, .73f, .72f, .71f, .70f, .15f, .15f, .15f, .15f, .15f, .15f, .75f, .74f, .73f, .72f, .71f, .70f, .15f, .15f, .15f, .15f, .15f, .15f };
+                y = new float[] {    0,    0,     0,    0,     0,    0,    0,    0,    0,    0,    0,    0, .15f, .15f, .15f, .15f, .15f, .15f, .15f, .15f, .15f, .15f, .15f, .15f, .30f, .30f, .30f, .30f, .30f, .30f, .30f, .30f, .30f, .30f, .30f, .30f };
+                z = new float[] {-.03f, .12f,  .27f, .42f,  .57f, .72f,-.03f, .12f, .27f, .42f, .57f, .72f,-.03f, .12f, .27f, .42f, .57f, .72f,-.03f, .12f, .27f, .42f, .57f, .72f,-.03f, .12f, .27f, .42f, .57f, .72f,-.03f, .12f, .27f, .42f, .57f, .72f };
+
+                rX = new float[] {  -2,   -2,    -2,   -2,    -2,   -2,    0,    0,    0,    0,    0,    0,   -2,   -2,   -2,   -2,   -2,   -2,    0,    0,    0,    0,    0,    0,   -2,   -2,   -2,   -2,   -2,   -2,    0,    0,    0,    0,    0,    0 };
+                rY = new float[] {   4,    4,     4,    4,     4,    4,   -2,   -2,   -2,   -2,   -2,   -2,    4,    4,    4,    4,    4,    4,   -2,   -2,   -2,   -2,   -2,   -2,    4,    4,    4,    4,    4,    4,   -2,   -2,   -2,   -2,   -2,   -2 };
+                rZ = new float[] {   1,    1,     1,    1,     1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1 };
+                break;
         }
 
-        ItemStack[] contents = GetContents(world, inSlot.Itemstack);
-        PerishableInfoAverageAndSoonest(contents, dsc, world);
+        transformationMatrix = GenTransformationMatrix(x, y, z, rX, rY, rZ);
     }
 }

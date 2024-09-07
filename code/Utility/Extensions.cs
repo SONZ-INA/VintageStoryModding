@@ -15,6 +15,27 @@ public static class Extensions {
         return null;
     }
 
+    public static string FirstCharToUpper(this string input) {
+        if (input == null) throw new ArgumentNullException(nameof(input));
+        if (string.IsNullOrEmpty(input)) throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
+        return string.Concat(input[0].ToString().ToUpper(), input.AsSpan(1));
+    }
+
+    public static float[,] GenTransformationMatrix(float[] x, float[] y, float[] z, float[] rX, float[] rY, float[] rZ) {
+        float[,] transformationMatrix = new float[6, x.Length];
+
+        for (int i = 0; i < x.Length; i++) {
+            transformationMatrix[0, i] = x[i];
+            transformationMatrix[1, i] = y[i];
+            transformationMatrix[2, i] = z[i];
+            transformationMatrix[3, i] = rX[i];
+            transformationMatrix[4, i] = rY[i];
+            transformationMatrix[5, i] = rZ[i];
+        }
+
+        return transformationMatrix;
+    }
+
     public static MeshData BlockYRotation(this MeshData obj, BlockEntity BE) {
         Block block = BE.Api.World.BlockAccessor.GetBlock(BE.Pos);
         return obj.Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, block.Shape.rotateY * GameMath.DEG2RAD, 0);
