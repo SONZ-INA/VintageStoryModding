@@ -79,7 +79,11 @@ public static class Restrictions
 
     public const string VegetableBasket = "vegetablebasketcheck";
     public static bool VegetableBasketCheck(this CollectibleObject obj) => obj?.Attributes?[VegetableBasket].AsBool() == true;
-    public static bool VegetableBasketCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[VegetableBasket].AsBool() == true;
+    public static bool VegetableBasketCheck(this ItemSlot slot) {
+        if (slot?.Itemstack?.Collectible?.Attributes?[VegetableBasket].AsBool() == false) return false;
+        if (slot?.Inventory?.ClassName == "hopper") return false;
+        return true;
+    }
 
     #endregion
 
