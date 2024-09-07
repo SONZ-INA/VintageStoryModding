@@ -7,7 +7,7 @@
     "dependsOn": [ { "modid": "expandedfoods" } ]
   },
   {
-    "file": "foodshelves:recipes/grid/barshelf.json",
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
     "op": "replace",
     "path": "/0/enabled",
     "value": true,
@@ -21,7 +21,7 @@
     "dependsOn": [ { "modid": "expandedfoods", "invert": true } ]
   },
   {
-    "file": "foodshelves:recipes/grid/sushishelf.json",
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
     "op": "add",
     "path": "/0/enabled",
     "value": false,

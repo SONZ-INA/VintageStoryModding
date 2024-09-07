@@ -1,0 +1,89 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>bin\$(Configuration)\Mods\mod</OutputPath>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="Vintagestory">
+			<HintPath>$(VINTAGE_STORY)\Vintagestory.exe</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="VintagestoryAPI">
+			<HintPath>$(VINTAGE_STORY)\VintagestoryAPI.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="VintagestoryLib">
+			<HintPath>$(VINTAGE_STORY)\VintagestoryLib.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="VSSurvivalMod">
+			<HintPath>$(VINTAGE_STORY)\Mods\VSSurvivalMod.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="VSEssentials">
+			<HintPath>$(VINTAGE_STORY)\Mods\VSEssentials.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<!-- Vintage Story Included Libraries -->
+		<Reference Include="Newtonsoft.Json">
+			<HintPath>$(VINTAGE_STORY)\Lib\Newtonsoft.Json.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+
+<ItemGroup>
+  <Content Include="assets\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+  <None Remove="assets\foodshelves\blocktypes\eggshelf.json" />
+  <None Remove="assets\foodshelves\blocktypes\fruitbasket.json" />
+  <None Remove="assets\foodshelves\blocktypes\horizontalbarrelbig.json" />
+  <None Remove="assets\foodshelves\blocktypes\horizontalbarrelrack.json" />
+  <None Remove="assets\foodshelves\blocktypes\horizontalbarrelrackbig.json" />
+  <None Remove="assets\foodshelves\blocktypes\seedshelf.json" />
+  <None Remove="assets\foodshelves\blocktypes\vegetablebasket.json" />
+  <None Remove="assets\foodshelves\config\restrictions\barrels\barrelrack.json" />
+  <None Remove="assets\foodshelves\config\restrictions\barrels\barrelrackbig.json" />
+  <None Remove="assets\foodshelves\config\restrictions\baskets\fruitbasket.json" />
+  <None Remove="assets\foodshelves\config\restrictions\baskets\vegetablebasket.json" />
+  <None Remove="assets\foodshelves\config\restrictions\shelves\barshelf.json" />
+  <None Remove="assets\foodshelves\config\restrictions\shelves\breadshelf.json" />
+  <None Remove="assets\foodshelves\config\restrictions\shelves\eggshelf.json" />
+  <None Remove="assets\foodshelves\config\restrictions\shelves\seedshelf.json" />
+  <None Remove="assets\foodshelves\config\restrictions\shelves\sushishelf.json" />
+  <None Remove="assets\foodshelves\config\transformations\barrelbig.json" />
+  <None Remove="assets\foodshelves\patches\wildcraft-fruits-and-nuts.json" />
+  <None Remove="assets\foodshelves\recipes\grid\barrelbig.json" />
+  <None Remove="assets\foodshelves\recipes\grid\barrelrack.json" />
+  <None Remove="assets\foodshelves\recipes\grid\barrelrackbig.json" />
+  <None Remove="assets\foodshelves\recipes\grid\fruitbasket.json" />
+  <None Remove="assets\foodshelves\recipes\grid\horizontalbarel.json" />
+  <None Remove="assets\foodshelves\recipes\grid\seedshelf.json" />
+  <None Remove="assets\foodshelves\shapes\block\wood\barrel\barrelrackbig.json" />
+  <None Remove="assets\foodshelves\shapes\block\wood\barrel\barrelracktopbig.json" />
+  <None Remove="assets\foodshelves\shapes\block\wood\barrel\HorizontalBarrelBig.json" />
+  <None Remove="assets\foodshelves\shapes\block\wood\fruitbasket.json" />
+  <None Remove="assets\foodshelves\shapes\block\wood\VegetableBasket.json" />
+  <None Remove="assets\foodshelves\textures\block\wood\fruitbasket\top.png" />
+  <None Remove="assets\foodshelves\textures\block\wood\horizontalbarrelbig\bottom.png" />
+  <None Remove="assets\foodshelves\textures\block\wood\horizontalbarrelbig\top.png" />
+  <None Remove="assets\foodshelves\textures\block\wood\vegetablebasket\top.png" />
+  <Content Include="modinfo.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+</ItemGroup>
+
+<ItemGroup>
+  <Content Update="assets\foodshelves\shapes\block\wood\baskets\vegetablebasket.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+</ItemGroup>
+
+<ItemGroup>
+  <Folder Include="assets\foodshelves\config\transformations\" />
+</ItemGroup>
+
+</Project>

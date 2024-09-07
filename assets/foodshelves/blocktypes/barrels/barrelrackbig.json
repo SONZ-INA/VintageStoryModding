@@ -1,5 +1,4 @@
 {
-  "enabled": false,
   "code": "barrelrackbig",
   "class": "FoodShelves.BlockBarrelRackBig",
   "entityclass": "FoodShelves.BlockEntityBarrelRackBig",
@@ -57,7 +56,10 @@
   "maxStackSize": 32,
   "faceCullMode": "NeverCull",
   "emitSideAo": { "all": false },
-  "sidesolid": { "up": true },	
+  "sidesolid": {
+    "verticals": true,
+    "horizontals": false
+  },	
   "sideopaque": { "all": false },
   "replaceable": 999,
   "resistance": 1.5,
@@ -77,18 +79,14 @@
 	    "scale": 0.25
     }
   },
-  "fpHandTransform": {
-    "translation": { "x": 0.08, "y": -0.2, "z": 0.6 },
-    "rotation": { "x": 33, "y": 134, "z": -102 },
-    "scale": 0.25
-  },
   "sounds": {
     "place": "game:block/planks",
     "hit": "game:block/planks",
     "break": "game:block/planks"
   },
   "materialDensity": 400,
-  "collisionSelectionBoxes": [ 
-    { "x1": -1, "y1": 0, "z1": 0, "x2": 1, "y2": 2, "z2": 2 }
+  "collisionbox": { "x1": 0, "y1": 0, "z1": 0, "x2": 1, "y2": 1, "z2": 1 },
+  "selectionBoxes": [ 
+    { "x1": 0, "y1": 0, "z1": -1, "x2": 2, "y2": 2, "z2": 1 }
   ]
 }

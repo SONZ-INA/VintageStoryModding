@@ -6,8 +6,9 @@
   "block-barshelf-normal-*": "Полице за Штанглице",
   "block-sushishelf-normal-*": "Полице за Суши",
   "block-eggshelf-normal-*": "Полице за Јаја",
-  "block-fruitbasket-normal": "Корпа за Воће",
   "block-seedshelf-normal-*": "Полице за Семена",
+  "block-fruitbasket-normal": "Корпа за Воће",
+  "block-vegetablebasket-normal": "Корпа за поврће",
   "block-tablewshelf-normal-*": "Дрвени Сто са Полицом",
   "block-tablewshelf-aged-*": "Стар Сто са Полицом",
   "block-tablewshelf-whitemarble-*": "Сто са Белим Мермерним Врхом и Полицом",
@@ -19,6 +20,8 @@
 
   "blockhelp-fruitbasket-add": "Додај воће",
   "blockhelp-fruitbasket-remove": "Уклони воће",
+  "blockhelp-vegetablebasket-add": "Додај поврће",
+  "blockhelp-vegetablebasket-remove": "Уклони поврће",
 
   "blockdesc-canhold-title": "Може да садржи:",
   "blockdesc-canbeplacedin-title": "Може се поставити у:",
@@ -31,6 +34,7 @@
   "blockdesc-seedshelf-text": "  -Било која врећа за семе",
   "blockdesc-tablewshelf-text": "  -Све што може да се стави на ванила полице",
   "blockdesc-fruitbasket-text": "  -Све врсте воћа",
+  "blockdesc-vegetablebasket-text": "  -Већину поврћа",
   "blockdesc-barrelrack-text": "  -Може држати само буре. Ова буре може држати само течности.",
   "blockdesc-barrelrackbig-text": "  -Може држати само велика хоризонтална буре. Ова буре може држати само течности.",
   "blockdesc-horizontalbarrelbig-text": "  -Ово буре мора бити постављено у великој полици за буре.",
@@ -41,8 +45,9 @@
   "Only sushi can be placed on this shelf.": "Само суши може бити постављен на ову полицу.",
   "Only crocks, cooking pots or bowls can be placed on this shelf.": "Само лонци, кухињски лонци или чиније могу бити постављени на ову полицу.",
   "Only eggs can be placed on this shelf.": "Само јаја могу бити постављена на ову полицу.",
-  "Only fruit can be placed on this shelf.": "Само воће може бити постављено на ову полицу.",
   "Only seeds can be placed on this shelf.": "Само семе може бити постављено на ову полицу.",
+  "Only fruit can be placed on this shelf.": "Само воће може бити постављено на ову полицу.",
+  "Only vegetables can be placed in this basket.": "Само поврће може бити постављено на ову полицу.",
   "Only barrels can be placed on this rack.": "На ову полицу могу се поставити само буре.",
 
   "This barrel needs to be placed in a barrel rack.": "Ово буре мора бити постављено у полици за буре.",
@@ -54,14 +59,19 @@
   "Contents: ": "<font color=\"orange\">Садржи: </font>",
   "Soonest: ": "Најскорије: ",
   "Empty.": "Празно.",
-  "Fruit": "Воће",
-  "Fruits inside: {0}": "Воће унутра: {0}",
-  "Rotten fruits: {0}": "Trуло воће: {0}",
   "Average perish rate: {0} years": "Просечна стопа пропадања: {0} година",
   "Average perish rate: {0} days": "Просечна стопа пропадања: {0} дана",
   "Average perish rate: {0} hours": "Просечна стопа пропадања: {0} сати",
   "will perish in {0} years": "пропада за {0} година",
   "will perish in {0} days": "пропада за {0} дана",
   "will perish in {0} hours": "пропада за {0} сати",
-  "No fruit will perish soon.": "Ниједно воће неће ускоро пропасти."
+
+  "Fruit": "Воће",
+  "Fruits inside: {0}": "Воће унутра: {0}",
+  "Rotten fruits: {0}": "Trуло воће: {0}",
+  "No fruit will perish soon.": "Ниједно воће неће ускоро пропасти.",
+  "Vegetable": "Поврће",
+  "Vegetables inside: {0}": "Поврће унутра: {0}",
+  "Rotten vegetables: {0}": "Труло поврће: {0}",
+  "No vegetable will perish soon.": "Ниједно поврће неће ускоро пропасти."
 }

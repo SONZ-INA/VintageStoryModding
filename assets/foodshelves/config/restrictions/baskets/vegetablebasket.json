@@ -1,0 +1,13 @@
+{
+  "VegetableBasketTypes": [],
+  "VegetableBasketCodes": [
+    "vegetable-carrot",
+    "vegetable-cabbage",
+    "vegetable-onion",
+    "vegetable-turnip",
+    "vegetable-parsnip",
+    "vegetable-cassava",
+    "vegetable-bellpepper",
+    "vegetable-avocado"
+  ]
+}

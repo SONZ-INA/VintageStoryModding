@@ -1,8 +1,6 @@
-﻿using static FoodShelves.BlockBounds;
+﻿namespace FoodShelves;
 
-namespace FoodShelves;
-
-public class BlockBarrelRackBig : BlockLiquidContainerBase {
+public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBoxes {
     public override bool AllowHeldLiquidTransfer => false;
     public override int GetContainerSlotId(BlockPos pos) => 1;
     public override int GetContainerSlotId(ItemStack containerStack) => 1;
@@ -21,11 +19,17 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase {
         return base.OnBlockInteractStart(world, byPlayer, blockSel);
     }
 
+    public bool BaseOnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
+        return base.OnBlockInteractStart(world, byPlayer, blockSel);
+    }
+
     public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer) {
-        return null;
+        if (world.BlockAccessor.GetBlockEntity(selection.Position) is BlockEntityBarrelRackBig be && be.Inventory.Empty) return null;
+        else return base.GetPlacedBlockInteractionHelp(world, selection, forPlayer);
     }
 
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
+        // First, check for behaviors preventing default, for example Reinforcement system
         bool preventDefault = false;
         foreach (BlockBehavior behavior in BlockBehaviors) {
             EnumHandling handled = EnumHandling.PassThrough;
@@ -37,82 +41,73 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase {
 
         if (preventDefault) return;
 
-        if (world.Side == EnumAppSide.Server && (byPlayer == null || byPlayer.WorldData.CurrentGameMode != EnumGameMode.Creative)) {
-            ItemStack[] drops = new ItemStack[] { new(this) };
+        // Drop inventory (the barrel)
+        BlockEntityBarrelRackBig be = GetBlockEntity<BlockEntityBarrelRackBig>(pos);
+        be?.Inventory.DropAll(pos.ToVec3d());
 
-            for (int i = 0; i < drops.Length; i++) {
-                world.SpawnItemEntity(drops[i], new Vec3d(pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5), null);
-            }
-
-            world.PlaySoundAt(Sounds.GetBreakSound(byPlayer), pos.X, pos.Y, pos.Z, byPlayer);
-        }
-
-        if (EntityClass != null) {
-            BlockEntity entity = world.BlockAccessor.GetBlockEntity(pos);
-            entity?.OnBlockBroken();
-        }
-
-        world.BlockAccessor.SetBlock(0, pos);
+        base.OnBlockBroken(world, pos, byPlayer);
     }
 
-    public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
-        Block block = blockAccessor.GetBlock(pos);
-        if (block.Code.Path.StartsWith("barrelrackbig-top-")) {
-            if (blockAccessor.GetBlockEntity(pos) is BlockEntityBarrelRackBig be && be.Inventory.Empty) {
-                return new Cuboidf[] { new(0, 0, 0, 1f, 0.3f, 1f) };
-            }
+    // Selection box for master block
+    public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
+        BlockEntityBarrelRackBig be = blockAccessor.GetBlockEntity<BlockEntityBarrelRackBig>(pos);
+        if (be != null) {
+            int[] transformedIndex = GetMultiblockIndex(new Vec3i() { X = 0, Y = 0, Z = 0 }, be);
+            Cuboidf singleSelectionBox = new(
+                transformedIndex[0],
+                transformedIndex[1],
+                transformedIndex[2] - 1,
+                transformedIndex[0] + 2,
+                transformedIndex[1] + 2,
+                transformedIndex[2] + 1
+            );
+
+            return new Cuboidf[] { singleSelectionBox };
         }
 
+        return base.GetSelectionBoxes(blockAccessor, pos);
+    }
+
+    // Selection boxes for multiblock parts
+    public Cuboidf[] MBGetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos, Vec3i offset) {
+        BlockEntityBarrelRackBig be = blockAccessor.GetBlockEntityExt<BlockEntityBarrelRackBig>(pos);
+        if (be != null) {
+            int[] transformedIndex = GetMultiblockIndex(offset, be);
+
+            Cuboidf singleSelectionBox = new(
+                transformedIndex[0],
+                transformedIndex[1],
+                transformedIndex[2] - 1,
+                transformedIndex[0] + 2,
+                transformedIndex[1] + 2,
+                transformedIndex[2] + 1
+            );
+
+            return new Cuboidf[] { singleSelectionBox };
+        }
+
+        return base.GetSelectionBoxes(blockAccessor, pos);
+    }
+
+    public Cuboidf[] MBGetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos, Vec3i offset) {
         return base.GetCollisionBoxes(blockAccessor, pos);
+    }
+
+    public override void TryFillFromBlock(EntityItem byEntityItem, BlockPos pos) {
+        // Don't fill when dropped as item in water
     }
 
     public override string GetPlacedBlockInfo(IWorldAccessor world, BlockPos pos, IPlayer forPlayer) {
         StringBuilder dsc = new();
 
-        switch (forPlayer.CurrentBlockSelection.SelectionBoxIndex) {
-            case 1:
-                dsc.AppendLine(Lang.Get("foodshelves:Pour liquid into barrel."));
-                break;
-            case 2:
-                dsc.AppendLine(Lang.Get("foodshelves:Pour liquid into held container."));
-                break;
-            default:
-                break;
-        }
-
-        dsc.AppendLine();
-
-        if (forPlayer.CurrentBlockSelection.Block.GetSelectionBoxes(world.BlockAccessor, pos).Length == 1) {
-            dsc.AppendLine(Lang.Get("foodshelves:Missing barrel."));
+        BlockEntityBarrelRackBig be = GetBlockEntity<BlockEntityBarrelRackBig>(pos);
+        if (be != null && be.Inventory.Empty) {
+            dsc.Append(Lang.Get("foodshelves:Missing barrel."));
         }
         else {
             dsc.Append(base.GetPlacedBlockInfo(world, pos, forPlayer));
         }
 
         return dsc.ToString();
-    }
-
-    public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
-        //BlockMultiblock bmb = blockAccessor.GetBlock(pos) as BlockMultiblock;
-        //api.Logger.Debug("chck: " + " /// " + bmb?.OffsetInv.X + ", " + bmb?.OffsetInv.Y + ", " + bmb?.OffsetInv.Z);
-
-        Block block = blockAccessor.GetBlock(pos);
-        if (blockAccessor.GetBlockEntity(pos) is BlockEntityBarrelRackBig be && !be.Inventory.Empty) {
-            Cuboidf[] selectionBoxes = new Cuboidf[] {
-                new(0.01f, 0, 0, 1f, 0.999f, 1f),
-                new(0f, 0.75f, 0.4f, 0.125f, 0.88f, 0.6f),
-                new(0f, 0.1f, 0.32f, 0.125f, 0.3f, 0.68f)
-            };
-
-            int rotationAngle = GetRotationAngle(block);
-
-            for (int i = 0; i < selectionBoxes.Length; i++) {
-                selectionBoxes[i] = RotateCuboid90Deg(selectionBoxes[i], rotationAngle);
-            }
-
-            return selectionBoxes;
-        }
-
-        return base.GetSelectionBoxes(blockAccessor, pos);
     }
 }

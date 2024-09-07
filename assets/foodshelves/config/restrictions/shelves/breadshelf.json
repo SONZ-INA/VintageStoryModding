@@ -1,0 +1,16 @@
+{
+  "BreadShelfTypes": [ ],
+  "BreadShelfCodes": [
+    "*bread-*",
+    "*dough-*",
+
+    "*muffin-*",
+    "*breadedball-*",
+    "*dumpling-*",
+    "*doughball-*",
+
+    "*halva",
+    "*pacoca",
+    "*marzipan"
+  ]
+}

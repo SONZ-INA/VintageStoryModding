@@ -1,0 +1,64 @@
+{
+  "code": "fruitbasket",
+  "class": "FoodShelves.BlockFruitBasket",
+  "entityclass": "FoodShelves.BlockEntityFruitBasket",
+  "creativeinventory": { "general": ["*"], "decorative": ["*"], "foodshelves": ["*"] },
+  "variantgroups": [
+    { "code": "type", "states": ["normal"] }
+  ],
+  "attributes": {
+    "handbook": {
+      "groupBy": [ "fruitbasket-*" ],
+      "extraSections": [
+        {
+          "title": "foodshelves:blockdesc-canhold-title",
+          "text": "foodshelves:blockdesc-fruitbasket-text"
+        }
+      ]
+    },
+    "inventoryClassName": "fruitbasket",
+    "attributeTransformCode": "onFruitBasketTransform"
+  },
+  "behaviors": [
+    { "name": "UnstableFalling" },
+    { "name": "RightClickPickup" }
+  ],
+  "shape": {
+    "base": "block/wood/baskets/fruitbasket",
+    "scale": 0.8
+  },
+  "textures": {
+    "sides": { "base": "game:block/wood/table/normal/sides" },
+    "top": { "base": "foodshelves:block/wood/fruitbasket/top" }
+  },
+  "heldTpIdleAnimation": "holdbothhandslarge",
+  "heldRightReadyAnimation": "heldblockready", 
+  "heldTpUseAnimation": "twohandplaceblock",
+  "blockmaterial": "Wood",
+  "lightAbsorption": 0,
+  "maxStackSize": 4,
+  "faceCullMode": "NeverCull",
+  "emitSideAo": { "all": false },
+  "sidesolid": { "all": false },
+  "sideopaque": { "all": false },
+  "replaceable": 999,
+  "resistance": 1.5,
+  "guiTransform": {
+    "origin": { "x": 0.5, "y": 0.3, "z": 0.5 },
+    "scale": 1.5
+  },
+  "tpHandTransform": {
+	  "translation": { "x": -1.175, "y": -0.5, "z": -0.225 },
+	  "rotation": { "x": 20, "y": 11, "z": -81 },
+	  "scale": 0.8
+  },
+  "sounds": {
+    "place": "game:block/planks",
+    "hit": "game:block/planks",
+    "break": "game:block/planks"
+  },
+  "materialDensity": 400,
+  "collisionSelectionBoxes": [
+    { "x1": 0.15, "y1": 0, "z1": 0.15, "x2": 0.85, "y2": 0.35, "z2": 0.85 }
+  ]
+}

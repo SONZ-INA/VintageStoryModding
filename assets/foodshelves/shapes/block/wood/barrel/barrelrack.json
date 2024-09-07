@@ -1,6 +1,5 @@
 {
 	"editor": {
-		"collapsedPaths": "Root/origin holder/Lfence1,Root/origin holder/holder1,Root/origin holder/Tfence1,Root/origin holder/holder8",
 		"allAngles": false,
 		"entityTextureMode": false
 	},
@@ -496,15 +495,29 @@
 						{
 							"name": "Tfence2",
 							"from": [ 15.5, 0.0, 0.0 ],
-							"to": [ 16.0, 6.0, 6.5 ],
+							"to": [ 16.0, 6.0, 2.0 ],
 							"rotationOrigin": [ 15.0, 0.0, 0.0 ],
 							"faces": {
 								"north": { "texture": "#surface", "uv": [ 4.0, 5.0, 4.5, 11.0 ] },
-								"east": { "texture": "#surface", "uv": [ 3.0, 6.0, 9.5, 12.0 ] },
+								"east": { "texture": "#surface", "uv": [ 3.0, 6.0, 5.0, 12.0 ] },
 								"south": { "texture": "#surface", "uv": [ 11.0, 5.0, 11.5, 11.0 ] },
-								"west": { "texture": "#surface", "uv": [ 7.0, 5.0, 13.5, 11.0 ] },
-								"up": { "texture": "#surface", "uv": [ 3.0, 5.0, 3.5, 11.5 ] },
-								"down": { "texture": "#surface", "uv": [ 4.0, 5.0, 4.5, 11.5 ] }
+								"west": { "texture": "#surface", "uv": [ 7.0, 5.0, 9.0, 11.0 ] },
+								"up": { "texture": "#surface", "uv": [ 3.0, 5.0, 3.5, 7.0 ] },
+								"down": { "texture": "#surface", "uv": [ 4.0, 5.0, 4.5, 7.0 ] }
+							}
+						},
+						{
+							"name": "Tfence3",
+							"from": [ 15.5, 0.0, 4.5 ],
+							"to": [ 16.0, 6.0, 6.5 ],
+							"rotationOrigin": [ 15.0, 0.0, 4.0 ],
+							"faces": {
+								"north": { "texture": "#surface", "uv": [ 4.0, 5.0, 4.5, 11.0 ] },
+								"east": { "texture": "#surface", "uv": [ 3.0, 6.0, 5.0, 12.0 ] },
+								"south": { "texture": "#surface", "uv": [ 11.0, 5.0, 11.5, 11.0 ] },
+								"west": { "texture": "#surface", "uv": [ 7.0, 5.0, 9.0, 11.0 ] },
+								"up": { "texture": "#surface", "uv": [ 3.0, 5.0, 3.5, 7.0 ] },
+								"down": { "texture": "#surface", "uv": [ 4.0, 5.0, 4.5, 7.0 ] }
 							}
 						}
 					]

@@ -1,0 +1,9 @@
+{
+  "*muffin-*": { "origin": { "x": 0.48, "y": 0, "z": 0.4875 }, "rotation": { "x": 0, "y": 90, "z": 0 }, "scale": 0.7 },
+  "*dumpling-*": { "origin": { "x": 0.38, "y": 0, "z": 0.4875 }, "scale": 0.8 },
+  "*doughball-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "rotation": { "x": 0, "y": 45, "z": 0 }, "scale": 0.9 },
+  "*breadedball-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "rotation": { "x": 0, "y": -65, "z": 0 }, "scale": 0.45 },
+  "*halva": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "rotation": { "x": 0, "y": 35, "z": 0 }, "scale": 0.7 },
+  "*pacoca": { "origin": { "x": 0.5, "y": 0, "z": 0.47 }, "rotation": { "x": 0, "y": -45, "z": 0 }, "scale": 0.65 },
+  "*marzipan": { "origin": { "x": 0.5, "y": 0, "z": 0.47 }, "scalexyz": { "x": 0.7, "y": 0.7, "z": 0.58 } }
+}

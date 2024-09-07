@@ -3,8 +3,8 @@
   "modid": "foodshelves",
   "name": "FoodShelves",
   "authors": [ "SONZ-INA" ],
-  "description": "Contains various food shelves, mainly made to be used alongside Expanded Foods.",
-  "version": "1.1.5",
+  "description": "Contains various food shelves and food storage, mainly made to be used alongside Expanded Foods.",
+  "version": "1.2.0",
   "dependencies": {
     "game": "1.19.8"
   }

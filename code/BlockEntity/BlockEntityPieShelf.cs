@@ -35,7 +35,6 @@ public class BlockEntityPieShelf : BlockEntityDisplay {
         }
 
         return 1;
-
     }
 
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {

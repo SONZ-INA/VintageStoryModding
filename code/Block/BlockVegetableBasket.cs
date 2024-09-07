@@ -1,0 +1,153 @@
+﻿namespace FoodShelves;
+
+public class BlockVegetableBasket : BlockContainer {
+    WorldInteraction[] interactions;
+
+    public override void OnLoaded(ICoreAPI api) {
+        base.OnLoaded(api);
+        PlacedPriorityInteract = true; // Needed to call OnBlockInteractStart when shifting with an item in hand
+
+        interactions = ObjectCacheUtil.GetOrCreate(api, "vegetablebasketBlockInteractions", () => {
+            List<ItemStack> vegetableStackList = new();
+
+            foreach(Item item in api.World.Items) {
+                if (item.Code == null) continue;
+
+                if (WildcardUtil.Match(VegetableBasketData.VegetableBasketCodes, item.Code.Path.ToString())) {
+                    vegetableStackList.Add(new ItemStack(item));
+                }
+            }
+
+            return new WorldInteraction[] {
+                new() {
+                    ActionLangCode = "foodshelves:blockhelp-vegetablebasket-add",
+                    MouseButton = EnumMouseButton.Right,
+                    HotKeyCode = "shift",
+                    Itemstacks = vegetableStackList.ToArray()
+                },
+                new() {
+                    ActionLangCode = "foodshelves:blockhelp-vegetablebasket-remove",
+                    MouseButton = EnumMouseButton.Right,
+                    HotKeyCode = "shift"
+                }
+            };
+        });
+    }
+
+    public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer) {
+        return interactions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer));      
+    }
+
+    public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
+        // Prevent duplicating of items inside
+        if (world.BlockAccessor.GetBlockEntity(pos) is BlockEntityVegetableBasket vgbasket) {
+            ItemStack[] contents = vgbasket.GetContentStacks();
+            ItemStack emptyVegetableBasket = new(this);
+            world.SpawnItemEntity(emptyVegetableBasket, pos.ToVec3d().Add(0.5, 0.5, 0.5));
+            for (int i = 0; i < contents.Length; i++) {
+                world.SpawnItemEntity(contents[i], pos.ToVec3d().Add(0.5, 0.5, 0.5));
+            }
+
+            world.BlockAccessor.SetBlock(0, pos);
+        }
+    }
+
+    // Rotation logic
+    public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack) {
+        bool val = base.DoPlaceBlock(world, byPlayer, blockSel, byItemStack);
+        BlockEntityVegetableBasket block = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityVegetableBasket;
+        block.MeshAngle = GetBlockMeshAngle(byPlayer, blockSel, val);
+
+        return val;
+    }
+
+    public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
+        if (byPlayer.Entity.Controls.ShiftKey) {
+            if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityVegetableBasket frbasket) 
+                return frbasket.OnInteract(byPlayer, blockSel);
+        }
+
+        return base.OnBlockInteractStart(world, byPlayer, blockSel);
+    }
+
+    public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo) {
+        base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+
+        dsc.Append(Lang.Get("Contents: "));
+
+        if (inSlot.Itemstack == null) {
+            dsc.AppendLine(Lang.Get("Empty."));
+            return;
+        }
+
+        ItemStack[] contents = GetContents(world, inSlot.Itemstack);
+        PerishableInfoAverageAndSoonest(contents, dsc, world, "vegetable");
+    }
+
+    // Mesh rendering for items when inside inventory
+    private string meshRefsCacheKey => Code.ToShortString() + "meshRefs";
+
+    public override void OnBeforeRender(ICoreClientAPI capi, ItemStack itemstack, EnumItemRenderTarget target, ref ItemRenderInfo renderinfo) {
+        Dictionary<int, MultiTextureMeshRef> meshrefs;
+
+        if (capi.ObjectCache.TryGetValue(meshRefsCacheKey, out object obj)) {
+            meshrefs = obj as Dictionary<int, MultiTextureMeshRef>;
+        }
+        else {
+            capi.ObjectCache[meshRefsCacheKey] = meshrefs = new Dictionary<int, MultiTextureMeshRef>();
+        }
+
+        ItemStack[] contents = GetContents(api.World, itemstack);
+        int hashcode = GetStackCacheHashCodeFNV(contents);
+
+        if (!meshrefs.TryGetValue(hashcode, out MultiTextureMeshRef meshRef)) {
+            string itemPath = "";
+            if (contents != null && contents.Length > 0 && contents[0] != null) itemPath = contents[0].Collectible.Code.Path.ToString();
+            GetTransformationMatrix(itemPath, out float[,] transformationMatrix);
+
+            MeshData meshdata = GenBlockWContentMesh(capi, this, contents, transformationMatrix, VegetableBasketTransformations);
+            if (meshdata != null) { 
+                meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(meshdata);
+            }
+        }
+
+        renderinfo.ModelRef = meshRef;
+    }
+
+    public static void GetTransformationMatrix(string path, out float[,] transformationMatrix) {
+        float[] x, y, z, rX, rY, rZ;
+
+        switch (path) {
+            case "vegetable-cabbage":
+                x = new float[] { .75f, .3f, .3f, .3f, .65f, .35f,  .5f, .1f,  .6f, .58f, .2f, .25f };
+                y = new float[] {    0,   0,   0, .25f,   0, .35f,  .2f, .2f,  .4f,  .4f, .5f, .52f };
+                z = new float[] { .05f,   0, .4f, .1f, .45f, .35f, .18f, .1f, .02f,  .4f,  0f, .15f };
+
+                rX = new float[] {  -2,   0,   0,  -3,   -3,   28,   16,  30,    0,    5,  -8,    8 };
+                rY = new float[] {   4,  -2,  15,  -4,   10,   12,   30,   4,   -5,   -2,  20,   15 };
+                rZ = new float[] {   1,  -1,   0,  45,    1,   41,    5,  17,   -2,  -20,  16,    8 };
+                break;
+            case "vegetable-bellpepper":
+            case "vegetable-avocado":
+                x = new float[] { .75f, .3f, .19f,  .3f, .51f, .35f,  .05f,  .85f,   .7f,  .9f, .58f,   .4f };
+                y = new float[] {    0,   0,    0, .25f,    0, .35f,   .2f, -.25f, -.35f, .15f,  .4f, -.35f };
+                z = new float[] { .05f,   0,  .3f, .05f,  .4f, .25f, -.05f,  .05f,  .05f, .35f,  .3f,  -.3f };
+
+                rX = new float[] {  -2,   0,    0,   -3,   -3,   28,    16,    90,    90,   30,    5,    90 };
+                rY = new float[] {   4,  -2,   15,   -4,   10,   12,    30,     0,     0,    4,   -2,     0 };
+                rZ = new float[] {   1,  -1,    0,   45,    1,   41,     5,    12,    83,   17,  -20,    83 };
+                break;
+            default: // carrots and similar
+                x = new float[] { .75f, .74f,  .73f, .72f,  .71f, .70f, .15f, .15f, .15f, .15f, .15f, .15f, .75f, .74f, .73f, .72f, .71f, .70f, .15f, .15f, .15f, .15f, .15f, .15f, .75f, .74f, .73f, .72f, .71f, .70f, .15f, .15f, .15f, .15f, .15f, .15f };
+                y = new float[] {    0,    0,     0,    0,     0,    0,    0,    0,    0,    0,    0,    0, .15f, .15f, .15f, .15f, .15f, .15f, .15f, .15f, .15f, .15f, .15f, .15f, .30f, .30f, .30f, .30f, .30f, .30f, .30f, .30f, .30f, .30f, .30f, .30f };
+                z = new float[] {-.03f, .12f,  .27f, .42f,  .57f, .72f,-.03f, .12f, .27f, .42f, .57f, .72f,-.03f, .12f, .27f, .42f, .57f, .72f,-.03f, .12f, .27f, .42f, .57f, .72f,-.03f, .12f, .27f, .42f, .57f, .72f,-.03f, .12f, .27f, .42f, .57f, .72f };
+
+                rX = new float[] {  -2,   -2,    -2,   -2,    -2,   -2,    0,    0,    0,    0,    0,    0,   -2,   -2,   -2,   -2,   -2,   -2,    0,    0,    0,    0,    0,    0,   -2,   -2,   -2,   -2,   -2,   -2,    0,    0,    0,    0,    0,    0 };
+                rY = new float[] {   4,    4,     4,    4,     4,    4,   -2,   -2,   -2,   -2,   -2,   -2,    4,    4,    4,    4,    4,    4,   -2,   -2,   -2,   -2,   -2,   -2,    4,    4,    4,    4,    4,    4,   -2,   -2,   -2,   -2,   -2,   -2 };
+                rZ = new float[] {   1,    1,     1,    1,     1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1 };
+                break;
+        }
+
+        transformationMatrix = GenTransformationMatrix(x, y, z, rX, rY, rZ);
+    }
+}

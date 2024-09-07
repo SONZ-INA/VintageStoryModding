@@ -1,8 +1,4 @@
-﻿using System.Linq;
-using static FoodShelves.BlockBounds;
-using static FoodShelves.SelectionBoxReferences;
-
-namespace FoodShelves;
+﻿namespace FoodShelves;
 
 public class BlockBarrelRack : BlockLiquidContainerBase {
     public override bool AllowHeldLiquidTransfer => false;
@@ -23,11 +19,17 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
         return base.OnBlockInteractStart(world, byPlayer, blockSel);
     }
 
+    public bool BaseOnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
+        return base.OnBlockInteractStart(world, byPlayer, blockSel);
+    }
+
     public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer) {
-        return null;
+        if (world.BlockAccessor.GetBlockEntity(selection.Position) is BlockEntityBarrelRack be && be.Inventory.Empty) return null;
+        else return base.GetPlacedBlockInteractionHelp(world, selection, forPlayer);
     }
 
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
+        // Copied vanilla barrel method
         bool preventDefault = false;
         foreach (BlockBehavior behavior in BlockBehaviors) {
             EnumHandling handled = EnumHandling.PassThrough;
@@ -68,46 +70,21 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
         return base.GetCollisionBoxes(blockAccessor, pos);
     }
 
+    public override void TryFillFromBlock(EntityItem byEntityItem, BlockPos pos) {
+        // Don't fill when dropped as item in water
+    }
+
     public override string GetPlacedBlockInfo(IWorldAccessor world, BlockPos pos, IPlayer forPlayer) {
         StringBuilder dsc = new();
 
-        switch (forPlayer.CurrentBlockSelection.SelectionBoxIndex) {
-            case (int)BarrelRackPart.Hole:
-                dsc.AppendLine(Lang.Get("foodshelves:Pour liquid into barrel."));
-                break;
-            case (int)BarrelRackPart.Tap:
-                dsc.AppendLine(Lang.Get("foodshelves:Pour liquid into held container."));
-                break;
-            default:
-                break;
-        }
-
-        dsc.AppendLine();
-
-        if (forPlayer.CurrentBlockSelection.Block.GetSelectionBoxes(world.BlockAccessor, pos).Length == 1) {
-            dsc.AppendLine(Lang.Get("foodshelves:Missing barrel."));
+        BlockEntityBarrelRack be = GetBlockEntity<BlockEntityBarrelRack>(pos);
+        if (be != null && be.Inventory.Empty) {
+            dsc.Append(Lang.Get("foodshelves:Missing barrel."));
         }
         else {
             dsc.Append(base.GetPlacedBlockInfo(world, pos, forPlayer));
         }
 
         return dsc.ToString();
-    }
-
-    public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
-        Block block = blockAccessor.GetBlock(pos);
-        if (blockAccessor.GetBlockEntity(pos) is BlockEntityBarrelRack be && !be.Inventory.Empty) {
-            Cuboidf[] selectionBoxes = SelectionBoxReferences.BarrelRackCuboids.Values.ToArray();
-
-            int rotationAngle = GetRotationAngle(block);
-
-            for (int i = 0; i < selectionBoxes.Length; i++) {
-                selectionBoxes[i] = RotateCuboid90Deg(selectionBoxes[i], rotationAngle);
-            }
-
-            return selectionBoxes;
-        }
-
-        return base.GetSelectionBoxes(blockAccessor, pos);
     }
 }

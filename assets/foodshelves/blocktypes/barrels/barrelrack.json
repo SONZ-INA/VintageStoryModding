@@ -48,7 +48,10 @@
   "faceCullMode": "NeverCull",
   "emitSideAo": { "all": false },
   "sidesolidByType": {
-    "barrelrack-normal-*": { "all": true },
+    "barrelrack-normal-*": {
+      "verticals": true,
+      "horizontals": false
+    },
     "barrelrack-top-*": { "all": false }
   },
   "sideopaque": { "all": false },
@@ -65,10 +68,6 @@
 	    "rotation": { "x": 93, "y": -15, "z": 0 },
 	    "scale": 0.45
     }
-  },
-  "fpHandTransform": {
-    "translation": { "x": 0.08, "y": -0.2, "z": 0.6 },
-    "rotation": { "x": 33, "y": 134, "z": -102 }
   },
   "sounds": {
     "place": "game:block/planks",

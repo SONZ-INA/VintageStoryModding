@@ -8,10 +8,10 @@ public class ItemSlotBarrelRackBig : ItemSlot {
     }
 
     public override bool CanTakeFrom(ItemSlot slot, EnumMergePriority priority = EnumMergePriority.AutoMerge) {
-        return slot.HorizontalBarrelRackBigCheck() && base.CanTakeFrom(slot, priority);
+        return slot.BarrelRackBigCheck() && base.CanTakeFrom(slot, priority);
     }
 
     public override bool CanHold(ItemSlot slot) {
-        return slot.HorizontalBarrelRackBigCheck() && base.CanHold(slot);
+        return slot.BarrelRackBigCheck() && base.CanHold(slot);
     }
 }

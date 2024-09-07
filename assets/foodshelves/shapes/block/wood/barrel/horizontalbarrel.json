@@ -1,6 +1,6 @@
 {
 	"editor": {
-		"collapsedPaths": "Root/origin upper ring,Root/Origin lid,Root/origin lower ring,Root/origin barrel",
+		"collapsedPaths": "Root/origin upper ring,Root/Origin lid/origin loop,Root/Origin lid/origin tap,Root/origin lower ring,Root/Origin lid/top lid,Root/origin barrel",
 		"allAngles": false,
 		"entityTextureMode": false
 	},
@@ -830,10 +830,9 @@
 		},
 		{
 			"name": "origin side tap",
-			"from": [ 7.2, 14.3, 14.35 ],
-			"to": [ 8.7, 14.55, 15.35 ],
-			"rotationOrigin": [ 6.2, 14.3, 13.7 ],
-			"rotationX": 90.0,
+			"from": [ 7.2, 15.0, 7.35 ],
+			"to": [ 8.7, 15.25, 8.35 ],
+			"rotationOrigin": [ 6.2, 15.3, 6.7 ],
 			"faces": {
 				"north": { "texture": "#aged", "uv": [ 0.0, 0.0, 1.5, 0.5 ] },
 				"east": { "texture": "#blackbronze4", "uv": [ 0.0, 0.0, 1.0, 0.5 ] },

@@ -100,8 +100,7 @@ public class BlockEntityTableWShelf : BlockEntityDisplay {
 
             // Using vanilla shelf transformations, the pot is too big so need to adjust it
             ItemSlot slot = inv[index];
-            bool? scaleCheck = slot?.Itemstack?.Collectible?.Code.Path.StartsWith("claypot-");
-            if (scaleCheck == true) scaleValue = 0.85f;
+            if (slot?.Itemstack?.Collectible?.Code.Path.StartsWith("claypot-") == true) scaleValue = 0.85f;
 
             tfMatrices[index] =
                 new Matrixf()

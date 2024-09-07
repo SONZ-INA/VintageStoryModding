@@ -1,39 +1,37 @@
 {
-  "code": "fruitbasket",
-  "class": "FoodShelves.BlockFruitBasket",
-  "entityclass": "FoodShelves.BlockEntityFruitBasket",
+  "code": "vegetablebasket",
+  "class": "FoodShelves.BlockVegetableBasket",
+  "entityclass": "FoodShelves.BlockEntityVegetableBasket",
   "creativeinventory": { "general": ["*"], "decorative": ["*"], "foodshelves": ["*"] },
   "variantgroups": [
     { "code": "type", "states": ["normal"] }
   ],
   "attributes": {
     "handbook": {
-      "groupBy": [ "fruitbasket-*" ],
+      "groupBy": [ "vegetablebasket-*" ],
       "extraSections": [
         {
           "title": "foodshelves:blockdesc-canhold-title",
-          "text": "foodshelves:blockdesc-fruitbasket-text"
+          "text": "foodshelves:blockdesc-vegetablebasket-text"
         }
       ]
     },
-    "inventoryClassName": "fruitbasket",
-    "attributeTransformCode": "onFruitBasketTransform"
+    "inventoryClassName": "vegetablebasket",
+    "attributeTransformCode": "onVegetableBasketTransform"
   },
   "behaviors": [
     { "name": "UnstableFalling" },
     { "name": "RightClickPickup" }
   ],
   "shape": {
-    "base": "block/wood/fruitbasket",
+    "base": "block/wood/baskets/vegetablebasket",
     "scale": 0.8
   },
   "textures": {
     "sides": { "base": "game:block/wood/table/normal/sides" },
-    "top": { "base": "foodshelves:block/wood/fruitbasket/top" }
+    "top": { "base": "foodshelves:block/wood/vegetablebasket/top" }
   },
-  "heldTpIdleAnimation": "holdbothhandslarge",
-  "heldRightReadyAnimation": "heldblockready", 
-  "heldTpUseAnimation": "twohandplaceblock",
+  "heldRightReadyAnimation": "helditemreadybucket", 
   "blockmaterial": "Wood",
   "lightAbsorption": 0,
   "maxStackSize": 4,
@@ -47,14 +45,11 @@
     "origin": { "x": 0.5, "y": 0.3, "z": 0.5 },
     "scale": 1.5
   },
-  "tpHandTransform": {
-	  "translation": { "x": -1.175, "y": -0.5, "z": -0.225 },
-	  "rotation": { "x": 20, "y": 11, "z": -81 },
-	  "scale": 0.8
-  },
-  "fpHandTransform": {
-    "scale": 1.5
-  },
+	"tpHandTransform": {
+		"translation": { "x": -0.65, "y": -0.55, "z": -0.625 },
+		"rotation": { "x": 0, "y": 0, "z": 0 },
+		"scale": 0.8
+	},
   "sounds": {
     "place": "game:block/planks",
     "hit": "game:block/planks",

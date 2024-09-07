@@ -1,8 +1,8 @@
 ﻿namespace FoodShelves;
 
 public static class Meshing {
-    public static void SetBlockMeshAngle(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, bool val) {
-        if (val && world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityFruitBasket frbasket) {
+    public static float GetBlockMeshAngle(IPlayer byPlayer, BlockSelection blockSel, bool val) {
+        if (val) {
             BlockPos targetPos = blockSel.DidOffset ? blockSel.Position.AddCopy(blockSel.Face.Opposite) : blockSel.Position;
             double dx = byPlayer.Entity.Pos.X - (targetPos.X + blockSel.HitPosition.X);
             double dz = byPlayer.Entity.Pos.Z - (targetPos.Z + blockSel.HitPosition.Z);
@@ -10,8 +10,10 @@ public static class Meshing {
 
             float deg22dot5rad = GameMath.PIHALF / 4;
             float roundRad = ((int)Math.Round(angleHor / deg22dot5rad)) * deg22dot5rad;
-            frbasket.MeshAngle = roundRad;
+            return roundRad;
         }
+
+        return 0;
     }
 
     public static MeshData GenBlockMesh(ICoreAPI Api, BlockEntity BE, ITesselatorAPI tesselator) {
@@ -111,7 +113,7 @@ public static class Meshing {
         return mesh;
     }
 
-    public static MeshData GenBlockWContentMesh(ICoreClientAPI capi, Block block, ItemStack[] contents) {
+    public static MeshData GenBlockWContentMesh(ICoreClientAPI capi, Block block, ItemStack[] contents, float[,] transformationMatrix, Dictionary<string, ModelTransform> modelTransformations = null) {
         if (block == null)
             return null;
 
@@ -146,28 +148,27 @@ public static class Meshing {
 
         // Content Region
         if (contents != null) {
+            int offset = transformationMatrix.GetLength(1);
+
             for (int i = 0; i < contents.Length; i++) {
                 if (contents[i] != null) {
-                    if (contents[i].Item == null) return basketMesh; // To fix the damn pumpkin bug
+                    if (contents[i].Item == null) continue; // To fix the damn pumpkin bug on existing worlds
                     capi.Tesselator.TesselateItem(contents[i].Item, out MeshData contentData);
 
-                    float[] x = { .65f, .3f, .3f, .3f, .6f, .35f, .5f, .65f, .35f, .1f, .6f, .58f, .3f, .2f, -.1f, .1f, .1f, .25f, .2f, .55f, .6f, .3f };
-                    float[] y = { 0, 0, 0, .25f, 0, .35f, .2f, -.3f, .3f, .2f, .4f, .4f, .4f, .5f, .57f, .05f, .3f, .52f, .55f, .45f, -.65f, .5f };
-                    float[] z = { .05f, 0, .4f, .1f, .45f, .35f, .18f, .7f, .55f, .1f, .02f, .3f, .7f, -.15f, .15f, -.2f, .9f, .05f, .6f, .35f, -.2f, .6f };
+                    if (i < offset) {
+                        if (modelTransformations != null) {
+                            ModelTransform transformation = contents[i].Item.GetTransformation(modelTransformations);
+                            if (transformation != null) contentData.ModelTransform(transformation);
+                        }
 
-                    float[] rX = { -2, 0, 0, -3, -3, 28, 16, -2, 20, 30, -20, 5, -75, -8, 10, 85, 0, 8, 15, -8, 90, -10 };
-                    float[] rY = { 4, -2, 15, -4, 10, 12, 30, 3, -2, 4, -5, -2, 2, 20, 55, 2, 50, 15, 0, 0, 22, 10 };
-                    float[] rZ = { 1, -1, 0, 45, 1, 41, 5, 70, 10, 17, -2, -20, 3, 16, 7, 6, -20, 8, -25, 15, 45, -10 };
-
-                    if (i < x.Length) {
                         float[] matrixTransform =
                             new Matrixf()
                             .Translate(0.5f, 0, 0.5f)
-                            .RotateXDeg(rX[i])
-                            .RotateYDeg(rY[i])
-                            .RotateZDeg(rZ[i])
+                            .RotateXDeg(transformationMatrix[3, i])
+                            .RotateYDeg(transformationMatrix[4, i])
+                            .RotateZDeg(transformationMatrix[5, i])
                             .Scale(0.5f, 0.5f, 0.5f)
-                            .Translate(x[i] - 0.84375f, y[i], z[i] - 0.8125f)
+                            .Translate(transformationMatrix[0, i] - 0.84375f, transformationMatrix[1, i], transformationMatrix[2, i] - 0.8125f)
                             .Values;
 
                         contentData.MatrixTransform(matrixTransform);

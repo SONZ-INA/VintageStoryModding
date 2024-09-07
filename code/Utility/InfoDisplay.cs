@@ -8,13 +8,20 @@ public static class InfoDisplay {
         ByBlockAverageAndSoonest
     }
 
-    public static void DisplayInfo(IPlayer forPlayer, StringBuilder sb, InventoryGeneric inv, InfoDisplayOptions displaySelection, int slotCount, int segmentsPerShelf, int itemsPerSegment, bool skipLine = true) {
+    public static void DisplayInfo(IPlayer forPlayer, StringBuilder sb, InventoryGeneric inv, InfoDisplayOptions displaySelection, int slotCount, int segmentsPerShelf, int itemsPerSegment, string itemName = "Item", bool skipLine = true) {
         if (skipLine) sb.AppendLine(); // Space in between to be in line with vanilla
 
         ICoreAPI Api = inv.Api;
 
         if (displaySelection == InfoDisplayOptions.ByBlockAverageAndSoonest) {
-            sb.AppendLine(PerishableInfoAverageAndSoonest(inv));
+            List<ItemStack> itemStackList = new();
+            foreach (var slot in inv) {
+                ItemStack itemStack = slot.Itemstack;
+                if (itemStack != null) itemStackList.Add(itemStack);
+            }
+
+            ItemStack[] contents = itemStackList.ToArray();
+            PerishableInfoAverageAndSoonest(contents, sb, Api.World, itemName);
             return;
         }
 
@@ -54,8 +61,7 @@ public static class InfoDisplay {
             }
             else {
                 sb.Append(stack.GetName());
-                if (stack.StackSize > 1)
-                    sb.Append(" x" + stack.StackSize);
+                if (stack.StackSize > 1) sb.Append(" x" + stack.StackSize);
 
                 sb.AppendLine();
             }
@@ -141,108 +147,13 @@ public static class InfoDisplay {
         return dsc.ToString();
     }
 
-    private static string PerishableInfoAverageAndSoonest(InventoryGeneric inv, bool withStackName = true) {
-        if (inv == null || inv.Empty) return "";
-
-        ICoreAPI Api = inv.Api;
-        StringBuilder dsc = new();
-        int nonRotItems = 0;
-        int rotItems = 0;
-        double totalFreshHours = 0;
-        int itemCount = 0;
-        ItemStack soonestPerishStack = null;
-        double soonestPerishHours = double.MaxValue;
-        float soonestTransitionLevel = 0;
-
-        foreach (var slot in inv) {
-            if (slot.Empty) continue;
-            ItemStack stack = slot.Itemstack;
-
-            if (stack.Item.Code.Path.StartsWith("rot")) {
-                rotItems++;
-                continue;
-            }
-
-            TransitionState[] transitionStates = stack?.Collectible.UpdateAndGetTransitionStates(Api.World, slot);
-
-            if (transitionStates != null && transitionStates.Length > 0) {
-                foreach (var state in transitionStates) {
-                    double freshHoursLeft = state.FreshHoursLeft / stack.Collectible.GetTransitionRateMul(Api.World, slot, state.Props.Type);
-                    if (state.Props.Type == EnumTransitionType.Perish) {
-                        nonRotItems++;
-                        totalFreshHours += freshHoursLeft * stack.StackSize;
-                        itemCount += stack.StackSize;
-
-                        if (freshHoursLeft < soonestPerishHours) {
-                            soonestPerishHours = freshHoursLeft;
-                            soonestPerishStack = stack;
-                            soonestTransitionLevel = state.TransitionLevel;
-                        }
-                    }
-                }
-            }
-        }
-
-        // Number of items inside
-        if (nonRotItems > 0) {
-            dsc.AppendLine(Lang.Get("Fruits inside: {0}", nonRotItems));
-        }
-
-        // Number of rotten items
-        if (rotItems > 0) {
-            dsc.AppendLine(Lang.Get("Rotten fruits: {0}", rotItems));
-        }
-
-        // Average perish rate
-        if (itemCount > 0) {
-            double averageFreshHoursLeft = totalFreshHours / itemCount;
-            double hoursPerday = Api.World.Calendar.HoursPerDay;
-
-            if (averageFreshHoursLeft / hoursPerday >= Api.World.Calendar.DaysPerYear) {
-                dsc.AppendLine(Lang.Get("Average perish rate: {0} years", Math.Round(averageFreshHoursLeft / hoursPerday / Api.World.Calendar.DaysPerYear, 1)));
-            }
-            else if (averageFreshHoursLeft > hoursPerday) {
-                dsc.AppendLine(Lang.Get("Average perish rate: {0} days", Math.Round(averageFreshHoursLeft / hoursPerday, 1)));
-            }
-            else {
-                dsc.AppendLine(Lang.Get("Average perish rate: {0} hours", Math.Round(averageFreshHoursLeft, 1)));
-            }
-        }
-
-        // Item that will perish the soonest
-        if (soonestPerishStack != null) {
-            dsc.Append(withStackName ? Lang.Get("Soonest: ") + soonestPerishStack.GetName() : Lang.Get("Fruit"));
-            double hoursPerday = Api.World.Calendar.HoursPerDay;
-
-            if (soonestTransitionLevel > 0) {
-                dsc.AppendLine(", " + Lang.Get("{0}% spoiled", (int)Math.Round(soonestTransitionLevel * 100)));
-            }
-            else {
-                if (soonestPerishHours / hoursPerday >= Api.World.Calendar.DaysPerYear) {
-                    dsc.AppendLine(", " + Lang.Get("will perish in {0} years", Math.Round(soonestPerishHours / hoursPerday / Api.World.Calendar.DaysPerYear, 1)));
-                }
-                else if (soonestPerishHours > hoursPerday) {
-                    dsc.AppendLine(", " + Lang.Get("will perish in {0} days", Math.Round(soonestPerishHours / hoursPerday, 1)));
-                }
-                else {
-                    dsc.AppendLine(", " + Lang.Get("will perish in {0} hours", Math.Round(soonestPerishHours, 1)));
-                }
-            }
-        }
-        else {
-            dsc.AppendLine(Lang.Get("No fruit will perish soon."));
-        }
-
-        return dsc.ToString();
-    }
-
-    public static void PerishableInfoAverageAndSoonest(ItemStack[] contents, StringBuilder dsc, IWorldAccessor world) {
+    public static void PerishableInfoAverageAndSoonest(ItemStack[] contents, StringBuilder dsc, IWorldAccessor world, string itemName) {
         if (contents == null) return;
 
-        int fruitsCount = 0;
+        int itemCount = 0;
         int rotCount = 0;
         double totalFreshHours = 0;
-        int itemCount = 0;
+        int totalCount = 0;
         ItemStack soonestPerishStack = null;
         double soonestPerishHours = double.MaxValue;
         float soonestTransitionLevel = 0;
@@ -251,7 +162,7 @@ public static class InfoDisplay {
             if (stack == null) continue;
 
             if (stack?.Collectible?.Code.Path.StartsWith("rot") == true) rotCount++;
-            else fruitsCount++;
+            else itemCount += stack.StackSize;
 
             ItemSlot tempSlot = new DummySlot(stack);
             TransitionState[] transitionStates = stack?.Collectible.UpdateAndGetTransitionStates(world, tempSlot);
@@ -261,7 +172,7 @@ public static class InfoDisplay {
                     double freshHoursLeft = state.FreshHoursLeft / stack.Collectible.GetTransitionRateMul(world, tempSlot, state.Props.Type);
                     if (state.Props.Type == EnumTransitionType.Perish) {
                         totalFreshHours += freshHoursLeft * stack.StackSize;
-                        itemCount += stack.StackSize;
+                        totalCount += stack.StackSize;
 
                         if (freshHoursLeft < soonestPerishHours) {
                             soonestPerishHours = freshHoursLeft;
@@ -272,20 +183,16 @@ public static class InfoDisplay {
                 }
             }
         }
-
+        
         // Number of fruits inside
-        if (fruitsCount > 0) {
-            dsc.AppendLine(Lang.Get("Fruits inside: {0}", fruitsCount));
-        }
+        if (itemCount > 0) dsc.AppendLine(Lang.Get($"{itemName.FirstCharToUpper()}s inside: {{0}}", itemCount));
 
         // Number of rotten items
-        if (rotCount > 0) {
-            dsc.AppendLine(Lang.Get("Rotten fruits: {0}", rotCount));
-        }
+        if (rotCount > 0) dsc.AppendLine(Lang.Get($"Rotten {itemName}s: {{0}}", rotCount));
 
         // Average perish rate
-        if (itemCount > 0) {
-            double averageFreshHoursLeft = totalFreshHours / itemCount;
+        if (totalCount > 0) {
+            double averageFreshHoursLeft = totalFreshHours / totalCount;
             double hoursPerday = world.Calendar.HoursPerDay;
 
             if (averageFreshHoursLeft / hoursPerday >= world.Calendar.DaysPerYear) {
@@ -320,7 +227,7 @@ public static class InfoDisplay {
             }
         }
         else {
-            dsc.AppendLine(Lang.Get("No fruit will perish soon."));
+            dsc.AppendLine(Lang.Get($"No {itemName} will perish soon."));
         }
     }
 }
