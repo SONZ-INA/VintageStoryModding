@@ -53,6 +53,32 @@ public static class Extensions {
         return null;
     }
 
+    public static void SetTreeAttributeContents(this ItemStack stack, InventoryGeneric inv, string attributeName, int index = 1) {
+        TreeAttribute stacksTree = new();
+
+        for (; index < inv.Count; index++) {
+            if (inv[index].Itemstack == null) break;
+            stacksTree[index + ""] = new ItemstackAttribute(inv[index].Itemstack);
+        }
+
+        stack.Attributes[$"{attributeName}"] = stacksTree;
+    }
+
+    public static ItemStack[] GetTreeAttributeContents(this ItemStack itemStack, ICoreClientAPI capi, string attributeName, int index = 1) {
+        ITreeAttribute tree = itemStack?.Attributes?.GetTreeAttribute($"{attributeName}");
+        List<ItemStack> contents = new();
+
+        if (tree != null) {
+            for (; index < tree.Count + 1; index++) {
+                ItemStack stack = tree.GetItemstack(index + "");
+                stack?.ResolveBlockOrItem(capi.World);
+                contents.Add(stack);
+            }
+        }
+
+        return contents.ToArray();
+    }
+
     public static int GetStackCacheHashCodeFNV(ItemStack[] contentStack) {
         if (contentStack == null) return 0;
 

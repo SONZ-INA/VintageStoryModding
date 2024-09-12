@@ -94,7 +94,6 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
                 for (int item = 0; item < itemsPerSegment; item++) {
                     int index = shelf * (segmentsPerShelf * itemsPerSegment) + segment * itemsPerSegment + item;
 
-
                     tfMatrices[index] = 
                         new Matrixf()
                         .Translate(0.5f, 0, 0.5f)

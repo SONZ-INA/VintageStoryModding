@@ -10,10 +10,6 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
         PlacedPriorityInteract = true; // Needed to call OnBlockInteractStart when shifting with an item in hand
     }
 
-    public override bool DoParticalSelection(IWorldAccessor world, BlockPos pos) {
-        return true;
-    }
-
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
         if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityBarrelRack hbr) return hbr.OnInteract(byPlayer, blockSel);
         return base.OnBlockInteractStart(world, byPlayer, blockSel);
@@ -29,7 +25,7 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
     }
 
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
-        // Copied vanilla barrel method
+        // First, check for behaviors preventing default, for example Reinforcement system
         bool preventDefault = false;
         foreach (BlockBehavior behavior in BlockBehaviors) {
             EnumHandling handled = EnumHandling.PassThrough;
@@ -41,22 +37,11 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
 
         if (preventDefault) return;
 
-        if (world.Side == EnumAppSide.Server && (byPlayer == null || byPlayer.WorldData.CurrentGameMode != EnumGameMode.Creative)) {
-            ItemStack[] drops = new ItemStack[] { new(this) };
+        // Drop inventory (the barrel)
+        BlockEntityBarrelRack be = GetBlockEntity<BlockEntityBarrelRack>(pos);
+        be?.Inventory.DropAll(pos.ToVec3d());
 
-            for (int i = 0; i < drops.Length; i++) {
-                world.SpawnItemEntity(drops[i], new Vec3d(pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5), null);
-            }
-
-            world.PlaySoundAt(Sounds.GetBreakSound(byPlayer), pos.X, pos.Y, pos.Z, byPlayer);
-        }
-
-        if (EntityClass != null) {
-            BlockEntity entity = world.BlockAccessor.GetBlockEntity(pos);
-            entity?.OnBlockBroken();
-        }
-
-        world.BlockAccessor.SetBlock(0, pos);
+        base.OnBlockBroken(world, pos, byPlayer);
     }
 
     public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
