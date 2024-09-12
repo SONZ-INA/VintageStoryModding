@@ -37,11 +37,22 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
 
         if (preventDefault) return;
 
-        // Drop inventory (the barrel)
+        // Drop barrel
         BlockEntityBarrelRack be = GetBlockEntity<BlockEntityBarrelRack>(pos);
         be?.Inventory.DropAll(pos.ToVec3d());
 
-        base.OnBlockBroken(world, pos, byPlayer);
+        // Spawn liquid particles
+        if (world.Side == EnumAppSide.Server && (byPlayer == null || byPlayer.WorldData.CurrentGameMode != EnumGameMode.Creative)) {
+            ItemStack[] array = new ItemStack[1] { OnPickBlock(world, pos) };
+            for (int j = 0; j < array.Length; j++) {
+                world.SpawnItemEntity(array[j], new Vec3d(pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5));
+            }
+
+            world.PlaySoundAt(Sounds.GetBreakSound(byPlayer), pos.X, pos.Y, pos.Z, byPlayer);
+        }
+
+        world.BlockAccessor.SetBlock(0, pos);
+        //base.OnBlockBroken(world, pos, byPlayer);
     }
 
     public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
