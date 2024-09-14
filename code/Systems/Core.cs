@@ -1,4 +1,5 @@
-﻿using static FoodShelves.Patches;
+﻿using Vintagestory.Client.NoObf;
+using static FoodShelves.Patches;
 
 [assembly: ModInfo(name: "Food Shelves", modID: "foodshelves")]
 
@@ -35,6 +36,15 @@ public class Core : ModSystem {
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityBarrelRackBig", typeof(BlockEntityBarrelRackBig));
 
         api.RegisterBlockClass("FoodShelves.BlockHorizontalBarrelBig", typeof(BlockHorizontalBarrelBig));
+    }
+
+    public override void StartClientSide(ICoreClientAPI api) {
+        GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onPieShelfTransform, AttributeName = onPieShelfTransform });
+        GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onBreadShelfTransform, AttributeName = onBreadShelfTransform });
+        GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onBarShelfTransform, AttributeName = onBreadShelfTransform });
+        GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onEggShelfTransform, AttributeName = onEggShelfTransform });
+        GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onSeedShelfTransform, AttributeName = onSeedShelfTransform });
+        GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onSushiShelfTransform, AttributeName = onSushiShelfTransform });
     }
 
     public override void AssetsLoaded(ICoreAPI api) {
