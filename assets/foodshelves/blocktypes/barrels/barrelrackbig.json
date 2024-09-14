@@ -33,11 +33,11 @@
     }
   ],
   "shapeByType": {
-    "*-normal-*": {
+    "*-normal*": {
       "base": "block/wood/barrel/barrelrackbig",
       "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
     },
-    "*-top-*": {
+    "*-top*": {
       "base": "block/wood/barrel/barrelracktopbig",
       "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
     }

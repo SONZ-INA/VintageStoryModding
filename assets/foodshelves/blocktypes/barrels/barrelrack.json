@@ -25,11 +25,11 @@
     { "name": "HorizontalOrientable" }
   ],
   "shapeByType": {
-    "*-normal-*": {
+    "*-normal*": {
       "base": "block/wood/barrel/barrelrack",
       "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
     },
-    "*-top-*": {
+    "*-top*": {
       "base": "block/wood/barrel/barrelracktop",
       "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
     }
