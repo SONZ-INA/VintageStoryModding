@@ -1,0 +1,53 @@
+[
+  {
+    "file": "foodshelves:blocktypes/baskets/*",
+    "op": "replace",
+    "path": "/variantgroups/0/states",
+    "value": [ "normal", "aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart" ],
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:blocktypes/baskets/fruitbasket.json",
+    "op": "add",
+    "path": "/texturesByType",
+    "value": {
+      "*-normal": {
+        "sides": { "base": "game:block/wood/table/normal/sides" },
+        "top": { "base": "foodshelves:block/wood/fruitbasket/top" }
+      }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:blocktypes/baskets/fruitbasket.json",
+    "op": "replace",
+    "path": "/textures",
+    "value": {
+      "sides": { "base": "game:block/wood/debarked/{type}" },
+      "top": { "base": "game:block/wood/debarked/{type}", "blendedOverlays": [{ "base": "foodshelves:vanvar/baskets/fruittop" }] }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:blocktypes/baskets/vegetablebasket.json",
+    "op": "add",
+    "path": "/texturesByType",
+    "value": {
+      "*-normal": {
+        "sides": { "base": "game:block/wood/table/normal/sides" },
+        "top": { "base": "foodshelves:block/wood/vegetablebasket/top" }
+      }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:blocktypes/baskets/vegetablebasket.json",
+    "op": "replace",
+    "path": "/textures",
+    "value": {
+      "sides": { "base": "game:block/wood/debarked/{type}" },
+      "top": { "base": "game:block/wood/debarked/{type}", "blendedOverlays": [{ "base": "foodshelves:vanvar/baskets/vegetabletop" }] }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  }
+]

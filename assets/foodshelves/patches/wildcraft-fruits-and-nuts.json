@@ -11,6 +11,13 @@
     "op": "replace",
     "path": "/0/enabled",
     "value": true,
-    "dependsOn": [ { "modid": "wildcraftfruit" } ]
+    "dependsOn": [ { "modid": "wildcraftfruit" }, { "modid": "vanvar", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "replace",
+    "path": "/13/enabled",
+    "value": true,
+    "dependsOn": [ { "modid": "wildcraftfruit" }, { "modid": "vanvar" } ]
   }
 ]

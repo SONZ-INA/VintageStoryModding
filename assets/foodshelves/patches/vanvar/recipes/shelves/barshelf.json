@@ -1,0 +1,444 @@
+[ 
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-aged", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-aged-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-aged-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-birch", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-birch-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-birch-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-oak", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-oak-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-oak-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-maple", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-maple-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-maple-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-pine", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-pine-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-pine-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-acacia", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-acacia-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-acacia-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-kapok", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-kapok-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-kapok-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-baldcypress", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-baldcypress-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-baldcypress-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-larch", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-larch-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-larch-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-redwood", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-redwood-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-redwood-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-ebony", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-ebony-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-ebony-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-walnut", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-walnut-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-walnut-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-purpleheart", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-purpleheart-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-purpleheart-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-aged", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-aged-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-aged-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "wildcraftfruit" }, { "modid": "expandedfoods", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-birch", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-birch-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-birch-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "wildcraftfruit" }, { "modid": "expandedfoods", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-oak", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-oak-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-oak-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "wildcraftfruit" }, { "modid": "expandedfoods", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-maple", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-maple-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-maple-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "wildcraftfruit" }, { "modid": "expandedfoods", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-pine", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-pine-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-pine-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "wildcraftfruit" }, { "modid": "expandedfoods", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-acacia", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-acacia-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-acacia-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "wildcraftfruit" }, { "modid": "expandedfoods", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-kapok", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-kapok-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-kapok-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "wildcraftfruit" }, { "modid": "expandedfoods", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-baldcypress", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-baldcypress-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-baldcypress-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "wildcraftfruit" }, { "modid": "expandedfoods", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-larch", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-larch-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-larch-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "wildcraftfruit" }, { "modid": "expandedfoods", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-redwood", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-redwood-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-redwood-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "wildcraftfruit" }, { "modid": "expandedfoods", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-ebony", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-ebony-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-ebony-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "wildcraftfruit" }, { "modid": "expandedfoods", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-walnut", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-walnut-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-walnut-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "wildcraftfruit" }, { "modid": "expandedfoods", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PPP,_S_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-purpleheart", "quantity": 2 },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-purpleheart-east" }
+      },
+      "width": 3,
+      "height": 2,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barshelf-purpleheart-east" }
+    },
+    "dependsOn": [ { "modid": "vanvar" }, { "modid": "wildcraftfruit" }, { "modid": "expandedfoods", "invert": true } ]
+  }
+]

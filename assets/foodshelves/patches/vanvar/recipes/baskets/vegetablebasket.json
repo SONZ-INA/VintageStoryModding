@@ -1,0 +1,236 @@
+[
+  {
+    "file": "foodshelves:recipes/grid/baskets/vegetablebasket.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "_O_,S_S,P_P",
+      "ingredients": {
+        "O": { "type": "item", "code": "game:stick" },
+        "S": { "type": "item", "code": "game:stick", "quantity": 4 },
+        "P": { "type": "item", "code": "game:plank-aged" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "vegetablebasket-aged" }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/baskets/vegetablebasket.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "_O_,S_S,P_P",
+      "ingredients": {
+        "O": { "type": "item", "code": "game:stick" },
+        "S": { "type": "item", "code": "game:stick", "quantity": 4 },
+        "P": { "type": "item", "code": "game:plank-birch" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "vegetablebasket-birch" }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/baskets/vegetablebasket.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "_O_,S_S,P_P",
+      "ingredients": {
+        "O": { "type": "item", "code": "game:stick" },
+        "S": { "type": "item", "code": "game:stick", "quantity": 4 },
+        "P": { "type": "item", "code": "game:plank-oak" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "vegetablebasket-oak" }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/baskets/vegetablebasket.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "_O_,S_S,P_P",
+      "ingredients": {
+        "O": { "type": "item", "code": "game:stick" },
+        "S": { "type": "item", "code": "game:stick", "quantity": 4 },
+        "P": { "type": "item", "code": "game:plank-maple" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "vegetablebasket-maple" }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/baskets/vegetablebasket.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "_O_,S_S,P_P",
+      "ingredients": {
+        "O": { "type": "item", "code": "game:stick" },
+        "S": { "type": "item", "code": "game:stick", "quantity": 4 },
+        "P": { "type": "item", "code": "game:plank-pine" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "vegetablebasket-pine" }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/baskets/vegetablebasket.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "_O_,S_S,P_P",
+      "ingredients": {
+        "O": { "type": "item", "code": "game:stick" },
+        "S": { "type": "item", "code": "game:stick", "quantity": 4 },
+        "P": { "type": "item", "code": "game:plank-acacia" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "vegetablebasket-acacia" }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/baskets/vegetablebasket.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "_O_,S_S,P_P",
+      "ingredients": {
+        "O": { "type": "item", "code": "game:stick" },
+        "S": { "type": "item", "code": "game:stick", "quantity": 4 },
+        "P": { "type": "item", "code": "game:plank-kapok" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "vegetablebasket-kapok" }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/baskets/vegetablebasket.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "_O_,S_S,P_P",
+      "ingredients": {
+        "O": { "type": "item", "code": "game:stick" },
+        "S": { "type": "item", "code": "game:stick", "quantity": 4 },
+        "P": { "type": "item", "code": "game:plank-baldcypress" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "vegetablebasket-baldcypress" }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/baskets/vegetablebasket.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "_O_,S_S,P_P",
+      "ingredients": {
+        "O": { "type": "item", "code": "game:stick" },
+        "S": { "type": "item", "code": "game:stick", "quantity": 4 },
+        "P": { "type": "item", "code": "game:plank-larch" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "vegetablebasket-larch" }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/baskets/vegetablebasket.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "_O_,S_S,P_P",
+      "ingredients": {
+        "O": { "type": "item", "code": "game:stick" },
+        "S": { "type": "item", "code": "game:stick", "quantity": 4 },
+        "P": { "type": "item", "code": "game:plank-redwood" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "vegetablebasket-redwood" }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/baskets/vegetablebasket.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "_O_,S_S,P_P",
+      "ingredients": {
+        "O": { "type": "item", "code": "game:stick" },
+        "S": { "type": "item", "code": "game:stick", "quantity": 4 },
+        "P": { "type": "item", "code": "game:plank-ebony" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "vegetablebasket-ebony" }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/baskets/vegetablebasket.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "_O_,S_S,P_P",
+      "ingredients": {
+        "O": { "type": "item", "code": "game:stick" },
+        "S": { "type": "item", "code": "game:stick", "quantity": 4 },
+        "P": { "type": "item", "code": "game:plank-walnut" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "vegetablebasket-walnut" }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/baskets/vegetablebasket.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "_O_,S_S,P_P",
+      "ingredients": {
+        "O": { "type": "item", "code": "game:stick" },
+        "S": { "type": "item", "code": "game:stick", "quantity": 4 },
+        "P": { "type": "item", "code": "game:plank-purpleheart" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "vegetablebasket-purpleheart" }
+    },
+    "dependsOn": [ { "modid": "vanvar" } ]
+  }
+]

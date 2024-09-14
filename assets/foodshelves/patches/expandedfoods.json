@@ -11,7 +11,14 @@
     "op": "replace",
     "path": "/0/enabled",
     "value": true,
-    "dependsOn": [ { "modid": "expandedfoods" } ]
+    "dependsOn": [ { "modid": "expandedfoods" }, { "modid": "vanvar", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "replace",
+    "path": "/13/enabled",
+    "value": true,
+    "dependsOn": [ { "modid": "expandedfoods" }, { "modid": "vanvar" } ]
   },
   {
     "file": "foodshelves:blocktypes/shelves/sushishelf.json",
@@ -25,6 +32,13 @@
     "op": "add",
     "path": "/0/enabled",
     "value": false,
-    "dependsOn": [ { "modid": "expandedfoods", "invert": true } ]
+    "dependsOn": [ { "modid": "expandedfoods", "invert": true }, { "modid": "vanvar", "invert": true } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "add",
+    "path": "/13/enabled",
+    "value": false,
+    "dependsOn": [ { "modid": "expandedfoods", "invert": true }, { "modid": "vanvar" } ]
   }
 ]
