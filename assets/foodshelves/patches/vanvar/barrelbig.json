@@ -25,8 +25,8 @@
     "op": "replace",
     "path": "/textures",
     "value": {
-      "bottom": { "base": "block/wood/horizontalbarrelbig/bottom{type}" },
-      "top": { "base": "block/wood/horizontalbarrelbig/top{type}" },
+      "bottom": { "base": "vanvar/horizontalbarrelbig/bottom{type}" },
+      "top": { "base": "vanvar/horizontalbarrelbig/top{type}" },
       "blackbronze4": { "base": "game:block/metal/sheet/blackbronze4" },
       "aged": { "base": "game:block/wood/debarked/{type}" }
     },
