@@ -4,15 +4,14 @@
     "op": "addmerge",
     "path": "/0",
     "value": {
-      "ingredientPattern": "PSP,S_S,PSP",
+      "ingredientPattern": "__,_B",
       "ingredients": {
-        "S": { "type": "item", "code": "game:stick" },
-        "P": { "type": "item", "code": "game:plank-*", "name": "wood" }
+        "B": { "type": "block", "code": "foodshelves:barrelrack-top*-north", "quantity": 2, "name": "wood" }
       },
-      "width": 3,
-      "height": 3,
-      "recipeGroup": 1,
-      "output": { "type": "block", "code": "barrelrack-normal{wood}-east" }
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barrelrack-normal{wood}-north" }
     },
     "dependsOn": [ { "modid": "vanvar" } ]
   },
@@ -28,7 +27,7 @@
       "width": 2,
       "height": 2,
       "recipeGroup": 2,
-      "output": { "type": "block", "code": "barrelrack-top{wood}-east", "quantity": 2 }
+      "output": { "type": "block", "code": "barrelrack-top{wood}-north", "quantity": 2 }
     },
     "dependsOn": [ { "modid": "vanvar" } ]
   },
@@ -37,14 +36,15 @@
     "op": "addmerge",
     "path": "/0",
     "value": {
-      "ingredientPattern": "__,_B",
+      "ingredientPattern": "PSP,S_S,PSP",
       "ingredients": {
-        "B": { "type": "block", "code": "foodshelves:barrelrack-top*-north", "quantity": 2, "name": "wood" }
+        "S": { "type": "item", "code": "game:stick" },
+        "P": { "type": "item", "code": "game:plank-*", "name": "wood" }
       },
-      "width": 2,
-      "height": 2,
-      "recipeGroup": 2,
-      "output": { "type": "block", "code": "barrelrack-normal{wood}-east" }
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "barrelrack-normal{wood}-north" }
     },
     "dependsOn": [ { "modid": "vanvar" } ]
   }

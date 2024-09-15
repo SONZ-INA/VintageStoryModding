@@ -13,7 +13,7 @@
       "width": 3,
       "height": 3,
       "recipeGroup": 1,
-      "output": { "type": "block", "code": "barrelrackbig-normal{wood}-east" }
+      "output": { "type": "block", "code": "barrelrackbig-normal{wood}-north" }
     },
     "dependsOn": [ { "modid": "vanvar" } ]
   },
@@ -29,7 +29,7 @@
       "width": 2,
       "height": 2,
       "recipeGroup": 2,
-      "output": { "type": "block", "code": "barrelrackbig-top{wood}-east", "quantity": 2 }
+      "output": { "type": "block", "code": "barrelrackbig-top{wood}-north", "quantity": 2 }
     },
     "dependsOn": [ { "modid": "vanvar" } ]
   },
@@ -45,7 +45,7 @@
       "width": 2,
       "height": 2,
       "recipeGroup": 2,
-      "output": { "type": "block", "code": "barrelrackbig-normal{wood}-east" }
+      "output": { "type": "block", "code": "barrelrackbig-normal{wood}-north" }
     },
     "dependsOn": [ { "modid": "vanvar" } ]
   }
