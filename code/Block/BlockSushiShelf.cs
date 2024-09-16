@@ -13,4 +13,9 @@ public class BlockSushiShelf : Block {
         if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntitySushiShelf beshelf) return beshelf.OnInteract(byPlayer, blockSel);
         return base.OnBlockInteractStart(world, byPlayer, blockSel);
     }
+
+    public override string GetHeldItemName(ItemStack itemStack) {
+        string variantName = itemStack.GetMaterialNameLocalized();
+        return base.GetHeldItemName(itemStack) + variantName;
+    }
 }

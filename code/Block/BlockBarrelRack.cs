@@ -1,4 +1,6 @@
-﻿namespace FoodShelves;
+﻿using Vintagestory.API.Common;
+
+namespace FoodShelves;
 
 public class BlockBarrelRack : BlockLiquidContainerBase {
     public override bool AllowHeldLiquidTransfer => false;
@@ -22,6 +24,11 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
     public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer) {
         if (world.BlockAccessor.GetBlockEntity(selection.Position) is BlockEntityBarrelRack be && be.Inventory.Empty) return null;
         else return base.GetPlacedBlockInteractionHelp(world, selection, forPlayer);
+    }
+
+    public override string GetHeldItemName(ItemStack itemStack) {
+        string variantName = itemStack.GetMaterialNameLocalized(new string[] { "type" }, new string[] { "normal", "top" });
+        return base.GetHeldItemName(itemStack) + variantName;
     }
 
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
@@ -57,7 +64,7 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
 
     public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
         Block block = blockAccessor.GetBlock(pos);
-        if (block.Code.Path.StartsWith("barrelrack-top-")) {
+        if (block.Code.Path.StartsWith("barrelrack-top")) {
             if (blockAccessor.GetBlockEntity(pos) is BlockEntityBarrelRack be && be.Inventory.Empty) {
                 return new Cuboidf[] { new(0, 0, 0, 1f, 0.3f, 1f) };
             }

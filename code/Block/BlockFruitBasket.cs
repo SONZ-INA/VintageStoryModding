@@ -52,6 +52,11 @@ public class BlockFruitBasket : BlockContainer {
         }
     }
 
+    public override string GetHeldItemName(ItemStack itemStack) {
+        string variantName = itemStack.GetMaterialNameLocalized();
+        return base.GetHeldItemName(itemStack) + variantName;
+    }
+
     // Rotation logic
     public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack) {
         bool val = base.DoPlaceBlock(world, byPlayer, blockSel, byItemStack);
