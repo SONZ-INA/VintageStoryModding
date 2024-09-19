@@ -15,6 +15,6 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "horizontalbarrelbig-{wood}" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   }
 ]

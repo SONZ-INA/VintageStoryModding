@@ -14,7 +14,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "sushishelf-aged-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
@@ -31,7 +31,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "sushishelf-birch-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
@@ -48,7 +48,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "sushishelf-oak-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
@@ -65,7 +65,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "sushishelf-maple-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
@@ -82,7 +82,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "sushishelf-pine-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
@@ -99,7 +99,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "sushishelf-acacia-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
@@ -116,7 +116,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "sushishelf-kapok-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
@@ -133,7 +133,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "sushishelf-baldcypress-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
@@ -150,7 +150,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "sushishelf-larch-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
@@ -167,7 +167,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "sushishelf-redwood-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
@@ -184,7 +184,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "sushishelf-ebony-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
@@ -201,7 +201,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "sushishelf-walnut-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
@@ -218,6 +218,6 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "sushishelf-purpleheart-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" }, { "modid": "expandedfoods" } ]
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   }
 ]

@@ -15,7 +15,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "barrelrackbig-normal{wood}-north" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/barrels/barrelrackbig.json",
@@ -31,7 +31,7 @@
       "recipeGroup": 2,
       "output": { "type": "block", "code": "barrelrackbig-top{wood}-north", "quantity": 2 }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/barrels/barrelrackbig.json",
@@ -44,9 +44,9 @@
       },
       "width": 2,
       "height": 2,
-      "recipeGroup": 2,
+      "recipeGroup": 3,
       "output": { "type": "block", "code": "barrelrackbig-normal{wood}-north" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   }
 ]

@@ -1,6 +1,4 @@
-﻿using Vintagestory.API.Common;
-
-namespace FoodShelves;
+﻿namespace FoodShelves;
 
 public class BlockBarrelRack : BlockLiquidContainerBase {
     public override bool AllowHeldLiquidTransfer => false;

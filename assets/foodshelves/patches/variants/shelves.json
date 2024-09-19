@@ -4,7 +4,7 @@
     "op": "replace",
     "path": "/variantgroups/0/states",
     "value": [ "normal", "aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart" ],
-    "dependsOn": [ { "modid": "vanvar" } ]
+    "condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:blocktypes/shelves/*",
@@ -16,16 +16,16 @@
         "surface": { "base": "game:block/wood/shelf/surface" }
       }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+    "condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:blocktypes/shelves/*",
     "op": "replace",
     "path": "/textures",
     "value": {
-      "surface": { "base": "game:block/wood/debarked/{type}", "blendedOverlays": [{ "base": "foodshelves:vanvar/shelves/surface" }] },
-      "wood": { "base": "game:block/wood/debarked/{type}", "blendedOverlays": [{ "base": "foodshelves:vanvar/shelves/wood" }] }
+      "surface": { "base": "game:block/wood/debarked/{type}", "blendedOverlays": [{ "base": "foodshelves:variants/shelves/surface" }] },
+      "wood": { "base": "game:block/wood/debarked/{type}", "blendedOverlays": [{ "base": "foodshelves:variants/shelves/wood" }] }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+    "condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   }
 ]

@@ -13,6 +13,6 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "breadshelf-{wood}-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   }
 ]

@@ -1,6 +1,8 @@
 {
   "game:tabname-foodshelves": "Food Shelves",
 
+  "foodshelvesserver": "FoodShelves Server",
+
   "block-pieshelf-*": "Pie/Cheese Shelf",
   "block-breadshelf-*": "Bread Shelf",
   "block-barshelf-*": "Bar Shelf",

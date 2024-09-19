@@ -6,6 +6,26 @@ using static FoodShelves.Patches;
 namespace FoodShelves;
 
 public class Core : ModSystem {
+    public static ConfigServer ConfigServer { get; set; }
+
+    public override void StartPre(ICoreAPI api) {
+        if (api.Side.IsServer()) {
+            ConfigServer = ModConfig.ReadConfig<ConfigServer>(api, ConfigServer.ConfigServerName);
+            api.World.Config.SetBool("FoodShelves.EnableVariants", ConfigServer.EnableVariants);
+
+            bool ExpandedFoodsVariants = api.ModLoader.IsModEnabled("expandedfoods") && ConfigServer.EnableVariants;
+            bool WildcraftFruitsNutsVariants = api.ModLoader.IsModEnabled("wildcraftfruit") && ConfigServer.EnableVariants;
+
+            api.World.Config.SetBool("FoodShelves.ExpandedFoodsVariants", ExpandedFoodsVariants);
+            api.World.Config.SetBool("FoodShelves.WildcraftFruitsNutsVariants", WildcraftFruitsNutsVariants);
+            api.World.Config.SetBool("FoodShelves.EForWFNVariants", ExpandedFoodsVariants || WildcraftFruitsNutsVariants);
+        }
+
+        if (api.ModLoader.IsModEnabled("configlib")) {
+            _ = new ConfigLibCompatibility(api);
+        }
+    }
+
     public override void Start(ICoreAPI api) {
         base.Start(api);
 

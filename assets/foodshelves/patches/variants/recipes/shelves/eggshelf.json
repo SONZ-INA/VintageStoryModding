@@ -14,7 +14,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "eggshelf-aged-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/eggshelf.json",
@@ -31,7 +31,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "eggshelf-birch-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/eggshelf.json",
@@ -48,7 +48,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "eggshelf-oak-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/eggshelf.json",
@@ -65,7 +65,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "eggshelf-maple-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/eggshelf.json",
@@ -82,7 +82,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "eggshelf-pine-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/eggshelf.json",
@@ -99,7 +99,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "eggshelf-acacia-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/eggshelf.json",
@@ -116,7 +116,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "eggshelf-kapok-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/eggshelf.json",
@@ -133,7 +133,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "eggshelf-baldcypress-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/eggshelf.json",
@@ -150,7 +150,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "eggshelf-larch-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/eggshelf.json",
@@ -167,7 +167,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "eggshelf-redwood-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/eggshelf.json",
@@ -184,7 +184,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "eggshelf-ebony-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/eggshelf.json",
@@ -201,7 +201,7 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "eggshelf-walnut-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/eggshelf.json",
@@ -218,6 +218,6 @@
       "recipeGroup": 1,
       "output": { "type": "block", "code": "eggshelf-purpleheart-east" }
     },
-    "dependsOn": [ { "modid": "vanvar" } ]
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   }
 ]

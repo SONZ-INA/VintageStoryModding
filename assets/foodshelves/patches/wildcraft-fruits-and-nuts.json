@@ -8,16 +8,16 @@
   },
   {
     "file": "foodshelves:recipes/grid/shelves/barshelf.json",
-    "op": "replace",
+    "op": "addmerge",
     "path": "/0/enabled",
     "value": true,
-    "dependsOn": [ { "modid": "wildcraftfruit" }, { "modid": "vanvar", "invert": true } ]
+    "dependsOn": [ { "modid": "wildcraftfruit" } ]
   },
   {
     "file": "foodshelves:recipes/grid/shelves/barshelf.json",
-    "op": "replace",
+    "op": "addmerge",
     "path": "/13/enabled",
     "value": true,
-    "dependsOn": [ { "modid": "wildcraftfruit" }, { "modid": "vanvar" } ]
+    "condition": { "when": "FoodShelves.WildcraftFruitsNutsVariants", "isValue": "true" }
   }
 ]
