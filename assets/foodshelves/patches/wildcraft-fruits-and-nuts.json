@@ -8,9 +8,16 @@
   },
   {
     "file": "foodshelves:recipes/grid/shelves/barshelf.json",
-    "op": "replace",
+    "op": "addmerge",
     "path": "/0/enabled",
     "value": true,
     "dependsOn": [ { "modid": "wildcraftfruit" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/13/enabled",
+    "value": true,
+    "condition": { "when": "FoodShelves.WildcraftFruitsNutsVariants", "isValue": "true" }
   }
 ]

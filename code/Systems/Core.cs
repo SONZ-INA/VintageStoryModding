@@ -1,10 +1,31 @@
-﻿using static FoodShelves.Patches;
+﻿using Vintagestory.Client.NoObf;
+using static FoodShelves.Patches;
 
 [assembly: ModInfo(name: "Food Shelves", modID: "foodshelves")]
 
 namespace FoodShelves;
 
 public class Core : ModSystem {
+    public static ConfigServer ConfigServer { get; set; }
+
+    public override void StartPre(ICoreAPI api) {
+        if (api.Side.IsServer()) {
+            ConfigServer = ModConfig.ReadConfig<ConfigServer>(api, ConfigServer.ConfigServerName);
+            api.World.Config.SetBool("FoodShelves.EnableVariants", ConfigServer.EnableVariants);
+
+            bool ExpandedFoodsVariants = api.ModLoader.IsModEnabled("expandedfoods") && ConfigServer.EnableVariants;
+            bool WildcraftFruitsNutsVariants = api.ModLoader.IsModEnabled("wildcraftfruit") && ConfigServer.EnableVariants;
+
+            api.World.Config.SetBool("FoodShelves.ExpandedFoodsVariants", ExpandedFoodsVariants);
+            api.World.Config.SetBool("FoodShelves.WildcraftFruitsNutsVariants", WildcraftFruitsNutsVariants);
+            api.World.Config.SetBool("FoodShelves.EForWFNVariants", ExpandedFoodsVariants || WildcraftFruitsNutsVariants);
+        }
+
+        if (api.ModLoader.IsModEnabled("configlib")) {
+            _ = new ConfigLibCompatibility(api);
+        }
+    }
+
     public override void Start(ICoreAPI api) {
         base.Start(api);
 
@@ -35,6 +56,15 @@ public class Core : ModSystem {
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityBarrelRackBig", typeof(BlockEntityBarrelRackBig));
 
         api.RegisterBlockClass("FoodShelves.BlockHorizontalBarrelBig", typeof(BlockHorizontalBarrelBig));
+    }
+
+    public override void StartClientSide(ICoreClientAPI api) {
+        GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onPieShelfTransform, AttributeName = onPieShelfTransform });
+        GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onBreadShelfTransform, AttributeName = onBreadShelfTransform });
+        GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onBarShelfTransform, AttributeName = onBreadShelfTransform });
+        GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onEggShelfTransform, AttributeName = onEggShelfTransform });
+        GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onSeedShelfTransform, AttributeName = onSeedShelfTransform });
+        GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onSushiShelfTransform, AttributeName = onSushiShelfTransform });
     }
 
     public override void AssetsLoaded(ICoreAPI api) {

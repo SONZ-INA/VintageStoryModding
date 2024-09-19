@@ -2,45 +2,12 @@
   {
     "ingredientPattern": "_T,_P",
     "ingredients": {
-      "T": { "type": "block", "code": "game:table-normal" },
+      "T": { "type": "block", "code": "game:table-*", "name": "type", "skipVariants": ["aged"] },
       "P": { "type": "item", "code": "game:plank-*" }
     },
     "width": 2,
     "height": 2,
     "recipeGroup": 1,
-    "output": { "type": "block", "code": "tablewshelf-normal-north" }
-  },
-  {
-    "ingredientPattern": "_T,_P",
-    "ingredients": {
-      "T": { "type": "block", "code": "game:table-whitemarble" },
-      "P": { "type": "item", "code": "game:plank-*" }
-    },
-    "width": 2,
-    "height": 2,
-    "recipeGroup": 2,
-    "output": { "type": "block", "code": "tablewshelf-whitemarble-north" }
-  },
-  {
-    "ingredientPattern": "_T,_P",
-    "ingredients": {
-      "T": { "type": "block", "code": "game:table-redmarble" },
-      "P": { "type": "item", "code": "game:plank-*" }
-    },
-    "width": 2,
-    "height": 2,
-    "recipeGroup": 3,
-    "output": { "type": "block", "code": "tablewshelf-redmarble-north" }
-  },
-  {
-    "ingredientPattern": "_T,_P",
-    "ingredients": {
-      "T": { "type": "block", "code": "game:table-greenmarble" },
-      "P": { "type": "item", "code": "game:plank-*" }
-    },
-    "width": 2,
-    "height": 2,
-    "recipeGroup": 4,
-    "output": { "type": "block", "code": "tablewshelf-greenmarble-north" }
+    "output": { "type": "block", "code": "tablewshelf-{type}-north" }
   }
 ]

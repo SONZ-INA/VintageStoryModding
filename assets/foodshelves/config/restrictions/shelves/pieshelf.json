@@ -1,8 +1,7 @@
 {
   "PieShelfTypes": [
-    "BlockPie"
+    "BlockPie",
+    "ItemCheese"
   ],
-  "PieShelfCodes": [
-    "*cheese-*"
-  ]
+  "PieShelfCodes": [ ]
 }

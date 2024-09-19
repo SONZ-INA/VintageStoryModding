@@ -1,6 +1,6 @@
 {
-  "BarrelRackTypes": [ ],
-  "BarrelRackCodes": [
-    "barrel"
-  ]
+  "BarrelRackTypes": [
+    "BlockBarrel"
+  ],
+  "BarrelRackCodes": [ ]
 }

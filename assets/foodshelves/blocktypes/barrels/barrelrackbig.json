@@ -33,11 +33,11 @@
     }
   ],
   "shapeByType": {
-    "*-normal-*": {
+    "*-normal*": {
       "base": "block/wood/barrel/barrelrackbig",
       "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
     },
-    "*-top-*": {
+    "*-top*": {
       "base": "block/wood/barrel/barrelracktopbig",
       "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
     }
@@ -68,12 +68,12 @@
     "scale": 0.5
   },
   "tpHandTransformByType": {
-    "barrelrackbig-normal-*": {
+    "barrelrackbig-normal*": {
       "translation": { "x": -1.8, "y": -0.91, "z": -0.8 },
 	    "rotation": { "x": 88, "y": 25, "z": -78 },
 	    "scale": 0.25
     },
-    "barrelrackbig-top-*": {
+    "barrelrackbig-top*": {
 	    "translation": { "x": -1.2, "y": -0.6, "z": -1.2 },
 	    "rotation": { "x": 93, "y": -15, "z": 0 },
 	    "scale": 0.25

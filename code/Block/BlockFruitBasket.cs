@@ -52,6 +52,11 @@ public class BlockFruitBasket : BlockContainer {
         }
     }
 
+    public override string GetHeldItemName(ItemStack itemStack) {
+        string variantName = itemStack.GetMaterialNameLocalized();
+        return base.GetHeldItemName(itemStack) + variantName;
+    }
+
     // Rotation logic
     public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack) {
         bool val = base.DoPlaceBlock(world, byPlayer, blockSel, byItemStack);
@@ -85,16 +90,16 @@ public class BlockFruitBasket : BlockContainer {
     }
 
     // Mesh rendering for items when inside inventory
-    private string meshRefsCacheKey => Code.ToShortString() + "meshRefs";
+    private string MeshRefsCacheKey => Code.ToShortString() + "meshRefs";
 
     public override void OnBeforeRender(ICoreClientAPI capi, ItemStack itemstack, EnumItemRenderTarget target, ref ItemRenderInfo renderinfo) {
         Dictionary<int, MultiTextureMeshRef> meshrefs;
 
-        if (capi.ObjectCache.TryGetValue(meshRefsCacheKey, out object obj)) {
+        if (capi.ObjectCache.TryGetValue(MeshRefsCacheKey, out object obj)) {
             meshrefs = obj as Dictionary<int, MultiTextureMeshRef>;
         }
         else {
-            capi.ObjectCache[meshRefsCacheKey] = meshrefs = new Dictionary<int, MultiTextureMeshRef>();
+            capi.ObjectCache[MeshRefsCacheKey] = meshrefs = new Dictionary<int, MultiTextureMeshRef>();
         }
 
         ItemStack[] contents = GetContents(api.World, itemstack);

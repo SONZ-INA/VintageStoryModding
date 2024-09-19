@@ -10,10 +10,6 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
         PlacedPriorityInteract = true; // Needed to call OnBlockInteractStart when shifting with an item in hand
     }
 
-    public override bool DoParticalSelection(IWorldAccessor world, BlockPos pos) {
-        return true;
-    }
-
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
         if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityBarrelRack hbr) return hbr.OnInteract(byPlayer, blockSel);
         return base.OnBlockInteractStart(world, byPlayer, blockSel);
@@ -28,8 +24,13 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
         else return base.GetPlacedBlockInteractionHelp(world, selection, forPlayer);
     }
 
+    public override string GetHeldItemName(ItemStack itemStack) {
+        string variantName = itemStack.GetMaterialNameLocalized(new string[] { "type" }, new string[] { "normal", "top" });
+        return base.GetHeldItemName(itemStack) + variantName;
+    }
+
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
-        // Copied vanilla barrel method
+        // First, check for behaviors preventing default, for example Reinforcement system
         bool preventDefault = false;
         foreach (BlockBehavior behavior in BlockBehaviors) {
             EnumHandling handled = EnumHandling.PassThrough;
@@ -41,27 +42,27 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
 
         if (preventDefault) return;
 
-        if (world.Side == EnumAppSide.Server && (byPlayer == null || byPlayer.WorldData.CurrentGameMode != EnumGameMode.Creative)) {
-            ItemStack[] drops = new ItemStack[] { new(this) };
+        // Drop barrel
+        BlockEntityBarrelRack be = GetBlockEntity<BlockEntityBarrelRack>(pos);
+        be?.Inventory.DropAll(pos.ToVec3d());
 
-            for (int i = 0; i < drops.Length; i++) {
-                world.SpawnItemEntity(drops[i], new Vec3d(pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5), null);
+        // Spawn liquid particles
+        if (world.Side == EnumAppSide.Server && (byPlayer == null || byPlayer.WorldData.CurrentGameMode != EnumGameMode.Creative)) {
+            ItemStack[] array = new ItemStack[1] { OnPickBlock(world, pos) };
+            for (int j = 0; j < array.Length; j++) {
+                world.SpawnItemEntity(array[j], new Vec3d(pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5));
             }
 
             world.PlaySoundAt(Sounds.GetBreakSound(byPlayer), pos.X, pos.Y, pos.Z, byPlayer);
         }
 
-        if (EntityClass != null) {
-            BlockEntity entity = world.BlockAccessor.GetBlockEntity(pos);
-            entity?.OnBlockBroken();
-        }
-
         world.BlockAccessor.SetBlock(0, pos);
+        //base.OnBlockBroken(world, pos, byPlayer);
     }
 
     public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
         Block block = blockAccessor.GetBlock(pos);
-        if (block.Code.Path.StartsWith("barrelrack-top-")) {
+        if (block.Code.Path.StartsWith("barrelrack-top")) {
             if (blockAccessor.GetBlockEntity(pos) is BlockEntityBarrelRack be && be.Inventory.Empty) {
                 return new Cuboidf[] { new(0, 0, 0, 1f, 0.3f, 1f) };
             }

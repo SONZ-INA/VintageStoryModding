@@ -92,20 +92,18 @@ public static class Meshing {
     }
 
     public static MeshData SubstituteBlockShape(ICoreAPI Api, ITesselatorAPI tesselator, string shapePath, Block texturesFromBlock) {
-        string modDomain = null;
-        int colonIndex = shapePath.IndexOf(':');
-
-        if (colonIndex != -1) {
-            modDomain = shapePath.Substring(0, colonIndex);
-            shapePath = shapePath.Substring(colonIndex + 1);
-        }
-        else {
-            Api.Logger.Debug(modDomain + " - GenMesh: Indexing for shapePath failed.");
-            return null;
-        }
-
-        AssetLocation shapeLocation = new(modDomain + ":shapes/" + shapePath + ".json");
+        AssetLocation shapeLocation = new(shapePath);
         ITexPositionSource texSource = tesselator.GetTextureSource(texturesFromBlock);
+        Shape shape = Api.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
+        if (shape == null) return null;
+
+        tesselator.TesselateShape(null, shape, out MeshData mesh, texSource);
+        return mesh;
+    }
+
+    public static MeshData SubstituteItemShape(ICoreAPI Api, ITesselatorAPI tesselator, string shapePath, Item texturesFromItem) {
+        AssetLocation shapeLocation = new(shapePath);
+        ITexPositionSource texSource = tesselator.GetTextureSource(texturesFromItem);
         Shape shape = Api.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
         if (shape == null) return null;
 

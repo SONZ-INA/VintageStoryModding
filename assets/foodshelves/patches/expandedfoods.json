@@ -8,23 +8,30 @@
   },
   {
     "file": "foodshelves:recipes/grid/shelves/barshelf.json",
-    "op": "replace",
+    "op": "addmerge",
     "path": "/0/enabled",
     "value": true,
     "dependsOn": [ { "modid": "expandedfoods" } ]
   },
   {
     "file": "foodshelves:blocktypes/shelves/sushishelf.json",
-    "op": "add",
+    "op": "addmerge",
     "path": "/enabled",
     "value": false,
     "dependsOn": [ { "modid": "expandedfoods", "invert": true } ]
   },
   {
     "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
-    "op": "add",
+    "op": "addmerge",
     "path": "/0/enabled",
-    "value": false,
-    "dependsOn": [ { "modid": "expandedfoods", "invert": true } ]
+    "value": true,
+    "dependsOn": [ { "modid": "expandedfoods" } ]
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/13/enabled",
+    "value": true,
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   }
 ]

@@ -10,10 +10,6 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBox
         PlacedPriorityInteract = true; // Needed to call OnBlockInteractStart when shifting with an item in hand
     }
 
-    public override bool DoParticalSelection(IWorldAccessor world, BlockPos pos) {
-        return true;
-    }
-
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
         if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityBarrelRackBig hbrb) return hbrb.OnInteract(byPlayer, blockSel);
         return base.OnBlockInteractStart(world, byPlayer, blockSel);
@@ -26,6 +22,11 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBox
     public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer) {
         if (world.BlockAccessor.GetBlockEntity(selection.Position) is BlockEntityBarrelRackBig be && be.Inventory.Empty) return null;
         else return base.GetPlacedBlockInteractionHelp(world, selection, forPlayer);
+    }
+
+    public override string GetHeldItemName(ItemStack itemStack) {
+        string variantName = itemStack.GetMaterialNameLocalized(new string[] { "type" }, new string[] { "normal", "top" });
+        return base.GetHeldItemName(itemStack) + variantName;
     }
 
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
@@ -41,11 +42,22 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBox
 
         if (preventDefault) return;
 
-        // Drop inventory (the barrel)
+        // Drop barrel
         BlockEntityBarrelRackBig be = GetBlockEntity<BlockEntityBarrelRackBig>(pos);
         be?.Inventory.DropAll(pos.ToVec3d());
 
-        base.OnBlockBroken(world, pos, byPlayer);
+        // Spawn liquid particles
+        if (world.Side == EnumAppSide.Server && (byPlayer == null || byPlayer.WorldData.CurrentGameMode != EnumGameMode.Creative)) {
+            ItemStack[] array = new ItemStack[1] { OnPickBlock(world, pos) };
+            for (int j = 0; j < array.Length; j++) {
+                world.SpawnItemEntity(array[j], new Vec3d(pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5));
+            }
+
+            world.PlaySoundAt(Sounds.GetBreakSound(byPlayer), pos.X, pos.Y, pos.Z, byPlayer);
+        }
+
+        world.BlockAccessor.SetBlock(0, pos);
+        //base.OnBlockBroken(world, pos, byPlayer);
     }
 
     // Selection box for master block

@@ -1,0 +1,223 @@
+[
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "P_P,_S_,P_P",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-aged" },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-aged-east" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "seedshelf-aged-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "P_P,_S_,P_P",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-birch" },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-birch-east" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "seedshelf-birch-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "P_P,_S_,P_P",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-oak" },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-oak-east" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "seedshelf-oak-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "P_P,_S_,P_P",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-maple" },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-maple-east" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "seedshelf-maple-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "P_P,_S_,P_P",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-pine" },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-pine-east" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "seedshelf-pine-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "P_P,_S_,P_P",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-acacia" },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-acacia-east" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "seedshelf-acacia-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "P_P,_S_,P_P",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-kapok" },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-kapok-east" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "seedshelf-kapok-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "P_P,_S_,P_P",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-baldcypress" },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-baldcypress-east" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "seedshelf-baldcypress-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "P_P,_S_,P_P",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-larch" },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-larch-east" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "seedshelf-larch-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "P_P,_S_,P_P",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-redwood" },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-redwood-east" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "seedshelf-redwood-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "P_P,_S_,P_P",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-ebony" },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-ebony-east" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "seedshelf-ebony-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "P_P,_S_,P_P",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-walnut" },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-walnut-east" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "seedshelf-walnut-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "P_P,_S_,P_P",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-purpleheart" },
+        "S": { "type": "block", "code": "foodshelves:breadshelf-purpleheart-east" }
+      },
+      "width": 3,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "seedshelf-purpleheart-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  }
+]

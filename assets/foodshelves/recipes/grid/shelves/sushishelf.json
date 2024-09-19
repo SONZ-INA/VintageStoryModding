@@ -1,5 +1,6 @@
 [
   {
+    "enabled": false,
     "ingredientPattern": "P_P,_S_",
     "ingredients": {
       "P": { "type": "item", "code": "game:plank-*", "quantity": 2 },

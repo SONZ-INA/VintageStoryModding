@@ -94,11 +94,10 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
                 for (int item = 0; item < itemsPerSegment; item++) {
                     int index = shelf * (segmentsPerShelf * itemsPerSegment) + segment * itemsPerSegment + item;
 
-
                     tfMatrices[index] = 
                         new Matrixf()
                         .Translate(0.5f, 0, 0.5f)
-                        .RotateYDeg(block.Shape.rotateY + MeshAngle * GameMath.RAD2DEG)
+                        .RotateYDeg((block != null ? block.Shape.rotateY : 0) + MeshAngle * GameMath.RAD2DEG)
                         .RotateXDeg(transformationMatrix[3, index])
                         .RotateYDeg(transformationMatrix[4, index])
                         .RotateZDeg(transformationMatrix[5, index])

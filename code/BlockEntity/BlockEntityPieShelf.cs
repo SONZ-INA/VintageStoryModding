@@ -104,14 +104,14 @@ public class BlockEntityPieShelf : BlockEntityDisplay {
 
         for (int index = 0; index < slotCount; index++) {
             float x = 0f;
-            float y = index * 0.3f;
+            float y = index * 0.313f;
             float z = 0f;
 
             tfMatrices[index] =
                 new Matrixf()
                 .Translate(0.5f, 0, 0.5f)
                 .RotateYDeg(block.Shape.rotateY)
-                .Translate(x - 0.5f, y + 0.06f, z - 0.5f)
+                .Translate(x - 0.5f, y + 0.0525f, z - 0.5f)
                 .Values;
         }
 

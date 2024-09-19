@@ -3,17 +3,41 @@
 namespace FoodShelves; 
 
 public static class Extensions {
+    #region JSONExtensions
+
     public static void EnsureAttributesNotNull(this CollectibleObject obj) => obj.Attributes ??= new JsonObject(new JObject());
 
     public static T LoadAsset<T>(this ICoreAPI api, string path) => api.Assets.Get(new AssetLocation(path)).ToObject<T>();
 
-    public static ModelTransform GetTransformation(this CollectibleObject obj, Dictionary<string, ModelTransform> transformations) {
-        foreach (KeyValuePair<string, ModelTransform> transformation in transformations) {
-            if (WildcardUtil.Match(transformation.Key, obj.Code.ToString())) return transformation.Value;
+    public static void SetTreeAttributeContents(this ItemStack stack, InventoryGeneric inv, string attributeName, int index = 1) {
+        TreeAttribute stacksTree = new();
+
+        for (; index < inv.Count; index++) {
+            if (inv[index].Itemstack == null) break;
+            stacksTree[index + ""] = new ItemstackAttribute(inv[index].Itemstack);
         }
 
-        return null;
+        stack.Attributes[$"{attributeName}"] = stacksTree;
     }
+
+    public static ItemStack[] GetTreeAttributeContents(this ItemStack itemStack, ICoreClientAPI capi, string attributeName, int index = 1) {
+        ITreeAttribute tree = itemStack?.Attributes?.GetTreeAttribute($"{attributeName}");
+        List<ItemStack> contents = new();
+
+        if (tree != null) {
+            for (; index < tree.Count + 1; index++) {
+                ItemStack stack = tree.GetItemstack(index + "");
+                stack?.ResolveBlockOrItem(capi.World);
+                contents.Add(stack);
+            }
+        }
+
+        return contents.ToArray();
+    }
+
+    #endregion
+
+    #region StringExtensions
 
     public static string FirstCharToUpper(this string input) {
         if (input == null) throw new ArgumentNullException(nameof(input));
@@ -21,36 +45,13 @@ public static class Extensions {
         return string.Concat(input[0].ToString().ToUpper(), input.AsSpan(1));
     }
 
-    public static float[,] GenTransformationMatrix(float[] x, float[] y, float[] z, float[] rX, float[] rY, float[] rZ) {
-        float[,] transformationMatrix = new float[6, x.Length];
+    #endregion
 
-        for (int i = 0; i < x.Length; i++) {
-            transformationMatrix[0, i] = x[i];
-            transformationMatrix[1, i] = y[i];
-            transformationMatrix[2, i] = z[i];
-            transformationMatrix[3, i] = rX[i];
-            transformationMatrix[4, i] = rY[i];
-            transformationMatrix[5, i] = rZ[i];
-        }
-
-        return transformationMatrix;
-    }
+    #region MeshExtensions
 
     public static MeshData BlockYRotation(this MeshData obj, BlockEntity BE) {
         Block block = BE.Api.World.BlockAccessor.GetBlock(BE.Pos);
         return obj.Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, block.Shape.rotateY * GameMath.DEG2RAD, 0);
-    }
-
-    public static T GetBlockEntityExt<T>(this IBlockAccessor blockAccessor, BlockPos pos) where T : BlockEntity {
-        if (blockAccessor.GetBlockEntity<T>(pos) is T blockEntity) {
-            return blockEntity;
-        }
-
-        if (blockAccessor.GetBlock(pos) is BlockMultiblock multiblock) {
-            BlockPos multiblockPos = new(pos.X + multiblock.OffsetInv.X, pos.Y + multiblock.OffsetInv.Y, pos.Z + multiblock.OffsetInv.Z, pos.dimension);
-            return blockAccessor.GetBlockEntity<T>(multiblockPos);
-        }
-        return null;
     }
 
     public static int GetStackCacheHashCodeFNV(ItemStack[] contentStack) {
@@ -117,4 +118,74 @@ public static class Extensions {
 
         return new int[3] { transformedX, transformedY, transformedZ };
     }
+
+    #endregion
+
+    #region GeneralBlockExtensions
+
+    public static T GetBlockEntityExt<T>(this IBlockAccessor blockAccessor, BlockPos pos) where T : BlockEntity {
+        if (blockAccessor.GetBlockEntity<T>(pos) is T blockEntity) {
+            return blockEntity;
+        }
+
+        if (blockAccessor.GetBlock(pos) is BlockMultiblock multiblock) {
+            BlockPos multiblockPos = new(pos.X + multiblock.OffsetInv.X, pos.Y + multiblock.OffsetInv.Y, pos.Z + multiblock.OffsetInv.Z, pos.dimension);
+            return blockAccessor.GetBlockEntity<T>(multiblockPos);
+        }
+
+        return null;
+    }
+
+    public static ModelTransform GetTransformation(this CollectibleObject obj, Dictionary<string, ModelTransform> transformations) {
+        foreach (KeyValuePair<string, ModelTransform> transformation in transformations) {
+            if (WildcardUtil.Match(transformation.Key, obj.Code.ToString())) return transformation.Value;
+        }
+
+        return null;
+    }
+
+    public static string GetMaterialNameLocalized(this ItemStack itemStack, string[] variantKeys = null, string[] toExclude = null) {
+        string material = "";
+
+        if (variantKeys == null) {
+            material = itemStack.Collectible.Variant["type"];
+        }
+        else {
+            for (int i = 0; i < variantKeys.Length; i++) {
+                if (itemStack.Collectible.Variant.ContainsKey(variantKeys[i])) {
+                    material = itemStack.Collectible.Variant[variantKeys[i]];
+                    break;
+                }
+            }
+        }
+
+        if (toExclude == null) {
+            material = material.Replace("normal", "");
+        }
+        else {
+            for (int i = 0; i < toExclude.Length; i++) {
+                material = material.Replace(toExclude[i], "");
+            }
+        }
+
+        if (material == "") return "";
+        return " (" + Lang.Get("material-" + material) + ")";
+    }
+
+    public static float[,] GenTransformationMatrix(float[] x, float[] y, float[] z, float[] rX, float[] rY, float[] rZ) {
+        float[,] transformationMatrix = new float[6, x.Length];
+
+        for (int i = 0; i < x.Length; i++) {
+            transformationMatrix[0, i] = x[i];
+            transformationMatrix[1, i] = y[i];
+            transformationMatrix[2, i] = z[i];
+            transformationMatrix[3, i] = rX[i];
+            transformationMatrix[4, i] = rY[i];
+            transformationMatrix[5, i] = rZ[i];
+        }
+
+        return transformationMatrix;
+    }
+
+    #endregion
 }

@@ -13,4 +13,9 @@ public class BlockEggShelf : Block {
         if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityEggShelf beshelf) return beshelf.OnInteract(byPlayer, blockSel);
         return base.OnBlockInteractStart(world, byPlayer, blockSel);
     }
+
+    public override string GetHeldItemName(ItemStack itemStack) {
+        string variantName = itemStack.GetMaterialNameLocalized();
+        return base.GetHeldItemName(itemStack) + variantName;
+    }
 }

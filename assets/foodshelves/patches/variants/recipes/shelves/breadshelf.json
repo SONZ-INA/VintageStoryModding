@@ -1,0 +1,18 @@
+[
+  {
+    "file": "foodshelves:recipes/grid/shelves/breadshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "PP,P_,P_",
+      "ingredients": {
+        "P": { "type": "item", "code": "game:plank-*", "quantity": 2, "name": "wood" }
+      },
+      "width": 2,
+      "height": 3,
+      "recipeGroup": 1,
+      "output": { "type": "block", "code": "breadshelf-{wood}-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  }
+]

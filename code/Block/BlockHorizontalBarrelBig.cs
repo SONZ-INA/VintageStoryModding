@@ -14,4 +14,9 @@ public class BlockHorizontalBarrelBig : Block {
         failureCode = "__ignore__";
         return false;
     }
+
+    public override string GetHeldItemName(ItemStack itemStack) {
+        string variantName = itemStack.GetMaterialNameLocalized();
+        return base.GetHeldItemName(itemStack) + variantName;
+    }
 }

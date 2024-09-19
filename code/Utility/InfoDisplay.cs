@@ -71,7 +71,7 @@ public static class InfoDisplay {
     public static string PerishableInfoCompact(ICoreAPI Api, ItemSlot contentSlot, float ripenRate, bool withStackName = true) {
         if (contentSlot.Empty) return "";
 
-        StringBuilder dsc = new StringBuilder();
+        StringBuilder dsc = new();
 
         if (withStackName) {
             dsc.Append(contentSlot.Itemstack.GetName());
