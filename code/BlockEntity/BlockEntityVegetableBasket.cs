@@ -98,7 +98,7 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
             tfMatrices[i] = 
                 new Matrixf()
                 .Translate(0.5f, 0, 0.5f)
-                .RotateYDeg(block.Shape.rotateY + MeshAngle * GameMath.RAD2DEG)
+                .RotateYDeg((block != null ? block.Shape.rotateY : 0) + MeshAngle * GameMath.RAD2DEG)
                 .RotateXDeg(transformationMatrix[3, i])
                 .RotateYDeg(transformationMatrix[4, i])
                 .RotateZDeg(transformationMatrix[5, i])
