@@ -1,6 +1,6 @@
 {
 	"editor": {
-		"collapsedPaths": "Root/origin holder/Lfence1,Root/origin holder/holder1,Root/origin holder/holder8",
+		"collapsedPaths": "Root/origin holder/holder1",
 		"allAngles": false,
 		"entityTextureMode": false
 	},
@@ -50,8 +50,7 @@
 								"east": { "texture": "#surface", "uv": [ 0.0, 3.0, 16.0, 7.0 ] },
 								"south": { "texture": "#surface", "uv": [ 7.0, 3.0, 7.5, 7.0 ] },
 								"west": { "texture": "#surface", "uv": [ 0.0, 3.0, 16.0, 7.0 ] },
-								"up": { "texture": "#surface", "uv": [ 0.0, 8.0, 16.0, 8.5 ], "rotation": 90 },
-								"down": { "texture": "#surface", "uv": [ 0.0, 6.0, 16.0, 6.5 ], "rotation": 270 }
+								"up": { "texture": "#surface", "uv": [ 0.0, 8.0, 16.0, 8.5 ], "rotation": 90 }
 							}
 						},
 						{
@@ -65,8 +64,7 @@
 								"east": { "texture": "#surface", "uv": [ 0.0, 3.0, 16.0, 7.0 ] },
 								"south": { "texture": "#surface", "uv": [ 7.0, 3.0, 7.5, 7.0 ] },
 								"west": { "texture": "#surface", "uv": [ 0.0, 3.0, 16.0, 7.0 ] },
-								"up": { "texture": "#surface", "uv": [ 0.0, 8.0, 16.0, 8.5 ], "rotation": 90 },
-								"down": { "texture": "#surface", "uv": [ 0.0, 6.0, 16.0, 6.5 ], "rotation": 270 }
+								"up": { "texture": "#surface", "uv": [ 0.0, 8.0, 16.0, 8.5 ], "rotation": 90 }
 							}
 						},
 						{
@@ -92,11 +90,7 @@
 							"rotationZ": 45.0,
 							"faces": {
 								"north": { "texture": "#surface", "uv": [ 7.0, 3.0, 8.0, 5.0 ] },
-								"east": { "texture": "#surface", "uv": [ 0.0, 3.0, 11.5, 5.0 ] },
-								"south": { "texture": "#surface", "uv": [ 7.0, 3.0, 8.0, 5.0 ] },
-								"west": { "texture": "#surface", "uv": [ 0.0, 3.0, 11.5, 5.0 ] },
-								"up": { "texture": "#surface", "uv": [ 0.0, 8.0, 11.5, 9.0 ], "rotation": 90 },
-								"down": { "texture": "#surface", "uv": [ 0.0, 6.0, 11.5, 7.0 ], "rotation": 270 }
+								"south": { "texture": "#surface", "uv": [ 7.0, 3.0, 8.0, 5.0 ] }
 							}
 						},
 						{
@@ -122,11 +116,7 @@
 							"rotationZ": -45.0,
 							"faces": {
 								"north": { "texture": "#surface", "uv": [ 7.0, 3.0, 8.0, 5.0 ] },
-								"east": { "texture": "#surface", "uv": [ 0.0, 3.0, 11.5, 5.0 ] },
-								"south": { "texture": "#surface", "uv": [ 7.0, 3.0, 8.0, 5.0 ] },
-								"west": { "texture": "#surface", "uv": [ 0.0, 3.0, 11.5, 5.0 ] },
-								"up": { "texture": "#surface", "uv": [ 0.0, 8.0, 11.5, 9.0 ], "rotation": 90 },
-								"down": { "texture": "#surface", "uv": [ 0.0, 6.0, 11.5, 7.0 ], "rotation": 270 }
+								"south": { "texture": "#surface", "uv": [ 7.0, 3.0, 8.0, 5.0 ] }
 							}
 						}
 					]
@@ -141,9 +131,7 @@
 						"north": { "texture": "#surface", "uv": [ 4.0, 5.0, 4.5, 11.0 ] },
 						"east": { "texture": "#surface", "uv": [ 3.0, 6.0, 9.5, 12.0 ] },
 						"south": { "texture": "#surface", "uv": [ 11.0, 5.0, 11.5, 11.0 ] },
-						"west": { "texture": "#surface", "uv": [ 7.0, 5.0, 13.5, 11.0 ] },
-						"up": { "texture": "#surface", "uv": [ 3.0, 5.0, 3.5, 11.5 ] },
-						"down": { "texture": "#surface", "uv": [ 4.0, 5.0, 4.5, 11.5 ] }
+						"west": { "texture": "#surface", "uv": [ 7.0, 5.0, 13.5, 11.0 ] }
 					}
 				}
 			]

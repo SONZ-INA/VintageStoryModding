@@ -40,16 +40,18 @@ public class BlockVegetableBasket : BlockContainer {
 
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
         // Prevent duplicating of items inside
-        if (world.BlockAccessor.GetBlockEntity(pos) is BlockEntityVegetableBasket vgbasket) {
-            ItemStack[] contents = vgbasket.GetContentStacks();
-            ItemStack emptyVegetableBasket = new(this);
-            world.SpawnItemEntity(emptyVegetableBasket, pos.ToVec3d().Add(0.5, 0.5, 0.5));
-            for (int i = 0; i < contents.Length; i++) {
-                world.SpawnItemEntity(contents[i], pos.ToVec3d().Add(0.5, 0.5, 0.5));
+        if (byPlayer.WorldData.CurrentGameMode == EnumGameMode.Survival) {
+            if (world.BlockAccessor.GetBlockEntity(pos) is BlockEntityVegetableBasket vgbasket) {
+                ItemStack[] contents = vgbasket.GetContentStacks();
+                ItemStack emptyVegetableBasket = new(this);
+                world.SpawnItemEntity(emptyVegetableBasket, pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                for (int i = 0; i < contents.Length; i++) {
+                    world.SpawnItemEntity(contents[i], pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                }
             }
-
-            world.BlockAccessor.SetBlock(0, pos);
         }
+
+        world.BlockAccessor.SetBlock(0, pos);
     }
 
     public override string GetHeldItemName(ItemStack itemStack) {
@@ -90,7 +92,7 @@ public class BlockVegetableBasket : BlockContainer {
     }
 
     // Mesh rendering for items when inside inventory
-    private string MeshRefsCacheKey => Code.ToShortString() + "meshRefs";
+    private string MeshRefsCacheKey => this.Code.ToShortString() + "meshRefs";
 
     public override void OnBeforeRender(ICoreClientAPI capi, ItemStack itemstack, EnumItemRenderTarget target, ref ItemRenderInfo renderinfo) {
         Dictionary<int, MultiTextureMeshRef> meshrefs;

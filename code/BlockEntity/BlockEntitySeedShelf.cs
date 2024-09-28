@@ -37,19 +37,14 @@ public class BlockEntitySeedShelf : BlockEntityDisplay {
                     return true;
                 }
             }
-            else {
-                (Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only seeds can be placed on this shelf."));
-            }
 
+            (Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only seeds can be placed on this shelf."));
             return false;
         }
     }
 
     private bool TryPut(IPlayer byPlayer, ItemSlot slot, BlockSelection blockSel) {
-        int segmentIndex = blockSel.SelectionBoxIndex;
-        if (segmentIndex < 0 || segmentIndex >= slotCount / itemsPerSegment) return false;
-
-        int startIndex = segmentIndex * itemsPerSegment;
+        int startIndex = blockSel.SelectionBoxIndex * itemsPerSegment;
 
         for (int i = 0; i < itemsPerSegment; i++) {
             int currentIndex = startIndex + i;
@@ -82,10 +77,7 @@ public class BlockEntitySeedShelf : BlockEntityDisplay {
     }
 
     private bool TryTake(IPlayer byPlayer, BlockSelection blockSel) {
-        int segmentIndex = blockSel.SelectionBoxIndex;
-        if (segmentIndex < 0 || segmentIndex >= slotCount / itemsPerSegment) return false;
-
-        int startIndex = segmentIndex * itemsPerSegment;
+        int startIndex = blockSel.SelectionBoxIndex * itemsPerSegment;
 
         for (int i = itemsPerSegment - 1; i >= 0; i--) {
             int currentIndex = startIndex + i;

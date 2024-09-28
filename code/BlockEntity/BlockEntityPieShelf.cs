@@ -53,23 +53,19 @@ public class BlockEntityPieShelf : BlockEntityDisplay {
                     return true;
                 }
             }
-            else {
-                (Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only pies or cheese can be placed on this shelf."));
-            }
 
+            (Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only pies or cheese can be placed on this shelf."));
             return false;
         }
     }
 
     private bool TryPut(ItemSlot slot, BlockSelection blockSel) {
         int index = blockSel.SelectionBoxIndex;
-        if (index < 0 || index >= slotCount) return false;
 
         if (inv[index].Empty) {
             int moved = slot.TryPutInto(Api.World, inv[index]);
             MarkDirty();
             (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
-
             return moved > 0;
         }
 
@@ -78,7 +74,6 @@ public class BlockEntityPieShelf : BlockEntityDisplay {
 
     private bool TryTake(IPlayer byPlayer, BlockSelection blockSel) {
         int index = blockSel.SelectionBoxIndex;
-        if (index < 0 || index >= slotCount) return false;
 
         if (!inv[index].Empty) {
             ItemStack stack = inv[index].TakeOut(1);
@@ -102,16 +97,12 @@ public class BlockEntityPieShelf : BlockEntityDisplay {
     protected override float[][] genTransformationMatrices() {
         float[][] tfMatrices = new float[slotCount][];
 
-        for (int index = 0; index < slotCount; index++) {
-            float x = 0f;
-            float y = index * 0.313f;
-            float z = 0f;
-
-            tfMatrices[index] =
+        for (int i = 0; i < slotCount; i++) {
+            tfMatrices[i] =
                 new Matrixf()
                 .Translate(0.5f, 0, 0.5f)
                 .RotateYDeg(block.Shape.rotateY)
-                .Translate(x - 0.5f, y + 0.0525f, z - 0.5f)
+                .Translate(- 0.5f, i * 0.313f + 0.0525f, - 0.5f)
                 .Values;
         }
 
@@ -126,10 +117,8 @@ public class BlockEntityPieShelf : BlockEntityDisplay {
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
 
-        float ripenRate = GameMath.Clamp(((1 - GetPerishRate()) - 0.5f) * 3, 0, 1);
-        if (ripenRate > 0) {
-            sb.Append(Lang.Get("Suitable spot for food ripening."));
-        }
+        float ripenRate = GameMath.Clamp((1 - GetPerishRate() - 0.5f) * 3, 0, 1);
+        if (ripenRate > 0) sb.Append(Lang.Get("Suitable spot for food ripening."));
 
         DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment);
     }

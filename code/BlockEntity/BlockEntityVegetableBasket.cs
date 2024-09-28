@@ -9,10 +9,7 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
     public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
-    private const int shelfCount = 1;
-    private const int segmentsPerShelf = 1;
-    private const int itemsPerSegment = 36;
-    static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
+    static readonly int slotCount = 36;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlockAverageAndSoonest;
 
     public BlockEntityVegetableBasket() { 
@@ -40,16 +37,13 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
                     return true;
                 }
             }
-            else {
-                (Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only vegetables can be placed in this basket."));
-            }
 
+            (Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only vegetables can be placed in this basket."));
             return false;
         }
     }
 
     private bool TryPut(ItemSlot slot, BlockSelection blockSel) {
-        if (blockSel.SelectionBoxIndex != 0) return false;
         BlockVegetableBasket.GetTransformationMatrix(inv[0]?.Itemstack?.Collectible?.Code?.Path, out float[,] transformationMatrix);
         int offset = transformationMatrix.GetLength(1);
 
@@ -66,9 +60,7 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
     }
 
     private bool TryTake(IPlayer byPlayer, BlockSelection blockSel) {
-        if (blockSel.SelectionBoxIndex != 0) return false;
-
-        for (int i = itemsPerSegment - 1; i >= 0; i--) {
+        for (int i = slotCount - 1; i >= 0; i--) {
             if (!inv[i].Empty) {
                 ItemStack stack = inv[i].TakeOut(1);
                 if (byPlayer.InventoryManager.TryGiveItemstack(stack)) {
@@ -116,10 +108,10 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
         bool skipmesh = base.OnTesselation(mesher, tesselator);
 
         if (!skipmesh) {
-            MeshData meshData = GenBlockMesh(Api, this, tesselator);
-            if (meshData == null) return false;
+            tesselator.TesselateBlock(Api.World.BlockAccessor.GetBlock(this.Pos), out MeshData blockMesh);
+            if (blockMesh == null) return false;
 
-            mesher.AddMeshData(meshData.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0));
+            mesher.AddMeshData(blockMesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0));
         }
 
         return true;
@@ -140,6 +132,6 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment, "vegetable");
+        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, 0, 0, "vegetable");
     }
 }

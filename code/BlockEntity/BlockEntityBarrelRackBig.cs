@@ -53,7 +53,7 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
             if (inv.Empty && slot.BarrelRackBigCheck()) { // Put barrel in rack
                 AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
 
-                if (TryPut(slot, blockSel)) {
+                if (TryPut(slot)) {
                     Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
                     MarkDirty();
                     return true;
@@ -69,12 +69,9 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
         return false;
     }
 
-    private bool TryPut(ItemSlot slot, BlockSelection blockSel) {
-        int index = blockSel.SelectionBoxIndex;
-        if (index < 0 || index >= slotCount) return false;
-
-        if (inv[index].Empty) {
-            int moved = slot.TryPutInto(Api.World, inv[index]);
+    private bool TryPut(ItemSlot slot) {
+        if (inv[0].Empty) {
+            int moved = slot.TryPutInto(Api.World, inv[0]);
             MarkDirty(true);
             (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
 
@@ -115,16 +112,16 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
         bool skipmesh = base.OnTesselation(mesher, tesselator);
 
         if (!skipmesh) {
-            MeshData meshData = GenBlockMeshUnhashed(Api, this, tesselator);
-            if (meshData == null) return false;
+            tesselator.TesselateBlock(Api.World.BlockAccessor.GetBlock(this.Pos), out MeshData blockMesh);
+            if (blockMesh == null) return false;
 
             ItemStack[] stack = GetContentStacks();
             if (stack[0] != null && stack[0].Block != null) {
                 tesselator.TesselateBlock(stack[0].Block, out MeshData barrel);
-                if (barrel != null) meshData.AddMeshData(barrel.BlockYRotation(this));
+                if (barrel != null) blockMesh.AddMeshData(barrel.BlockYRotation(this));
             }
 
-            mesher.AddMeshData(meshData.Clone());
+            mesher.AddMeshData(blockMesh.Clone());
         }
 
         return true;

@@ -8,7 +8,7 @@ public static class InfoDisplay {
         ByBlockAverageAndSoonest
     }
 
-    public static void DisplayInfo(IPlayer forPlayer, StringBuilder sb, InventoryGeneric inv, InfoDisplayOptions displaySelection, int slotCount, int segmentsPerShelf, int itemsPerSegment, string itemName = "Item", bool skipLine = true) {
+    public static void DisplayInfo(IPlayer forPlayer, StringBuilder sb, InventoryGeneric inv, InfoDisplayOptions displaySelection, int slotCount, int segmentsPerShelf = 0, int itemsPerSegment = 0, string itemName = "Item", bool skipLine = true) {
         if (skipLine) sb.AppendLine(); // Space in between to be in line with vanilla
 
         ICoreAPI Api = inv.Api;

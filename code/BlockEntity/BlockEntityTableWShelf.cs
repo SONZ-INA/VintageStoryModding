@@ -1,5 +1,10 @@
 ﻿namespace FoodShelves;
 
+public enum TableWShelfPart {
+    Table = 0,
+    Shelf = 1
+}
+
 public class BlockEntityTableWShelf : BlockEntityDisplay {
     readonly InventoryGeneric inv;
     Block block;
@@ -8,10 +13,7 @@ public class BlockEntityTableWShelf : BlockEntityDisplay {
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
     public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
-    private const int shelfCount = 1;
-    private const int segmentsPerShelf = 1;
-    private const int itemsPerSegment = 2;
-    static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
+    static readonly int slotCount = 2;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlock;
 
     public BlockEntityTableWShelf() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotTableWShelf(inv)); }
@@ -43,15 +45,11 @@ public class BlockEntityTableWShelf : BlockEntityDisplay {
     }
 
     private bool TryPut(ItemSlot slot, BlockSelection blockSel) {
-        int segmentIndex = blockSel.SelectionBoxIndex;
-        if (segmentIndex != 1) return false;
+        if (blockSel.SelectionBoxIndex != (int)TableWShelfPart.Shelf) return false;
 
-        int startIndex = 0;
-
-        for (int i = 0; i < itemsPerSegment; i++) {
-            int currentIndex = startIndex + i;
-            if (inv[currentIndex].Empty) {
-                int moved = slot.TryPutInto(Api.World, inv[currentIndex]);
+        for (int i = 0; i < slotCount; i++) {
+            if (inv[i].Empty) {
+                int moved = slot.TryPutInto(Api.World, inv[i]);
                 MarkDirty();
                 (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
                 return moved > 0;
@@ -62,15 +60,11 @@ public class BlockEntityTableWShelf : BlockEntityDisplay {
     }
 
     private bool TryTake(IPlayer byPlayer, BlockSelection blockSel) {
-        int segmentIndex = blockSel.SelectionBoxIndex;
-        if (segmentIndex != 1) return false;
+        if (blockSel.SelectionBoxIndex != (int)TableWShelfPart.Shelf) return false;
 
-        int startIndex = 0;
-
-        for (int i = itemsPerSegment - 1; i >= 0; i--) {
-            int currentIndex = startIndex + i;
-            if (!inv[currentIndex].Empty) {
-                ItemStack stack = inv[currentIndex].TakeOut(1);
+        for (int i = slotCount - 1; i >= 0; i--) {
+            if (!inv[i].Empty) {
+                ItemStack stack = inv[i].TakeOut(1);
                 if (byPlayer.InventoryManager.TryGiveItemstack(stack)) {
                     AssetLocation sound = stack.Block?.Sounds?.Place;
                     Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
@@ -93,9 +87,6 @@ public class BlockEntityTableWShelf : BlockEntityDisplay {
         float[][] tfMatrices = new float[slotCount][];
 
         for (int index = 0; index < slotCount; index++) {
-            float x = 0f;
-            float y = 0.3f;
-            float z = index * 0.5f;
             float scaleValue = 1f;
 
             // Using vanilla shelf transformations, the pot is too big so need to adjust it
@@ -107,7 +98,7 @@ public class BlockEntityTableWShelf : BlockEntityDisplay {
                 .Translate(0.5f, 0, 0.5f)
                 .RotateYDeg(block.Shape.rotateY)
                 .Scale(scaleValue, scaleValue, scaleValue)
-                .Translate(x - 0.5f, y + 0.06f, z - 0.75f)
+                .Translate(- 0.5f, 0.36f, index * 0.5f - 0.75f)
                 .Values;
         }
 
@@ -121,6 +112,6 @@ public class BlockEntityTableWShelf : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment);
+        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount);
     }
 }

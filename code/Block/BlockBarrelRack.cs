@@ -57,7 +57,6 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
         }
 
         world.BlockAccessor.SetBlock(0, pos);
-        //base.OnBlockBroken(world, pos, byPlayer);
     }
 
     public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
@@ -77,14 +76,10 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
 
     public override string GetPlacedBlockInfo(IWorldAccessor world, BlockPos pos, IPlayer forPlayer) {
         StringBuilder dsc = new();
-
+        
         BlockEntityBarrelRack be = GetBlockEntity<BlockEntityBarrelRack>(pos);
-        if (be != null && be.Inventory.Empty) {
-            dsc.Append(Lang.Get("foodshelves:Missing barrel."));
-        }
-        else {
-            dsc.Append(base.GetPlacedBlockInfo(world, pos, forPlayer));
-        }
+        if (be != null && be.Inventory.Empty) dsc.Append(Lang.Get("foodshelves:Missing barrel."));
+        else dsc.Append(base.GetPlacedBlockInfo(world, pos, forPlayer));
 
         return dsc.ToString();
     }

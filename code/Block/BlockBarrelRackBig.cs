@@ -57,7 +57,6 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBox
         }
 
         world.BlockAccessor.SetBlock(0, pos);
-        //base.OnBlockBroken(world, pos, byPlayer);
     }
 
     // Selection box for master block
@@ -113,12 +112,8 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBox
         StringBuilder dsc = new();
 
         BlockEntityBarrelRackBig be = GetBlockEntity<BlockEntityBarrelRackBig>(pos);
-        if (be != null && be.Inventory.Empty) {
-            dsc.Append(Lang.Get("foodshelves:Missing barrel."));
-        }
-        else {
-            dsc.Append(base.GetPlacedBlockInfo(world, pos, forPlayer));
-        }
+        if (be != null && be.Inventory.Empty) dsc.Append(Lang.Get("foodshelves:Missing barrel."));
+        else  dsc.Append(base.GetPlacedBlockInfo(world, pos, forPlayer));
 
         return dsc.ToString();
     }

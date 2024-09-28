@@ -54,6 +54,21 @@ public static class Extensions {
         return obj.Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, block.Shape.rotateY * GameMath.DEG2RAD, 0);
     }
 
+    public static float GetBlockMeshAngle(IPlayer byPlayer, BlockSelection blockSel, bool val) {
+        if (val) {
+            BlockPos targetPos = blockSel.DidOffset ? blockSel.Position.AddCopy(blockSel.Face.Opposite) : blockSel.Position;
+            double dx = byPlayer.Entity.Pos.X - (targetPos.X + blockSel.HitPosition.X);
+            double dz = byPlayer.Entity.Pos.Z - (targetPos.Z + blockSel.HitPosition.Z);
+            float angleHor = (float)Math.Atan2(dx, dz);
+
+            float deg22dot5rad = GameMath.PIHALF / 4;
+            float roundRad = ((int)Math.Round(angleHor / deg22dot5rad)) * deg22dot5rad;
+            return roundRad;
+        }
+
+        return 0;
+    }
+
     public static int GetStackCacheHashCodeFNV(ItemStack[] contentStack) {
         if (contentStack == null) return 0;
 
@@ -144,7 +159,7 @@ public static class Extensions {
         return null;
     }
 
-    public static string GetMaterialNameLocalized(this ItemStack itemStack, string[] variantKeys = null, string[] toExclude = null) {
+    public static string GetMaterialNameLocalized(this ItemStack itemStack, string[] variantKeys = null, string[] toExclude = null) { // Needs to be revised.
         string material = "";
 
         if (variantKeys == null) {
@@ -185,6 +200,35 @@ public static class Extensions {
         }
 
         return transformationMatrix;
+    }
+
+    public static int GetRotationAngle(Block block) {
+        string blockPath = block.Code.Path;
+        if (blockPath.EndsWith("-north")) return 270;
+        if (blockPath.EndsWith("-south")) return 90;
+        if (blockPath.EndsWith("-east")) return 0;
+        if (blockPath.EndsWith("-west")) return 180;
+        return 0;
+    }
+
+    public static Cuboidf RotateCuboid90Deg(Cuboidf cuboid, int angle) {
+        if (angle == 0) {
+            return cuboid;
+        }
+
+        float x1 = cuboid.X1;
+        float y1 = cuboid.Y1;
+        float z1 = cuboid.Z1;
+        float x2 = cuboid.X2;
+        float y2 = cuboid.Y2;
+        float z2 = cuboid.Z2;
+
+        return angle switch {
+            90 => new Cuboidf(1 - z2, y1, x1, 1 - z1, y2, x2),
+            180 => new Cuboidf(1 - x2, y1, 1 - z2, 1 - x1, y2, 1 - z1),
+            270 => new Cuboidf(z1, y1, 1 - x2, z2, y2, 1 - x1),
+            _ => throw new ArgumentException("Angle must be 0, 90, 180, or 270 degrees"),
+        };
     }
 
     #endregion

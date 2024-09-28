@@ -9,10 +9,7 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
     public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
-    private const int shelfCount = 1;
-    private const int segmentsPerShelf = 1;
-    private const int itemsPerSegment = 22;
-    static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
+    static readonly int slotCount = 22;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlockAverageAndSoonest;
 
     public BlockEntityFruitBasket() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotFruitBasket(inv)); }
@@ -26,30 +23,26 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
         if (slot.Empty) {
-            return TryTake(byPlayer, blockSel);
+            return TryTake(byPlayer);
         }
         else {
             if (slot.FruitBasketCheck()) {
                 AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
 
-                if (TryPut(slot, blockSel)) {
+                if (TryPut(slot)) {
                     Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
                     MarkDirty();
                     return true;
                 }
             }
-            else {
-                (Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only fruit can be placed in this basket."));
-            }
 
+            (Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only fruit can be placed in this basket."));
             return false;
         }
     }
 
-    private bool TryPut(ItemSlot slot, BlockSelection blockSel) {
-        if (blockSel.SelectionBoxIndex != 0) return false;
-
-        for (int i = 0; i < itemsPerSegment; i++) {
+    private bool TryPut(ItemSlot slot) {
+        for (int i = 0; i < slotCount; i++) {
             if (inv[i].Empty) {
                 int moved = slot.TryPutInto(Api.World, inv[i]);
                 MarkDirty();
@@ -61,10 +54,8 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
         return false;
     }
 
-    private bool TryTake(IPlayer byPlayer, BlockSelection blockSel) {
-        if (blockSel.SelectionBoxIndex != 0) return false;
-
-        for (int i = itemsPerSegment - 1; i >= 0; i--) {
+    private bool TryTake(IPlayer byPlayer) {
+        for (int i = slotCount - 1; i >= 0; i--) {
             if (!inv[i].Empty) {
                 ItemStack stack = inv[i].TakeOut(1);
                 if (byPlayer.InventoryManager.TryGiveItemstack(stack)) {
@@ -89,23 +80,17 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
         BlockFruitBasket.GetTransformationMatrix(out float[,] transformationMatrix);
         float[][] tfMatrices = new float[slotCount][];
 
-        for (int shelf = 0; shelf < shelfCount; shelf++) {
-            for (int segment = 0; segment < segmentsPerShelf; segment++) {
-                for (int item = 0; item < itemsPerSegment; item++) {
-                    int index = shelf * (segmentsPerShelf * itemsPerSegment) + segment * itemsPerSegment + item;
-
-                    tfMatrices[index] = 
-                        new Matrixf()
-                        .Translate(0.5f, 0, 0.5f)
-                        .RotateYDeg((block != null ? block.Shape.rotateY : 0) + MeshAngle * GameMath.RAD2DEG)
-                        .RotateXDeg(transformationMatrix[3, index])
-                        .RotateYDeg(transformationMatrix[4, index])
-                        .RotateZDeg(transformationMatrix[5, index])
-                        .Scale(0.5f, 0.5f, 0.5f)
-                        .Translate(transformationMatrix[0, index] - 0.84375f, transformationMatrix[1, index], transformationMatrix[2, index] - 0.8125f)
-                        .Values;
-                }
-            }
+        for (int item = 0; item < slotCount; item++) {
+            tfMatrices[item] = 
+                new Matrixf()
+                .Translate(0.5f, 0, 0.5f)
+                .RotateYDeg((block != null ? block.Shape.rotateY : 0) + MeshAngle * GameMath.RAD2DEG)
+                .RotateXDeg(transformationMatrix[3, item])
+                .RotateYDeg(transformationMatrix[4, item])
+                .RotateZDeg(transformationMatrix[5, item])
+                .Scale(0.5f, 0.5f, 0.5f)
+                .Translate(transformationMatrix[0, item] - 0.84375f, transformationMatrix[1, item], transformationMatrix[2, item] - 0.8125f)
+                .Values;
         }
 
         return tfMatrices;
@@ -117,10 +102,10 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
         bool skipmesh = base.OnTesselation(mesher, tesselator);
 
         if (!skipmesh) {
-            MeshData meshData = GenBlockMesh(Api, this, tesselator);
-            if (meshData == null) return false;
+            tesselator.TesselateBlock(Api.World.BlockAccessor.GetBlock(this.Pos), out MeshData blockMesh);
+            if (blockMesh == null) return false;
 
-            mesher.AddMeshData(meshData.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0));
+            mesher.AddMeshData(blockMesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0));
         }
 
         return true;
@@ -141,6 +126,6 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment, "fruit");
+        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, 0, 0, "fruit");
     }
 }
