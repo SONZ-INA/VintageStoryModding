@@ -3,7 +3,7 @@
     "ingredientPattern": "P_P,_S_,P_P",
     "ingredients": {
       "P": { "type": "item", "code": "game:plank-*" },
-      "S": { "type": "block", "code": "foodshelves:breadshelf-normal-east" }
+      "S": { "type": "block", "code": "foodshelves:pieshelf-normal-east" }
     },
     "width": 3,
     "height": 3,
