@@ -1,6 +1,5 @@
 {
 	"editor": {
-		"collapsedPaths": "Root/BShelf,Root/MShelf2,Root/MShelf,Root/BShelf2",
 		"allAngles": false,
 		"entityTextureMode": false
 	},
@@ -68,7 +67,7 @@
 					"to": [ 15.0, 2.0, 13.0 ],
 					"rotationOrigin": [ 14.0, 0.0, -1.0 ],
 					"faces": {
-						"north": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 4.0 ], "rotation": 90 },
+						"north": { "texture": "#surface", "uv": [ 1.0, 15.0, 3.0, 16.0 ], "rotation": 90 },
 						"east": { "texture": "#surface", "uv": [ 14.0, 3.0, 16.0, 16.0 ], "rotation": 270, "autoUv": false },
 						"south": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 4.0 ], "rotation": 90 },
 						"west": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 15.0 ], "rotation": 90, "autoUv": false },
@@ -241,7 +240,7 @@
 					"to": [ 15.0, 2.0, 13.0 ],
 					"rotationOrigin": [ 14.0, 0.0, -1.0 ],
 					"faces": {
-						"north": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 4.0 ], "rotation": 90 },
+						"north": { "texture": "#surface", "uv": [ 1.0, 15.0, 3.0, 16.0 ], "rotation": 90 },
 						"east": { "texture": "#surface", "uv": [ 14.0, 3.0, 16.0, 16.0 ], "rotation": 270, "autoUv": false },
 						"south": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 4.0 ], "rotation": 90 },
 						"west": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 15.0 ], "rotation": 90, "autoUv": false },
@@ -416,7 +415,7 @@
 					"to": [ 15.0, 2.0, 13.0 ],
 					"rotationOrigin": [ 14.0, 0.0, -1.0 ],
 					"faces": {
-						"north": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 4.0 ], "rotation": 90 },
+						"north": { "texture": "#surface", "uv": [ 1.5, 15.0, 3.5, 16.0 ], "rotation": 90 },
 						"east": { "texture": "#surface", "uv": [ 14.0, 3.0, 16.0, 16.0 ], "rotation": 270, "autoUv": false },
 						"south": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 4.0 ], "rotation": 90 },
 						"west": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 15.0 ], "rotation": 90, "autoUv": false },
