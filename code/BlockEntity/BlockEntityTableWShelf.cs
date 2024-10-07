@@ -83,6 +83,10 @@ public class BlockEntityTableWShelf : BlockEntityDisplay {
         return false;
     }
 
+    public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tessThreadTesselator) {
+        return base.OnTesselation(mesher, tessThreadTesselator);
+    }
+
     protected override float[][] genTransformationMatrices() {
         float[][] tfMatrices = new float[slotCount][];
 

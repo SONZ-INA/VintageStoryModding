@@ -102,8 +102,7 @@ public static class Patches {
     }
 
     public static void PatchBarrelRackBig(CollectibleObject obj, BarrelRackBigData data) {
-        if (data.BarrelRackBigTypes.Contains(obj.GetType().Name) || 
-            WildcardUtil.Match(data.BarrelRackBigCodes, obj.Code.Path.ToString())) {
+        if (data.BarrelRackBigTypes.Contains(obj.GetType().Name) || WildcardUtil.Match(data.BarrelRackBigCodes, obj.Code.Path.ToString())) {
             obj.EnsureAttributesNotNull();
             obj.Attributes.Token[BarrelRackBig] = JToken.FromObject(true);
         }

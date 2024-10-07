@@ -29,7 +29,7 @@
     { "name": "HorizontalOrientable" }
   ],
   "shape": {
-    "base": "block/wood/tablewshelf",
+    "base": "block/wood/wshelf",
     "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
   },
   "texturesByType": {
