@@ -1,8 +1,8 @@
 ﻿namespace FoodShelves;
 
 public class BlockEntityBarShelf : BlockEntityDisplay {
-    readonly InventoryGeneric inv;
-    Block block;
+    private InventoryGeneric inv;
+    private Block block;
     
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
@@ -10,14 +10,20 @@ public class BlockEntityBarShelf : BlockEntityDisplay {
 
     private const int shelfCount = 4;
     private const int segmentsPerShelf = 3;
-    private const int itemsPerSegment = 6;
-    static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
+    private int itemsPerSegment = 6;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.BySegment;
 
-    public BlockEntityBarShelf() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotBarShelf(inv)); }
+    public BlockEntityBarShelf() { inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotBarShelf(inv)); }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
+
+        if (block.Code.SecondCodePart() == "short") {
+            itemsPerSegment /= 2;
+            inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotBarShelf(inv));
+            Inventory.LateInitialize(Inventory.InventoryID, api);
+        }
+
         base.Initialize(api);
     }
 
@@ -85,7 +91,7 @@ public class BlockEntityBarShelf : BlockEntityDisplay {
     }
 
     protected override float[][] genTransformationMatrices() {
-        float[][] tfMatrices = new float[slotCount][];
+        float[][] tfMatrices = new float[shelfCount * segmentsPerShelf * itemsPerSegment][];
 
         for (int shelf = 0; shelf < shelfCount; shelf++) {
             for (int segment = 0; segment < segmentsPerShelf; segment++) {
@@ -95,17 +101,16 @@ public class BlockEntityBarShelf : BlockEntityDisplay {
                     float x = segment * 0.28f;
                     float y = shelf * 0.25f; 
                     float z = item * 0.125f;
-                    float scaleValue = 0.605f;
 
                     tfMatrices[index] =
                         new Matrixf()
                         .Translate(0.5f, 0, 0.5f)
                         .RotateYDeg(block.Shape.rotateY)
-                        .Translate(x - 0.58f, y + 0.4f, z - 0.42f)
+                        .Translate(x - 0.58f, y + 0.41f, z - 0.425f)
                         .RotateZDeg(-90f)
                         .RotateXDeg(-90f)
                         .RotateZDeg(-22.5f)
-                        .Scale(scaleValue, scaleValue, scaleValue)
+                        .Scale(0.605f, 0.605f, 0.605f)
                         .Values;
                 }
             }
@@ -121,6 +126,6 @@ public class BlockEntityBarShelf : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment);
+        DisplayInfo(forPlayer, sb, inv, displaySelection, shelfCount * segmentsPerShelf * itemsPerSegment, segmentsPerShelf, itemsPerSegment);
     }
 }
