@@ -1,4 +1,6 @@
-﻿namespace FoodShelves;
+﻿using Vintagestory.API.Common;
+
+namespace FoodShelves;
 
 public class BlockFruitBasket : BlockContainer {
     WorldInteraction[] interactions;
@@ -109,9 +111,13 @@ public class BlockFruitBasket : BlockContainer {
 
         if (!meshrefs.TryGetValue(hashcode, out MultiTextureMeshRef meshRef)) {
             GetTransformationMatrix(out float[,] transformationMatrix);
-            MeshData meshdata = GenBlockWContentMesh(capi, this, contents, transformationMatrix, FruitBasketTransformations);
-            if (meshdata != null) { 
-                meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(meshdata);
+
+            capi.Tesselator.TesselateBlock(this, out MeshData basketMesh);
+            MeshData contentMesh = GenBlockContentMesh(capi, contents, transformationMatrix, FruitBasketTransformations);
+            if (contentMesh != null) basketMesh.AddMeshData(contentMesh);
+
+            if (basketMesh != null) { 
+                meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(basketMesh);
             }
         }
 

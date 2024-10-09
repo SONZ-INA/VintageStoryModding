@@ -21,24 +21,21 @@ public static class Meshing {
         return mesh;
     }
 
-    public static MeshData GenBlockWContentMesh(ICoreClientAPI capi, Block block, ItemStack[] contents, float[,] transformationMatrix, Dictionary<string, ModelTransform> modelTransformations = null) {
-        if (block == null) return null;
-
-        capi.Tesselator.TesselateBlock(block, out MeshData basketMesh); // Generate mesh data
-
-        // Content Region
+    public static MeshData GenBlockContentMesh(ICoreClientAPI capi, ItemStack[] contents, float[,] transformationMatrix, Dictionary<string, ModelTransform> modelTransformations = null) {
+        MeshData contentMesh = null;
+        
         if (contents != null) {
             int offset = transformationMatrix.GetLength(1);
 
             for (int i = 0; i < contents.Length; i++) {
                 if (contents[i] != null) {
                     if (contents[i].Item == null) continue; // To fix the damn pumpkin bug on existing worlds
-                    capi.Tesselator.TesselateItem(contents[i].Item, out MeshData contentData);
+                    capi.Tesselator.TesselateItem(contents[i].Item, out MeshData itemMesh);
 
                     if (i < offset) {
                         if (modelTransformations != null) {
                             ModelTransform transformation = contents[i].Item.GetTransformation(modelTransformations);
-                            if (transformation != null) contentData.ModelTransform(transformation);
+                            if (transformation != null) itemMesh.ModelTransform(transformation);
                         }
 
                         float[] matrixTransform =
@@ -51,15 +48,16 @@ public static class Meshing {
                             .Translate(transformationMatrix[0, i] - 0.84375f, transformationMatrix[1, i], transformationMatrix[2, i] - 0.8125f)
                             .Values;
 
-                        contentData.MatrixTransform(matrixTransform);
+                        itemMesh.MatrixTransform(matrixTransform);
                     }
 
-                    basketMesh.AddMeshData(contentData);
+                    if (contentMesh == null) contentMesh = itemMesh;
+                    else contentMesh.AddMeshData(itemMesh);
                 }
             }
         }
 
-        return basketMesh;
+        return contentMesh;
     }
 
     // GeneralizedTexturedGenMesh written specifically for expanded foods, i might need it so it's here

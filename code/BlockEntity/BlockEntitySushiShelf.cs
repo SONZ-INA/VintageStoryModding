@@ -1,8 +1,8 @@
 ﻿namespace FoodShelves;
 
 public class BlockEntitySushiShelf : BlockEntityDisplay {
-    readonly InventoryGeneric inv;
-    Block block;
+    private InventoryGeneric inv;
+    private Block block;
     
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
@@ -10,14 +10,20 @@ public class BlockEntitySushiShelf : BlockEntityDisplay {
 
     private const int shelfCount = 4;
     private const int segmentsPerShelf = 2;
-    private const int itemsPerSegment = 6;
-    static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
+    private int itemsPerSegment = 6;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.BySegment;
 
-    public BlockEntitySushiShelf() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotSushiShelf(inv)); }
+    public BlockEntitySushiShelf() { inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotSushiShelf(inv)); }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
+
+        if (block.Code.SecondCodePart().StartsWith("short")) {
+            itemsPerSegment /= 2;
+            inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotSushiShelf(inv));
+            Inventory.LateInitialize(Inventory.InventoryID, api);
+        }
+
         base.Initialize(api);
     }
 
@@ -85,7 +91,7 @@ public class BlockEntitySushiShelf : BlockEntityDisplay {
     }
 
     protected override float[][] genTransformationMatrices() {
-        float[][] tfMatrices = new float[slotCount][];
+        float[][] tfMatrices = new float[shelfCount * segmentsPerShelf * itemsPerSegment][];
 
         for (int shelf = 0; shelf < shelfCount; shelf++) {
             for (int segment = 0; segment < segmentsPerShelf; segment++) {
@@ -117,6 +123,6 @@ public class BlockEntitySushiShelf : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment);
+        DisplayInfo(forPlayer, sb, inv, displaySelection, shelfCount * segmentsPerShelf * itemsPerSegment, segmentsPerShelf, itemsPerSegment);
     }
 }

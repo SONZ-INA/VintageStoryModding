@@ -159,8 +159,9 @@ public static class Extensions {
         return null;
     }
 
-    public static string GetMaterialNameLocalized(this ItemStack itemStack, string[] variantKeys = null, string[] toExclude = null) { // Needs to be revised.
+    public static string GetMaterialNameLocalized(this ItemStack itemStack, string[] variantKeys = null, string[] toExclude = null, bool includeParenthesis = true) {
         string material = "";
+        string[] materialCheck = { "material-", "rock-", "ore-" };
 
         if (variantKeys == null) {
             material = itemStack.Collectible.Variant["type"];
@@ -176,6 +177,7 @@ public static class Extensions {
 
         if (toExclude == null) {
             material = material.Replace("normal", "");
+            material = material.Replace("short", "");
         }
         else {
             for (int i = 0; i < toExclude.Length; i++) {
@@ -184,7 +186,14 @@ public static class Extensions {
         }
 
         if (material == "") return "";
-        return " (" + Lang.Get("material-" + material) + ")";
+
+        string toReturn = "";
+        foreach (string check in materialCheck) {
+            toReturn = Lang.Get(check + material);
+            if (toReturn != check + material) break;
+        }
+
+        return (includeParenthesis ? "(" : "") + toReturn + (includeParenthesis ? ")" : "");
     }
 
     public static float[,] GenTransformationMatrix(float[] x, float[] y, float[] z, float[] rX, float[] rY, float[] rZ) {

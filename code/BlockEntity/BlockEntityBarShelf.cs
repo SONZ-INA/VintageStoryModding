@@ -18,7 +18,7 @@ public class BlockEntityBarShelf : BlockEntityDisplay {
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
 
-        if (block.Code.SecondCodePart() == "short") {
+        if (block.Code.SecondCodePart().StartsWith("short")) {
             itemsPerSegment /= 2;
             inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotBarShelf(inv));
             Inventory.LateInitialize(Inventory.InventoryID, api);

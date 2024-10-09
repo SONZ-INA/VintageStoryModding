@@ -112,9 +112,12 @@ public class BlockVegetableBasket : BlockContainer {
             if (contents != null && contents.Length > 0 && contents[0] != null) itemPath = contents[0].Collectible.Code.Path.ToString();
             GetTransformationMatrix(itemPath, out float[,] transformationMatrix);
 
-            MeshData meshdata = GenBlockWContentMesh(capi, this, contents, transformationMatrix, VegetableBasketTransformations);
-            if (meshdata != null) { 
-                meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(meshdata);
+            capi.Tesselator.TesselateBlock(this, out MeshData basketMesh);
+            MeshData contentMesh = GenBlockContentMesh(capi, contents, transformationMatrix, VegetableBasketTransformations);
+            if (contentMesh != null) basketMesh.AddMeshData(contentMesh);
+
+            if (basketMesh != null) {
+                meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(basketMesh);
             }
         }
 

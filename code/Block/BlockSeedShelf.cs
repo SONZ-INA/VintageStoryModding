@@ -16,7 +16,10 @@ public class BlockSeedShelf : Block {
     }
 
     public override string GetHeldItemName(ItemStack itemStack) {
-        string variantName = itemStack.GetMaterialNameLocalized();
-        return base.GetHeldItemName(itemStack) + variantName;
+        string variantType = "";
+        if (this.Code.SecondCodePart().StartsWith("short"))
+            variantType = Lang.Get("skinpart-hairbase-short") + " ";
+
+        return variantType + base.GetHeldItemName(itemStack) + itemStack.GetMaterialNameLocalized();
     }
 }
