@@ -109,4 +109,11 @@ public static class Patches {
     }
 
     #endregion
+
+    public static void PatchPumpkinCase(CollectibleObject obj, PumpkinCaseData data) {
+        if (data.PumpkinCaseTypes.Contains(obj.GetType().Name) || WildcardUtil.Match(data.PumpkinCaseCodes, obj.Code.Path.ToString())) {
+            obj.EnsureAttributesNotNull();
+            obj.Attributes.Token[PumpkinCase] = JToken.FromObject(true);
+        }
+    }
 }

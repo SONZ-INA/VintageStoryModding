@@ -56,6 +56,9 @@ public class Core : ModSystem {
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityBarrelRackBig", typeof(BlockEntityBarrelRackBig));
 
         api.RegisterBlockClass("FoodShelves.BlockHorizontalBarrelBig", typeof(BlockHorizontalBarrelBig));
+
+        api.RegisterBlockClass("FoodShelves.BlockPumpkinCase", typeof(BlockPumpkinCase));
+        api.RegisterBlockEntityClass("FoodShelves.BlockEntityPumpkinCase", typeof(BlockEntityPumpkinCase));
     }
 
     public override void StartClientSide(ICoreClientAPI api) {
@@ -87,6 +90,8 @@ public class Core : ModSystem {
 
         BarrelRackData = api.LoadAsset<RestrictionData.BarrelRackData>("foodshelves:config/restrictions/barrels/barrelrack.json");
         BarrelRackBigData = api.LoadAsset<RestrictionData.BarrelRackBigData>("foodshelves:config/restrictions/barrels/barrelrackbig.json");
+
+        PumpkinCaseData = api.LoadAsset<RestrictionData.PumpkinCaseData>("foodshelves:config/restrictions/pumpkincase.json");
     }
 
     public override void AssetsFinalize(ICoreAPI api) {
@@ -105,6 +110,8 @@ public class Core : ModSystem {
             
             PatchBarrelRack(obj, BarrelRackData);
             PatchBarrelRackBig(obj, BarrelRackBigData);
+
+            PatchPumpkinCase(obj, PumpkinCaseData);
         }
     }
 }

@@ -15,4 +15,6 @@ public static class RestrictionsCollection {
 
     public static BarrelRackData BarrelRackData { get; set; } = new();
     public static BarrelRackBigData BarrelRackBigData { get; set; } = new();
+
+    public static PumpkinCaseData PumpkinCaseData { get; set; } = new();
 }

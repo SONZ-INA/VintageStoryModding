@@ -103,4 +103,12 @@ public static class Restrictions
     public static bool BarrelRackBigCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[BarrelRackBig].AsBool() == true;
 
     #endregion
+
+    #region PumpkinCase
+
+    public const string PumpkinCase = "pumpkincasecheck";
+    public static bool PumpkinCaseCheck(this CollectibleObject obj) => obj?.Attributes?[PumpkinCase].AsBool() == true;
+    public static bool PumpkinCaseCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[PumpkinCase].AsBool() == true;
+
+    #endregion
 }

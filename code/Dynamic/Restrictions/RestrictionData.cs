@@ -62,4 +62,9 @@ public class RestrictionData {
     }
 
     #endregion
+
+    public class PumpkinCaseData {
+        public string[] PumpkinCaseTypes { get; set; }
+        public string[] PumpkinCaseCodes { get; set; }
+    }
 }
