@@ -12,6 +12,7 @@ public static class RestrictionsCollection {
 
     public static FruitBasketData FruitBasketData { get; set; } = new();
     public static VegetableBasketData VegetableBasketData { get; set; } = new();
+    public static EggBasketData EggBasketData { get; set; } = new();
 
     public static BarrelRackData BarrelRackData { get; set; } = new();
     public static BarrelRackBigData BarrelRackBigData { get; set; } = new();

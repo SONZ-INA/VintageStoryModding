@@ -1,32 +1,32 @@
 ﻿namespace FoodShelves;
 
-public class BlockFruitBasket : BlockContainer {
+public class BlockEggBasket : BlockContainer {
     WorldInteraction[] interactions;
 
     public override void OnLoaded(ICoreAPI api) {
         base.OnLoaded(api);
         PlacedPriorityInteract = true; // Needed to call OnBlockInteractStart when shifting with an item in hand
 
-        interactions = ObjectCacheUtil.GetOrCreate(api, "fruitbasketBlockInteractions", () => {
-            List<ItemStack> fruitStackList = new();
+        interactions = ObjectCacheUtil.GetOrCreate(api, "eggbasketBlockInteractions", () => {
+            List<ItemStack> eggStackList = new();
 
             foreach(Item item in api.World.Items) {
                 if (item.Code == null) continue;
 
-                if (WildcardUtil.Match(FruitBasketData.FruitBasketCodes, item.Code.Path.ToString())) {
-                    fruitStackList.Add(new ItemStack(item));
+                if (WildcardUtil.Match(EggBasketData.EggBasketCodes, item.Code.Path.ToString())) {
+                    eggStackList.Add(new ItemStack(item));
                 }
             }
 
             return new WorldInteraction[] {
                 new() {
-                    ActionLangCode = "foodshelves:blockhelp-fruitbasket-add",
+                    ActionLangCode = "foodshelves:blockhelp-eggbasket-add",
                     MouseButton = EnumMouseButton.Right,
                     HotKeyCode = "shift",
-                    Itemstacks = fruitStackList.ToArray()
+                    Itemstacks = eggStackList.ToArray()
                 },
                 new() {
-                    ActionLangCode = "foodshelves:blockhelp-fruitbasket-remove",
+                    ActionLangCode = "foodshelves:blockhelp-eggbasket-remove",
                     MouseButton = EnumMouseButton.Right,
                     HotKeyCode = "shift"
                 }
@@ -41,7 +41,7 @@ public class BlockFruitBasket : BlockContainer {
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
         // Prevent duplicating of items inside
         if (byPlayer.WorldData.CurrentGameMode == EnumGameMode.Survival) {
-            if (world.BlockAccessor.GetBlockEntity(pos) is BlockEntityFruitBasket frbasket) {
+            if (world.BlockAccessor.GetBlockEntity(pos) is BlockEntityEggBasket frbasket) {
                 ItemStack[] contents = frbasket.GetContentStacks();
                 ItemStack emptyFruitBasket = new(this);
                 world.SpawnItemEntity(emptyFruitBasket, pos.ToVec3d().Add(0.5, 0.5, 0.5));
@@ -62,7 +62,7 @@ public class BlockFruitBasket : BlockContainer {
     // Rotation logic
     public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack) {
         bool val = base.DoPlaceBlock(world, byPlayer, blockSel, byItemStack);
-        BlockEntityFruitBasket block = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityFruitBasket;
+        BlockEntityEggBasket block = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityEggBasket;
         block.MeshAngle = GetBlockMeshAngle(byPlayer, blockSel, val);
 
         return val;
@@ -70,7 +70,7 @@ public class BlockFruitBasket : BlockContainer {
 
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
         if (byPlayer.Entity.Controls.ShiftKey) {
-            if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityFruitBasket frbasket) 
+            if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityEggBasket frbasket) 
                 return frbasket.OnInteract(byPlayer);
         }
 
@@ -88,7 +88,7 @@ public class BlockFruitBasket : BlockContainer {
         }
 
         ItemStack[] contents = GetContents(world, inSlot.Itemstack);
-        PerishableInfoAverageAndSoonest(contents, dsc, world, "fruit");
+        PerishableInfoAverageAndSoonest(contents, dsc, world, "egg");
     }
 
     // Mesh rendering for items when inside inventory

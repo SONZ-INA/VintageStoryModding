@@ -71,7 +71,7 @@ public class BlockVegetableBasket : BlockContainer {
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
         if (byPlayer.Entity.Controls.ShiftKey) {
             if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityVegetableBasket frbasket) 
-                return frbasket.OnInteract(byPlayer, blockSel);
+                return frbasket.OnInteract(byPlayer);
         }
 
         return base.OnBlockInteractStart(world, byPlayer, blockSel);

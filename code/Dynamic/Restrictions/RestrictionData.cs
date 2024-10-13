@@ -47,6 +47,11 @@ public class RestrictionData {
         public string[] VegetableBasketCodes { get; set; }
     }
 
+    public class EggBasketData {
+        public string[] EggBasketTypes { get; set; }
+        public string[] EggBasketCodes { get; set; }
+    }
+
     #endregion
 
     #region Barrels

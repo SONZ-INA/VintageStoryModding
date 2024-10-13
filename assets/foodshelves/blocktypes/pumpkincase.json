@@ -13,7 +13,7 @@
       "extraSections": [
         {
           "title": "foodshelves:blockdesc-canhold-title",
-          "text": "foodshelves:blockdesc-pumpkincase.-text"
+          "text": "foodshelves:blockdesc-pumpkincase-text"
         }
       ]
     },
@@ -21,7 +21,7 @@
     "attributeTransformCode": "onPumpkinCaseTransform"
   },
   "behaviors": [
-    { "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }
+    { "name": "UnstableFalling" }
   ],
   "shape": {
     "base": "block/wood/pumpkincase",
@@ -38,8 +38,14 @@
   "lightAbsorption": 0,
   "faceCullMode": "NeverCull",
   "emitSideAo": { "all": false },
-  "sidesolid": { "all": false },
-  "sideopaque": { "all": false },
+  "sidesolid": {
+	  "up": true,
+	  "all": false
+  },
+  "sideopaque": {
+    "down": true,
+    "all": false
+  },
   "replaceable": 999,
   "resistance": 1.5,
   "combustibleProps": {
@@ -47,9 +53,9 @@
     "burnDuration": 36
   },
   "tpHandTransform": {
-	  "translation": { "x": -0.8, "y": -0.68, "z": -0.41 },
-	  "rotation": { "x": 99, "y": -10, "z": -6 },
-	  "scale": 0.5
+	  "translation": { "x": -1.23, "y": -0.91, "z": -0.8 },
+	  "rotation": { "x": -2, "y": 25, "z": -78 },
+	  "scale": 0.4
   },
   "sounds": {
     "place": "game:block/planks",

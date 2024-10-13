@@ -1,6 +1,7 @@
 {
-  "PumpkinCaseTypes": [
-    "BlockPumpkin"
-  ],
-  "PumpkinCaseCodes": [ ]
+  "PumpkinCaseTypes": [ ],
+  "PumpkinCaseCodes": [
+    "pumpkin-fruit-3",
+    "pumpkin-fruit-4"
+  ]
 }

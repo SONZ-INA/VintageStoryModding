@@ -75,16 +75,14 @@ public class BlockEntityPumpkinCase : BlockEntityDisplay {
     }
 
     protected override float[][] genTransformationMatrices() {
-        float[][] tfMatrices = new float[slotCount][];
+        float[][] tfMatrices = new float[1][];
 
-        for (int i = 0; i < slotCount; i++) {
-            tfMatrices[i] =
-                new Matrixf()
-                .Translate(0.5f, 0, 0.5f)
-                .RotateYDeg(block.Shape.rotateY)
-                .Translate(-0.5f, i * 0.313f + 0.0525f, -0.5f)
-                .Values;
-        }
+        tfMatrices[0] =
+            new Matrixf()
+            .Translate(0.5f, 0, 0.5f)
+            .RotateYDeg(block.Shape.rotateY)
+            .Translate(-0.5f, 0.06f, -0.5f)
+            .Values;
 
         return tfMatrices;
     }

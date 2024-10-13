@@ -185,10 +185,10 @@ public static class InfoDisplay {
         }
         
         // Number of fruits inside
-        if (itemCount > 0) dsc.AppendLine(Lang.Get($"{itemName.FirstCharToUpper()}s inside: {{0}}", itemCount));
+        if (itemCount > 0) dsc.AppendLine(Lang.Get($"{itemName.FirstCharToUpper()}s inside: {{0}}", itemCount)); // Need to re-code
 
         // Number of rotten items
-        if (rotCount > 0) dsc.AppendLine(Lang.Get($"Rotten {itemName}s: {{0}}", rotCount));
+        if (rotCount > 0) dsc.AppendLine(Lang.Get($"Rotten {itemName}s: {{0}}", rotCount)); // Need to re-code
 
         // Average perish rate
         if (totalCount > 0) {
@@ -208,7 +208,7 @@ public static class InfoDisplay {
 
         // Item that will perish the soonest
         if (soonestPerishStack != null) {
-            dsc.Append(Lang.Get("Soonest: ") + soonestPerishStack.GetName());
+            dsc.Append(Lang.Get("Soonest: ") + soonestPerishStack.GetName()); // Can't use ':' because it's recognized as a mod domain
             double hoursPerday = world.Calendar.HoursPerDay;
 
             if (soonestTransitionLevel > 0) {
@@ -227,7 +227,7 @@ public static class InfoDisplay {
             }
         }
         else {
-            dsc.AppendLine(Lang.Get($"No {itemName} will perish soon."));
+            dsc.AppendLine(Lang.Get($"foodshelves:No {itemName} will perish soon."));
         }
     }
 }

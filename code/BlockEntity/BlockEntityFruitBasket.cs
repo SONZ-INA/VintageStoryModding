@@ -19,7 +19,7 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
         base.Initialize(api);
     }
 
-    internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
+    internal bool OnInteract(IPlayer byPlayer) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
         if (slot.Empty) {

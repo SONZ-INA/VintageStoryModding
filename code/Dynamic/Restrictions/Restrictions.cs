@@ -87,6 +87,14 @@ public static class Restrictions
 
     #endregion
 
+    #region EggBasket
+
+    public const string EggBasket = "eggbasketcheck";
+    public static bool EggBasketCheck(this CollectibleObject obj) => obj?.Attributes?[EggBasket].AsBool() == true;
+    public static bool EggBasketCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[EggBasket].AsBool() == true;
+
+    #endregion
+
 
     #region BarrelRack
 

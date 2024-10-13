@@ -49,6 +49,8 @@ public class Core : ModSystem {
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityFruitBasket", typeof(BlockEntityFruitBasket));
         api.RegisterBlockClass("FoodShelves.BlockVegetableBasket", typeof(BlockVegetableBasket));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityVegetableBasket", typeof(BlockEntityVegetableBasket));
+        api.RegisterBlockClass("FoodShelves.BlockEggBasket", typeof(BlockEggBasket));
+        api.RegisterBlockEntityClass("FoodShelves.BlockEntityEggBasket", typeof(BlockEntityEggBasket));
 
         api.RegisterBlockClass("FoodShelves.BlockBarrelRack", typeof(BlockBarrelRack));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityBarrelRack", typeof(BlockEntityBarrelRack));
@@ -83,10 +85,11 @@ public class Core : ModSystem {
         EggShelfData = api.LoadAsset<RestrictionData.EggShelfData>("foodshelves:config/restrictions/shelves/eggshelf.json");
         SeedShelfData = api.LoadAsset<RestrictionData.SeedShelfData>("foodshelves:config/restrictions/shelves/seedshelf.json");
         
-        FruitBasketData = api.LoadAsset<RestrictionData.FruitBasketData>("foodshelves:config/restrictions/baskets/fruitbasket.json"); ;
+        FruitBasketData = api.LoadAsset<RestrictionData.FruitBasketData>("foodshelves:config/restrictions/baskets/fruitbasket.json");
         FruitBasketTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/baskets/fruitbasket.json");
         VegetableBasketData = api.LoadAsset<RestrictionData.VegetableBasketData>("foodshelves:config/restrictions/baskets/vegetablebasket.json");
         VegetableBasketTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/baskets/vegetablebasket.json");
+        EggBasketData = api.LoadAsset<RestrictionData.EggBasketData>("foodshelves:config/restrictions/baskets/eggbasket.json");
 
         BarrelRackData = api.LoadAsset<RestrictionData.BarrelRackData>("foodshelves:config/restrictions/barrels/barrelrack.json");
         BarrelRackBigData = api.LoadAsset<RestrictionData.BarrelRackBigData>("foodshelves:config/restrictions/barrels/barrelrackbig.json");
@@ -107,7 +110,8 @@ public class Core : ModSystem {
 
             PatchFruitBasket(obj, FruitBasketData);
             PatchVegetableBasket(obj, VegetableBasketData);
-            
+            PatchEggBasket(obj, EggBasketData);
+
             PatchBarrelRack(obj, BarrelRackData);
             PatchBarrelRackBig(obj, BarrelRackBigData);
 

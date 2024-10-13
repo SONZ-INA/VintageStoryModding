@@ -90,6 +90,13 @@ public static class Patches {
         }
     }
 
+    public static void PatchEggBasket(CollectibleObject obj, EggBasketData data) {
+        if (data.EggBasketTypes.Contains(obj.GetType().Name) || WildcardUtil.Match(data.EggBasketCodes, obj.Code.Path.ToString())) {
+            obj.EnsureAttributesNotNull();
+            obj.Attributes.Token[EggBasket] = JToken.FromObject(true);
+        }
+    }
+
     #endregion
 
     #region Barrels
