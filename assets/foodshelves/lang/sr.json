@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "Велико хоризонтално буре",
   "block-barrelrackbig-*": "Велика полица за буре",
 
-  "blockhelp-fruitbasket-add": "Додај воће",
-  "blockhelp-fruitbasket-remove": "Уклони воће",
-  "blockhelp-vegetablebasket-add": "Додај поврће",
-  "blockhelp-vegetablebasket-remove": "Уклони поврће",
-
   "blockdesc-canhold-title": "Може да садржи:",
   "blockdesc-canbeplacedin-title": "Може се поставити у:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "Ово буре мора бити постављено у полици за буре.",
   "The barrel must be emptied before it can be picked up.": "Буре мора бити испражњено пре него што се подигне.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Сипајте течност у буре. (Shift за порцију)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Сипајте течност у држани контејнер. (Shift за порцију)</font>",
   "Missing barrel.": "<font color=\"orange\">Недостаје буре.</font>",
 
-  "Contents: ": "<font color=\"orange\">Садржи: </font>",
-  "Soonest: ": "Најскорије: ",
+  "Contents": "<font color=\"orange\">Садржи: </font>",
+  "Soonest": "Најскорије: ",
   "Empty.": "Празно.",
-  "Average perish rate: {0} years": "Просечна стопа пропадања: {0} година",
-  "Average perish rate: {0} days": "Просечна стопа пропадања: {0} дана",
-  "Average perish rate: {0} hours": "Просечна стопа пропадања: {0} сати",
+  "Average perish rate {0} years": "Просечна стопа пропадања: {0} година",
+  "Average perish rate {0} days": "Просечна стопа пропадања: {0} дана",
+  "Average perish rate {0} hours": "Просечна стопа пропадања: {0} сати",
   "will perish in {0} years": "пропада за {0} година",
   "will perish in {0} days": "пропада за {0} дана",
   "will perish in {0} hours": "пропада за {0} сати",
 
   "Fruit": "Воће",
   "Fruits inside: {0}": "Воће унутра: {0}",
-  "Rotten fruits: {0}": "Trуло воће: {0}",
   "No fruit will perish soon.": "Ниједно воће неће ускоро пропасти.",
   "Vegetable": "Поврће",
   "Vegetables inside: {0}": "Поврће унутра: {0}",
-  "Rotten vegetables: {0}": "Труло поврће: {0}",
   "No vegetable will perish soon.": "Ниједно поврће неће ускоро пропасти."
 }

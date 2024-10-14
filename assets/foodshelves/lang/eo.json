@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "Granda horizontala barelo",
   "block-barrelrackbig-*": "Granda barelaro",
 
-  "blockhelp-fruitbasket-add": "Aldoni frukton",
-  "blockhelp-fruitbasket-remove": "Forigi frukton",
-  "blockhelp-vegetablebasket-add": "Aldoni legomon",
-  "blockhelp-vegetablebasket-remove": "Forigi legomon",
-
   "blockdesc-canhold-title": "Povas enteni:",
   "blockdesc-canbeplacedin-title": "Povas esti metita en:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "Ĉi tiu barelo devas esti metita en barelaron.",
   "The barrel must be emptied before it can be picked up.": "La barelo devas esti malplenigita antaŭ ol ĝi povas esti prenita.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Verŝu likvaĵon en la barelon. (Shift por porcio)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Verŝu likvaĵon en tenatan ujon. (Shift por porcio)</font>",
   "Missing barrel.": "<font color=\"orange\">Mankas barelo.</font>",
 
-  "Contents: ": "<font color=\"orange\">Enhavo: </font>",
-  "Soonest: ": "Plej baldaŭ: ",
+  "Contents": "<font color=\"orange\">Enhavo: </font>",
+  "Soonest": "Plej baldaŭ: ",
   "Empty.": "Malplena.",
-  "Average perish rate: {0} years": "Meza velktempo: {0} jaroj",
-  "Average perish rate: {0} days": "Meza velktempo: {0} tagoj",
-  "Average perish rate: {0} hours": "Meza velktempo: {0} horoj",
+  "Average perish rate {0} years": "Meza velktempo: {0} jaroj",
+  "Average perish rate {0} days": "Meza velktempo: {0} tagoj",
+  "Average perish rate {0} hours": "Meza velktempo: {0} horoj",
   "will perish in {0} years": "velkos en {0} jaroj",
   "will perish in {0} days": "velkos en {0} tagoj",
   "will perish in {0} hours": "velkos en {0} horoj",
 
   "Fruit": "Frukto",
   "Fruits inside: {0}": "Fruktoj interne: {0}",
-  "Rotten fruits: {0}": "Putraj fruktoj: {0}",
   "No fruit will perish soon.": "Neniu frukto velkos baldaŭ.",
   "Vegetable": "Legomo",
   "Vegetables inside: {0}": "Legomoj interne: {0}",
-  "Rotten vegetables: {0}": "Putraj legomoj: {0}",
   "No vegetable will perish soon.": "Neniu legomo velkos baldaŭ."
 }

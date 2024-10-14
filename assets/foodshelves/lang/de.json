@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "Großes liegendes Fass",
   "block-barrelrackbig-*": "Großes Fassregal",
 
-  "blockhelp-fruitbasket-add": "Obst hinzufügen",
-  "blockhelp-fruitbasket-remove": "Obst entfernen",
-  "blockhelp-vegetablebasket-add": "Gemüse hinzufügen",
-  "blockhelp-vegetablebasket-remove": "Gemüse entfernen",
-
   "blockdesc-canhold-title": "Kann enthalten:",
   "blockdesc-canbeplacedin-title": "Kann platziert werden in:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "Dieses Fass muss in ein Fassregal gestellt werden.",
   "The barrel must be emptied before it can be picked up.": "Das Fass muss geleert werden, bevor es aufgenommen werden kann.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Flüssigkeit in das Fass gießen. (Shift für Portion)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Flüssigkeit in den gehaltenen Behälter gießen. (Shift für Portion)</font>",
   "Missing barrel.": "<font color=\"orange\">Fass fehlt.</font>",
 
-  "Contents: ": "<font color=\"orange\">Inhalt: </font>",
-  "Soonest: ": "Am frühesten: ",
+  "Contents": "<font color=\"orange\">Inhalt: </font>",
+  "Soonest": "Am frühesten: ",
   "Empty.": "Leer.",
-  "Average perish rate: {0} years": "Durchschnittliche Verfallsrate: {0} Jahre",
-  "Average perish rate: {0} days": "Durchschnittliche Verfallsrate: {0} Tage",
-  "Average perish rate: {0} hours": "Durchschnittliche Verfallsrate: {0} Stunden",
+  "Average perish rate {0} years": "Durchschnittliche Verfallsrate: {0} Jahre",
+  "Average perish rate {0} days": "Durchschnittliche Verfallsrate: {0} Tage",
+  "Average perish rate {0} hours": "Durchschnittliche Verfallsrate: {0} Stunden",
   "will perish in {0} years": "verfällt in {0} Jahren",
   "will perish in {0} days": "verfällt in {0} Tagen",
   "will perish in {0} hours": "verfällt in {0} Stunden",
 
   "Fruit": "Obst",
   "Fruits inside: {0}": "Obst im Korb: {0}",
-  "Rotten fruits: {0}": "Verdorbenes Obst: {0}",
   "No fruit will perish soon.": "Kein Obst wird bald verderben.",
   "Vegetable": "Gemüse",
   "Vegetables inside: {0}": "Gemüse im Korb: {0}",
-  "Rotten vegetables: {0}": "Verdorbenes Gemüse: {0}",
   "No vegetable will perish soon.": "Kein Gemüse wird bald verderben."
 }

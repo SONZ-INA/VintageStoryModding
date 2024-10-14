@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "Grande barile orizzontale",
   "block-barrelrackbig-*": "Grande scaffale per barili",
 
-  "blockhelp-fruitbasket-add": "Aggiungi frutta",
-  "blockhelp-fruitbasket-remove": "Rimuovi frutta",
-  "blockhelp-vegetablebasket-add": "Aggiungi verdure",
-  "blockhelp-vegetablebasket-remove": "Rimuovi verdure",
-
   "blockdesc-canhold-title": "Può contenere:",
   "blockdesc-canbeplacedin-title": "Può essere posizionato in:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "Questo barile deve essere posizionato su uno scaffale per barili.",
   "The barrel must be emptied before it can be picked up.": "Il barile deve essere svuotato prima di poter essere sollevato.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Versa il liquido nel barile. (Maiusc per porzione)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Versa il liquido nel contenitore tenuto. (Maiusc per porzione)</font>",
   "Missing barrel.": "<font color=\"orange\">Barile mancante.</font>",
 
-  "Contents: ": "<font color=\"orange\">Contenuto: </font>",
-  "Soonest: ": "Più vicino: ",
+  "Contents": "<font color=\"orange\">Contenuto: </font>",
+  "Soonest": "Più vicino: ",
   "Empty.": "Vuoto.",
-  "Average perish rate: {0} years": "Tasso medio di deterioramento: {0} anni",
-  "Average perish rate: {0} days": "Tasso medio di deterioramento: {0} giorni",
-  "Average perish rate: {0} hours": "Tasso medio di deterioramento: {0} ore",
+  "Average perish rate {0} years": "Tasso medio di deterioramento: {0} anni",
+  "Average perish rate {0} days": "Tasso medio di deterioramento: {0} giorni",
+  "Average perish rate {0} hours": "Tasso medio di deterioramento: {0} ore",
   "will perish in {0} years": "si deteriorerà in {0} anni",
   "will perish in {0} days": "si deteriorerà in {0} giorni",
   "will perish in {0} hours": "si deteriorerà in {0} ore",
 
   "Fruit": "Frutta",
   "Fruits inside: {0}": "Frutti all'interno: {0}",
-  "Rotten fruits: {0}": "Frutti marci: {0}",
   "No fruit will perish soon.": "Nessun frutto si deteriorerà presto.",
   "Vegetable": "Verdura",
   "Vegetables inside: {0}": "Verdure all'interno: {0}",
-  "Rotten vegetables: {0}": "Verdure marce: {0}",
   "No vegetable will perish soon.": "Nessuna verdura si deteriorerà presto."
 }

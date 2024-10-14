@@ -132,6 +132,6 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, 0, 0, "vegetable");
+        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount);
     }
 }

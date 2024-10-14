@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "大横桶",
   "block-barrelrackbig-*": "大桶架",
 
-  "blockhelp-fruitbasket-add": "添加水果",
-  "blockhelp-fruitbasket-remove": "取出水果",
-  "blockhelp-vegetablebasket-add": "添加蔬菜",
-  "blockhelp-vegetablebasket-remove": "取出蔬菜",
-
   "blockdesc-canhold-title": "可以容纳：",
   "blockdesc-canbeplacedin-title": "可以放置在：",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "这个桶需要放在桶架上.",
   "The barrel must be emptied before it can be picked up.": "在捡拾之前，必须先将桶中的水倒掉.",
-  "Pour liquid into barrel.": "<font color=\"orange\">将液体倒入桶中。（转移部分）</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">将液体倒入容器中。(转移部分)</font>",
   "Missing barrel.": "<font color=\"orange\">缺少桶</font>",
 
-  "Contents: ": "<font color=\"orange\">内容：</font>",
-  "Soonest: ": "最短：",
+  "Contents": "<font color=\"orange\">内容：</font>",
+  "Soonest": "最短：",
   "Empty.": "空的。",
-  "Average perish rate: {0} years": "平均损耗率：{0}年",
-  "Average perish rate: {0} days": "平均损耗率：{0}天",
-  "Average perish rate: {0} hours": "平均损耗率：{0}小时",
+  "Average perish rate {0} years": "平均损耗率：{0}年",
+  "Average perish rate {0} days": "平均损耗率：{0}天",
+  "Average perish rate {0} hours": "平均损耗率：{0}小时",
   "will perish in {0} years": "将在{0}年后腐烂",
   "will perish in {0} days": "将在{0}天后腐烂",
   "will perish in {0} hours": "将在{0}小时后腐烂",
 
   "Fruit": "水果",
   "Fruits inside: {0}": "里面的水果：{0}",
-  "Rotten fruits: {0}": "腐烂的水果：{0}",
   "No fruit will perish soon.": "没有果实即将腐烂。",
   "Vegetable": "蔬菜",
   "Vegetables inside: {0}": "里面的蔬菜：{0}",
-  "Rotten vegetables: {0}": "腐烂的蔬菜：{0}",
   "No vegetable will perish soon.": "没有蔬菜即将枯萎。"
 }

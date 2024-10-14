@@ -21,7 +21,7 @@ public static class Meshing {
         return mesh;
     }
 
-    public static MeshData GenBlockContentMesh(ICoreClientAPI capi, ItemStack[] contents, float[,] transformationMatrix, Dictionary<string, ModelTransform> modelTransformations = null) {
+    public static MeshData GenBlockContentMesh(ICoreClientAPI capi, ItemStack[] contents, float[,] transformationMatrix, float scaleValue = 1f, Dictionary<string, ModelTransform> modelTransformations = null) {
         MeshData contentMesh = null;
         
         if (contents != null) {
@@ -44,7 +44,7 @@ public static class Meshing {
                             .RotateXDeg(transformationMatrix[3, i])
                             .RotateYDeg(transformationMatrix[4, i])
                             .RotateZDeg(transformationMatrix[5, i])
-                            .Scale(0.5f, 0.5f, 0.5f)
+                            .Scale(scaleValue, scaleValue, scaleValue)
                             .Translate(transformationMatrix[0, i] - 0.84375f, transformationMatrix[1, i], transformationMatrix[2, i] - 0.8125f)
                             .Values;
 

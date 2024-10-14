@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "Велика горизонтальна бочка",
   "block-barrelrackbig-*": "Велика стійка для бочок",
 
-  "blockhelp-fruitbasket-add": "Додати фрукти",
-  "blockhelp-fruitbasket-remove": "Видалити фрукти",
-  "blockhelp-vegetablebasket-add": "Додати овочі",
-  "blockhelp-vegetablebasket-remove": "Видалити овочі",
-
   "blockdesc-canhold-title": "Може містити:",
   "blockdesc-canbeplacedin-title": "Може бути розміщено в:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "Цю бочку потрібно розмістити в стійці для бочок.",
   "The barrel must be emptied before it can be picked up.": "Бочку потрібно спорожнити перед тим, як її можна буде підняти.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Налийте рідину в бочку. (Shift для порції)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Налийте рідину в утримувану ємність. (Shift для порції)</font>",
   "Missing barrel.": "<font color=\"orange\">Бочка відсутня.</font>",
 
-  "Contents: ": "<font color=\"orange\">Вміст: </font>",
-  "Soonest: ": "Найближче:",
+  "Contents": "<font color=\"orange\">Вміст: </font>",
+  "Soonest": "Найближче:",
   "Empty.": "Порожньо.",
-  "Average perish rate: {0} years": "Середній термін придатності: {0} років",
-  "Average perish rate: {0} days": "Середній термін придатності: {0} днів",
-  "Average perish rate: {0} hours": "Середній термін придатності: {0} годин",
+  "Average perish rate {0} years": "Середній термін придатності: {0} років",
+  "Average perish rate {0} days": "Середній термін придатності: {0} днів",
+  "Average perish rate {0} hours": "Середній термін придатності: {0} годин",
   "will perish in {0} years": "зіпсується через {0} років",
   "will perish in {0} days": "зіпсується через {0} днів",
   "will perish in {0} hours": "зіпсується через {0} годин",
 
   "Fruit": "Фрукти",
   "Fruits inside: {0}": "Фрукти всередині: {0}",
-  "Rotten fruits: {0}": "Гнилі фрукти: {0}",
   "No fruit will perish soon.": "Ніякий фрукт не зіпсується найближчим часом.",
   "Vegetable": "Овочі",
   "Vegetables inside: {0}": "Овочі всередині: {0}",
-  "Rotten vegetables: {0}": "Гнилі овочі: {0}",
   "No vegetable will perish soon.": "Ніякий овоч не зіпсується найближчим часом."
 }

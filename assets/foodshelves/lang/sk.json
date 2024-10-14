@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "Veľký Horizontálny Sud",
   "block-barrelrackbig-*": "Veľká Police na Sudy",
 
-  "blockhelp-fruitbasket-add": "Pridať ovocie",
-  "blockhelp-fruitbasket-remove": "Odstrániť ovocie",
-  "blockhelp-vegetablebasket-add": "Pridať zeleninu",
-  "blockhelp-vegetablebasket-remove": "Odstrániť zeleninu",
-
   "blockdesc-canhold-title": "Môže obsahovať:",
   "blockdesc-canbeplacedin-title": "Môže byť umiestnené v:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "Tento sud musí byť umiestnený v police na sudy.",
   "The barrel must be emptied before it can be picked up.": "Súd musí byť vyprázdnený pred tým, než môže byť zdvihnutý.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Nalejte tekutinu do sudu. (Shift pre porciu)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Nalejte tekutinu do držiaceho kontajnera. (Shift pre porciu)</font>",
   "Missing barrel.": "<font color=\"orange\">Chýbajúci sud.</font>",
 
-  "Contents: ": "<font color=\"orange\">Obsah: </font>",
-  "Soonest: ": "Najskôr: ",
+  "Contents": "<font color=\"orange\">Obsah: </font>",
+  "Soonest": "Najskôr: ",
   "Empty.": "Prázdne.",
-  "Average perish rate: {0} years": "Priemerná miera skazenia: {0} rokov",
-  "Average perish rate: {0} days": "Priemerná miera skazenia: {0} dní",
-  "Average perish rate: {0} hours": "Priemerná miera skazenia: {0} hodín",
+  "Average perish rate {0} years": "Priemerná miera skazenia: {0} rokov",
+  "Average perish rate {0} days": "Priemerná miera skazenia: {0} dní",
+  "Average perish rate {0} hours": "Priemerná miera skazenia: {0} hodín",
   "will perish in {0} years": "sa skazí za {0} rokov",
   "will perish in {0} days": "sa skazí za {0} dní",
   "will perish in {0} hours": "sa skazí za {0} hodín",
 
   "Fruit": "Ovocie",
   "Fruits inside: {0}": "Ovocie vo vnútri: {0}",
-  "Rotten fruits: {0}": "Skazené ovocie: {0}",
   "No fruit will perish soon.": "Žiadne ovocie sa čoskoro nepokazí.",
   "Vegetable": "Zelenina",
   "Vegetables inside: {0}": "Zelenina vo vnútri: {0}",
-  "Rotten vegetables: {0}": "Skazená zelenina: {0}",
   "No vegetable will perish soon.": "Žiadna zelenina sa čoskoro nepokazí."
 }

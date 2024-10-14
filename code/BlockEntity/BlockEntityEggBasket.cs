@@ -77,7 +77,7 @@ public class BlockEntityEggBasket : BlockEntityDisplay {
     }
 
     protected override float[][] genTransformationMatrices() {
-        BlockFruitBasket.GetTransformationMatrix(out float[,] transformationMatrix);
+        BlockEggBasket.GetTransformationMatrix(out float[,] transformationMatrix);
         float[][] tfMatrices = new float[slotCount][];
 
         for (int item = 0; item < slotCount; item++) {
@@ -125,6 +125,6 @@ public class BlockEntityEggBasket : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, 0, 0, "egg");
+        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount);
     }
 }

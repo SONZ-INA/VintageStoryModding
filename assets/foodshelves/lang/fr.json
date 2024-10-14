@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "Grand tonneau horizontal",
   "block-barrelrackbig-*": "Grand râtelier à tonneaux",
 
-  "blockhelp-fruitbasket-add": "Ajouter des fruits",
-  "blockhelp-fruitbasket-remove": "Retirer des fruits",
-  "blockhelp-vegetablebasket-add": "Ajouter des légumes",
-  "blockhelp-vegetablebasket-remove": "Retirer des légumes",
-
   "blockdesc-canhold-title": "Peut contenir :",
   "blockdesc-canbeplacedin-title": "Peut être placé dans :",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "Ce tonneau doit être placé dans un râtelier à tonneaux.",
   "The barrel must be emptied before it can be picked up.": "Le tonneau doit être vidé avant de pouvoir être ramassé.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Verser le liquide dans le tonneau. (Maj pour portion)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Verser le liquide dans le récipient tenu. (Maj pour portion)</font>",
   "Missing barrel.": "<font color=\"orange\">Tonneau manquant.</font>",
 
-  "Contents: ": "<font color=\"orange\">Contenu : </font>",
-  "Soonest: ": "Le plus proche : ",
+  "Contents": "<font color=\"orange\">Contenu : </font>",
+  "Soonest": "Le plus proche : ",
   "Empty.": "Vide.",
-  "Average perish rate: {0} years": "Taux moyen de péremption : {0} ans",
-  "Average perish rate: {0} days": "Taux moyen de péremption : {0} jours",
-  "Average perish rate: {0} hours": "Taux moyen de péremption : {0} heures",
+  "Average perish rate {0} years": "Taux moyen de péremption : {0} ans",
+  "Average perish rate {0} days": "Taux moyen de péremption : {0} jours",
+  "Average perish rate {0} hours": "Taux moyen de péremption : {0} heures",
   "will perish in {0} years": "périra dans {0} ans",
   "will perish in {0} days": "périra dans {0} jours",
   "will perish in {0} hours": "périra dans {0} heures",
 
   "Fruit": "Fruit",
   "Fruits inside: {0}": "Fruits à l'intérieur : {0}",
-  "Rotten fruits: {0}": "Fruits pourris : {0}",
   "No fruit will perish soon.": "Aucun fruit ne périra bientôt.",
   "Vegetable": "Légume",
   "Vegetables inside: {0}": "Légumes à l'intérieur : {0}",
-  "Rotten vegetables: {0}": "Légumes pourris : {0}",
   "No vegetable will perish soon.": "Aucun légume ne périra bientôt."
 }

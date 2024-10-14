@@ -7,7 +7,7 @@ public class BlockFruitBasket : BlockContainer {
         base.OnLoaded(api);
         PlacedPriorityInteract = true; // Needed to call OnBlockInteractStart when shifting with an item in hand
 
-        interactions = ObjectCacheUtil.GetOrCreate(api, "fruitbasketBlockInteractions", () => {
+        interactions = ObjectCacheUtil.GetOrCreate(api, "basketBlockInteractions", () => {
             List<ItemStack> fruitStackList = new();
 
             foreach(Item item in api.World.Items) {
@@ -20,13 +20,13 @@ public class BlockFruitBasket : BlockContainer {
 
             return new WorldInteraction[] {
                 new() {
-                    ActionLangCode = "foodshelves:blockhelp-fruitbasket-add",
+                    ActionLangCode = "blockhelp-groundstorage-add",
                     MouseButton = EnumMouseButton.Right,
                     HotKeyCode = "shift",
                     Itemstacks = fruitStackList.ToArray()
                 },
                 new() {
-                    ActionLangCode = "foodshelves:blockhelp-fruitbasket-remove",
+                    ActionLangCode = "blockhelp-groundstorage-remove",
                     MouseButton = EnumMouseButton.Right,
                     HotKeyCode = "shift"
                 }
@@ -80,15 +80,15 @@ public class BlockFruitBasket : BlockContainer {
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo) {
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
 
-        dsc.Append(Lang.Get("Contents: "));
+        dsc.Append(Lang.Get("foodshelves:Contents"));
 
         if (inSlot.Itemstack == null) {
-            dsc.AppendLine(Lang.Get("Empty."));
+            dsc.AppendLine(Lang.Get("foodshelves:Empty."));
             return;
         }
 
         ItemStack[] contents = GetContents(world, inSlot.Itemstack);
-        PerishableInfoAverageAndSoonest(contents, dsc, world, "fruit");
+        PerishableInfoAverageAndSoonest(contents, dsc, world);
     }
 
     // Mesh rendering for items when inside inventory
@@ -111,7 +111,7 @@ public class BlockFruitBasket : BlockContainer {
             GetTransformationMatrix(out float[,] transformationMatrix);
 
             capi.Tesselator.TesselateBlock(this, out MeshData basketMesh);
-            MeshData contentMesh = GenBlockContentMesh(capi, contents, transformationMatrix, FruitBasketTransformations);
+            MeshData contentMesh = GenBlockContentMesh(capi, contents, transformationMatrix, 0.5f, FruitBasketTransformations);
             if (contentMesh != null) basketMesh.AddMeshData(contentMesh);
 
             if (basketMesh != null) { 

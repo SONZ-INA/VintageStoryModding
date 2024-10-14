@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "برميل أفقي كبير",
   "block-barrelrackbig-*": "رف البراميل الكبيرة",
 
-  "blockhelp-fruitbasket-add": "إضافة فاكهة",
-  "blockhelp-fruitbasket-remove": "إزالة الفاكهة",
-  "blockhelp-vegetablebasket-add": "إضافة خضروات",
-  "blockhelp-vegetablebasket-remove": "إزالة الخضروات",
-
   "blockdesc-canhold-title": "يمكن أن يحتوي:",
   "blockdesc-canbeplacedin-title": "يمكن وضعه في:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "يجب وضع هذا البرميل في رف البراميل.",
   "The barrel must be emptied before it can be picked up.": "يجب تفريغ البرميل قبل أن يمكن رفعه.",
-  "Pour liquid into barrel.": "<font color=\"orange\">صب السائل في البرميل. (Shift لتحديد الكمية)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">صب السائل في الحاوية المحمولة. (Shift لتحديد الكمية)</font>",
   "Missing barrel.": "<font color=\"orange\">البرميل مفقود.</font>",
 
-  "Contents: ": "<font color=\"orange\">المحتويات: </font>",
-  "Soonest: ": "الأقرب: ",
+  "Contents": "<font color=\"orange\">المحتويات: </font>",
+  "Soonest": "الأقرب: ",
   "Empty.": "فارغ.",
-  "Average perish rate: {0} years": "معدل التلف المتوسط: {0} سنوات",
-  "Average perish rate: {0} days": "معدل التلف المتوسط: {0} أيام",
-  "Average perish rate: {0} hours": "معدل التلف المتوسط: {0} ساعات",
+  "Average perish rate {0} years": "معدل التلف المتوسط: {0} سنوات",
+  "Average perish rate {0} days": "معدل التلف المتوسط: {0} أيام",
+  "Average perish rate {0} hours": "معدل التلف المتوسط: {0} ساعات",
   "will perish in {0} years": "سيتلف خلال {0} سنوات",
   "will perish in {0} days": "سيتلف خلال {0} أيام",
   "will perish in {0} hours": "سيتلف خلال {0} ساعات",
 
   "Fruit": "فاكهة",
   "Fruits inside: {0}": "الفاكهة بالداخل: {0}",
-  "Rotten fruits: {0}": "الفاكهة الفاسدة: {0}",
   "No fruit will perish soon.": "لا توجد فاكهة ستتلف قريبًا.",
   "Vegetable": "خضروات",
   "Vegetables inside: {0}": "الخضروات بالداخل: {0}",
-  "Rotten vegetables: {0}": "الخضروات الفاسدة: {0}",
   "No vegetable will perish soon.": "لا توجد خضروات ستتلف قريبًا."
 }

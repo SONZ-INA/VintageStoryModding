@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "Velký vodorovný sud",
   "block-barrelrackbig-*": "Stojan na velké sudy",
 
-  "blockhelp-fruitbasket-add": "Přidat ovoce",
-  "blockhelp-fruitbasket-remove": "Odebrat ovoce",
-  "blockhelp-vegetablebasket-add": "Přidat zeleninu",
-  "blockhelp-vegetablebasket-remove": "Odebrat zeleninu",
-
   "blockdesc-canhold-title": "Může obsahovat:",
   "blockdesc-canbeplacedin-title": "Může být umístěno v:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "Tento sud musí být umístěn ve stojanu na sudy.",
   "The barrel must be emptied before it can be picked up.": "Sud musí být vyprázdněn, než ho bude možné zvednout.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Nalijte tekutinu do sudu. (Shift pro dávkování)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Nalijte tekutinu do držené nádoby. (Shift pro dávkování)</font>",
   "Missing barrel.": "<font color=\"orange\">Chybí sud.</font>",
 
-  "Contents: ": "<font color=\"orange\">Obsah: </font>",
-  "Soonest: ": "Nejdříve: ",
+  "Contents": "<font color=\"orange\">Obsah: </font>",
+  "Soonest": "Nejdříve: ",
   "Empty.": "Prázdné.",
-  "Average perish rate: {0} years": "Průměrná doba zkázy: {0} let",
-  "Average perish rate: {0} days": "Průměrná doba zkázy: {0} dní",
-  "Average perish rate: {0} hours": "Průměrná doba zkázy: {0} hodin",
+  "Average perish rate {0} years": "Průměrná doba zkázy: {0} let",
+  "Average perish rate {0} days": "Průměrná doba zkázy: {0} dní",
+  "Average perish rate {0} hours": "Průměrná doba zkázy: {0} hodin",
   "will perish in {0} years": "zkazí se za {0} let",
   "will perish in {0} days": "zkazí se za {0} dní",
   "will perish in {0} hours": "zkazí se za {0} hodin",
 
   "Fruit": "Ovoce",
   "Fruits inside: {0}": "Ovoce uvnitř: {0}",
-  "Rotten fruits: {0}": "Zkažené ovoce: {0}",
   "No fruit will perish soon.": "Žádné ovoce se brzy nezkazí.",
   "Vegetable": "Zelenina",
   "Vegetables inside: {0}": "Zelenina uvnitř: {0}",
-  "Rotten vegetables: {0}": "Zkažená zelenina: {0}",
   "No vegetable will perish soon.": "Žádná zelenina se brzy nezkazí."
 }

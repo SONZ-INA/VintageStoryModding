@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "Baril Orizontal Mare",
   "block-barrelrackbig-*": "Rărack pentru Barile Mari",
 
-  "blockhelp-fruitbasket-add": "Adaugă fructe",
-  "blockhelp-fruitbasket-remove": "Elimină fructe",
-  "blockhelp-vegetablebasket-add": "Adaugă legume",
-  "blockhelp-vegetablebasket-remove": "Elimină legume",
-
   "blockdesc-canhold-title": "Poate conține:",
   "blockdesc-canbeplacedin-title": "Poate fi plasat în:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "Acest baril trebuie plasat într-un rărack pentru barili.",
   "The barrel must be emptied before it can be picked up.": "Barilul trebuie golit înainte de a putea fi ridicat.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Toarnă lichid în baril. (Shift pentru porție)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Toarnă lichid în recipientul ținut. (Shift pentru porție)</font>",
   "Missing barrel.": "<font color=\"orange\">Baril lipsă.</font>",
 
-  "Contents: ": "<font color=\"orange\">Conținut: </font>",
-  "Soonest: ": "Cel mai curând: ",
+  "Contents": "<font color=\"orange\">Conținut: </font>",
+  "Soonest": "Cel mai curând: ",
   "Empty.": "Gol.",
-  "Average perish rate: {0} years": "Rata medie de deteriorare: {0} ani",
-  "Average perish rate: {0} days": "Rata medie de deteriorare: {0} zile",
-  "Average perish rate: {0} hours": "Rata medie de deteriorare: {0} ore",
+  "Average perish rate {0} years": "Rata medie de deteriorare: {0} ani",
+  "Average perish rate {0} days": "Rata medie de deteriorare: {0} zile",
+  "Average perish rate {0} hours": "Rata medie de deteriorare: {0} ore",
   "will perish in {0} years": "se va deteriora în {0} ani",
   "will perish in {0} days": "se va deteriora în {0} zile",
   "will perish in {0} hours": "se va deteriora în {0} ore",
 
   "Fruit": "Fruct",
   "Fruits inside: {0}": "Fructe în interior: {0}",
-  "Rotten fruits: {0}": "Fructe putrezite: {0}",
   "No fruit will perish soon.": "Niciun fruct nu se va deteriora în curând.",
   "Vegetable": "Legumă",
   "Vegetables inside: {0}": "Legume în interior: {0}",
-  "Rotten vegetables: {0}": "Legume putrezite: {0}",
   "No vegetable will perish soon.": "Niciun legumă nu se va deteriora în curând."
 }

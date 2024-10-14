@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "Barril horizontal grande",
   "block-barrelrackbig-*": "Estante de barriles grandes",
 
-  "blockhelp-fruitbasket-add": "Añadir fruta",
-  "blockhelp-fruitbasket-remove": "Quitar fruta",
-  "blockhelp-vegetablebasket-add": "Añadir verduras",
-  "blockhelp-vegetablebasket-remove": "Quitar verduras",
-
   "blockdesc-canhold-title": "Puede contener:",
   "blockdesc-canbeplacedin-title": "Se puede colocar en:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "Este barril necesita ser colocado en un estante de barriles.",
   "The barrel must be emptied before it can be picked up.": "El barril debe vaciarse antes de que se pueda recoger.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Vierte líquido en el barril. (Shift para porción)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Vierte líquido en el recipiente sostenido. (Shift para porción)</font>",
   "Missing barrel.": "<font color=\"orange\">Falta el barril.</font>",
 
-  "Contents: ": "<font color=\"orange\">Contenido: </font>",
-  "Soonest: ": "Pronto: ",
+  "Contents": "<font color=\"orange\">Contenido: </font>",
+  "Soonest": "Pronto: ",
   "Empty.": "Vacío.",
-  "Average perish rate: {0} years": "Tasa promedio de caducidad: {0} años",
-  "Average perish rate: {0} days": "Tasa promedio de caducidad: {0} días",
-  "Average perish rate: {0} hours": "Tasa promedio de caducidad: {0} horas",
+  "Average perish rate {0} years": "Tasa promedio de caducidad: {0} años",
+  "Average perish rate {0} days": "Tasa promedio de caducidad: {0} días",
+  "Average perish rate {0} hours": "Tasa promedio de caducidad: {0} horas",
   "will perish in {0} years": "caducará en {0} años",
   "will perish in {0} days": "caducará en {0} días",
   "will perish in {0} hours": "caducará en {0} horas",
 
   "Fruit": "Fruta",
   "Fruits inside: {0}": "Frutas dentro: {0}",
-  "Rotten fruits: {0}": "Frutas podridas: {0}",
   "No fruit will perish soon.": "Ninguna fruta caducará pronto.",
   "Vegetable": "Verdura",
   "Vegetables inside: {0}": "Verduras dentro: {0}",
-  "Rotten vegetables: {0}": "Verduras podridas: {0}",
   "No vegetable will perish soon.": "Ninguna verdura caducará pronto."
 }

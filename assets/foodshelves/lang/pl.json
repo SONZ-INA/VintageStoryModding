@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "Duża pozioma beczka",
   "block-barrelrackbig-*": "Duży stojak na beczki",
 
-  "blockhelp-fruitbasket-add": "Dodaj owoce",
-  "blockhelp-fruitbasket-remove": "Usuń owoce",
-  "blockhelp-vegetablebasket-add": "Dodaj warzywa",
-  "blockhelp-vegetablebasket-remove": "Usuń warzywa",
-
   "blockdesc-canhold-title": "Może pomieścić:",
   "blockdesc-canbeplacedin-title": "Może być umieszczone w:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "Ta beczka musi być umieszczona na stojaku na beczki.",
   "The barrel must be emptied before it can be picked up.": "Beczka musi być opróżniona, zanim można ją podnieść.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Wlej płyn do beczki. (Shift, aby dozować)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Wlej płyn do trzymanego pojemnika. (Shift, aby dozować)</font>",
   "Missing barrel.": "<font color=\"orange\">Brak beczki.</font>",
 
-  "Contents: ": "<font color=\"orange\">Zawartość: </font>",
-  "Soonest: ": "Najbliższy:",
+  "Contents": "<font color=\"orange\">Zawartość: </font>",
+  "Soonest": "Najbliższy:",
   "Empty.": "Pusty.",
-  "Average perish rate: {0} years": "Średnia trwałość: {0} lat",
-  "Average perish rate: {0} days": "Średnia trwałość: {0} dni",
-  "Average perish rate: {0} hours": "Średnia trwałość: {0} godzin",
+  "Average perish rate {0} years": "Średnia trwałość: {0} lat",
+  "Average perish rate {0} days": "Średnia trwałość: {0} dni",
+  "Average perish rate {0} hours": "Średnia trwałość: {0} godzin",
   "will perish in {0} years": "zepsuje się za {0} lat",
   "will perish in {0} days": "zepsuje się za {0} dni",
   "will perish in {0} hours": "zepsuje się za {0} godzin",
 
   "Fruit": "Owoc",
   "Fruits inside: {0}": "Owoce wewnątrz: {0}",
-  "Rotten fruits: {0}": "Zgniłe owoce: {0}",
   "No fruit will perish soon.": "Żaden owoc nie zepsuje się wkrótce.",
   "Vegetable": "Warzywo",
   "Vegetables inside: {0}": "Warzywa wewnątrz: {0}",
-  "Rotten vegetables: {0}": "Zgniłe warzywa: {0}",
   "No vegetable will perish soon.": "Żadne warzywo nie zepsuje się wkrótce."
 }

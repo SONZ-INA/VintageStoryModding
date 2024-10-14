@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "Большая горизонтальная бочка",
   "block-barrelrackbig-*": "Большая стойка для бочек",
 
-  "blockhelp-fruitbasket-add": "Добавить фрукты",
-  "blockhelp-fruitbasket-remove": "Удалить фрукты",
-  "blockhelp-vegetablebasket-add": "Добавить овощи",
-  "blockhelp-vegetablebasket-remove": "Удалить овощи",
-
   "blockdesc-canhold-title": "Может содержать:",
   "blockdesc-canbeplacedin-title": "Может быть размещено в:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "Эту бочку нужно поместить в стойку для бочек.",
   "The barrel must be emptied before it can be picked up.": "Бочку нужно опустошить перед тем, как её можно будет поднять.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Налейте жидкость в бочку. (Shift для порции)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Налейте жидкость в удерживаемую ёмкость. (Shift для порции)</font>",
   "Missing barrel.": "<font color=\"orange\">Бочка отсутствует.</font>",
 
-  "Contents: ": "<font color=\"orange\">Содержимое: </font>",
-  "Soonest: ": "Ближайшее:",
+  "Contents": "<font color=\"orange\">Содержимое: </font>",
+  "Soonest": "Ближайшее:",
   "Empty.": "Пусто.",
-  "Average perish rate: {0} years": "Средний срок хранения: {0} лет",
-  "Average perish rate: {0} days": "Средний срок хранения: {0} дней",
-  "Average perish rate: {0} hours": "Средний срок хранения: {0} часов",
+  "Average perish rate {0} years": "Средний срок хранения: {0} лет",
+  "Average perish rate {0} days": "Средний срок хранения: {0} дней",
+  "Average perish rate {0} hours": "Средний срок хранения: {0} часов",
   "will perish in {0} years": "испорится через {0} лет",
   "will perish in {0} days": "испорится через {0} дней",
   "will perish in {0} hours": "испорится через {0} часов",
 
   "Fruit": "Фрукты",
   "Fruits inside: {0}": "Фрукты внутри: {0}",
-  "Rotten fruits: {0}": "Испорченные фрукты: {0}",
   "No fruit will perish soon.": "Ни один фрукт не испортится в ближайшее время.",
   "Vegetable": "Овощи",
   "Vegetables inside: {0}": "Овощи внутри: {0}",
-  "Rotten vegetables: {0}": "Испорченные овощи: {0}",
   "No vegetable will perish soon.": "Ни один овощ не испортится в ближайшее время."
 }

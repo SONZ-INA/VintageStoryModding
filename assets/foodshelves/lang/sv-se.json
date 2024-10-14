@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "Stor Horisontell Tunn",
   "block-barrelrackbig-*": "Stort Tunnställ",
 
-  "blockhelp-fruitbasket-add": "Lägg till frukt",
-  "blockhelp-fruitbasket-remove": "Ta bort frukt",
-  "blockhelp-vegetablebasket-add": "Lägg till grönsaker",
-  "blockhelp-vegetablebasket-remove": "Ta bort grönsaker",
-
   "blockdesc-canhold-title": "Kan innehålla:",
   "blockdesc-canbeplacedin-title": "Kan placeras i:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "Denna tunna måste placeras i ett tunnställ.",
   "The barrel must be emptied before it can be picked up.": "Tunnan måste vara tömd innan den kan plockas upp.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Häll vätska i tunnan. (Shift för portion)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Häll vätska i det hållna behållaren. (Shift för portion)</font>",
   "Missing barrel.": "<font color=\"orange\">Saknas tunna.</font>",
 
-  "Contents: ": "<font color=\"orange\">Innehåll: </font>",
-  "Soonest: ": "Tidigast: ",
+  "Contents": "<font color=\"orange\">Innehåll: </font>",
+  "Soonest": "Tidigast: ",
   "Empty.": "Tom.",
-  "Average perish rate: {0} years": "Genomsnittlig förgänglighet: {0} år",
-  "Average perish rate: {0} days": "Genomsnittlig förgänglighet: {0} dagar",
-  "Average perish rate: {0} hours": "Genomsnittlig förgänglighet: {0} timmar",
+  "Average perish rate {0} years": "Genomsnittlig förgänglighet: {0} år",
+  "Average perish rate {0} days": "Genomsnittlig förgänglighet: {0} dagar",
+  "Average perish rate {0} hours": "Genomsnittlig förgänglighet: {0} timmar",
   "will perish in {0} years": "kommer att förstöras om {0} år",
   "will perish in {0} days": "kommer att förstöras om {0} dagar",
   "will perish in {0} hours": "kommer att förstöras om {0} timmar",
 
   "Fruit": "Frukt",
   "Fruits inside: {0}": "Frukter inuti: {0}",
-  "Rotten fruits: {0}": "Ruttna frukter: {0}",
   "No fruit will perish soon.": "Ingen frukt kommer att förstöras snart.",
   "Vegetable": "Grönsak",
   "Vegetables inside: {0}": "Grönsaker inuti: {0}",
-  "Rotten vegetables: {0}": "Ruttna grönsaker: {0}",
   "No vegetable will perish soon.": "Ingen grönsak kommer att förstöras snart."
 }

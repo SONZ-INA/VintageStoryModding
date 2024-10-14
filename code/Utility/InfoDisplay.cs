@@ -8,7 +8,7 @@ public static class InfoDisplay {
         ByBlockAverageAndSoonest
     }
 
-    public static void DisplayInfo(IPlayer forPlayer, StringBuilder sb, InventoryGeneric inv, InfoDisplayOptions displaySelection, int slotCount, int segmentsPerShelf = 0, int itemsPerSegment = 0, string itemName = "Item", bool skipLine = true) {
+    public static void DisplayInfo(IPlayer forPlayer, StringBuilder sb, InventoryGeneric inv, InfoDisplayOptions displaySelection, int slotCount, int segmentsPerShelf = 0, int itemsPerSegment = 0, bool skipLine = true) {
         if (skipLine) sb.AppendLine(); // Space in between to be in line with vanilla
 
         ICoreAPI Api = inv.Api;
@@ -21,7 +21,7 @@ public static class InfoDisplay {
             }
 
             ItemStack[] contents = itemStackList.ToArray();
-            PerishableInfoAverageAndSoonest(contents, sb, Api.World, itemName);
+            PerishableInfoAverageAndSoonest(contents, sb, Api.World);
             return;
         }
 
@@ -147,7 +147,7 @@ public static class InfoDisplay {
         return dsc.ToString();
     }
 
-    public static void PerishableInfoAverageAndSoonest(ItemStack[] contents, StringBuilder dsc, IWorldAccessor world, string itemName) {
+    public static void PerishableInfoAverageAndSoonest(ItemStack[] contents, StringBuilder dsc, IWorldAccessor world) {
         if (contents == null) return;
 
         int itemCount = 0;
@@ -185,10 +185,10 @@ public static class InfoDisplay {
         }
         
         // Number of fruits inside
-        if (itemCount > 0) dsc.AppendLine(Lang.Get($"{itemName.FirstCharToUpper()}s inside: {{0}}", itemCount)); // Need to re-code
+        if (itemCount > 0) dsc.AppendLine(Lang.Get("foodshelves:Items inside {0}", itemCount));
 
         // Number of rotten items
-        if (rotCount > 0) dsc.AppendLine(Lang.Get($"Rotten {itemName}s: {{0}}", rotCount)); // Need to re-code
+        if (rotCount > 0) dsc.AppendLine(Lang.Get("Rotten Food: {0}", rotCount));
 
         // Average perish rate
         if (totalCount > 0) {
@@ -196,19 +196,19 @@ public static class InfoDisplay {
             double hoursPerday = world.Calendar.HoursPerDay;
 
             if (averageFreshHoursLeft / hoursPerday >= world.Calendar.DaysPerYear) {
-                dsc.AppendLine(Lang.Get("Average perish rate: {0} years", Math.Round(averageFreshHoursLeft / hoursPerday / world.Calendar.DaysPerYear, 1)));
+                dsc.AppendLine(Lang.Get("foodshelves:Average perish rate {0} years", Math.Round(averageFreshHoursLeft / hoursPerday / world.Calendar.DaysPerYear, 1)));
             }
             else if (averageFreshHoursLeft > hoursPerday) {
-                dsc.AppendLine(Lang.Get("Average perish rate: {0} days", Math.Round(averageFreshHoursLeft / hoursPerday, 1)));
+                dsc.AppendLine(Lang.Get("foodshelves:Average perish rate {0} days", Math.Round(averageFreshHoursLeft / hoursPerday, 1)));
             }
             else {
-                dsc.AppendLine(Lang.Get("Average perish rate: {0} hours", Math.Round(averageFreshHoursLeft, 1)));
+                dsc.AppendLine(Lang.Get("foodshelves:Average perish rate {0} hours", Math.Round(averageFreshHoursLeft, 1)));
             }
         }
 
         // Item that will perish the soonest
         if (soonestPerishStack != null) {
-            dsc.Append(Lang.Get("Soonest: ") + soonestPerishStack.GetName()); // Can't use ':' because it's recognized as a mod domain
+            dsc.Append(Lang.Get("foodshelves:Soonest") + soonestPerishStack.GetName());
             double hoursPerday = world.Calendar.HoursPerDay;
 
             if (soonestTransitionLevel > 0) {
@@ -216,18 +216,18 @@ public static class InfoDisplay {
             }
             else {
                 if (soonestPerishHours / hoursPerday >= world.Calendar.DaysPerYear) {
-                    dsc.AppendLine(", " + Lang.Get("will perish in {0} years", Math.Round(soonestPerishHours / hoursPerday / world.Calendar.DaysPerYear, 1)));
+                    dsc.AppendLine(", " + Lang.Get("foodshelves:will perish in {0} years", Math.Round(soonestPerishHours / hoursPerday / world.Calendar.DaysPerYear, 1)));
                 }
                 else if (soonestPerishHours > hoursPerday) {
-                    dsc.AppendLine(", " + Lang.Get("will perish in {0} days", Math.Round(soonestPerishHours / hoursPerday, 1)));
+                    dsc.AppendLine(", " + Lang.Get("foodshelves:will perish in {0} days", Math.Round(soonestPerishHours / hoursPerday, 1)));
                 }
                 else {
-                    dsc.AppendLine(", " + Lang.Get("will perish in {0} hours", Math.Round(soonestPerishHours, 1)));
+                    dsc.AppendLine(", " + Lang.Get("foodshelves:will perish in {0} hours", Math.Round(soonestPerishHours, 1)));
                 }
             }
         }
         else {
-            dsc.AppendLine(Lang.Get($"foodshelves:No {itemName} will perish soon."));
+            dsc.AppendLine(Lang.Get("foodshelves:No items will perish soon."));
         }
     }
 }

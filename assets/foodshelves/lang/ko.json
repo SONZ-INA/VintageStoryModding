@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "큰 수평 통",
   "block-barrelrackbig-*": "큰 통 선반",
 
-  "blockhelp-fruitbasket-add": "과일 추가",
-  "blockhelp-fruitbasket-remove": "과일 제거",
-  "blockhelp-vegetablebasket-add": "채소 추가",
-  "blockhelp-vegetablebasket-remove": "채소 제거",
-
   "blockdesc-canhold-title": "담을 수 있는 것:",
   "blockdesc-canbeplacedin-title": "놓을 수 있는 장소:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "이 통은 통 선반에 놓아야 합니다.",
   "The barrel must be emptied before it can be picked up.": "이 통을 들기 전에 비워야 합니다.",
-  "Pour liquid into barrel.": "<font color=\"orange\">통에 액체를 붓습니다. (Shift 키로 양 조절)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">손에 든 용기에 액체를 붓습니다. (Shift 키로 양 조절)</font>",
   "Missing barrel.": "<font color=\"orange\">통이 없습니다.</font>",
 
-  "Contents: ": "<font color=\"orange\">내용물: </font>",
-  "Soonest: ": "가장 빠르게:",
+  "Contents": "<font color=\"orange\">내용물: </font>",
+  "Soonest": "가장 빠르게:",
   "Empty.": "비어 있음.",
-  "Average perish rate: {0} years": "평균 부패 속도: {0}년",
-  "Average perish rate: {0} days": "평균 부패 속도: {0}일",
-  "Average perish rate: {0} hours": "평균 부패 속도: {0}시간",
+  "Average perish rate {0} years": "평균 부패 속도: {0}년",
+  "Average perish rate {0} days": "평균 부패 속도: {0}일",
+  "Average perish rate {0} hours": "평균 부패 속도: {0}시간",
   "will perish in {0} years": "{0}년 후에 부패합니다",
   "will perish in {0} days": "{0}일 후에 부패합니다",
   "will perish in {0} hours": "{0}시간 후에 부패합니다",
 
   "Fruit": "과일",
   "Fruits inside: {0}": "안에 있는 과일: {0}",
-  "Rotten fruits: {0}": "썩은 과일: {0}",
   "No fruit will perish soon.": "곧 부패할 과일이 없습니다.",
   "Vegetable": "채소",
   "Vegetables inside: {0}": "안에 있는 채소: {0}",
-  "Rotten vegetables: {0}": "썩은 채소: {0}",
   "No vegetable will perish soon.": "곧 부패할 채소가 없습니다."
 }
