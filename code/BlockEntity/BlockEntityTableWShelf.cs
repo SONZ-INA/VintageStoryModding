@@ -1,8 +1,8 @@
 ﻿namespace FoodShelves;
 
 public enum TableWShelfPart {
-    Table = 0,
-    Shelf = 1
+    Table = 1,
+    Shelf = 0
 }
 
 public class BlockEntityTableWShelf : BlockEntityDisplay {

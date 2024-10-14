@@ -123,4 +123,16 @@ public static class Patches {
             obj.Attributes.Token[PumpkinCase] = JToken.FromObject(true);
         }
     }
+
+    public static void PatchFoodUniversal(CollectibleObject obj, FoodUniversalData data) {
+        if (data.FoodUniversalTypes.Contains(obj.GetType().Name) || WildcardUtil.Match(data.FoodUniversalCodes, obj.Code.Path.ToString())) {
+            obj.EnsureAttributesNotNull();
+            obj.Attributes.Token[FoodUniversal] = JToken.FromObject(true);
+        }
+
+        ModelTransform transformation = obj.GetTransformation(FoodUniversalTransformations);
+        if (transformation != null) {
+            obj.Attributes.Token[onGlassFoodBlockTransform] = JToken.FromObject(transformation);
+        }
+    }
 }

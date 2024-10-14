@@ -1,0 +1,19 @@
+{
+  "FoodUniversalTypes": [
+    "BlockPie",
+    "ItemCheese"
+  ],
+  "FoodUniversalCodes": [
+    "*bread-*",
+    "*dough-*",
+
+    "*muffin-*",
+    "*breadedball-*",
+    "*dumpling-*",
+    "*doughball-*",
+
+    "*halva",
+    "*pacoca",
+    "*marzipan"
+  ]
+}

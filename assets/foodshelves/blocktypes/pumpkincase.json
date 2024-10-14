@@ -2,10 +2,9 @@
   "code": "pumpkincase",
   "class": "FoodShelves.BlockPumpkinCase",
   "entityclass": "FoodShelves.BlockEntityPumpkinCase",
-  "creativeinventory": { "general": ["*-east"], "decorative": ["*-east"], "foodshelves": ["*-east"] },
+  "creativeinventory": { "general": ["*"], "decorative": ["*"], "foodshelves": ["*"] },
   "variantgroups": [
-    { "code": "type", "states": ["normal"] },
-    { "code": "side", "loadFromProperties": "abstract/horizontalorientation" }
+    { "code": "type", "states": ["normal"] }
   ],
   "attributes": {
     "handbook": {
@@ -24,8 +23,7 @@
     { "name": "UnstableFalling" }
   ],
   "shape": {
-    "base": "block/wood/pumpkincase",
-    "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
+    "base": "block/wood/pumpkincase"
   },
   "textures": {
 	  "wood": { "base": "game:block/wood/shelf/wood" },

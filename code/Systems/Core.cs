@@ -61,6 +61,9 @@ public class Core : ModSystem {
 
         api.RegisterBlockClass("FoodShelves.BlockPumpkinCase", typeof(BlockPumpkinCase));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityPumpkinCase", typeof(BlockEntityPumpkinCase));
+
+        api.RegisterBlockClass("FoodShelves.BlockGlassFood", typeof(BlockGlassFood));
+        api.RegisterBlockEntityClass("FoodShelves.BlockEntityGlassFood", typeof(BlockEntityGlassFood));
     }
 
     public override void StartClientSide(ICoreClientAPI api) {
@@ -70,10 +73,14 @@ public class Core : ModSystem {
         GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onEggShelfTransform, AttributeName = onEggShelfTransform });
         GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onSeedShelfTransform, AttributeName = onSeedShelfTransform });
         GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onSushiShelfTransform, AttributeName = onSushiShelfTransform });
+        GuiDialogTransformEditor.extraTransforms.Add(new TransformConfig() { Title = onGlassFoodBlockTransform, AttributeName = onGlassFoodBlockTransform });
     }
 
     public override void AssetsLoaded(ICoreAPI api) {
         base.AssetsLoaded(api);
+
+        FoodUniversalData = api.LoadAsset<RestrictionData.FoodUniversalData>("foodshelves:config/restrictions/fooduniversal.json");
+        FoodUniversalTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/fooduniversal.json");
 
         PieShelfData = api.LoadAsset<RestrictionData.PieShelfData>("foodshelves:config/restrictions/shelves/pieshelf.json");
         PieShelfTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/shelves/pieshelf.json");
@@ -101,6 +108,8 @@ public class Core : ModSystem {
         base.AssetsFinalize(api);
 
         foreach (CollectibleObject obj in api.World.Collectibles) {
+            PatchFoodUniversal(obj, FoodUniversalData);
+
             PatchPieShelf(obj, PieShelfData);
             PatchBreadShelf(obj, BreadShelfData);
             PatchBarShelf(obj, BarShelfData);

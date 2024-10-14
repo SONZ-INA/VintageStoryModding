@@ -7,6 +7,6 @@
     "width": 3,
     "height": 3,
     "recipeGroup": 1,
-    "output": { "type": "block", "code": "pumpkincase-normal-east" }
+    "output": { "type": "block", "code": "pumpkincase-normal" }
   }
 ]

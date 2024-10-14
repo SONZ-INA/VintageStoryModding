@@ -9,10 +9,10 @@
 	"textureSizes": {
 	},
 	"textures": {
-		"frame": "block/glass/frame",
-		"frame-slab": "block/glass/frame-slab",
-		"smoky": "block/glass/smoky",
-		"surface": "block/wood/shelf/surface"
+		"frame": "frame",
+		"frame-slab": "frame-slab",
+		"smoky": "smoky",
+		"surface": "surface"
 	},
 	"elements": [
 		{

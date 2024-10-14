@@ -8,7 +8,16 @@ public static class Restrictions
     public static bool ShelvableCheck(this CollectibleObject obj) => obj?.Attributes?[Shelvable].AsBool() == true;
     public static bool ShelvableCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[Shelvable].AsBool() == true;
 
-    #endregion 
+    #endregion
+
+    #region FoodUniversal
+
+    public const string FoodUniversal = "fooduniversalcheck";
+    public static bool FoodUniversalCheck(this CollectibleObject obj) => obj?.Attributes?[FoodUniversal].AsBool() == true;
+    public static bool FoodUniversalCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[FoodUniversal].AsBool() == true;
+
+    #endregion
+
 
     #region PieShelf
 
@@ -111,6 +120,7 @@ public static class Restrictions
     public static bool BarrelRackBigCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[BarrelRackBig].AsBool() == true;
 
     #endregion
+
 
     #region PumpkinCase
 

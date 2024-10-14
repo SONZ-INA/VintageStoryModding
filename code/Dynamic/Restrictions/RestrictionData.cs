@@ -72,4 +72,9 @@ public class RestrictionData {
         public string[] PumpkinCaseTypes { get; set; }
         public string[] PumpkinCaseCodes { get; set; }
     }
+
+    public class FoodUniversalData {
+        public string[] FoodUniversalTypes { get; set; }
+        public string[] FoodUniversalCodes { get; set; }
+    }
 }
