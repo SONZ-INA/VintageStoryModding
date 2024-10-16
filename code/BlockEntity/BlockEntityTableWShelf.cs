@@ -1,11 +1,11 @@
 ﻿namespace FoodShelves;
 
-public enum TableWShelfPart {
-    Table = 1,
-    Shelf = 0
-}
-
 public class BlockEntityTableWShelf : BlockEntityDisplay {
+    private enum TableWShelfPart {
+        Table = 1,
+        Shelf = 0
+    }
+
     readonly InventoryGeneric inv;
     Block block;
     

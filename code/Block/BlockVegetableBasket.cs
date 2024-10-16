@@ -80,7 +80,7 @@ public class BlockVegetableBasket : BlockContainer {
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo) {
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
 
-        dsc.Append(Lang.Get("foodshelves:Contents: "));
+        dsc.Append(Lang.Get("foodshelves:Contents"));
 
         if (inSlot.Itemstack == null) {
             dsc.AppendLine(Lang.Get("foodshelves:Empty."));

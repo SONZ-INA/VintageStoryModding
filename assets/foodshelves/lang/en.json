@@ -20,7 +20,9 @@
   "block-barrelrack-*": "Barrel rack",
   "block-horizontalbarrelbig-*": "Big horizontal barrel",
   "block-barrelrackbig-*": "Big barrel rack",
+  "block-pumpkincase-*": "Pumpkin Case",
   "block-glassfoodblock-*": "Glass Food Block",
+  "block-glassfoodcase-*": "Glass Food Case",
 
   "blockdesc-canhold-title": "Can hold:",
   "blockdesc-canbeplacedin-title": "Can be placed in:",

@@ -39,9 +39,10 @@ public static class InfoDisplay {
                 end = -1;
                 break;
             case InfoDisplayOptions.ByShelf:
-                int selectedShelf = selectedSegment / segmentsPerShelf * segmentsPerShelf * itemsPerSegment;
+                int itemsPerShelf = segmentsPerShelf * itemsPerSegment;
+                int selectedShelf = selectedSegment / segmentsPerShelf * itemsPerShelf;
                 start = selectedShelf;
-                end = selectedShelf + (segmentsPerShelf * itemsPerSegment);
+                end = selectedShelf + itemsPerShelf;
                 break;
             case InfoDisplayOptions.BySegment:
                 start = selectedSegment * itemsPerSegment;
@@ -50,6 +51,7 @@ public static class InfoDisplay {
         }
 
         for (int i = start; i != end; i = displaySelection == InfoDisplayOptions.ByBlock ? i - 1 : i + 1) {
+            if (i >= slotCount) break;
             if (inv[i].Empty) continue;
 
             ItemStack stack = inv[i].Itemstack;
@@ -226,7 +228,7 @@ public static class InfoDisplay {
             }
         }
         else {
-            dsc.AppendLine(Lang.Get("foodshelves:No items will perish soon."));
+            dsc.AppendLine(Lang.Get("foodshelves:No item will perish soon."));
         }
     }
 }

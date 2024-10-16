@@ -13,6 +13,7 @@ public class TransformationsCollection {
     public const string onVegetableBasketTransform = "onVegetableBasketTransform";
     public const string onBarrelRackTransform = "onHorizontalBarrelRackTransform";
     public const string onGlassFoodBlockTransform = "onGlassFoodBlockTransform";
+    public const string onGlassFoodCaseTransform = "onGlassFoodCaseTransform";
 
     public static Dictionary<string, ModelTransform> FoodUniversalTransformations { get; set; } = new();
 

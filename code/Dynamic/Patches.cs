@@ -12,6 +12,7 @@ public static class Patches {
         ModelTransform transformation = obj.GetTransformation(FoodUniversalTransformations);
         if (transformation != null) {
             obj.Attributes.Token[onGlassFoodBlockTransform] = JToken.FromObject(transformation);
+            obj.Attributes.Token[onGlassFoodCaseTransform] = JToken.FromObject(transformation);
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace FoodShelves;
 
-public class BlockEntityGlassFood : BlockEntityDisplay {
+public class BlockEntityGlassFoodCase : BlockEntityDisplay {
     private enum SlotNumber {
         BottomSlot = 0,
         TopSlot = 1
@@ -13,22 +13,15 @@ public class BlockEntityGlassFood : BlockEntityDisplay {
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
     public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
-    private int shelfCount = 2;
+    private const int shelfCount = 2;
     private const int segmentsPerShelf = 1;
     private const int itemsPerSegment = 4;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.BySegment;
 
-    public BlockEntityGlassFood() { inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotFoodUniversal(inv)); }
+    public BlockEntityGlassFoodCase() { inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotFoodUniversal(inv)); }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
-
-        if (block.Code.SecondCodePart().Contains("top")) {
-            shelfCount = 1;
-            inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotFoodUniversal(inv));
-            Inventory.LateInitialize(Inventory.InventoryID, api);
-        }
-
         base.Initialize(api);
     }
 
@@ -94,7 +87,7 @@ public class BlockEntityGlassFood : BlockEntityDisplay {
         }
 
         // Top Slot
-        if (block?.Code.SecondCodePart().Contains("normal") == true && index == (int)SlotNumber.TopSlot) {
+        if (index == (int)SlotNumber.TopSlot) {
             if (inv[itemsPerSegment].Empty) {
                 int moved = slot.TryPutInto(Api.World, inv[itemsPerSegment]);
                 MarkDirty();
@@ -151,18 +144,20 @@ public class BlockEntityGlassFood : BlockEntityDisplay {
                     new Matrixf()
                     .Translate(0.5f, 0, 0.5f)
                     .RotateYDeg(block.Shape.rotateY)
-                    .Translate(-0.5f, i % (itemsPerSegment - 1) * 0.3725f + 0.2525f, -0.5f)
+                    .RotateXDeg(i >= itemsPerSegment ? 15 : 0)
+                    .Translate(-0.5f, i % (itemsPerSegment - 1) * 0.3725f + 0.2525f, i >= itemsPerSegment ? -0.65f : -0.5f)
                     .Values;
             }
             else {
-                float x = i % (itemsPerSegment / 2) == 0 ? 0.18f : -0.18f; 
-                float z = (i / (itemsPerSegment / 2)) % 2 == 0 ? 0.18f : -0.18f;
+                float x = i % (itemsPerSegment / 2) == 0 ? -0.18f : 0.18f; 
+                float z = (i / (itemsPerSegment / 2)) % 2 == 0 ? -0.18f : 0.18f;
 
                 tfMatrices[i] =
                     new Matrixf()
                     .Translate(0.5f, 0, 0.5f)
                     .RotateYDeg(block.Shape.rotateY)
-                    .Translate(x - 0.5f, i / itemsPerSegment * 0.3725f + 0.2525f, z - 0.5f)
+                    .RotateXDeg(i >= itemsPerSegment ? 15 : 0)
+                    .Translate(x - 0.5f, i / itemsPerSegment * 0.3725f + 0.2525f, z - (i >= itemsPerSegment ? 0.65f : 0.5f))
                     .Values;
             }
         }
