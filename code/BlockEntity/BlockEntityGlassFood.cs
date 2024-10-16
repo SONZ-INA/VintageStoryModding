@@ -18,8 +18,7 @@ public class BlockEntityGlassFood : BlockEntityDisplay {
     private const int itemsPerSegment = 4;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.BySegment;
 
-    private bool slot1LargeItem = false;
-    private bool slot2LargeItem = false;
+    private bool[] slotLarge = { false, false };
 
     public BlockEntityGlassFood() { inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotFoodUniversal(inv)); }
 
@@ -51,13 +50,6 @@ public class BlockEntityGlassFood : BlockEntityDisplay {
         return 1;
     }
 
-    private bool IsLargeItem(ItemStack itemStack) {
-        if (BakingProperties.ReadFrom(itemStack)?.LargeItem == true) return true;
-        if (itemStack.Collectible.GetType().Name == "ItemCheese") return true;
-        
-        return false;
-    }
-
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
@@ -86,14 +78,14 @@ public class BlockEntityGlassFood : BlockEntityDisplay {
         // Bottom Slot
         if (index == (int)SlotNumber.BottomSlot) {
             if (inv[index].Empty) {
-                slot1LargeItem = IsLargeItem(slot.Itemstack);
+                slotLarge[0] = IsLargeItem(slot.Itemstack);
 
                 int moved = slot.TryPutInto(Api.World, inv[index]);
                 MarkDirty();
                 (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
                 return moved > 0;
             }
-            else if (!slot1LargeItem) {
+            else if (!slotLarge[0]) {
                 for (int i = 1; i < itemsPerSegment; i++) {
                     if (inv[i].Empty) {
                         int moved = slot.TryPutInto(Api.World, inv[i]);
@@ -108,14 +100,14 @@ public class BlockEntityGlassFood : BlockEntityDisplay {
         // Top Slot
         if (block?.Code.SecondCodePart().Contains("normal") == true && index == (int)SlotNumber.TopSlot) {
             if (inv[itemsPerSegment].Empty) {
-                slot2LargeItem = IsLargeItem(slot.Itemstack);
+                slotLarge[1] = IsLargeItem(slot.Itemstack);
 
                 int moved = slot.TryPutInto(Api.World, inv[itemsPerSegment]);
                 MarkDirty();
                 (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
                 return moved > 0;
             }
-            else if (!slot2LargeItem) {
+            else if (!slotLarge[1]) {
                 for (int i = itemsPerSegment; i < shelfCount * itemsPerSegment; i++) {
                     if (inv[i].Empty) {
                         int moved = slot.TryPutInto(Api.World, inv[i]);
@@ -149,8 +141,8 @@ public class BlockEntityGlassFood : BlockEntityDisplay {
             (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
                 MarkDirty();
 
-                if (inv[index].Empty && index == (int)SlotNumber.BottomSlot) slot1LargeItem = false;
-                if (inv[index].Empty && index == (int)SlotNumber.TopSlot) slot2LargeItem = false;
+                if (inv[index].Empty && index == (int)SlotNumber.BottomSlot) slotLarge[0] = false;
+                if (inv[index].Empty && index == (int)SlotNumber.TopSlot) slotLarge[1] = false;
 
                 return true;
             }
@@ -163,20 +155,23 @@ public class BlockEntityGlassFood : BlockEntityDisplay {
         float[][] tfMatrices = new float[shelfCount * segmentsPerShelf * itemsPerSegment][];
 
         for (int i = 0; i < shelfCount * segmentsPerShelf * itemsPerSegment; i++) {
-            if ((i < itemsPerSegment && slot1LargeItem) || (i >= itemsPerSegment && slot2LargeItem)) {
-                tfMatrices[i] =
-                    new Matrixf()
-                    .Translate(0.5f, 0, 0.5f)
-                    .RotateYDeg(block.Shape.rotateY)
-                    .Translate(- 0.5f, i * 0.3725f + 0.2525f, - 0.5f)
-                    .Values;
-            }
-            else {
+            if ((i < itemsPerSegment && slotLarge[0]) || (i >= itemsPerSegment && slotLarge[1])) {
                 tfMatrices[i] =
                     new Matrixf()
                     .Translate(0.5f, 0, 0.5f)
                     .RotateYDeg(block.Shape.rotateY)
                     .Translate(-0.5f, i % itemsPerSegment * 0.3725f + 0.2525f, -0.5f)
+                    .Values;
+            }
+            else {
+                float x = i % 2 * (i % 2 == 0 ? -0.15f : 0.15f); 
+                float z = i % (itemsPerSegment - 1) * (i % 2 == 0 ? -0.15f : 0.15f); 
+
+                tfMatrices[i] =
+                    new Matrixf()
+                    .Translate(0.5f, 0, 0.5f)
+                    .RotateYDeg(block.Shape.rotateY)
+                    .Translate(x - 0.5f, i % itemsPerSegment * 0.3725f + 0.2525f, z - 0.5f)
                     .Values;
             }
         }

@@ -8,9 +8,6 @@ public static class InfoDisplay {
         ByBlockAverageAndSoonest
     }
 
-    // Change slotCount below in parameters to shelfCount.
-    // Fix the infoDisplayOptions for BlockEntityGlassFood
-
     public static void DisplayInfo(IPlayer forPlayer, StringBuilder sb, InventoryGeneric inv, InfoDisplayOptions displaySelection, int slotCount, int segmentsPerShelf = 0, int itemsPerSegment = 0, bool skipLine = true) {
         if (skipLine) sb.AppendLine(); // Space in between to be in line with vanilla
 
@@ -42,7 +39,7 @@ public static class InfoDisplay {
                 end = -1;
                 break;
             case InfoDisplayOptions.ByShelf:
-                int selectedShelf = selectedSegment / segmentsPerShelf * (segmentsPerShelf * itemsPerSegment);
+                int selectedShelf = selectedSegment / segmentsPerShelf * segmentsPerShelf * itemsPerSegment;
                 start = selectedShelf;
                 end = selectedShelf + (segmentsPerShelf * itemsPerSegment);
                 break;
@@ -65,7 +62,6 @@ public static class InfoDisplay {
             else {
                 sb.Append(stack.GetName());
                 if (stack.StackSize > 1) sb.Append(" x" + stack.StackSize);
-
                 sb.AppendLine();
             }
         }

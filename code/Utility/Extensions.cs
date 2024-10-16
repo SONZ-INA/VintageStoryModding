@@ -241,4 +241,15 @@ public static class Extensions {
     }
 
     #endregion
+
+    #region ItemExtensions
+
+    public static bool IsLargeItem(ItemStack itemStack) {
+        if (BakingProperties.ReadFrom(itemStack)?.LargeItem == true) return true;
+        if (itemStack.Collectible.GetType().Name == "ItemCheese") return true;
+        
+        return false;
+    }
+
+    #endregion
 }
