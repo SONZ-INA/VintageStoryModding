@@ -4,6 +4,7 @@ namespace FoodShelves;
 
 public static class RestrictionsCollection {
     public static FoodUniversalData FoodUniversalData { get; set; } = new();
+    public static LiquidyStuffData LiquidyStuffData { get; set; } = new();
 
     public static PieShelfData PieShelfData { get; set; } = new();
     public static BreadShelfData BreadShelfData { get; set; } = new();

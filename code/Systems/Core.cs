@@ -66,6 +66,8 @@ public class Core : ModSystem {
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityGlassFood", typeof(BlockEntityGlassFood));
         api.RegisterBlockClass("FoodShelves.BlockGlassFoodCase", typeof(BlockGlassFoodCase));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityGlassFoodCase", typeof(BlockEntityGlassFoodCase));
+        api.RegisterBlockClass("FoodShelves.BlockGlassJar", typeof(BlockGlassJar));
+        api.RegisterBlockEntityClass("FoodShelves.BlockEntityGlassJar", typeof(BlockEntityGlassJar));
     }
 
     public override void StartClientSide(ICoreClientAPI api) {
@@ -81,8 +83,9 @@ public class Core : ModSystem {
     public override void AssetsLoaded(ICoreAPI api) {
         base.AssetsLoaded(api);
 
-        FoodUniversalData = api.LoadAsset<RestrictionData.FoodUniversalData>("foodshelves:config/restrictions/fooduniversal.json");
-        FoodUniversalTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/fooduniversal.json");
+        FoodUniversalData = api.LoadAsset<RestrictionData.FoodUniversalData>("foodshelves:config/restrictions/general/fooduniversal.json");
+        FoodUniversalTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/general/fooduniversal.json");
+        LiquidyStuffData = api.LoadAsset<RestrictionData.LiquidyStuffData>("foodshelves:config/restrictions/general/liquidystuff.json");
 
         PieShelfData = api.LoadAsset<RestrictionData.PieShelfData>("foodshelves:config/restrictions/shelves/pieshelf.json");
         PieShelfTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/shelves/pieshelf.json");
@@ -111,6 +114,7 @@ public class Core : ModSystem {
 
         foreach (CollectibleObject obj in api.World.Collectibles) {
             PatchFoodUniversal(obj, FoodUniversalData);
+            PatchLiquidyStuff(obj, LiquidyStuffData);
 
             PatchPieShelf(obj, PieShelfData);
             PatchBreadShelf(obj, BreadShelfData);

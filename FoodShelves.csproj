@@ -58,6 +58,8 @@
   <None Remove="assets\foodshelves\blocktypes\eggshelf.json" />
   <None Remove="assets\foodshelves\blocktypes\fruitbasket.json" />
   <None Remove="assets\foodshelves\blocktypes\glassware\glassfoodblock.json" />
+  <None Remove="assets\foodshelves\blocktypes\glassware\glassfoodcase.json" />
+  <None Remove="assets\foodshelves\blocktypes\glassware\glassjar.json" />
   <None Remove="assets\foodshelves\blocktypes\horizontalbarrelbig.json" />
   <None Remove="assets\foodshelves\blocktypes\horizontalbarrelrack.json" />
   <None Remove="assets\foodshelves\blocktypes\horizontalbarrelrackbig.json" />
@@ -69,6 +71,7 @@
   <None Remove="assets\foodshelves\config\restrictions\baskets\fruitbasket.json" />
   <None Remove="assets\foodshelves\config\restrictions\baskets\vegetablebasket.json" />
   <None Remove="assets\foodshelves\config\restrictions\fooduniversal.json" />
+  <None Remove="assets\foodshelves\config\restrictions\general\liquidystuff.json" />
   <None Remove="assets\foodshelves\config\restrictions\shelves\barshelf.json" />
   <None Remove="assets\foodshelves\config\restrictions\shelves\breadshelf.json" />
   <None Remove="assets\foodshelves\config\restrictions\shelves\eggshelf.json" />
@@ -149,6 +152,12 @@
 
 <ItemGroup>
   <Content Update="assets\foodshelves\patches\variants\recipes\barrels\barrelrackbig.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+</ItemGroup>
+
+<ItemGroup>
+  <Content Update="assets\foodshelves\blocktypes\glassware\glassfoodcase.json">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
 </ItemGroup>

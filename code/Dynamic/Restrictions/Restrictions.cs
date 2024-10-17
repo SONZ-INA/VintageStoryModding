@@ -14,7 +14,19 @@ public static class Restrictions
 
     public const string FoodUniversal = "fooduniversalcheck";
     public static bool FoodUniversalCheck(this CollectibleObject obj) => obj?.Attributes?[FoodUniversal].AsBool() == true;
-    public static bool FoodUniversalCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[FoodUniversal].AsBool() == true;
+    public static bool FoodUniversalCheck(this ItemSlot slot) {
+        if (slot?.Itemstack?.Collectible?.Attributes?[FoodUniversal].AsBool() == false) return false;
+        if (slot?.Inventory?.ClassName == "hopper") return false;
+        return true;
+    }
+
+    #endregion
+
+    #region LiquidyStuff
+
+    public const string LiquidyStuff = "liquidystuffcheck";
+    public static bool LiquidyStuffCheck(this CollectibleObject obj) => obj?.Attributes?[LiquidyStuff].AsBool() == true;
+    public static bool LiquidyStuffCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[LiquidyStuff].AsBool() == true;
 
     #endregion
 

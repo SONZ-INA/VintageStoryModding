@@ -21,7 +21,7 @@ public static class Meshing {
         return mesh;
     }
 
-    public static MeshData GenBlockContentMesh(ICoreClientAPI capi, ItemStack[] contents, float[,] transformationMatrix, float scaleValue = 1f, Dictionary<string, ModelTransform> modelTransformations = null) {
+    public static MeshData GenContentMesh(ICoreClientAPI capi, ItemStack[] contents, float[,] transformationMatrix, float scaleValue = 1f, Dictionary<string, ModelTransform> modelTransformations = null) {
         MeshData contentMesh = null;
         
         if (contents != null) {
@@ -58,6 +58,20 @@ public static class Meshing {
         }
 
         return contentMesh;
+    }
+
+    public static MeshData GenLiquidyMesh(ICoreClientAPI capi, ItemStack[] contents) {
+        if (contents == null || contents.Length == 0) return null; // Empty
+        if (contents[0].Item == null) return null; // Isn't intended for block use
+
+        var textures = contents[0].Item.Textures;
+
+        // todo
+        // - Get content of texture, only 1 type of item is supported
+        // - Mesh a simple block and map it with that texture
+        // - "Scale" the model up, by actually making the model bigger so the textures re-map correctly, instead of just scaling it up
+        
+        return null;
     }
 
     // GeneralizedTexturedGenMesh written specifically for expanded foods, i might need it so it's here

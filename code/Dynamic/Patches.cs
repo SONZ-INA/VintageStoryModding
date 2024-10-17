@@ -3,6 +3,8 @@
 namespace FoodShelves;
 
 public static class Patches {
+    #region Generic
+
     public static void PatchFoodUniversal(CollectibleObject obj, FoodUniversalData data) {
         if (data.FoodUniversalTypes.Contains(obj.GetType().Name) || WildcardUtil.Match(data.FoodUniversalCodes, obj.Code.Path.ToString())) {
             obj.EnsureAttributesNotNull();
@@ -15,6 +17,15 @@ public static class Patches {
             obj.Attributes.Token[onGlassFoodCaseTransform] = JToken.FromObject(transformation);
         }
     }
+
+    public static void PatchLiquidyStuff(CollectibleObject obj, LiquidyStuffData data) {
+        if (data.LiquidyStuffTypes.Contains(obj.GetType().Name) || WildcardUtil.Match(data.LiquidyStuffCodes, obj.Code.Path.ToString())) {
+            obj.EnsureAttributesNotNull();
+            obj.Attributes.Token[LiquidyStuff] = JToken.FromObject(true);
+        }
+    }
+
+    #endregion
 
     #region Shelves
 

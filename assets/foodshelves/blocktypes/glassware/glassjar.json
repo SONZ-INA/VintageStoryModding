@@ -1,0 +1,65 @@
+{
+  "code": "glassjar",
+  "class": "FoodShelves.BlockGlassJar",
+  "entityclass": "FoodShelves.BlockEntityGlassJar",
+  "creativeinventory": { "general": ["*"], "decorative": ["*"], "foodshelves": ["*"] },
+  "variantgroups": [
+    { "code": "type", "states": ["normal"] }
+  ],
+  "attributes": {
+    "handbook": {
+      "groupBy": [ "glassjar-*" ],
+      "extraSections": [
+        {
+          "title": "foodshelves:blockdesc-canhold-title",
+          "text": "foodshelves:blockdesc-glassjar-text"
+        }
+      ]
+    },
+    "inventoryClassName": "glassjar",
+    "attributeTransformCode": "onGlassJarTransform"
+  },
+  "behaviors": [
+    { "name": "UnstableFalling" } 
+  ],
+  "shape": {
+    "base": "block/wood/glassware/glassjar"
+  },
+  "textures": {
+    "frame-slab": { "base": "game:block/glass/frame-slab" },
+    "quartzglass": { "base": "game:block/glass/quartzglass" },
+    "surface": { "base": "game:block/wood/shelf/surface" }
+  },
+  "heldTpIdleAnimation": "holdbothhandslarge",
+  "heldRightReadyAnimation": "heldblockready", 
+  "heldTpUseAnimation": "twohandplaceblock",
+  "blockmaterial": "Wood",
+  "lightAbsorption": 1,
+  "maxStackSize": 8,
+  "faceCullMode": "NeverCull",
+  "drawtype": "json",
+  "emitSideAo": { "all": false },
+  "sideao": { "all": true },
+  "sidesolid": { "all": false },
+  "sideopaque": { "all": false },
+  "replaceable": 999,
+  "resistance": 1.5,
+  "guiTransform": {
+    "origin": { "x": 0.5, "y": 0.35, "z": 0.5 },
+    "scale": 1.7
+  },
+  "tpHandTransform": {
+	  "translation": { "x": -0.6, "y": -0.4, "z": -0.25 },
+	  "rotation": { "x": -2, "y": 25, "z": -78 },
+    "scale": 1
+  },
+  "sounds": {
+    "place": "game:block/planks",
+    "hit": "game:block/planks",
+    "break": "game:block/planks"
+  },
+  "materialDensity": 400,
+  "collisionSelectionBoxes": [ 
+    { "x1": 0.25, "y1": 0, "z1": 0.25, "x2": 0.75, "y2": 0.6875, "z2": 0.75 }
+  ]
+}

@@ -1,6 +1,20 @@
 ﻿namespace FoodShelves; 
 
 public class RestrictionData {
+    #region Generic
+
+    public class FoodUniversalData {
+        public string[] FoodUniversalTypes { get; set; }
+        public string[] FoodUniversalCodes { get; set; }
+    }
+
+    public class LiquidyStuffData {
+        public string[] LiquidyStuffTypes { get; set; }
+        public string[] LiquidyStuffCodes { get; set; }
+    }
+
+    #endregion
+
     #region Shelves
 
     public class PieShelfData {
@@ -71,10 +85,5 @@ public class RestrictionData {
     public class PumpkinCaseData {
         public string[] PumpkinCaseTypes { get; set; }
         public string[] PumpkinCaseCodes { get; set; }
-    }
-
-    public class FoodUniversalData {
-        public string[] FoodUniversalTypes { get; set; }
-        public string[] FoodUniversalCodes { get; set; }
     }
 }

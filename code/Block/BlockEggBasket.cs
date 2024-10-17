@@ -111,7 +111,7 @@ public class BlockEggBasket : BlockContainer {
             GetTransformationMatrix(out float[,] transformationMatrix);
 
             capi.Tesselator.TesselateBlock(this, out MeshData basketMesh);
-            MeshData contentMesh = GenBlockContentMesh(capi, contents, transformationMatrix, 1f, FruitBasketTransformations);
+            MeshData contentMesh = GenContentMesh(capi, contents, transformationMatrix, 1f, FruitBasketTransformations);
             if (contentMesh != null) basketMesh.AddMeshData(contentMesh);
 
             if (basketMesh != null) { 
