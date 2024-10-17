@@ -69,6 +69,18 @@ public static class Extensions {
         return 0;
     }
 
+    public static void ChangeShapeTextureKey(Shape shape, string key) {
+        foreach (var face in shape.Elements[0].FacesResolved) {
+            face.Texture = key;
+        }
+
+        foreach (var child in shape.Elements[0].Children) {
+            foreach (var face in child.FacesResolved) {
+                if (face != null) face.Texture = key;
+            }
+        }
+    }
+
     public static int GetStackCacheHashCodeFNV(ItemStack[] contentStack) {
         if (contentStack == null) return 0;
 
@@ -242,13 +254,17 @@ public static class Extensions {
 
     #endregion
 
-    #region ItemExtensions
+    #region CheckExtensions
 
     public static bool IsLargeItem(ItemStack itemStack) {
         if (BakingProperties.ReadFrom(itemStack)?.LargeItem == true) return true;
         if (itemStack?.Collectible?.GetType().Name == "ItemCheese") return true;
         
         return false;
+    }
+
+    public static bool IsFull(this ItemSlot slot) {
+        return slot.StackSize == slot.MaxSlotStackSize;
     }
 
     #endregion

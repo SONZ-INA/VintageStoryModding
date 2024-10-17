@@ -1,4 +1,6 @@
-﻿namespace FoodShelves;
+﻿using System.Linq;
+
+namespace FoodShelves;
 
 public static class Meshing {
     public static MeshData SubstituteBlockShape(ICoreAPI Api, ITesselatorAPI tesselator, string shapePath, Block texturesFromBlock) {
@@ -60,18 +62,58 @@ public static class Meshing {
         return contentMesh;
     }
 
-    public static MeshData GenLiquidyMesh(ICoreClientAPI capi, ItemStack[] contents) {
-        if (contents == null || contents.Length == 0) return null; // Empty
-        if (contents[0].Item == null) return null; // Isn't intended for block use
+    public static MeshData GenLiquidyMesh(ICoreClientAPI capi, InventoryGeneric inventory) {
+        if (inventory == null || inventory.Count == 0) return null; // Isn't intended for block use
 
-        var textures = contents[0].Item.Textures;
+        List<ItemStack> contentList = new();
+        foreach (ItemSlot itemSlot in inventory) {
+            if (itemSlot.Itemstack != null)
+                contentList.Add(itemSlot.Itemstack);
+        }
+        if (contentList.Count == 0) return null; // Empty
+        ItemStack[] contents = contentList.ToArray();
 
-        // todo
-        // - Get content of texture, only 1 type of item is supported
-        // - Mesh a simple block and map it with that texture
-        // - "Scale" the model up, by actually making the model bigger so the textures re-map correctly, instead of just scaling it up
-        
-        return null;
+        // Shape location of a simple cube, meant to "fill" the Glass Jar
+        AssetLocation shapeLocation = new("foodshelves:shapes/util/glassjarcontentcube.json");
+        Shape shape = capi.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
+        if (shape == null) return null;
+
+        // For some reason, ITexPositionSource is throwing a null error when simply getting it with a simple fucking method, so this is needed
+        AssetLocation contentShapeLocation = contents[0].Item.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
+        Shape contentShape = capi.Assets.TryGet(contentShapeLocation)?.ToObject<Shape>();
+        if (contentShape == null) return null;
+        ShapeTextureSource texSource = new(capi, contentShape, "jarcontentshape");
+
+        Shape shapeClone = shape.Clone();
+
+        // Modifying the texture key of the shape to fit the key of the item
+        string textureKey = contentShape.Textures.Keys.FirstOrDefault();
+        ChangeShapeTextureKey(shapeClone, textureKey);
+
+        // Adjusting the cube height
+        float contentHeight = 0;
+        foreach (var itemStack in contents) {
+            contentHeight += itemStack.StackSize;
+        }
+
+        double shapeHeight = contentHeight * 0.11 + shapeClone.Elements[0].From[1];
+        shapeClone.Elements[0].To[1] = shapeHeight;
+
+        // Adjusting the "topping" position
+        foreach(var child in shapeClone.Elements[0].Children) {
+            child.From[1] = shapeHeight - 0.5;
+            child.To[1] += shapeHeight - 1;
+        }
+
+        // Re-sizing the textures
+        shapeClone.Elements[0].FacesResolved[0].Uv[3] = (float)shapeHeight;
+        shapeClone.Elements[0].FacesResolved[1].Uv[3] = (float)shapeHeight;
+        shapeClone.Elements[0].FacesResolved[2].Uv[3] = (float)shapeHeight;
+        shapeClone.Elements[0].FacesResolved[3].Uv[3] = (float)shapeHeight;
+
+        capi.Tesselator.TesselateShape(null, shapeClone, out MeshData contentMesh, texSource);
+
+        return contentMesh;
     }
 
     // GeneralizedTexturedGenMesh written specifically for expanded foods, i might need it so it's here

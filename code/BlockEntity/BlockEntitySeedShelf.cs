@@ -54,12 +54,10 @@ public class BlockEntitySeedShelf : BlockEntityDisplay {
 
         for (int i = 0; i < itemsPerSegment; i++) {
             int currentIndex = startIndex + i;
-            if (!inv[currentIndex].Empty &&
-                inv[currentIndex].Itemstack.Collectible.Equals(slot.Itemstack.Collectible) &&
-                inv[currentIndex].Itemstack.StackSize < inv[currentIndex].Itemstack.Collectible.MaxStackSize) {
-
+            ItemStack currentStack = inv[currentIndex].Itemstack;
+            if (!inv[currentIndex].Empty && currentStack.Collectible.Equals(slot.Itemstack.Collectible) && currentStack.StackSize < currentStack.Collectible.MaxStackSize) {
                 int moved;
-                if (byPlayer.Entity.Controls.Sneak)
+                if (byPlayer.Entity.Controls.ShiftKey)
                     moved = slot.TryPutInto(Api.World, inv[currentIndex], inv[currentIndex].Itemstack.Collectible.MaxStackSize - inv[currentIndex].Itemstack.StackSize);
                 else
                     moved = slot.TryPutInto(Api.World, inv[currentIndex], 1);
@@ -89,7 +87,7 @@ public class BlockEntitySeedShelf : BlockEntityDisplay {
             int currentIndex = startIndex + i;
             if (!inv[currentIndex].Empty) {
                 ItemStack stack;
-                if (byPlayer.Entity.Controls.Sneak)
+                if (byPlayer.Entity.Controls.ShiftKey)
                     stack = inv[currentIndex].TakeOutWhole();
                 else
                     stack = inv[currentIndex].TakeOut(1);
