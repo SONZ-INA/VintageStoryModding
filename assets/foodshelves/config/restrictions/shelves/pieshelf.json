@@ -1,6 +1,7 @@
 {
   "PieShelfTypes": [
     "BlockPie",
+    "NotifyingPie",
     "ItemCheese"
   ],
   "PieShelfCodes": [ ]

@@ -3,6 +3,11 @@
   "LiquidyStuffCodes": [
     "resin",
     "beeswax",
-    "fat"
+    "fat",
+    "dehydratedfruit-*",
+    "dryfruit-*",
+    "wilddehydratedfruit-*",
+    "wilddryfruit-*",
+    "wildtreedryfruit-*"
   ]
 }

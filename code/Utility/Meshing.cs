@@ -63,7 +63,7 @@ public static class Meshing {
     }
 
     public static MeshData GenLiquidyMesh(ICoreClientAPI capi, InventoryGeneric inventory) {
-        if (inventory == null || inventory.Count == 0) return null; // Isn't intended for block use
+        if (inventory == null || inventory.Count == 0) return null;
 
         List<ItemStack> contentList = new();
         foreach (ItemSlot itemSlot in inventory) {
@@ -72,23 +72,79 @@ public static class Meshing {
         }
         if (contentList.Count == 0) return null; // Empty
         ItemStack[] contents = contentList.ToArray();
+        if (contents[0].Item == null) return null; // Isn't intended for block use
 
         // Shape location of a simple cube, meant to "fill" the Glass Jar
         AssetLocation shapeLocation = new("foodshelves:shapes/util/glassjarcontentcube.json");
         Shape shape = capi.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
         if (shape == null) return null;
 
-        // For some reason, ITexPositionSource is throwing a null error when simply getting it with a simple fucking method, so this is needed
-        AssetLocation contentShapeLocation = contents[0].Item.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
-        Shape contentShape = capi.Assets.TryGet(contentShapeLocation)?.ToObject<Shape>();
-        if (contentShape == null) return null;
-        ShapeTextureSource texSource = new(capi, contentShape, "jarcontentshape");
-
         Shape shapeClone = shape.Clone();
 
-        // Modifying the texture key of the shape to fit the key of the item
-        string textureKey = contentShape.Textures.Keys.FirstOrDefault();
-        ChangeShapeTextureKey(shapeClone, textureKey);
+        // Handle textureSource
+        ShapeTextureSource texSource;
+
+        // Rerouting of some textures is needed
+        string itemCodePath = contents[0].Item.Code.Path;
+        string[] texturesToReroute = { "currant", "berry", "saguaro", "apple", "cherry", "peach", "pear", "orange", "mango", "breadfruit", "lychee", "pomegranate" };
+        bool reroute = false;
+
+        if (itemCodePath.StartsWith("wilddehydratedfruit") || itemCodePath.StartsWith("wilddryfruit")) { // Wildcraft: Fruits and Nuts have their own textures
+            reroute = true;
+        }
+        else if (!itemCodePath.StartsWith("dryfruit")) { // Most dehydrated/dry fruit
+            foreach (var texture in texturesToReroute) {
+                if (itemCodePath.EndsWith(texture)) {
+                    reroute = true;
+                    break;
+                }
+            }
+        }
+        else if (itemCodePath.StartsWith("dryfruit")) { // Some dry fruit that don't have good textures
+            if (itemCodePath.EndsWith("blueberry")) reroute = true;
+            else if (itemCodePath.EndsWith("currant")) reroute = true;
+            else if (itemCodePath.EndsWith("pineapple")) reroute = true;
+        }
+
+        if (reroute) { // Handle currant specific cases
+            int index = itemCodePath.LastIndexOf('-');
+
+            if (index >= 0) {
+                // Getting an end part of an item, and then rerouting it to pie fillings to show properly in-game
+                string suffix = itemCodePath.Substring(index);
+
+                if (suffix.EndsWith("apple") && !suffix.Contains("pine") && !suffix.Contains("cashew")) suffix = "-apple";
+                if (suffix.EndsWith("lillypillyblue")) suffix = suffix.Replace("blue", "pink");
+                if (suffix.EndsWith("lemon")) suffix = suffix.Replace("lemon", "citron");
+                if (suffix.Contains("pitted")) suffix = suffix.Replace("pitted", "");
+
+                string domain = "game";
+                if (itemCodePath.StartsWith("wilddehydratedfruit") || itemCodePath.StartsWith("wilddryfruit")) domain = "wildcraftfruit";
+                if (suffix == "-cherry" || suffix == "-breadfruit") domain = "game"; // Fucking hell with these inconsistencies
+
+                AssetLocation textureRerouteLocation = new($"{domain}:block/food/pie/fill{suffix}");
+
+                shapeClone.Textures.Clear();
+                shapeClone.Textures.Add("surface", textureRerouteLocation);
+
+                texSource = new(capi, shapeClone, "jarcontentshape");
+            }
+            else {
+                capi.Logger.Warning("[FoodShelves] Indexing for item code path failed, item will not be meshed correctly. Report this to the mod author.");
+                return null;
+            }
+        }
+        else {
+            // For some reason, ITexPositionSource is throwing a null error when simply getting it with a simple fucking method, so this is needed
+            AssetLocation contentShapeLocation = contents[0].Item.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
+            Shape contentShape = capi.Assets.TryGet(contentShapeLocation)?.ToObject<Shape>();
+            if (contentShape == null) return null;
+            texSource = new(capi, contentShape, "jarcontentshape");
+
+            // Modifying the texture key of the shape to fit the key of the item
+            string textureKey = contentShape.Textures.Keys.FirstOrDefault();
+            ChangeShapeTextureKey(shapeClone, textureKey);
+        }
 
         // Adjusting the cube height
         float contentHeight = 0;

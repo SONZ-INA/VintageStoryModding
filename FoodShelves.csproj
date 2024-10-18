@@ -129,6 +129,7 @@
   <None Remove="assets\foodshelves\shapes\block\wood\shelves\SushiShelfShort.json" />
   <None Remove="assets\foodshelves\shapes\block\wood\VegetableBasket.json" />
   <None Remove="assets\foodshelves\shapes\block\wood\wshelf.json" />
+  <None Remove="assets\foodshelves\shapes\util\GlassJarContentCube.json" />
   <None Remove="assets\foodshelves\textures\block\wood\fruitbasket\top.png" />
   <None Remove="assets\foodshelves\textures\block\wood\horizontalbarrelbig\bottom.png" />
   <None Remove="assets\foodshelves\textures\block\wood\horizontalbarrelbig\top.png" />
@@ -160,6 +161,10 @@
   <Content Update="assets\foodshelves\blocktypes\glassware\glassfoodcase.json">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
+</ItemGroup>
+
+<ItemGroup>
+  <Folder Include="assets\foodshelves\textures\food\" />
 </ItemGroup>
 
 </Project>
