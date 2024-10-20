@@ -80,9 +80,16 @@ public static class Patches {
     }
 
     public static void PatchSeedShelf(CollectibleObject obj, SeedShelfData data) {
-        if (WildcardUtil.Match(data.SeedShelfCodes, obj.Code.Path.ToString())) {
+        if (data.SeedShelfTypes.Contains(obj.GetType().Name) || WildcardUtil.Match(data.SeedShelfCodes, obj.Code.Path.ToString())) {
             obj.EnsureAttributesNotNull();
             obj.Attributes.Token[SeedShelf] = JToken.FromObject(true);
+        }
+    }
+
+    public static void PatchGlassJarShelf(CollectibleObject obj, GlassJarShelfData data) {
+        if (data.GlassJarShelfTypes.Contains(obj.GetType().Name) || WildcardUtil.Match(data.GlassJarShelfCodes, obj.Code.Path.ToString())) {
+            obj.EnsureAttributesNotNull();
+            obj.Attributes.Token[GlassJarShelf] = JToken.FromObject(true);
         }
     }
 

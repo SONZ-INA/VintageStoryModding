@@ -12,6 +12,7 @@ public static class RestrictionsCollection {
     public static SushiShelfData SushiShelfData { get; set; } = new();
     public static EggShelfData EggShelfData { get; set; } = new();
     public static SeedShelfData SeedShelfData { get; set; } = new();
+    public static GlassJarShelfData GlassJarShelfData { get; set; } = new();
 
     public static FruitBasketData FruitBasketData { get; set; } = new();
     public static VegetableBasketData VegetableBasketData { get; set; } = new();

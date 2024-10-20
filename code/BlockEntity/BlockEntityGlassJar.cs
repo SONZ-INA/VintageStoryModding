@@ -1,7 +1,7 @@
 ﻿namespace FoodShelves;
 
 public class BlockEntityGlassJar : BlockEntityDisplay {
-    private InventoryGeneric inv;
+    private readonly InventoryGeneric inv;
     private Block block;
     
     public override InventoryBase Inventory => inv;
@@ -9,30 +9,13 @@ public class BlockEntityGlassJar : BlockEntityDisplay {
     public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
     private const int slotCount = 2;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.BySegment;
+    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlockMerged;
 
     public BlockEntityGlassJar() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotLiquidyStuff(inv)); }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
         base.Initialize(api);
-    }
-
-    // Check this method for dehydrated fruit -> dry fruit
-    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2f : 0.5f;
-        if (Api == null) return 0;
-
-        if (transType == EnumTransitionType.Perish || transType == EnumTransitionType.Ripen) {
-            float perishRate = GetPerishRate();
-            if (transType == EnumTransitionType.Ripen) {
-                return GameMath.Clamp((1 - perishRate - 0.5f) * 3, 0, 1);
-            }
-
-            return baseMul * perishRate;
-        }
-
-        return 1;
     }
 
     internal bool OnInteract(IPlayer byPlayer) {
@@ -113,7 +96,7 @@ public class BlockEntityGlassJar : BlockEntityDisplay {
             else
                 stack = inv[1].TakeOut(1);
 
-            if (stack?.StackSize < stack?.Collectible.MaxStackSize) overflow = true;
+            if (stack?.StackSize < stack?.Collectible.MaxStackSize && byPlayer.Entity.Controls.ShiftKey) overflow = true;
             if (stack != null && stack.StackSize > 0 && byPlayer.InventoryManager.TryGiveItemstack(stack)) {
                 AssetLocation sound = stack.Block?.Sounds?.Place;
                 Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
@@ -141,6 +124,14 @@ public class BlockEntityGlassJar : BlockEntityDisplay {
         }
 
         return false;
+    }
+
+    // Check this method for dehydrated fruit -> dry fruit
+    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2f : 0.5f;
+        if (Api == null) return 0;
+
+        return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.75f);
     }
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {

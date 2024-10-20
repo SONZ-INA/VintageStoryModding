@@ -5,7 +5,8 @@ public static class InfoDisplay {
         ByBlock,
         ByShelf,
         BySegment,
-        ByBlockAverageAndSoonest
+        ByBlockAverageAndSoonest,
+        ByBlockMerged
     }
 
     public static void DisplayInfo(IPlayer forPlayer, StringBuilder sb, InventoryGeneric inv, InfoDisplayOptions displaySelection, int slotCount, int segmentsPerShelf = 0, int itemsPerSegment = 0, bool skipLine = true) {
@@ -22,6 +23,33 @@ public static class InfoDisplay {
 
             ItemStack[] contents = itemStackList.ToArray();
             PerishableInfoAverageAndSoonest(contents, sb, Api.World);
+            return;
+        }
+
+        if (displaySelection == InfoDisplayOptions.ByBlockMerged) {
+            if (inv[0].Empty) return;
+
+            ItemStack firstStack = inv[0].Itemstack.Clone();
+            int totalStackSize = firstStack.StackSize;
+            float ripenRate = firstStack.Collectible.GetTransitionRateMul(Api.World, inv[0], EnumTransitionType.Ripen); // Get ripen rate for first slot
+
+            for (int i = 1; i < slotCount; i++) {
+                if (inv[i].Empty) break; // Subsequent slots can't contain anything if the slot before it is empty
+                totalStackSize += inv[i].Itemstack.StackSize;
+            }
+
+            firstStack.StackSize = totalStackSize;
+
+            sb.Append(firstStack.GetName());
+            if (totalStackSize > 1) sb.Append(" x" + totalStackSize);
+
+            if (firstStack.Collectible.TransitionableProps != null &&
+                firstStack.Collectible.TransitionableProps.Length > 0) {
+
+                sb.Append(PerishableInfoCompact(Api, inv[0], ripenRate, false));
+            }
+
+            sb.AppendLine();
             return;
         }
 

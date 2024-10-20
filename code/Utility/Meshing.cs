@@ -84,6 +84,78 @@ public static class Meshing {
         // Handle textureSource
         ShapeTextureSource texSource;
 
+        if (contents[0].ItemAttributes?["inPieProperties"].Exists == true) {
+            AssetLocation textureRerouteLocation;
+
+            if (contents[0].Item.Code.Path.EndsWith("-beachalmondwhole")) textureRerouteLocation = new("wildcraftfruit:block/food/pie/fill-beachalmond"); // Fucking exception
+            else textureRerouteLocation = new(contents[0].ItemAttributes["inPieProperties"].Token["texture"].ToString());
+
+            shapeClone.Textures.Clear();
+            shapeClone.Textures.Add("surface", textureRerouteLocation);
+
+            texSource = new(capi, shapeClone, "jarcontentshape");
+        }
+        else {
+            // For some reason, ITexPositionSource is throwing a null error when simply getting it with a simple fucking method, so this is needed
+            AssetLocation contentShapeLocation = contents[0].Item.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
+            Shape contentShape = capi.Assets.TryGet(contentShapeLocation)?.ToObject<Shape>();
+            if (contentShape == null) return null;
+            texSource = new(capi, contentShape, "jarcontentshape");
+
+            // Modifying the texture key of the shape to fit the key of the item
+            string textureKey = contentShape.Textures.Keys.FirstOrDefault();
+            ChangeShapeTextureKey(shapeClone, textureKey);
+        }
+
+        // Adjusting the cube height
+        float contentHeight = 0;
+        foreach (var itemStack in contents) {
+            contentHeight += itemStack.StackSize;
+        }
+
+        double shapeHeight = contentHeight * 0.11 + shapeClone.Elements[0].From[1];
+        shapeClone.Elements[0].To[1] = shapeHeight;
+
+        // Adjusting the "topping" position
+        foreach(var child in shapeClone.Elements[0].Children) {
+            child.From[1] = shapeHeight - 0.5;
+            child.To[1] += shapeHeight - 1;
+        }
+
+        // Re-sizing the textures
+        shapeClone.Elements[0].FacesResolved[0].Uv[3] = (float)shapeHeight;
+        shapeClone.Elements[0].FacesResolved[1].Uv[3] = (float)shapeHeight;
+        shapeClone.Elements[0].FacesResolved[2].Uv[3] = (float)shapeHeight;
+        shapeClone.Elements[0].FacesResolved[3].Uv[3] = (float)shapeHeight;
+
+        capi.Tesselator.TesselateShape(null, shapeClone, out MeshData contentMesh, texSource);
+
+        return contentMesh;
+    }
+
+    // Old GenLiquidyMesh, it's here coz i might need it
+    public static MeshData GenLiquidyMeshOLD(ICoreClientAPI capi, InventoryGeneric inventory) {
+        if (inventory == null || inventory.Count == 0) return null;
+
+        List<ItemStack> contentList = new();
+        foreach (ItemSlot itemSlot in inventory) {
+            if (itemSlot.Itemstack != null)
+                contentList.Add(itemSlot.Itemstack);
+        }
+        if (contentList.Count == 0) return null; // Empty
+        ItemStack[] contents = contentList.ToArray();
+        if (contents[0].Item == null) return null; // Isn't intended for block use
+
+        // Shape location of a simple cube, meant to "fill" the Glass Jar
+        AssetLocation shapeLocation = new("foodshelves:shapes/util/glassjarcontentcube.json");
+        Shape shape = capi.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
+        if (shape == null) return null;
+
+        Shape shapeClone = shape.Clone();
+
+        // Handle textureSource
+        ShapeTextureSource texSource;
+
         // Rerouting of some textures is needed
         string itemCodePath = contents[0].Item.Code.Path;
         string[] texturesToReroute = { "currant", "berry", "saguaro", "apple", "cherry", "peach", "pear", "orange", "mango", "breadfruit", "lychee", "pomegranate" };
@@ -156,7 +228,7 @@ public static class Meshing {
         shapeClone.Elements[0].To[1] = shapeHeight;
 
         // Adjusting the "topping" position
-        foreach(var child in shapeClone.Elements[0].Children) {
+        foreach (var child in shapeClone.Elements[0].Children) {
             child.From[1] = shapeHeight - 0.5;
             child.To[1] += shapeHeight - 1;
         }

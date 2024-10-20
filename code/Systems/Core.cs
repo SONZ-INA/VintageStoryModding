@@ -41,6 +41,8 @@ public class Core : ModSystem {
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityEggShelf", typeof(BlockEntityEggShelf));
         api.RegisterBlockClass("FoodShelves.BlockSeedShelf", typeof(BlockSeedShelf));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntitySeedShelf", typeof(BlockEntitySeedShelf));
+        api.RegisterBlockClass("FoodShelves.BlockGlassJarShelf", typeof(BlockGlassJarShelf));
+        api.RegisterBlockEntityClass("FoodShelves.BlockEntityGlassJarShelf", typeof(BlockEntityGlassJarShelf));
 
         api.RegisterBlockClass("FoodShelves.BlockTableWShelf", typeof(BlockTableWShelf));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityTableWShelf", typeof(BlockEntityTableWShelf));
@@ -96,7 +98,8 @@ public class Core : ModSystem {
         SushiShelfData = api.LoadAsset<RestrictionData.SushiShelfData>("foodshelves:config/restrictions/shelves/sushishelf.json");
         EggShelfData = api.LoadAsset<RestrictionData.EggShelfData>("foodshelves:config/restrictions/shelves/eggshelf.json");
         SeedShelfData = api.LoadAsset<RestrictionData.SeedShelfData>("foodshelves:config/restrictions/shelves/seedshelf.json");
-        
+        GlassJarShelfData = api.LoadAsset<RestrictionData.GlassJarShelfData>("foodshelves:config/restrictions/shelves/glassjarshelf.json");
+
         FruitBasketData = api.LoadAsset<RestrictionData.FruitBasketData>("foodshelves:config/restrictions/baskets/fruitbasket.json");
         FruitBasketTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/baskets/fruitbasket.json");
         VegetableBasketData = api.LoadAsset<RestrictionData.VegetableBasketData>("foodshelves:config/restrictions/baskets/vegetablebasket.json");
@@ -122,6 +125,7 @@ public class Core : ModSystem {
             PatchSushiShelf(obj, SushiShelfData);
             PatchEggShelf(obj, EggShelfData);
             PatchSeedShelf(obj, SeedShelfData);
+            PatchGlassJarShelf(obj, GlassJarShelfData);
 
             PatchFruitBasket(obj, FruitBasketData);
             PatchVegetableBasket(obj, VegetableBasketData);

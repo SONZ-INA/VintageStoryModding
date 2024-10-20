@@ -79,6 +79,14 @@ public static class Restrictions
 
     #endregion
 
+    #region GlassJarShelf
+
+    public const string GlassJarShelf = "glassjarshelfcheck";
+    public static bool GlassJarShelfCheck(this CollectibleObject obj) => obj?.Attributes?[GlassJarShelf].AsBool() == true;
+    public static bool GlassJarShelfCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[GlassJarShelf].AsBool() == true;
+
+    #endregion
+
     #region TableWShelf
 
     public const string TableWShelf = "tablewshelfcheck";

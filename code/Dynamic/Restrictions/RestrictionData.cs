@@ -47,6 +47,11 @@ public class RestrictionData {
         public string[] EggShelfCodes { get; set; }
     }
 
+    public class GlassJarShelfData {
+        public string[] GlassJarShelfTypes { get; set; }
+        public string[] GlassJarShelfCodes { get; set; }
+    }
+
     #endregion
 
     #region Baskets
