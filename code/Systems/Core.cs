@@ -70,6 +70,8 @@ public class Core : ModSystem {
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityGlassFoodCase", typeof(BlockEntityGlassFoodCase));
         api.RegisterBlockClass("FoodShelves.BlockGlassJar", typeof(BlockGlassJar));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityGlassJar", typeof(BlockEntityGlassJar));
+        api.RegisterBlockClass("FoodShelves.BlockCeilingJar", typeof(BlockCeilingJar));
+        api.RegisterBlockEntityClass("FoodShelves.BlockEntityCeilingJar", typeof(BlockEntityCeilingJar));
     }
 
     public override void StartClientSide(ICoreClientAPI api) {

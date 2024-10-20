@@ -1,6 +1,6 @@
 ﻿namespace FoodShelves;
 
-public class BlockEntityGlassJar : BlockEntityDisplay {
+public class BlockEntityCeilingJar : BlockEntityDisplay {
     private readonly InventoryGeneric inv;
     private Block block;
     
@@ -8,10 +8,10 @@ public class BlockEntityGlassJar : BlockEntityDisplay {
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
     public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
-    private const int slotCount = 2;
+    private const int slotCount = 12;
     private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlockMerged;
 
-    public BlockEntityGlassJar() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotLiquidyStuff(inv)); }
+    public BlockEntityCeilingJar() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotLiquidyStuff(inv)); }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
@@ -41,38 +41,41 @@ public class BlockEntityGlassJar : BlockEntityDisplay {
 
     // TryPut and TryTake should go to CeilingJar instead of this one, if this one would allow dropoff/pickup of items via UI mouse1/mouse2
     private bool TryPut(IPlayer byPlayer, ItemSlot slot) {
+        // Ensure that we are only adding the same item type to the inventory
         if (!inv[0].Empty && inv[0].Itemstack.Collectible.Equals(slot.Itemstack.Collectible)) {
-            int availableSpaceSlot0 = inv[0].MaxSlotStackSize - inv[0].StackSize;
-            int availableSpaceSlot1 = inv[1].MaxSlotStackSize - inv[1].StackSize;
+            int moved = 0;
 
-            if (inv[0].StackSize + inv[1].StackSize < inv[0].MaxSlotStackSize + inv[1].MaxSlotStackSize) {
-                int moved;
-                if (byPlayer.Entity.Controls.ShiftKey) {
-                    moved = slot.TryPutInto(Api.World, inv[0], availableSpaceSlot0);
+            // Shift-click handling: Try to fill slots in order, starting from the first one
+            if (byPlayer.Entity.Controls.ShiftKey) {
+                for (int i = 0; i < inv.Count; i++) {
+                    int availableSpace = inv[i].MaxSlotStackSize - inv[i].StackSize;
+                    moved += slot.TryPutInto(Api.World, inv[i], availableSpace);
 
-                    if (moved > 0) {
-                        int remainingToMove = slot.StackSize;
-                        if (remainingToMove > 0) {
-                            moved += slot.TryPutInto(Api.World, inv[1], Math.Min(remainingToMove, availableSpaceSlot1));
-                        }
-                    }
-                    else {
-                        moved = slot.TryPutInto(Api.World, inv[1], availableSpaceSlot1);
+                    // Stop if the slot is still not full
+                    if (inv[i].StackSize < inv[i].MaxSlotStackSize) {
+                        break;
                     }
                 }
-                else {
-                    moved = slot.TryPutInto(Api.World, inv[0], 1);
-                    if (moved == 0) moved = slot.TryPutInto(Api.World, inv[1], 1);
+            }
+            else // Regular click: Place one item at a time, filling in sequence
+            {
+                for (int i = 0; i < inv.Count; i++) {
+                    if (inv[i].StackSize < inv[i].MaxSlotStackSize) {
+                        moved = slot.TryPutInto(Api.World, inv[i], 1);
+                        break; // Stop after moving one item
+                    }
                 }
+            }
 
-                if (moved > 0) {
-                    MarkDirty();
-                    (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
-                    return true;
-                }
+            // If any items were moved, update the inventory and trigger the animation
+            if (moved > 0) {
+                MarkDirty();
+                (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
+                return true;
             }
         }
 
+        // Handle the case where the first slot is empty and can receive items
         if (inv[0].Empty) {
             int moved = slot.TryPutInto(Api.World, inv[0]);
 
@@ -138,7 +141,7 @@ public class BlockEntityGlassJar : BlockEntityDisplay {
         tesselator.TesselateBlock(block, out MeshData blockMesh);
         if (blockMesh == null) return false;
 
-        MeshData contentMesh = GenLiquidyMesh(capi, inv, ShapeReferences.GlassJarUtil);
+        MeshData contentMesh = GenLiquidyMesh(capi, inv, ShapeReferences.CeilingJarUtil);
         if (contentMesh != null) blockMesh.AddMeshData(contentMesh);
 
         mesher.AddMeshData(blockMesh);

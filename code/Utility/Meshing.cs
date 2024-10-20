@@ -62,8 +62,9 @@ public static class Meshing {
         return contentMesh;
     }
 
-    public static MeshData GenLiquidyMesh(ICoreClientAPI capi, InventoryGeneric inventory) {
+    public static MeshData GenLiquidyMesh(ICoreClientAPI capi, InventoryGeneric inventory, string pathToFillShape) {
         if (inventory == null || inventory.Count == 0) return null;
+        if (pathToFillShape == null || pathToFillShape == "") return null;
 
         List<ItemStack> contentList = new();
         foreach (ItemSlot itemSlot in inventory) {
@@ -75,10 +76,9 @@ public static class Meshing {
         if (contents[0].Item == null) return null; // Isn't intended for block use
 
         // Shape location of a simple cube, meant to "fill" the Glass Jar
-        AssetLocation shapeLocation = new("foodshelves:shapes/util/glassjarcontentcube.json");
+        AssetLocation shapeLocation = new(pathToFillShape);
         Shape shape = capi.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
         if (shape == null) return null;
-
         Shape shapeClone = shape.Clone();
 
         // Handle textureSource
@@ -113,7 +113,8 @@ public static class Meshing {
             contentHeight += itemStack.StackSize;
         }
 
-        double shapeHeight = contentHeight * 0.11 + shapeClone.Elements[0].From[1];
+        float multiplier = inventory.Count == 2 ? 0.11f : 0.022f;
+        double shapeHeight = contentHeight * multiplier + shapeClone.Elements[0].From[1];
         shapeClone.Elements[0].To[1] = shapeHeight;
 
         // Adjusting the "topping" position

@@ -20,7 +20,7 @@ public class BlockEntityGlassJarShelf : BlockEntityDisplay {
 
         if (block.Code.SecondCodePart().StartsWith("short")) {
             shelfCount = 2;
-            inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotBreadShelf(inv));
+            inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotGlassJarShelf(inv));
             Inventory.LateInitialize(Inventory.InventoryID, api);
         }
 
@@ -68,6 +68,7 @@ public class BlockEntityGlassJarShelf : BlockEntityDisplay {
 
     private bool TryPut(ItemSlot slot, BlockSelection blockSel) {
         int index = blockSel.SelectionBoxIndex;
+        if (index >= shelfCount * segmentsPerShelf * itemsPerSegment) return false;
 
         if (inv[index].Empty) {
             int moved = slot.TryPutInto(Api.World, inv[index]);
@@ -81,6 +82,7 @@ public class BlockEntityGlassJarShelf : BlockEntityDisplay {
 
     private bool TryTake(IPlayer byPlayer, BlockSelection blockSel) {
         int index = blockSel.SelectionBoxIndex;
+        if (index >= shelfCount * segmentsPerShelf * itemsPerSegment) return false;
 
         if (!inv[index].Empty) {
             ItemStack stack = inv[index].TakeOut(1);
@@ -105,8 +107,9 @@ public class BlockEntityGlassJarShelf : BlockEntityDisplay {
         float[][] tfMatrices = new float[shelfCount * segmentsPerShelf * itemsPerSegment][];
 
         for (int i = 0; i < shelfCount * segmentsPerShelf * itemsPerSegment; i++) {
-            float x = i % (shelfCount / 2) == 0 ? -0.205f : 0.205f;
-            float z = (i / (shelfCount / 2)) % 2 == 0 ? 0.24f : -0.24f;
+            float x = i % 2 == 0 ? -0.205f : 0.205f;
+            float z = i / 2 % 2 == 0 ? 0.24f : -0.24f;
+            if (shelfCount == 2) z = -0.24f;
 
             tfMatrices[i] =
                 new Matrixf()
