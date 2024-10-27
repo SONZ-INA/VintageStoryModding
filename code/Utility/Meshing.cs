@@ -68,8 +68,9 @@ public static class Meshing {
 
         List<ItemStack> contentList = new();
         foreach (ItemSlot itemSlot in inventory) {
-            if (itemSlot.Itemstack != null)
+            if (itemSlot.Itemstack != null) {
                 contentList.Add(itemSlot.Itemstack);
+            }
         }
         if (contentList.Count == 0) return null; // Empty
         ItemStack[] contents = contentList.ToArray();
@@ -80,30 +81,29 @@ public static class Meshing {
         Shape shape = capi.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
         if (shape == null) return null;
         Shape shapeClone = shape.Clone();
+        string itemPath = contents[0].Item.Code.Path;
 
         // Handle textureSource
-        ShapeTextureSource texSource;
+        ITexPositionSource texSource;
 
         if (contents[0].ItemAttributes?["inPieProperties"].Exists == true) {
             AssetLocation textureRerouteLocation;
 
-            if (contents[0].Item.Code.Path.EndsWith("-beachalmondwhole")) textureRerouteLocation = new("wildcraftfruit:block/food/pie/fill-beachalmond"); // Fucking exception
+            if (itemPath.EndsWith("-beachalmondwhole")) textureRerouteLocation = new("wildcraftfruit:block/food/pie/fill-beachalmond"); // Fucking exception
             else textureRerouteLocation = new(contents[0].ItemAttributes["inPieProperties"].Token["texture"].ToString());
 
             shapeClone.Textures.Clear();
             shapeClone.Textures.Add("surface", textureRerouteLocation);
 
-            texSource = new(capi, shapeClone, "jarcontentshape");
+            texSource = new ShapeTextureSource(capi, shapeClone, "jarcontentshape");
         }
         else {
             // For some reason, ITexPositionSource is throwing a null error when simply getting it with a simple fucking method, so this is needed
-            AssetLocation contentShapeLocation = contents[0].Item.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
-            Shape contentShape = capi.Assets.TryGet(contentShapeLocation)?.ToObject<Shape>();
-            if (contentShape == null) return null;
-            texSource = new(capi, contentShape, "jarcontentshape");
+            var textures = contents[0].Item.Textures;
+            texSource = new ContainerTextureSource(capi, contents[0], textures.Values.FirstOrDefault());
 
             // Modifying the texture key of the shape to fit the key of the item
-            string textureKey = contentShape.Textures.Keys.FirstOrDefault();
+            string textureKey = textures.Keys.FirstOrDefault();
             ChangeShapeTextureKey(shapeClone, textureKey);
         }
 
@@ -113,7 +113,7 @@ public static class Meshing {
             contentHeight += itemStack.StackSize;
         }
 
-        float multiplier = inventory.Count == 2 ? 0.11f : 0.022f;
+        float multiplier = inventory.Count == 2 ? 0.11f : 0.022f; // Hardcoded for now
         double shapeHeight = contentHeight * multiplier + shapeClone.Elements[0].From[1];
         shapeClone.Elements[0].To[1] = shapeHeight;
 
@@ -124,12 +124,23 @@ public static class Meshing {
         }
 
         // Re-sizing the textures
-        shapeClone.Elements[0].FacesResolved[0].Uv[3] = (float)shapeHeight;
-        shapeClone.Elements[0].FacesResolved[1].Uv[3] = (float)shapeHeight;
-        shapeClone.Elements[0].FacesResolved[2].Uv[3] = (float)shapeHeight;
-        shapeClone.Elements[0].FacesResolved[3].Uv[3] = (float)shapeHeight;
+        if (itemPath == "beeswax") { // Hardcoded stuff for beeswax
+            for (int i = 0; i < 6; i++) {
+                shapeClone.Elements[0].FacesResolved[i].Uv[0] = 6f;
+            }
+        }
 
-        capi.Tesselator.TesselateShape(null, shapeClone, out MeshData contentMesh, texSource);
+        float textureOffset = 0;
+        if (itemPath == "fat") { // Hardcoded stuff for animal fat
+            textureOffset = -1.8f;
+            shapeClone.Elements[0].FacesResolved[5].Uv[3] = 8f;
+        }
+
+        for (int i = 0; i < 4; i++) {
+            shapeClone.Elements[0].FacesResolved[i].Uv[3] = (float)shapeHeight + textureOffset;
+        }
+
+        capi.Tesselator.TesselateShape("liquidymesh", shapeClone, out MeshData contentMesh, texSource);
 
         return contentMesh;
     }

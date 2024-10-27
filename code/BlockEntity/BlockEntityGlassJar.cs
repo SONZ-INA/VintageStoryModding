@@ -91,10 +91,8 @@ public class BlockEntityGlassJar : BlockEntityDisplay {
         bool overflow = false;
 
         if (!inv[1].Empty) {
-            if (byPlayer.Entity.Controls.ShiftKey)
-                stack = inv[1].TakeOutWhole();
-            else
-                stack = inv[1].TakeOut(1);
+            if (byPlayer.Entity.Controls.ShiftKey) stack = inv[1].TakeOutWhole();
+            else stack = inv[1].TakeOut(1);
 
             if (stack?.StackSize < stack?.Collectible.MaxStackSize && byPlayer.Entity.Controls.ShiftKey) overflow = true;
             if (stack != null && stack.StackSize > 0 && byPlayer.InventoryManager.TryGiveItemstack(stack)) {
@@ -108,10 +106,8 @@ public class BlockEntityGlassJar : BlockEntityDisplay {
         }
 
         if (!inv[0].Empty || overflow) {
-            if (byPlayer.Entity.Controls.ShiftKey)
-                stack = inv[0].TakeOutWhole();
-            else
-                stack = inv[0].TakeOut(1);
+            if (byPlayer.Entity.Controls.ShiftKey) stack = inv[0].TakeOutWhole();
+            else stack = inv[0].TakeOut(1);
 
             if (stack != null && stack.StackSize > 0 && byPlayer.InventoryManager.TryGiveItemstack(stack)) {
                 AssetLocation sound = stack.Block?.Sounds?.Place;
@@ -142,16 +138,10 @@ public class BlockEntityGlassJar : BlockEntityDisplay {
         if (contentMesh != null) blockMesh.AddMeshData(contentMesh);
 
         mesher.AddMeshData(blockMesh);
-        
         return true;
     }
 
-    // Unneeded
-    protected override float[][] genTransformationMatrices() {
-        float[][] tfMatrices = new float[1][];
-        tfMatrices[0] = new Matrixf().Values;
-        return tfMatrices;
-    }
+    protected override float[][] genTransformationMatrices() { return null; } // Unneeded
 
     public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
         base.FromTreeAttributes(tree, worldForResolving);
