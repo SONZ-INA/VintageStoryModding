@@ -23,6 +23,37 @@ public static class Meshing {
         return mesh;
     }
 
+    private static readonly Dictionary<string, Shape> shapeCache = new();
+    public static MeshData GenBlockMeshWithoutElements(ICoreClientAPI capi, Block block, string[] elements) {
+        if (block == null) return null;
+
+        ITexPositionSource texSource = capi.Tesselator.GetTextureSource(block);
+        string shapeLocation = block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json").ToString();
+
+        if (!shapeCache.TryGetValue(shapeLocation, out Shape shapeClone)) {
+            Shape shape = capi.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
+            if (shape == null) return null;
+            shapeClone = shape.Clone();
+
+            ShapeElement[] RemoveElements(ShapeElement[] elementArray) {
+                var remainingElements = elementArray.Where(e => !elements.Contains(e.Name)).ToArray();
+                foreach (var element in remainingElements) {
+                    if (element.Children != null && element.Children.Length > 0) {
+                        element.Children = RemoveElements(element.Children); // Recursively filter children
+                    }
+                }
+                return remainingElements;
+            }
+
+            shapeClone.Elements = RemoveElements(shapeClone.Elements);
+
+            shapeCache[shapeLocation] = shapeClone;
+        }
+
+        capi.Tesselator.TesselateShape("erasedelementsshape", shapeClone, out MeshData mesh, texSource);
+        return mesh;
+    }
+
     public static MeshData GenContentMesh(ICoreClientAPI capi, ItemStack[] contents, float[,] transformationMatrix, float scaleValue = 1f, Dictionary<string, ModelTransform> modelTransformations = null) {
         MeshData contentMesh = null;
         
@@ -62,19 +93,9 @@ public static class Meshing {
         return contentMesh;
     }
 
-    public static MeshData GenLiquidyMesh(ICoreClientAPI capi, InventoryGeneric inventory, string pathToFillShape) {
-        if (inventory == null || inventory.Count == 0) return null;
+    public static MeshData GenLiquidyMesh(ICoreClientAPI capi, ItemStack[] contents, string pathToFillShape) {
+        if (contents == null || contents.Length == 0 || contents[0] == null) return null;
         if (pathToFillShape == null || pathToFillShape == "") return null;
-
-        List<ItemStack> contentList = new();
-        foreach (ItemSlot itemSlot in inventory) {
-            if (itemSlot.Itemstack != null) {
-                contentList.Add(itemSlot.Itemstack);
-            }
-        }
-        if (contentList.Count == 0) return null; // Empty
-        ItemStack[] contents = contentList.ToArray();
-        if (contents[0].Item == null) return null; // Isn't intended for block use
 
         // Shape location of a simple cube, meant to "fill" the Glass Jar
         AssetLocation shapeLocation = new(pathToFillShape);
@@ -110,10 +131,10 @@ public static class Meshing {
         // Adjusting the cube height
         float contentHeight = 0;
         foreach (var itemStack in contents) {
-            contentHeight += itemStack.StackSize;
+            contentHeight += itemStack?.StackSize ?? 0;
         }
 
-        float multiplier = inventory.Count == 2 ? 0.11f : 0.022f; // Hardcoded for now
+        float multiplier = contents.Length == 2 ? 0.11f : 0.022f; ; // Hardcoded for now
         double shapeHeight = contentHeight * multiplier + shapeClone.Elements[0].From[1];
         shapeClone.Elements[0].To[1] = shapeHeight;
 
@@ -141,7 +162,6 @@ public static class Meshing {
         }
 
         capi.Tesselator.TesselateShape("liquidymesh", shapeClone, out MeshData contentMesh, texSource);
-
         return contentMesh;
     }
 

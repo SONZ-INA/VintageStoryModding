@@ -20,14 +20,15 @@
     "attributeTransformCode": "onGlassJarTransform"
   },
   "behaviors": [
-    { "name": "UnstableFalling" } 
+    { "name": "UnstableFalling" },
+    { "name": "RightClickPickup" }
   ],
   "shape": {
     "base": "block/wood/glassware/glassjar"
   },
   "textures": {
     "frame-slab": { "base": "game:block/glass/frame-slab" },
-    "quartzglass": { "base": "game:block/glass/quartzglass" },
+    "smoky": { "base": "game:block/glass/smoky" },
     "surface": { "base": "game:block/wood/shelf/surface" }
   },
   "heldTpIdleAnimation": "holdbothhandslarge",

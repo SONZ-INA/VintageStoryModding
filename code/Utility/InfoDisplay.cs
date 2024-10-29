@@ -12,44 +12,22 @@ public static class InfoDisplay {
     public static void DisplayInfo(IPlayer forPlayer, StringBuilder sb, InventoryGeneric inv, InfoDisplayOptions displaySelection, int slotCount, int segmentsPerShelf = 0, int itemsPerSegment = 0, bool skipLine = true) {
         if (skipLine) sb.AppendLine(); // Space in between to be in line with vanilla
 
-        ICoreAPI Api = inv.Api;
+        IWorldAccessor world = inv.Api.World;
 
+        List<ItemStack> itemStackList = new();
+        foreach (var slot in inv) {
+            ItemStack itemStack = slot.Itemstack;
+            if (itemStack != null) itemStackList.Add(itemStack);
+        }
+        ItemStack[] contents = itemStackList.ToArray();
+        
         if (displaySelection == InfoDisplayOptions.ByBlockAverageAndSoonest) {
-            List<ItemStack> itemStackList = new();
-            foreach (var slot in inv) {
-                ItemStack itemStack = slot.Itemstack;
-                if (itemStack != null) itemStackList.Add(itemStack);
-            }
-
-            ItemStack[] contents = itemStackList.ToArray();
-            PerishableInfoAverageAndSoonest(contents, sb, Api.World);
+            PerishableInfoAverageAndSoonest(contents, sb, world);
             return;
         }
 
         if (displaySelection == InfoDisplayOptions.ByBlockMerged) {
-            if (inv[0].Empty) return;
-
-            ItemStack firstStack = inv[0].Itemstack.Clone();
-            int totalStackSize = firstStack.StackSize;
-            float ripenRate = firstStack.Collectible.GetTransitionRateMul(Api.World, inv[0], EnumTransitionType.Ripen); // Get ripen rate for first slot
-
-            for (int i = 1; i < slotCount; i++) {
-                if (inv[i].Empty) break; // Subsequent slots can't contain anything if the slot before it is empty
-                totalStackSize += inv[i].Itemstack.StackSize;
-            }
-
-            firstStack.StackSize = totalStackSize;
-
-            sb.Append(firstStack.GetName());
-            if (totalStackSize > 1) sb.Append(" x" + totalStackSize);
-
-            if (firstStack.Collectible.TransitionableProps != null &&
-                firstStack.Collectible.TransitionableProps.Length > 0) {
-
-                sb.Append(PerishableInfoCompact(Api, inv[0], ripenRate, false));
-            }
-
-            sb.AppendLine();
+            ByBlockMerged(contents, sb, world);
             return;
         }
 
@@ -83,11 +61,11 @@ public static class InfoDisplay {
             if (inv[i].Empty) continue;
 
             ItemStack stack = inv[i].Itemstack;
-            float ripenRate = stack.Collectible.GetTransitionRateMul(Api.World, inv[i], EnumTransitionType.Ripen); // Get ripen rate
+            float ripenRate = stack.Collectible.GetTransitionRateMul(world, inv[i], EnumTransitionType.Ripen); // Get ripen rate
 
             if (stack.Collectible.TransitionableProps != null &&
                 stack.Collectible.TransitionableProps.Length > 0) {
-                sb.Append(PerishableInfoCompact(Api, inv[i], ripenRate));
+                sb.Append(PerishableInfoCompact(world, inv[i], ripenRate));
             }
             else {
                 sb.Append(stack.GetName());
@@ -97,7 +75,7 @@ public static class InfoDisplay {
         }
     }
 
-    public static string PerishableInfoCompact(ICoreAPI Api, ItemSlot contentSlot, float ripenRate, bool withStackName = true) {
+    public static string PerishableInfoCompact(IWorldAccessor world, ItemSlot contentSlot, float ripenRate, bool withStackName = true) {
         if (contentSlot.Empty) return "";
 
         StringBuilder dsc = new();
@@ -106,7 +84,7 @@ public static class InfoDisplay {
             dsc.Append(contentSlot.Itemstack.GetName());
         }
 
-        TransitionState[] transitionStates = contentSlot.Itemstack?.Collectible.UpdateAndGetTransitionStates(Api.World, contentSlot);
+        TransitionState[] transitionStates = contentSlot.Itemstack?.Collectible.UpdateAndGetTransitionStates(world, contentSlot);
 
         bool nowSpoiling = false;
 
@@ -115,7 +93,7 @@ public static class InfoDisplay {
             for (int i = 0; i < transitionStates.Length; i++) {
                 TransitionState state = transitionStates[i];
                 TransitionableProperties prop = state.Props;
-                float perishRate = contentSlot.Itemstack.Collectible.GetTransitionRateMul(Api.World, contentSlot, prop.Type);
+                float perishRate = contentSlot.Itemstack.Collectible.GetTransitionRateMul(world, contentSlot, prop.Type);
 
                 if (perishRate <= 0) continue;
 
@@ -131,10 +109,10 @@ public static class InfoDisplay {
                             dsc.Append(", " + Lang.Get("{0}% spoiled", (int)Math.Round(transitionLevel * 100)));
                         }
                         else {
-                            double hoursPerday = Api.World.Calendar.HoursPerDay;
+                            double hoursPerday = world.Calendar.HoursPerDay;
 
-                            if (freshHoursLeft / hoursPerday >= Api.World.Calendar.DaysPerYear) {
-                                dsc.Append(", " + Lang.Get("fresh for {0} years", Math.Round(freshHoursLeft / hoursPerday / Api.World.Calendar.DaysPerYear, 1)));
+                            if (freshHoursLeft / hoursPerday >= world.Calendar.DaysPerYear) {
+                                dsc.Append(", " + Lang.Get("fresh for {0} years", Math.Round(freshHoursLeft / hoursPerday / world.Calendar.DaysPerYear, 1)));
                             }
                             else if (freshHoursLeft > hoursPerday) {
                                 dsc.Append(", " + Lang.Get("fresh for {0} days", Math.Round(freshHoursLeft / hoursPerday, 1)));
@@ -151,13 +129,13 @@ public static class InfoDisplay {
                         appendLine = true;
 
                         if (transitionLevel > 0) {
-                            dsc.Append(", " + Lang.Get("{1:0.#} days left to ripen ({0}%)", (int)Math.Round(transitionLevel * 100), (state.TransitionHours - state.TransitionedHours) / Api.World.Calendar.HoursPerDay / ripenRate));
+                            dsc.Append(", " + Lang.Get("{1:0.#} days left to ripen ({0}%)", (int)Math.Round(transitionLevel * 100), (state.TransitionHours - state.TransitionedHours) / world.Calendar.HoursPerDay / ripenRate));
                         }
                         else {
-                            double hoursPerday = Api.World.Calendar.HoursPerDay;
+                            double hoursPerday = world.Calendar.HoursPerDay;
 
-                            if (freshHoursLeft / hoursPerday >= Api.World.Calendar.DaysPerYear) {
-                                dsc.Append(", " + Lang.Get("will ripen in {0} years", Math.Round(freshHoursLeft / hoursPerday / Api.World.Calendar.DaysPerYear, 1)));
+                            if (freshHoursLeft / hoursPerday >= world.Calendar.DaysPerYear) {
+                                dsc.Append(", " + Lang.Get("will ripen in {0} years", Math.Round(freshHoursLeft / hoursPerday / world.Calendar.DaysPerYear, 1)));
                             }
                             else if (freshHoursLeft > hoursPerday) {
                                 dsc.Append(", " + Lang.Get("will ripen in {0} days", Math.Round(freshHoursLeft / hoursPerday, 1)));
@@ -174,6 +152,33 @@ public static class InfoDisplay {
         }
 
         return dsc.ToString();
+    }
+
+    public static void ByBlockMerged(ItemStack[] contents, StringBuilder sb, IWorldAccessor world) {
+        if (contents == null || contents.Length == 0) return;
+
+        ItemStack firstStack = contents[0].Clone();
+        ItemSlot tempSlot = new DummySlot(firstStack);
+        int totalStackSize = firstStack.StackSize;
+        float ripenRate = firstStack.Collectible.GetTransitionRateMul(world, tempSlot, EnumTransitionType.Ripen); // Get ripen rate for first slot
+
+        for (int i = 1; i < contents.Length; i++) {
+            if (contents[i] == null) break; // Subsequent slots can't contain anything if the slot before it is empty
+            totalStackSize += contents[i].StackSize;
+        }
+
+        firstStack.StackSize = totalStackSize;
+
+        sb.Append(firstStack.GetName());
+        if (totalStackSize > 1) sb.Append(" x" + totalStackSize);
+
+        if (firstStack.Collectible.TransitionableProps != null &&
+            firstStack.Collectible.TransitionableProps.Length > 0) {
+
+            sb.Append(PerishableInfoCompact(world, tempSlot, ripenRate, false));
+        }
+
+        sb.AppendLine();
     }
 
     public static void PerishableInfoAverageAndSoonest(ItemStack[] contents, StringBuilder dsc, IWorldAccessor world) {

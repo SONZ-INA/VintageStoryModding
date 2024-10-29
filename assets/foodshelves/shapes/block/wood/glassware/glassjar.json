@@ -9,7 +9,7 @@
 	},
 	"textures": {
 		"frame-slab": "frame-slab",
-		"quartzglass": "quartzglass",
+		"smoky": "smoky",
 		"surface": "surface"
 	},
 	"elements": [
@@ -27,7 +27,7 @@
 					"to": [ 7.0, 0.5, 7.0 ],
 					"rotationOrigin": [ 1.0, 0.0, 1.0 ],
 					"faces": {
-						"north": { "texture": "#surface", "uv": [ 0.0, 3.0, 6.0, 3.5 ], "windMode": [-1,-1,-1,-1] },
+						"north": { "texture": "#surface", "uv": [ 0.0, 3.0, 6.0, 3.5 ] },
 						"east": { "texture": "#surface", "uv": [ 0.0, 3.0, 6.0, 3.5 ] },
 						"south": { "texture": "#surface", "uv": [ 0.0, 3.0, 6.0, 3.5 ] },
 						"west": { "texture": "#surface", "uv": [ 0.0, 3.0, 6.0, 3.5 ] },
@@ -41,7 +41,7 @@
 					"to": [ 1.5, 8.5, 1.5 ],
 					"rotationOrigin": [ 1.0, 1.0, 1.0 ],
 					"faces": {
-						"north": { "texture": "#surface", "uv": [ 0.0, 5.0, 0.5, 13.0 ], "windMode": [-1,-1,-1,-1] },
+						"north": { "texture": "#surface", "uv": [ 0.0, 5.0, 0.5, 13.0 ] },
 						"east": { "texture": "#surface", "uv": [ 0.0, 5.5, 0.5, 13.5 ] },
 						"south": { "texture": "#surface", "uv": [ 0.0, 4.5, 0.5, 12.5 ] },
 						"west": { "texture": "#surface", "uv": [ 0.0, 4.5, 0.5, 12.5 ] }
@@ -53,7 +53,7 @@
 							"to": [ 6.0, 8.0, 0.5 ],
 							"rotationOrigin": [ 6.0, 0.5, 0.0 ],
 							"faces": {
-								"north": { "texture": "#surface", "uv": [ 0.0, 5.0, 0.5, 13.0 ], "windMode": [-1,-1,-1,-1] },
+								"north": { "texture": "#surface", "uv": [ 0.0, 5.0, 0.5, 13.0 ] },
 								"east": { "texture": "#surface", "uv": [ 0.0, 5.5, 0.5, 13.5 ] },
 								"south": { "texture": "#surface", "uv": [ 0.0, 4.5, 0.5, 12.5 ] },
 								"west": { "texture": "#surface", "uv": [ 0.0, 4.5, 0.5, 12.5 ] }
@@ -65,7 +65,7 @@
 							"to": [ 0.5, 8.0, 6.0 ],
 							"rotationOrigin": [ 0.0, 0.5, 5.0 ],
 							"faces": {
-								"north": { "texture": "#surface", "uv": [ 0.0, 5.0, 0.5, 13.0 ], "windMode": [-1,-1,-1,-1] },
+								"north": { "texture": "#surface", "uv": [ 0.0, 5.0, 0.5, 13.0 ] },
 								"east": { "texture": "#surface", "uv": [ 0.0, 5.5, 0.5, 13.5 ] },
 								"south": { "texture": "#surface", "uv": [ 0.0, 4.5, 0.5, 12.5 ] },
 								"west": { "texture": "#surface", "uv": [ 0.0, 4.5, 0.5, 12.5 ] }
@@ -77,7 +77,7 @@
 							"to": [ 6.0, 8.0, 6.0 ],
 							"rotationOrigin": [ 0.0, 0.5, 5.0 ],
 							"faces": {
-								"north": { "texture": "#surface", "uv": [ 0.0, 5.0, 0.5, 13.0 ], "windMode": [-1,-1,-1,-1] },
+								"north": { "texture": "#surface", "uv": [ 0.0, 5.0, 0.5, 13.0 ] },
 								"east": { "texture": "#surface", "uv": [ 0.0, 5.5, 0.5, 13.5 ] },
 								"south": { "texture": "#surface", "uv": [ 0.0, 4.5, 0.5, 12.5 ] },
 								"west": { "texture": "#surface", "uv": [ 0.0, 4.5, 0.5, 12.5 ] }
@@ -99,8 +99,8 @@
 							"to": [ 7.0, 9.0, 7.0 ],
 							"rotationOrigin": [ 1.0, 8.0, 1.0 ],
 							"faces": {
-								"north": { "texture": "#surface", "uv": [ 0.0, 3.0, 6.0, 3.5 ], "windMode": [-1,-1,-1,-1] },
-								"east": { "texture": "#surface", "uv": [ 0.0, 3.0, 6.0, 3.5 ], "windMode": [-1,-1,-1,-1] },
+								"north": { "texture": "#surface", "uv": [ 0.0, 3.0, 6.0, 3.5 ] },
+								"east": { "texture": "#surface", "uv": [ 0.0, 3.0, 6.0, 3.5 ] },
 								"south": { "texture": "#surface", "uv": [ 0.0, 3.0, 6.0, 3.5 ] },
 								"west": { "texture": "#surface", "uv": [ 0.0, 3.0, 6.0, 3.5 ] },
 								"up": { "texture": "#surface", "uv": [ 5.0, 6.0, 11.0, 12.0 ] },
@@ -153,10 +153,10 @@
 							"renderPass": 3,
 							"rotationOrigin": [ 4.0, 1.0, 4.0 ],
 							"faces": {
-								"north": { "texture": "#quartzglass", "uv": [ 0.0, 0.0, 5.5, 8.0 ] },
-								"east": { "texture": "#quartzglass", "uv": [ 0.0, 0.0, 5.5, 8.0 ], "windMode": [-1,-1,-1,-1] },
-								"south": { "texture": "#quartzglass", "uv": [ 0.0, 0.0, 5.5, 8.0 ], "windMode": [-1,-1,-1,-1] },
-								"west": { "texture": "#quartzglass", "uv": [ 0.0, 0.0, 5.5, 8.0 ], "windMode": [-1,-1,-1,-1] }
+								"north": { "texture": "#smoky", "uv": [ 0.0, 0.0, 5.5, 8.0 ] },
+								"east": { "texture": "#smoky", "uv": [ 0.0, 0.0, 5.5, 8.0 ] },
+								"south": { "texture": "#smoky", "uv": [ 0.0, 0.0, 5.5, 8.0 ] },
+								"west": { "texture": "#smoky", "uv": [ 0.0, 0.0, 5.5, 8.0 ] }
 							}
 						},
 						{

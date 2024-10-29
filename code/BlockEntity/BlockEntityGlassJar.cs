@@ -134,7 +134,7 @@ public class BlockEntityGlassJar : BlockEntityDisplay {
         tesselator.TesselateBlock(block, out MeshData blockMesh);
         if (blockMesh == null) return false;
 
-        MeshData contentMesh = GenLiquidyMesh(capi, inv, ShapeReferences.GlassJarUtil);
+        MeshData contentMesh = GenLiquidyMesh(capi, GetContentStacks(), ShapeReferences.GlassJarUtil);
         if (contentMesh != null) blockMesh.AddMeshData(contentMesh);
 
         mesher.AddMeshData(blockMesh);

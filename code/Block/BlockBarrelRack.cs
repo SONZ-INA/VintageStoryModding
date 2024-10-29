@@ -25,7 +25,7 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
     }
 
     public override string GetHeldItemName(ItemStack itemStack) {
-        string variantName = itemStack.GetMaterialNameLocalized(new string[] { "type" }, new string[] { "normal", "top" });
+        string variantName = itemStack.GetMaterialNameLocalized(new[] { "type" }, new[] { "normal", "top" });
         return base.GetHeldItemName(itemStack) + variantName;
     }
 

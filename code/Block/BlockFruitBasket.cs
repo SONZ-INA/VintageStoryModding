@@ -93,7 +93,6 @@ public class BlockFruitBasket : BlockContainer {
 
     // Mesh rendering for items when inside inventory
     private string MeshRefsCacheKey => this.Code.ToShortString() + "meshRefs";
-
     public override void OnBeforeRender(ICoreClientAPI capi, ItemStack itemstack, EnumItemRenderTarget target, ref ItemRenderInfo renderinfo) {
         Dictionary<int, MultiTextureMeshRef> meshrefs;
 
