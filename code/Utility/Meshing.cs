@@ -23,32 +23,27 @@ public static class Meshing {
         return mesh;
     }
 
-    private static readonly Dictionary<string, Shape> shapeCache = new();
     public static MeshData GenBlockMeshWithoutElements(ICoreClientAPI capi, Block block, string[] elements) {
         if (block == null) return null;
 
         ITexPositionSource texSource = capi.Tesselator.GetTextureSource(block);
         string shapeLocation = block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json").ToString();
 
-        if (!shapeCache.TryGetValue(shapeLocation, out Shape shapeClone)) {
-            Shape shape = capi.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
-            if (shape == null) return null;
-            shapeClone = shape.Clone();
+        Shape shape = capi.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
+        if (shape == null) return null;
+        Shape shapeClone = shape.Clone();
 
-            ShapeElement[] RemoveElements(ShapeElement[] elementArray) {
-                var remainingElements = elementArray.Where(e => !elements.Contains(e.Name)).ToArray();
-                foreach (var element in remainingElements) {
-                    if (element.Children != null && element.Children.Length > 0) {
-                        element.Children = RemoveElements(element.Children); // Recursively filter children
-                    }
+        ShapeElement[] RemoveElements(ShapeElement[] elementArray) {
+            var remainingElements = elementArray.Where(e => !elements.Contains(e.Name)).ToArray();
+            foreach (var element in remainingElements) {
+                if (element.Children != null && element.Children.Length > 0) {
+                    element.Children = RemoveElements(element.Children); // Recursively filter children
                 }
-                return remainingElements;
             }
-
-            shapeClone.Elements = RemoveElements(shapeClone.Elements);
-
-            shapeCache[shapeLocation] = shapeClone;
+            return remainingElements;
         }
+
+        shapeClone.Elements = RemoveElements(shapeClone.Elements);
 
         capi.Tesselator.TesselateShape("erasedelementsshape", shapeClone, out MeshData mesh, texSource);
         return mesh;

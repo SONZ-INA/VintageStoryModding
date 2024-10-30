@@ -19,12 +19,15 @@
     "inventoryClassName": "ceilingjar",
     "attributeTransformCode": "onCeilingJarTransform"
   },
+  "behaviors": [
+    { "name": "FoodShelves.CeilingAttachable" }
+  ],
   "shape": {
     "base": "block/wood/glassware/ceilingjar"
   },
   "textures": {
     "frame": { "base": "game:block/glass/frame" },
-    "quartzglass": { "base": "game:block/glass/quartzglass" },
+    "smoky": { "base": "game:block/glass/smoky" },
     "surface": { "base": "game:block/wood/shelf/surface" },
     "rope": { "base": "game:item/resource/rope" }
   },
@@ -38,8 +41,14 @@
   "drawtype": "json",
   "emitSideAo": { "all": false },
   "sideao": { "all": true },
-  "sidesolid": { "all": false },
-  "sideopaque": { "all": false },
+  "sidesolid": {
+	  "up": true,
+	  "all": false
+  },
+  "sideopaque": {
+	  "up": true,
+	  "all": false
+  },
   "replaceable": 999,
   "resistance": 1.5,
   "tpHandTransform": {

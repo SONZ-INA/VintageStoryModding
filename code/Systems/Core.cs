@@ -29,6 +29,8 @@ public class Core : ModSystem {
     public override void Start(ICoreAPI api) {
         base.Start(api);
 
+        api.RegisterBlockBehaviorClass("FoodShelves.CeilingAttachable", typeof(BlockBehaviorCeilingAttachable));
+
         api.RegisterBlockClass("FoodShelves.BlockPieShelf", typeof(BlockPieShelf));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityPieShelf", typeof(BlockEntityPieShelf));
         api.RegisterBlockClass("FoodShelves.BlockBreadShelf", typeof(BlockBreadShelf));
@@ -68,8 +70,8 @@ public class Core : ModSystem {
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityGlassFood", typeof(BlockEntityGlassFood));
         api.RegisterBlockClass("FoodShelves.BlockGlassFoodCase", typeof(BlockGlassFoodCase));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityGlassFoodCase", typeof(BlockEntityGlassFoodCase));
-        api.RegisterBlockClass("FoodShelves.BlockGlassJar", typeof(BlockGlassJar));
-        api.RegisterBlockEntityClass("FoodShelves.BlockEntityGlassJar", typeof(BlockEntityGlassJar));
+        //api.RegisterBlockClass("FoodShelves.BlockGlassJar", typeof(BlockGlassJar));
+        //api.RegisterBlockEntityClass("FoodShelves.BlockEntityGlassJar", typeof(BlockEntityGlassJar));
         api.RegisterBlockClass("FoodShelves.BlockCeilingJar", typeof(BlockCeilingJar));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityCeilingJar", typeof(BlockEntityCeilingJar));
     }

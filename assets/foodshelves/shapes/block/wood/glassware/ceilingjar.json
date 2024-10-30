@@ -9,7 +9,7 @@
 	},
 	"textures": {
 		"frame": "frame",
-		"quartzglass": "quartzglass",
+		"smoky": "smoky",
 		"surface": "surface",
 		"rope": "rope"
 	},
@@ -547,11 +547,11 @@
 							"renderPass": 3,
 							"rotationOrigin": [ 8.0, 1.0, 8.0 ],
 							"faces": {
-								"north": { "texture": "#quartzglass", "uv": [ 0.0, 0.0, 13.0, 10.0 ] },
-								"east": { "texture": "#quartzglass", "uv": [ 0.0, 0.0, 13.5, 10.0 ], "windMode": [-1,-1,-1,-1] },
-								"south": { "texture": "#quartzglass", "uv": [ 0.0, 0.0, 13.0, 10.0 ], "windMode": [-1,-1,-1,-1] },
-								"west": { "texture": "#quartzglass", "uv": [ 0.0, 0.0, 13.5, 10.0 ], "windMode": [-1,-1,-1,-1] },
-								"down": { "texture": "#quartzglass", "uv": [ 0.0, 0.0, 13.0, 13.5 ], "windMode": [-1,-1,-1,-1] }
+								"north": { "texture": "#smoky", "uv": [ 0.0, 0.0, 13.0, 10.0 ] },
+								"east": { "texture": "#smoky", "uv": [ 0.0, 0.0, 13.5, 10.0 ], "windMode": [-1,-1,-1,-1] },
+								"south": { "texture": "#smoky", "uv": [ 0.0, 0.0, 13.0, 10.0 ], "windMode": [-1,-1,-1,-1] },
+								"west": { "texture": "#smoky", "uv": [ 0.0, 0.0, 13.5, 10.0 ], "windMode": [-1,-1,-1,-1] },
+								"down": { "texture": "#smoky", "uv": [ 0.0, 0.0, 13.0, 13.5 ], "windMode": [-1,-1,-1,-1] }
 							}
 						},
 						{

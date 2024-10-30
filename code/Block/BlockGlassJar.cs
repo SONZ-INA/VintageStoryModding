@@ -31,7 +31,7 @@ public class BlockGlassJar : BlockContainer {
 
         if (!meshrefs.TryGetValue(hashcode, out MultiTextureMeshRef meshRef)) {
             // Need to rething this approach altogether.
-            MeshData jarMesh = GenBlockMeshWithoutElements(capi, this, new[] { "Glass1" }); // Glass isn't transparent in UI, so contents are hidden
+            capi.Tesselator.TesselateBlock(this, out MeshData jarMesh);
             MeshData contentMesh = GenLiquidyMesh(capi, contents, ShapeReferences.GlassJarUtil);
             if (contentMesh != null) jarMesh.AddMeshData(contentMesh);
 

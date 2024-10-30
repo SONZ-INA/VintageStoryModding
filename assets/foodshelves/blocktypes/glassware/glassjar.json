@@ -6,6 +6,7 @@
   "variantgroups": [
     { "code": "type", "states": ["normal"] }
   ],
+  "enabled": false,
   "attributes": {
     "handbook": {
       "groupBy": [ "glassjar-*" ],
