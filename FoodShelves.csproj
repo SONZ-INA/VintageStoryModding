@@ -54,6 +54,8 @@
   <Content Remove="assets\foodshelves\textures\vanvar\**" />
   <EmbeddedResource Remove="assets\foodshelves\textures\vanvar\**" />
   <None Remove="assets\foodshelves\textures\vanvar\**" />
+  <None Remove="assets\foodshelves\blocktypes\barrels\firkin.json" />
+  <None Remove="assets\foodshelves\blocktypes\barrels\firkinrack.json" />
   <None Remove="assets\foodshelves\blocktypes\baskets\eggbasket.json" />
   <None Remove="assets\foodshelves\blocktypes\eggshelf.json" />
   <None Remove="assets\foodshelves\blocktypes\fruitbasket.json" />
@@ -69,6 +71,7 @@
   <None Remove="assets\foodshelves\blocktypes\vegetablebasket.json" />
   <None Remove="assets\foodshelves\config\restrictions\barrels\barrelrack.json" />
   <None Remove="assets\foodshelves\config\restrictions\barrels\barrelrackbig.json" />
+  <None Remove="assets\foodshelves\config\restrictions\barrels\firkinrack.json" />
   <None Remove="assets\foodshelves\config\restrictions\baskets\eggbasket.json" />
   <None Remove="assets\foodshelves\config\restrictions\baskets\fruitbasket.json" />
   <None Remove="assets\foodshelves\config\restrictions\baskets\vegetablebasket.json" />

@@ -18,6 +18,23 @@ public class BlockEntityCeilingJar : BlockEntityDisplay {
         base.Initialize(api);
     }
 
+    // Check this for dehydrated -> dry
+    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2f : 0.5f;
+        if (Api == null) return 0;
+
+        if (transType == EnumTransitionType.Perish || transType == EnumTransitionType.Ripen) {
+            float perishRate = GetPerishRate();
+            if (transType == EnumTransitionType.Ripen) {
+                return GameMath.Clamp((1 - perishRate - 0.5f) * 3, 0, 1);
+            }
+
+            return baseMul * perishRate;
+        }
+
+        return 1;
+    }
+
     internal bool OnInteract(IPlayer byPlayer) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
@@ -101,14 +118,6 @@ public class BlockEntityCeilingJar : BlockEntityDisplay {
         }
 
         return false;
-    }
-
-    // Check this method for dehydrated fruit -> dry fruit
-    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2f : 0.5f;
-        if (Api == null) return 0;
-
-        return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.75f);
     }
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {

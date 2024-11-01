@@ -41,7 +41,7 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
             }
             else {
                 ItemStack owncontentStack = block.GetContent(blockSel.Position);
-                if (owncontentStack?.Collectible?.Code?.Path?.StartsWith("rot") == true) {
+                if (owncontentStack?.Collectible?.Code.Path.StartsWith("rot") == true) {
                     return TryTake(byPlayer, 1);
                 }
 
@@ -81,8 +81,8 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
         return false;
     }
 
-    private bool TryTake(IPlayer byPlayer, int index = 0) {
-        for (int i = index; i < slotCount; i++) {
+    private bool TryTake(IPlayer byPlayer, int rotTakeout = 0) {
+        for (int i = rotTakeout; i < slotCount; i++) {
             if (!inv[i].Empty) {
                 ItemStack stack = inv[i].TakeOut(1);
                 if (byPlayer.InventoryManager.TryGiveItemstack(stack)) {

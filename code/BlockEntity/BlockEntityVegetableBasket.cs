@@ -21,6 +21,22 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
         base.Initialize(api);
     }
 
+    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2f : 0.5f;
+        if (Api == null) return 0;
+
+        if (transType == EnumTransitionType.Perish || transType == EnumTransitionType.Ripen) {
+            float perishRate = GetPerishRate();
+            if (transType == EnumTransitionType.Ripen) {
+                return GameMath.Clamp((1 - perishRate - 0.5f) * 3, 0, 1);
+            }
+
+            return baseMul * perishRate;
+        }
+
+        return 1;
+    }
+
     internal bool OnInteract(IPlayer byPlayer) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 

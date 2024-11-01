@@ -146,6 +146,13 @@ public static class Patches {
         }
     }
 
+    public static void PatchFirkinRack(CollectibleObject obj, FirkinRackData data) {
+        if (data.FirkinRackTypes.Contains(obj.GetType().Name) || WildcardUtil.Match(data.FirkinRackCodes, obj.Code.Path.ToString())) {
+            obj.EnsureAttributesNotNull();
+            obj.Attributes.Token[FirkinRack] = JToken.FromObject(true);
+        }
+    }
+
     #endregion
 
     public static void PatchPumpkinCase(CollectibleObject obj, PumpkinCaseData data) {

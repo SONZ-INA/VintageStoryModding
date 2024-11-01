@@ -85,6 +85,11 @@ public class RestrictionData {
         public string[] BarrelRackBigCodes { get; set; }
     }
 
+    public class FirkinRackData {
+        public string[] FirkinRackTypes { get; set; }
+        public string[] FirkinRackCodes { get; set; }
+    }
+
     #endregion
 
     public class PumpkinCaseData {

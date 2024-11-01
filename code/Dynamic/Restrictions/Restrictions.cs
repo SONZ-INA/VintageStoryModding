@@ -141,6 +141,14 @@ public static class Restrictions
 
     #endregion
 
+    #region FirkinRack
+
+    public const string FirkinRack = "firkinrackcheck";
+    public static bool FirkinRackCheck(this CollectibleObject obj) => obj?.Attributes?[FirkinRack].AsBool() == true;
+    public static bool FirkinRackCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[FirkinRack].AsBool() == true;
+
+    #endregion
+
 
     #region PumpkinCase
 

@@ -1,72 +1,76 @@
 ﻿namespace FoodShelves;
 
-public class BlockEntityBarrelRack : BlockEntityContainer {
-    readonly InventoryGeneric inv;
-    BlockBarrelRack block;
+public class BlockEntityFirkinRack : BlockEntityDisplay {
+    private readonly InventoryGeneric inv;
+    private BlockFirkinRack block;
 
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
 
-    private int CapacityLitres { get; set; } = 50;
-    static readonly int slotCount = 2;
+    private int CapacityLitres { get; set; } = 10;
+    static readonly int slotCount = 8;
 
-    public BlockEntityBarrelRack() {
+    public BlockEntityFirkinRack() {
         inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (id, inv) => {
-            if (id == 0) return new ItemSlotBarrelRack(inv);
+            if (id / (slotCount / 2) == 0) return new ItemSlotFirkinRack(inv);
             else return new ItemSlotLiquidOnly(inv, CapacityLitres);
         });
     }
 
     public override void Initialize(ICoreAPI api) {
         base.Initialize(api);
-        block = api.World.BlockAccessor.GetBlock(Pos) as BlockBarrelRack;
+        block = api.World.BlockAccessor.GetBlock(Pos) as BlockFirkinRack;
 
         if (block?.Attributes?["capacityLitres"].Exists == true) {
-            CapacityLitres = block.Attributes["capacityLitres"].AsInt(50);
-            (inv[1] as ItemSlotLiquidOnly).CapacityLitres = CapacityLitres;
+            CapacityLitres = block.Attributes["capacityLitres"].AsInt(10);
+            for (int i = slotCount / 2; i < slotCount; i++) {
+                (inv[i] as ItemSlotLiquidOnly).CapacityLitres = CapacityLitres;
+            }
         }
     }
 
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
-        if (slot.Empty) { // Take barrel
-            if (inv[1].Empty) {
-                return TryTake(byPlayer);
+        if (slot.Empty) { // Take firkin
+            if (inv[blockSel.SelectionBoxIndex + 4].Empty) {
+                return TryTake(byPlayer, blockSel);
             }
             else {
                 ItemStack owncontentStack = block.GetContent(blockSel.Position);
                 if (owncontentStack?.Collectible?.Code.Path.StartsWith("rot") == true) {
-                    return TryTake(byPlayer, 1);
+                    return TryTake(byPlayer, blockSel, blockSel.SelectionBoxIndex + 4);
                 }
 
-                (Api as ICoreClientAPI)?.TriggerIngameError(this, "canttake", Lang.Get("foodshelves:The barrel must be emptied before it can be picked up."));
+                (Api as ICoreClientAPI)?.TriggerIngameError(this, "canttake", Lang.Get("foodshelves:The firkin must be emptied before it can be picked up."));
                 return false;
             }
         }
         else {
-            if (inv.Empty && slot.BarrelRackCheck()) { // Put barrel in rack
+            if (inv[blockSel.SelectionBoxIndex].Empty && slot.FirkinRackCheck()) { // Put firkin in rack
                 AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
 
-                if (TryPut(slot)) {
+                if (TryPut(slot, blockSel)) {
                     Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
                     MarkDirty();
                     return true;
                 }
             }
-            else if (!inv.Empty) { // Put/Take liquid
+            else if (!inv[blockSel.SelectionBoxIndex].Empty) { // Put/Take liquid
                 if (block == null) return false;
                 else return block.BaseOnBlockInteractStart(Api.World, byPlayer, blockSel);
             }
         }
 
-        (Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only barrels can be placed on this rack."));
+        (Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:Only firkins can be placed on this rack."));
         return false;
     }
 
-    private bool TryPut(ItemSlot slot) {
-        if (inv[0].Empty) {
-            int moved = slot.TryPutInto(Api.World, inv[0]);
+    private bool TryPut(ItemSlot slot, BlockSelection blockSel) {
+        int index = blockSel.SelectionBoxIndex;
+
+        if (inv[index].Empty) {
+            int moved = slot.TryPutInto(Api.World, inv[index]);
             MarkDirty(true);
             (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
 
@@ -76,8 +80,10 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
         return false;
     }
 
-    private bool TryTake(IPlayer byPlayer, int rotTakeout = 0) {
-        for (int i = rotTakeout; i < slotCount; i++) {
+    private bool TryTake(IPlayer byPlayer, BlockSelection blockSel, int rotTakeout = 0) {
+        int index = blockSel.SelectionBoxIndex + rotTakeout;
+
+        for (int i = index; i < slotCount; i++) {
             if (!inv[i].Empty) {
                 ItemStack stack = inv[i].TakeOut(1);
                 if (byPlayer.InventoryManager.TryGiveItemstack(stack)) {
@@ -103,22 +109,23 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
         else return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.8f); // Expanded Foods curing compitability
     }
 
-    public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
-        bool skipmesh = base.OnTesselation(mesher, tesselator);
+    protected override float[][] genTransformationMatrices() {
+        float[][] tfMatrices = new float[slotCount][];
 
-        if (!skipmesh) {
-            tesselator.TesselateBlock(Api.World.BlockAccessor.GetBlock(this.Pos), out MeshData blockMesh);
-            if (blockMesh == null) return false;
+        for (int i = 0; i < slotCount; i++) {
+            float x = i % 2;
+            float z = i / 2;
 
-            ItemStack[] stack = GetContentStacks();
-            if (stack[0] != null && stack[0].Block != null) {
-                MeshData substituteBarrelShape = SubstituteBlockShape(Api, tesselator, ShapeReferences.HorizontalBarrel, stack[0].Block);
-                blockMesh.AddMeshData(substituteBarrelShape.BlockYRotation(this));
-            }
-
-            mesher.AddMeshData(blockMesh.Clone());
+            tfMatrices[i] =
+                new Matrixf()
+                .Translate(0.5f, 0, 0.5f)
+                .RotateYDeg(this.Block.Shape.rotateY + 90)
+                .RotateZDeg(90)
+                .RotateYDeg(-90)
+                .Translate(x * 0.469f - 0.735f, -0.5f, -z * 0.469 - 0.765f)
+                .Values;
         }
 
-        return true;
+        return tfMatrices;
     }
 }
