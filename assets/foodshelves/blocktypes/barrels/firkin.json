@@ -1,6 +1,6 @@
 {
   "code": "firkin",
-  // "class": "BlockLiquidContainerTopOpened", This poses a small problem. Make a new world
+  "class": "BlockLiquidContainerTopOpened",
   "creativeinventory": { "general": ["*"], "decorative": ["*"], "foodshelves": ["*"] },
   "variantgroups": [
     { "code": "type", "states": ["normal"] }
@@ -17,7 +17,11 @@
     },
     "liquidContainerProps": {
       "capacityLitres": 10,
-      "transferSizeLitres": 1
+      "transferSizeLitres": 1,
+      "emptyShapeLoc": "shapes/block/wood/barrel/firkin",
+      "opaqueContentShapeLoc": "game:shapes/block/basic/nothing",
+      "liquidContentShapeLoc": "game:shapes/block/basic/nothing",
+      "liquidMaxYTranslate": 0.05
     }
   },
   "behaviors": [
@@ -45,13 +49,13 @@
   "replaceable": 999,
   "resistance": 1.5,
   "guiTransform": {
-    "origin": { "x": 1, "y": 1, "z": 0 },
-    "scale": 0.5
+    "origin": { "x": 0.5, "y": 0.5, "z": 0.45 },
+    "scale": 1.3
   },
   "tpHandTransform": {
-    "translation": { "x": -1.8, "y": -0.91, "z": -0.8 },
-	  "rotation": { "x": 88, "y": 25, "z": -78 },
-	  "scale": 0.25
+    "translation": { "x": -0.5, "y": -0.5, "z": -0.4 },
+	  "rotation": { "x": 0, "y": 0, "z": -90 },
+	  "scale": 0.8
   },
   "sounds": {
     "place": "game:block/planks",

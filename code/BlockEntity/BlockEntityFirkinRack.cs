@@ -9,6 +9,7 @@ public class BlockEntityFirkinRack : BlockEntityDisplay {
 
     private int CapacityLitres { get; set; } = 10;
     static readonly int slotCount = 8;
+    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlock;
 
     public BlockEntityFirkinRack() {
         inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (id, inv) => {
@@ -83,22 +84,20 @@ public class BlockEntityFirkinRack : BlockEntityDisplay {
     private bool TryTake(IPlayer byPlayer, BlockSelection blockSel, int rotTakeout = 0) {
         int index = blockSel.SelectionBoxIndex + rotTakeout;
 
-        for (int i = index; i < slotCount; i++) {
-            if (!inv[i].Empty) {
-                ItemStack stack = inv[i].TakeOut(1);
-                if (byPlayer.InventoryManager.TryGiveItemstack(stack)) {
-                    AssetLocation sound = stack.Block?.Sounds?.Place;
-                    Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
-                }
-
-                if (stack.StackSize > 0) {
-                    Api.World.SpawnItemEntity(stack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
-                }
-
-                (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
-                MarkDirty(true);
-                return true;
+        if (!inv[index].Empty) {
+            ItemStack stack = inv[index].TakeOut(1);
+            if (byPlayer.InventoryManager.TryGiveItemstack(stack)) {
+                AssetLocation sound = stack.Block?.Sounds?.Place;
+                Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
             }
+
+            if (stack.StackSize > 0) {
+                Api.World.SpawnItemEntity(stack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+            }
+
+            (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
+            MarkDirty(true);
+            return true;
         }
 
         return false;
@@ -127,5 +126,10 @@ public class BlockEntityFirkinRack : BlockEntityDisplay {
         }
 
         return tfMatrices;
+    }
+
+    public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
+        base.FromTreeAttributes(tree, worldForResolving);
+        RedrawAfterReceivingTreeAttributes(worldForResolving);
     }
 }
