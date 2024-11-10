@@ -59,6 +59,6 @@ public class BlockGlassJar : BlockContainer {
         }
 
         ItemStack[] contents = GetContents(world, inSlot.Itemstack);
-        ByBlockMerged(contents, dsc, world);
+        ByBlockMerged(contents.ToDummySlots(), dsc, world);
     }
 }

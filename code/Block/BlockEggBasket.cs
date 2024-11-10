@@ -88,7 +88,7 @@ public class BlockEggBasket : BlockContainer {
         }
 
         ItemStack[] contents = GetContents(world, inSlot.Itemstack);
-        PerishableInfoAverageAndSoonest(contents, dsc, world);
+        PerishableInfoAverageAndSoonest(contents.ToDummySlots(), dsc, world);
     }
 
     // Mesh rendering for items when inside inventory

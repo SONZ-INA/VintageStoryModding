@@ -16,7 +16,6 @@ public class BlockEntityGlassFoodCase : BlockEntityDisplay {
     private const int shelfCount = 2;
     private const int segmentsPerShelf = 1;
     private const int itemsPerSegment = 4;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.BySegment;
 
     public BlockEntityGlassFoodCase() { inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotFoodUniversal(inv)); }
 
@@ -176,6 +175,6 @@ public class BlockEntityGlassFoodCase : BlockEntityDisplay {
         float ripenRate = GameMath.Clamp((1 - GetPerishRate() - 0.5f) * 3, 0, 1);
         if (ripenRate > 0) sb.Append(Lang.Get("Suitable spot for food ripening."));
 
-        DisplayInfo(forPlayer, sb, inv, displaySelection, shelfCount * segmentsPerShelf * itemsPerSegment, segmentsPerShelf, itemsPerSegment);
+        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.BySegment, shelfCount * segmentsPerShelf * itemsPerSegment, segmentsPerShelf, itemsPerSegment);
     }
 }

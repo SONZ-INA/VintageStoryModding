@@ -14,7 +14,6 @@ public class BlockEntityTableWShelf : BlockEntityDisplay {
     public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
     static readonly int slotCount = 2;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlock;
 
     public BlockEntityTableWShelf() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotTableWShelf(inv)); }
 
@@ -112,6 +111,6 @@ public class BlockEntityTableWShelf : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount);
+        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.ByBlock, slotCount);
     }
 }

@@ -11,7 +11,6 @@ public class BlockEntitySushiShelf : BlockEntityDisplay {
     private const int shelfCount = 4;
     private const int segmentsPerShelf = 2;
     private int itemsPerSegment = 6;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.BySegment;
 
     public BlockEntitySushiShelf() { inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotSushiShelf(inv)); }
 
@@ -123,6 +122,6 @@ public class BlockEntitySushiShelf : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, shelfCount * segmentsPerShelf * itemsPerSegment, segmentsPerShelf, itemsPerSegment);
+        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.BySegment, shelfCount * segmentsPerShelf * itemsPerSegment, segmentsPerShelf, itemsPerSegment);
     }
 }

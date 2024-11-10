@@ -1,8 +1,8 @@
 ﻿namespace FoodShelves;
 
 public class BlockEntityBarrelRackBig : BlockEntityContainer {
-    readonly InventoryGeneric inv;
-    BlockBarrelRackBig block;
+    private readonly InventoryGeneric inv;
+    private BlockBarrelRackBig block;
 
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();

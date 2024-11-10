@@ -11,7 +11,6 @@ public class BlockEntityEggShelf : BlockEntityDisplay {
     private const int shelfCount = 4;
     private const int segmentsPerShelf = 5;
     private int itemsPerSegment = 4;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.BySegment;
 
     public BlockEntityEggShelf() { inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotEggShelf(inv)); }
 
@@ -122,6 +121,6 @@ public class BlockEntityEggShelf : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, shelfCount * segmentsPerShelf * itemsPerSegment, segmentsPerShelf, itemsPerSegment);
+        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.BySegment, shelfCount * segmentsPerShelf * itemsPerSegment, segmentsPerShelf, itemsPerSegment);
     }
 }

@@ -9,7 +9,6 @@ public class BlockEntityCeilingJar : BlockEntityDisplay {
     public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
     private const int slotCount = 12;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlockMerged;
 
     public BlockEntityCeilingJar() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotLiquidyStuff(inv)); }
 
@@ -140,6 +139,6 @@ public class BlockEntityCeilingJar : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount);
+        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.ByBlockMerged, slotCount);
     }
 }

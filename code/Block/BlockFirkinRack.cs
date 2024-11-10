@@ -2,8 +2,8 @@
 
 public class BlockFirkinRack : BlockLiquidContainerBase {
     public override bool AllowHeldLiquidTransfer => false;
-    public override int GetContainerSlotId(BlockPos pos) => 1;
-    public override int GetContainerSlotId(ItemStack containerStack) => 1;
+    public override int GetContainerSlotId(BlockPos pos) => 4;
+    public override int GetContainerSlotId(ItemStack containerStack) => 4;
 
     public override void OnLoaded(ICoreAPI api) {
         base.OnLoaded(api);
@@ -63,6 +63,7 @@ public class BlockFirkinRack : BlockLiquidContainerBase {
         world.BlockAccessor.SetBlock(0, pos);
     }
 
+    // Todo - Fix this
     public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
         Block block = blockAccessor.GetBlock(pos);
         if (block.Code.Path.StartsWith("firkinrack-top")) {

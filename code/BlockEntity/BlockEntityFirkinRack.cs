@@ -9,7 +9,7 @@ public class BlockEntityFirkinRack : BlockEntityDisplay {
 
     private int CapacityLitres { get; set; } = 10;
     static readonly int slotCount = 8;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlock;
+    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlock; // inline this after
 
     public BlockEntityFirkinRack() {
         inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (id, inv) => {

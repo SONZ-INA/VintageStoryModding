@@ -9,7 +9,6 @@ public class BlockEntityGlassJar : BlockEntityDisplay {
     public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
     private const int slotCount = 2;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlockMerged;
 
     public BlockEntityGlassJar() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotLiquidyStuff(inv)); }
 
@@ -150,6 +149,6 @@ public class BlockEntityGlassJar : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount);
+        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.ByBlockMerged, slotCount);
     }
 }

@@ -11,7 +11,6 @@ public class BlockEntityBreadShelf : BlockEntityDisplay {
     private const int shelfCount = 4;
     private const int segmentsPerShelf = 3;
     private int itemsPerSegment = 2;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByShelf;
 
     public BlockEntityBreadShelf() { inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotBreadShelf(inv)); }
 
@@ -122,6 +121,6 @@ public class BlockEntityBreadShelf : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, shelfCount * segmentsPerShelf * itemsPerSegment, segmentsPerShelf, itemsPerSegment);
+        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.ByShelf, shelfCount * segmentsPerShelf * itemsPerSegment, segmentsPerShelf, itemsPerSegment);
     }
 }

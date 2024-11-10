@@ -254,6 +254,93 @@ public static class Extensions {
 
     #endregion
 
+    #region BlockInventoryExtensions
+
+    public static ItemStack[] GetContents(IWorldAccessor world, ItemStack itemstack) {
+        ITreeAttribute treeAttr = itemstack?.Attributes?.GetTreeAttribute("contents");
+        if (treeAttr == null) {
+            return ResolveUcontents(world, itemstack);
+        }
+
+        ItemStack[] stacks = new ItemStack[treeAttr.Count];
+        foreach (var val in treeAttr) {
+            ItemStack stack = (val.Value as ItemstackAttribute).value;
+            stack?.ResolveBlockOrItem(world);
+
+            if (int.TryParse(val.Key, out int index)) stacks[index] = stack;
+        }
+
+        return stacks;
+    }
+
+    public static void SetContents(ItemStack containerStack, ItemStack[] stacks) {
+        if (stacks == null || stacks.Length == 0) {
+            containerStack.Attributes.RemoveAttribute("contents");
+            return;
+        }
+
+        TreeAttribute stacksTree = new TreeAttribute();
+        for (int i = 0; i < stacks.Length; i++) {
+            stacksTree[i + ""] = new ItemstackAttribute(stacks[i]);
+        }
+
+        containerStack.Attributes["contents"] = stacksTree;
+    }
+
+    public static ItemStack[] ResolveUcontents(IWorldAccessor world, ItemStack itemstack) {
+        if (itemstack?.Attributes.HasAttribute("ucontents") == true) {
+            List<ItemStack> stacks = new();
+
+            var attrs = itemstack.Attributes["ucontents"] as TreeArrayAttribute;
+
+            foreach (ITreeAttribute stackAttr in attrs.value) {
+                stacks.Add(CreateItemStackFromJson(stackAttr, world, itemstack.Collectible.Code.Domain));
+            }
+            ItemStack[] stacksAsArray = stacks.ToArray();
+            SetContents(itemstack, stacksAsArray);
+            itemstack.Attributes.RemoveAttribute("ucontents");
+
+            return stacksAsArray;
+        }
+        else {
+            return Array.Empty<ItemStack>();
+        }
+    }
+
+    private static ItemStack CreateItemStackFromJson(ITreeAttribute stackAttr, IWorldAccessor world, string defaultDomain) {
+        CollectibleObject collObj;
+        var loc = AssetLocation.Create(stackAttr.GetString("code"), defaultDomain);
+        if (stackAttr.GetString("type") == "item") {
+            collObj = world.GetItem(loc);
+        }
+        else {
+            collObj = world.GetBlock(loc);
+        }
+
+        ItemStack stack = new(collObj, (int)stackAttr.GetDecimal("quantity", 1));
+        var attr = (stackAttr["attributes"] as TreeAttribute)?.Clone();
+        if (attr != null) stack.Attributes = attr;
+
+        return stack;
+    }
+
+    #endregion
+
+    #region ItemStackExtensions
+
+    public static DummySlot[] ToDummySlots(this ItemStack[] contents) {
+        if (contents == null || contents.Length == 0) return Array.Empty<DummySlot>();
+
+        DummySlot[] dummySlots = new DummySlot[contents.Length];
+        for (int i = 0; i < contents.Length; i++) {
+            dummySlots[i] = new DummySlot(contents[i]?.Clone());
+        }
+
+        return dummySlots;
+    }
+
+    #endregion
+
     #region CheckExtensions
 
     public static bool IsLargeItem(ItemStack itemStack) {

@@ -12,7 +12,6 @@ public class BlockEntityPumpkinCase : BlockEntityDisplay {
     private const int segmentsPerShelf = 1;
     private const int itemsPerSegment = 1;
     static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlock;
 
     public BlockEntityPumpkinCase() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotPumpkinCase(inv)); }
 
@@ -94,6 +93,6 @@ public class BlockEntityPumpkinCase : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment);
+        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.ByBlock, slotCount, segmentsPerShelf, itemsPerSegment);
     }
 }
