@@ -12,6 +12,6 @@ public class BlockGlassFood : Block {
 
     public override string GetHeldItemName(ItemStack itemStack) {
         string variantName = itemStack.GetMaterialNameLocalized(new[] { "type "}, new[] { "normal, top" });
-        return base.GetHeldItemName(itemStack) + variantName;
+        return base.GetHeldItemName(itemStack) + " " + variantName;
     }
 }

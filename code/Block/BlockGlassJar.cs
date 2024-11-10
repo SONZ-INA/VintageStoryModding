@@ -45,7 +45,7 @@ public class BlockGlassJar : BlockContainer {
 
     public override string GetHeldItemName(ItemStack itemStack) {
         string variantName = itemStack.GetMaterialNameLocalized();
-        return base.GetHeldItemName(itemStack) + variantName;
+        return base.GetHeldItemName(itemStack) + " " + variantName;
     }
 
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo) {

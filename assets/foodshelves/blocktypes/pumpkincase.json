@@ -48,7 +48,7 @@
   "resistance": 1.5,
   "combustibleProps": {
     "burnTemperature": 700,
-    "burnDuration": 36
+    "burnDuration": 24
   },
   "tpHandTransform": {
 	  "translation": { "x": -1.23, "y": -0.91, "z": -0.8 },

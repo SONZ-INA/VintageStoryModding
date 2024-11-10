@@ -30,7 +30,7 @@ public class BlockFirkinRack : BlockLiquidContainerBase {
 
     public override string GetHeldItemName(ItemStack itemStack) {
         string variantName = itemStack.GetMaterialNameLocalized(new[] { "type" }, new[] { "normal", "top" });
-        return base.GetHeldItemName(itemStack) + variantName;
+        return base.GetHeldItemName(itemStack) + " " +variantName;
     }
 
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {

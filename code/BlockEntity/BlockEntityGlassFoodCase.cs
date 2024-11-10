@@ -63,7 +63,6 @@ public class BlockEntityGlassFoodCase : BlockEntityDisplay {
 
     private bool TryPut(ItemSlot slot, BlockSelection blockSel) {
         int index = blockSel.SelectionBoxIndex;
-        if (index >= shelfCount) return false;
 
         // Bottom Slot
         if (index == (int)SlotNumber.BottomSlot) {
@@ -110,7 +109,6 @@ public class BlockEntityGlassFoodCase : BlockEntityDisplay {
 
     private bool TryTake(IPlayer byPlayer, BlockSelection blockSel) {
         int index = blockSel.SelectionBoxIndex;
-        if (index >= shelfCount) return false;
 
         for (int i = index * itemsPerSegment + itemsPerSegment - 1; i >= index * itemsPerSegment; i--) {
             if (!inv[i].Empty) {
@@ -144,7 +142,7 @@ public class BlockEntityGlassFoodCase : BlockEntityDisplay {
                     .Translate(0.5f, 0, 0.5f)
                     .RotateYDeg(block.Shape.rotateY)
                     .RotateXDeg(i >= itemsPerSegment ? 15 : 0)
-                    .Translate(-0.5f, i % (itemsPerSegment - 1) * 0.3725f + 0.2525f, i >= itemsPerSegment ? -0.65f : -0.5f)
+                    .Translate(-0.5f, i % (itemsPerSegment - 1) * 0.3725f + 0.24f, i >= itemsPerSegment ? -0.65f : -0.5f)
                     .Values;
             }
             else {
@@ -156,7 +154,7 @@ public class BlockEntityGlassFoodCase : BlockEntityDisplay {
                     .Translate(0.5f, 0, 0.5f)
                     .RotateYDeg(block.Shape.rotateY)
                     .RotateXDeg(i >= itemsPerSegment ? 15 : 0)
-                    .Translate(x - 0.5f, i / itemsPerSegment * 0.3725f + 0.2525f, z - (i >= itemsPerSegment ? 0.65f : 0.5f))
+                    .Translate(x - 0.5f, i / itemsPerSegment * 0.3725f + 0.24f, z - (i >= itemsPerSegment ? 0.65f : 0.5f))
                     .Values;
             }
         }

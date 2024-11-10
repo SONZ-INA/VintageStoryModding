@@ -95,6 +95,7 @@
   <None Remove="assets\foodshelves\patches\variants\recipes\barrels\barrelrack.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\barrels\barrelrackbig.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\barshelf.json" />
+  <None Remove="assets\foodshelves\patches\variants\recipes\baskets\eggbasket.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\baskets\fruitbasket.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\baskets\vegetablebasket.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\breadshelf.json" />
@@ -105,8 +106,12 @@
   <None Remove="assets\foodshelves\recipes\grid\barrelbig.json" />
   <None Remove="assets\foodshelves\recipes\grid\barrelrack.json" />
   <None Remove="assets\foodshelves\recipes\grid\barrelrackbig.json" />
+  <None Remove="assets\foodshelves\recipes\grid\baskets\eggbasket.json" />
   <None Remove="assets\foodshelves\recipes\grid\baskets\vegetablebasket.json" />
   <None Remove="assets\foodshelves\recipes\grid\fruitbasket.json" />
+  <None Remove="assets\foodshelves\recipes\grid\glassware\ceilingjar.json" />
+  <None Remove="assets\foodshelves\recipes\grid\glassware\glassfoodblock.json" />
+  <None Remove="assets\foodshelves\recipes\grid\glassware\glassfoodcase.json" />
   <None Remove="assets\foodshelves\recipes\grid\horizontalbarel.json" />
   <None Remove="assets\foodshelves\recipes\grid\pumpkincase.json" />
   <None Remove="assets\foodshelves\recipes\grid\seedshelf.json" />

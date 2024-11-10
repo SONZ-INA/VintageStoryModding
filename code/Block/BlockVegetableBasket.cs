@@ -56,7 +56,7 @@ public class BlockVegetableBasket : BlockContainer {
 
     public override string GetHeldItemName(ItemStack itemStack) {
         string variantName = itemStack.GetMaterialNameLocalized();
-        return base.GetHeldItemName(itemStack) + variantName;
+        return base.GetHeldItemName(itemStack) + " " + variantName;
     }
 
     // Rotation logic

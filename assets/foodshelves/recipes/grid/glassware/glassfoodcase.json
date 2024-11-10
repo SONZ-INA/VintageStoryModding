@@ -1,0 +1,14 @@
+[
+  {
+    "ingredientPattern": "_PP,SGP,PPP",
+    "ingredients": {
+      "P": { "type": "item", "code": "game:plank-*" },
+      "S": { "type": "item", "code": "game:stick" },
+      "G": { "type": "item", "code": "game:glassslab-*-down-free" }
+    },
+    "width": 3,
+    "height": 3,
+    "recipeGroup": 1,
+    "output": { "type": "block", "code": "glassfoodcase-normal-east" }
+  }
+]

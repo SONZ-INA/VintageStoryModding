@@ -186,10 +186,8 @@ public static class InfoDisplay {
             return;
         }
 
-        int itemCount = 0;
-        int rotCount = 0;
+        int itemCount = 0, rotCount = 0, totalCount = 0;
         double totalFreshHours = 0;
-        int totalCount = 0;
         ItemStack soonestPerishStack = null;
         double soonestPerishHours = double.MaxValue;
         float soonestTransitionLevel = 0;

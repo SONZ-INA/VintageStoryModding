@@ -15,6 +15,6 @@ public class BlockGlassJarShelf : Block {
         if (this.Code.SecondCodePart().StartsWith("short"))
             variantType = Lang.Get("skinpart-hairbase-short") + " ";
 
-        return variantType + base.GetHeldItemName(itemStack) + itemStack.GetMaterialNameLocalized();
+        return variantType + base.GetHeldItemName(itemStack) + " " + itemStack.GetMaterialNameLocalized();
     }
 }

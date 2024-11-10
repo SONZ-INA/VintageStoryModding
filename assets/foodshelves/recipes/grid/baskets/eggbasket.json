@@ -1,0 +1,13 @@
+[
+  {
+    "ingredientPattern": "__,_S,_P",
+    "ingredients": {
+      "S": { "type": "item", "code": "game:stick", "quantity": 2 },
+      "P": { "type": "item", "code": "game:plank-*" }
+    },
+    "width": 2,
+    "height": 3,
+    "recipeGroup": 1,
+    "output": { "type": "block", "code": "eggbasket-normal" }
+  }
+]

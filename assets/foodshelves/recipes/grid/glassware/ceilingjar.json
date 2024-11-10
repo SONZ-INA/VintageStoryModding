@@ -1,0 +1,16 @@
+[
+  {
+    "ingredientPattern": "PRP,SGS,_X_",
+    "ingredients": {
+      "P": { "type": "item", "code": "game:plank-*", "quantity": 2 },
+      "R": { "type": "item", "code": "game:rope" },
+      "S": { "type": "item", "code": "game:stick" },
+      "G": { "type": "item", "code": "game:glass-*" },
+      "X": { "type": "item", "code": "game:plank-*" }
+    },
+    "width": 3,
+    "height": 3,
+    "recipeGroup": 1,
+    "output": { "type": "block", "code": "ceilingjar-normal" }
+  }
+]

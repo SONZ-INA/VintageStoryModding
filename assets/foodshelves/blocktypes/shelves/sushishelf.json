@@ -24,11 +24,11 @@
     { "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }
   ],
   "shapeByType": {
-    "*-normal-*": {
+    "*-normal*": {
       "base": "block/wood/shelves/sushishelf",
       "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
     },
-    "*-short-*": {
+    "*-short*": {
       "base": "block/wood/shelves/sushishelfshort",
       "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
     }
