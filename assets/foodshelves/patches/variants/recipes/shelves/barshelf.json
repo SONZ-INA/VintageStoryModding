@@ -219,5 +219,261 @@
       "output": { "type": "block", "code": "barshelf-purpleheart-east" }
     },
     "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-*-east", "name": "type", "allowedVariants": [ "aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart" ] }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-short{type}-east", "quantity": 2 }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-normal-east" }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-short-east", "quantity": 2 }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-short-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-normal-east" }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-shortaged-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-aged-east" }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-shortbirch-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-birch-east" }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-shortoak-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-oak-east" }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-shortmaple-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-maple-east" }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-shortpine-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-pine-east" }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-shortacacia-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-acacia-east" }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-shortkapok-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-kapok-east" }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-shortbaldcypress-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-baldcypress-east" }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-shortlarch-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-larch-east" }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-shortredwood-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-redwood-east" }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-shortebony-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-ebony-east" }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-shortwalnut-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-walnut-east" }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/barshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:barshelf-shortpurpleheart-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "barshelf-purpleheart-east" }
+    },
+    "condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
   }
 ]

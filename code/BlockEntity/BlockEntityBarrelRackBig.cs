@@ -32,6 +32,11 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
         }
     }
 
+    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Perish) return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.4f);
+        else return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.75f); // Expanded Foods curing compitability
+    }
+
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
@@ -101,11 +106,6 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
         }
 
         return false;
-    }
-
-    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        if (transType == EnumTransitionType.Perish) return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.4f);
-        else return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.75f); // Expanded Foods curing compitability
     }
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {

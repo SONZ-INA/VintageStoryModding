@@ -24,12 +24,12 @@
     { "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }
   ],
   "shapeByType": {
-    "*-normal*": {
-      "base": "block/wood/shelves/breadshelf",
-      "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
-    },
     "*-short*": {
       "base": "block/wood/shelves/breadshelfshort",
+      "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
+    },
+    "*": {
+      "base": "block/wood/shelves/breadshelf",
       "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
     }
   },
@@ -47,13 +47,13 @@
   "replaceable": 999,
   "resistance": 1.5,
   "combustiblePropsByType": {
-    "*-normal-*": {
-      "burnTemperature": 700,
-      "burnDuration": 48
-    },
     "*-short-*": {
       "burnTemperature": 700,
       "burnDuration": 24
+    },
+    "*": {
+      "burnTemperature": 700,
+      "burnDuration": 48
     }
   },
   "tpHandTransform": {

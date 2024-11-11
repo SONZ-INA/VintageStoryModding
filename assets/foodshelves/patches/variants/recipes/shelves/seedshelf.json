@@ -219,5 +219,261 @@
       "output": { "type": "block", "code": "seedshelf-purpleheart-east" }
     },
 		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-*-east", "name": "type", "allowedVariants": [ "aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart" ] }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-short{type}-east", "quantity": 2 }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-normal-east" }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-short-east", "quantity": 2 }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-short-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-normal-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-shortaged-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-aged-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-shortbirch-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-birch-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-shortoak-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-oak-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-shortmaple-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-maple-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-shortpine-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-pine-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-shortacacia-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-acacia-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-shortkapok-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-kapok-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-shortbaldcypress-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-baldcypress-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-shortlarch-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-larch-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-shortredwood-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-redwood-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-shortebony-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-ebony-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-shortwalnut-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-walnut-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:seedshelf-shortpurpleheart-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "seedshelf-purpleheart-east" }
+    },
+		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   }
 ]

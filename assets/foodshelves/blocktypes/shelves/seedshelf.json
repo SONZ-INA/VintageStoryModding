@@ -24,12 +24,12 @@
     { "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }
   ],
   "shapeByType": {
-    "*-normal*": {
-      "base": "block/wood/shelves/seedshelf",
-      "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
-    },
     "*-short*": {
       "base": "block/wood/shelves/seedshelfshort",
+      "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
+    },
+    "*": {
+      "base": "block/wood/shelves/seedshelf",
       "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
     }
   },

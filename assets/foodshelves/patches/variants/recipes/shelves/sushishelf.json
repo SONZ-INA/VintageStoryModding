@@ -219,5 +219,245 @@
       "output": { "type": "block", "code": "sushishelf-purpleheart-east" }
     },
     "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-*-east", "name": "type", "allowedVariants": [ "aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart" ] }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-short{type}-east", "quantity": 2 }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-short-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-normal-east" }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-shortaged-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-aged-east" }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-shortbirch-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-birch-east" }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-shortoak-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-oak-east" }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-shortmaple-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-maple-east" }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-shortpine-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-pine-east" }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-shortacacia-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-acacia-east" }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-shortkapok-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-kapok-east" }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-shortbaldcypress-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-baldcypress-east" }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-shortlarch-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-larch-east" }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-shortredwood-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-redwood-east" }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-shortebony-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-ebony-east" }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-shortwalnut-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-walnut-east" }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:recipes/grid/shelves/sushishelf.json",
+    "op": "addmerge",
+    "path": "/0",
+    "value": {
+      "ingredientPattern": "__,_S",
+      "ingredients": {
+        "S": { "type": "block", "code": "foodshelves:sushishelf-shortpurpleheart-east", "quantity": 2 }
+      },
+      "width": 2,
+      "height": 2,
+      "recipeGroup": 2,
+      "output": { "type": "block", "code": "sushishelf-purpleheart-east" }
+    },
+    "condition": { "when": "FoodShelves.ExpandedFoodsVariants", "isValue": "true" }
   }
 ]

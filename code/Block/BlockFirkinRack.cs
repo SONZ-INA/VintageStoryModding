@@ -30,7 +30,7 @@ public class BlockFirkinRack : BlockLiquidContainerBase {
 
     public override string GetHeldItemName(ItemStack itemStack) {
         string variantName = itemStack.GetMaterialNameLocalized(new[] { "type" }, new[] { "normal", "top" });
-        return base.GetHeldItemName(itemStack) + " " +variantName;
+        return base.GetHeldItemName(itemStack) + " " + variantName;
     }
 
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
@@ -63,7 +63,7 @@ public class BlockFirkinRack : BlockLiquidContainerBase {
         world.BlockAccessor.SetBlock(0, pos);
     }
 
-    // Todo - Fix this
+    // Dynamically change collision box when there are firkins inside
     public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
         Block block = blockAccessor.GetBlock(pos);
         if (block.Code.Path.StartsWith("firkinrack-top")) {

@@ -3,7 +3,7 @@
     "file": "foodshelves:blocktypes/shelves/*",
     "op": "replace",
     "path": "/variantgroups/0/states",
-    "value": [ "normal", "normalaged", "normalbirch", "normaloak", "normalmaple", "normalpine", "normalacacia", "normalkapok", "normalbaldcypress", "normallarch", "normalredwood", "normalebony", "normalwalnut", "normalpurpleheart", "short", "shortaged", "shortbirch", "shortoak", "shortmaple", "shortpine", "shortacacia", "shortkapok", "shortbaldcypress", "shortlarch", "shortredwood", "shortebony", "shortwalnut", "shortpurpleheart" ],
+    "value": [ "normal", "aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart", "short", "shortaged", "shortbirch", "shortoak", "shortmaple", "shortpine", "shortacacia", "shortkapok", "shortbaldcypress", "shortlarch", "shortredwood", "shortebony", "shortwalnut", "shortpurpleheart" ],
     "condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
