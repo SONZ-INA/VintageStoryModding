@@ -129,7 +129,8 @@ public static class Meshing {
             contentHeight += itemStack?.StackSize ?? 0;
         }
 
-        float multiplier = contents.Length == 2 ? 0.11f : 0.022f; ; // Hardcoded for now
+        int stackSizeDiv = contents[0].Collectible.MaxStackSize / 32;
+        float multiplier = contents.Length == 2 ? 0.11f / stackSizeDiv : 0.022f / stackSizeDiv; // Hardcoded for now
         double shapeHeight = contentHeight * multiplier + shapeClone.Elements[0].From[1];
         shapeClone.Elements[0].To[1] = shapeHeight;
 

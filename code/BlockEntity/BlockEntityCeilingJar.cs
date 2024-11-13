@@ -60,10 +60,10 @@ public class BlockEntityCeilingJar : BlockEntityDisplay {
 
             if (byPlayer.Entity.Controls.ShiftKey) {
                 for (int i = 0; i < inv.Count; i++) {
-                    int availableSpace = inv[i].MaxSlotStackSize - inv[i].StackSize;
+                    int availableSpace = inv[0].Itemstack.Collectible.MaxStackSize - inv[i].StackSize;
                     moved += slot.TryPutInto(Api.World, inv[i], availableSpace);
 
-                    if (inv[i].StackSize < inv[i].MaxSlotStackSize) break;
+                    if (inv[i].StackSize < inv[0].Itemstack.Collectible.MaxStackSize) break;
                 }
             }
             else

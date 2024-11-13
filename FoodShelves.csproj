@@ -90,6 +90,8 @@
   <None Remove="assets\foodshelves\config\transformations\pieshelf.json" />
   <None Remove="assets\foodshelves\config\transformations\shelves\barshelf.json" />
   <None Remove="assets\foodshelves\config\transformations\shelves\breadshelf.json" />
+  <None Remove="assets\foodshelves\patches\variants\glassware.json" />
+  <None Remove="assets\foodshelves\patches\variants\pumpkincase.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\barrels\barrelbig.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\barrels\barrelrack.json" />
@@ -100,6 +102,10 @@
   <None Remove="assets\foodshelves\patches\variants\recipes\baskets\vegetablebasket.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\breadshelf.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\eggshelf.json" />
+  <None Remove="assets\foodshelves\patches\variants\recipes\glassware\ceilingjar.json" />
+  <None Remove="assets\foodshelves\patches\variants\recipes\glassware\glassfoodblock.json" />
+  <None Remove="assets\foodshelves\patches\variants\recipes\glassware\glassfoodcase.json" />
+  <None Remove="assets\foodshelves\patches\variants\recipes\pumpkincase.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\seedshelf.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\sushishelf.json" />
   <None Remove="assets\foodshelves\patches\wildcraft-fruits-and-nuts.json" />

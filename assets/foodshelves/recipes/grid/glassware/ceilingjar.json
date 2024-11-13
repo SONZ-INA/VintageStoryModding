@@ -1,12 +1,11 @@
 [
   {
-    "ingredientPattern": "PRP,SGS,_X_",
+    "ingredientPattern": "PRP,SGS,P_P",
     "ingredients": {
-      "P": { "type": "item", "code": "game:plank-*", "quantity": 2 },
+      "P": { "type": "item", "code": "game:plank-*" },
       "R": { "type": "item", "code": "game:rope" },
       "S": { "type": "item", "code": "game:stick" },
-      "G": { "type": "item", "code": "game:glass-*" },
-      "X": { "type": "item", "code": "game:plank-*" }
+      "G": { "type": "item", "code": "game:glass-*" }
     },
     "width": 3,
     "height": 3,

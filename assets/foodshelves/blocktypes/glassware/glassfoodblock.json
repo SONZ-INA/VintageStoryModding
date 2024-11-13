@@ -23,8 +23,8 @@
     { "name": "UnstableFalling" }
   ],
   "shapeByType": {
-    "*-normal*": { "base": "block/wood/glassware/glassfoodblock" },
-    "*-top*": { "base": "block/wood/glassware/glassfoodblocktop" }
+    "*-top*": { "base": "block/wood/glassware/glassfoodblocktop" },
+    "*": { "base": "block/wood/glassware/glassfoodblock" }
   },
   "textures": {
     "frame": { "base": "game:block/glass/frame" },

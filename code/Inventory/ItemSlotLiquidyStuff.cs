@@ -1,7 +1,7 @@
 ﻿namespace FoodShelves;
 
 public class ItemSlotLiquidyStuff : ItemSlot {
-    public override int MaxSlotStackSize => 32;
+    public override int MaxSlotStackSize => 64;
 
     public ItemSlotLiquidyStuff(InventoryBase inventory) : base(inventory) {
         this.inventory = inventory;
