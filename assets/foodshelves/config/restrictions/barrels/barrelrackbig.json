@@ -1,6 +1,6 @@
 {
-  "BarrelRackBigTypes": [
-    "BlockHorizontalBarrelBig"
+  "CollectibleTypes": [
+    "foodshelves:BlockHorizontalBarrelBig"
   ],
-  "BarrelRackBigCodes": [ ]
+  "CollectibleCodes": []
 }

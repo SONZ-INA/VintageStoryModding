@@ -13,7 +13,7 @@ public class BlockFruitBasket : BlockContainer {
             foreach(Item item in api.World.Items) {
                 if (item.Code == null) continue;
 
-                if (WildcardUtil.Match(FruitBasketData.FruitBasketCodes, item.Code.Path.ToString())) {
+                if (WildcardUtil.Match(FruitBasketData.CollectibleCodes, item.Code.Path.ToString())) {
                     fruitStackList.Add(new ItemStack(item));
                 }
             }

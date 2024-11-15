@@ -90,6 +90,8 @@
   <None Remove="assets\foodshelves\config\transformations\pieshelf.json" />
   <None Remove="assets\foodshelves\config\transformations\shelves\barshelf.json" />
   <None Remove="assets\foodshelves\config\transformations\shelves\breadshelf.json" />
+  <None Remove="assets\foodshelves\patches\gourmand.json" />
+  <None Remove="assets\foodshelves\patches\laverace.json" />
   <None Remove="assets\foodshelves\patches\variants\glassware.json" />
   <None Remove="assets\foodshelves\patches\variants\pumpkincase.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes.json" />

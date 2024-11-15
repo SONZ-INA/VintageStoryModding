@@ -1,19 +1,19 @@
 {
-  "FoodUniversalTypes": [
-    "BlockPie",
-    "ItemCheese"
+  "CollectibleTypes": [
+    "game:BlockPie",
+    "game:ItemCheese"
   ],
-  "FoodUniversalCodes": [
+  "CollectibleCodes": [
     "*bread-*",
     "*dough-*",
 
-    "*muffin-*",
-    "*breadedball-*",
-    "*dumpling-*",
-    "*doughball-*",
+    "expandedfoods:muffin-*",
+    "expandedfoods:breadedball-*",
+    "expandedfoods:dumpling-*",
+    "expandedfoods:doughball-*",
 
-    "*halva",
-    "*pacoca",
-    "*marzipan"
+    "wildcraftfruit:nut-halva",
+    "wildcraftfruit:nut-pacoca",
+    "wildcraftfruit:nut-marzipan"
   ]
 }

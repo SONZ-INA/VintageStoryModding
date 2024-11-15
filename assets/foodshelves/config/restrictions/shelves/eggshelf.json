@@ -1,8 +1,8 @@
 {
-  "EggShelfTypes": [],
-  "EggShelfCodes": [
-    "*egg-chicken-raw",
-    "*egg-chicken-boiled",
-    "*egg-chicken-pickled"
+  "CollectibleTypes": [],
+  "CollectibleCodes": [
+    "game:egg-chicken-raw",
+    "game:egg-chicken-boiled",
+    "game:egg-chicken-pickled"
   ]
 }

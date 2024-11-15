@@ -17,8 +17,12 @@ public class BlockEntityCeilingJar : BlockEntityDisplay {
         base.Initialize(api);
     }
 
+    public override float GetPerishRate() {
+        return base.GetPerishRate() * 0.75f; // Slower perish rate
+    }
+
     protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2f : 0.5f;
+        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2.5f : 0.5f; // Faster dry/melt rate
         if (Api == null) return 0;
 
         if (transType == EnumTransitionType.Perish || transType == EnumTransitionType.Ripen) {

@@ -1,13 +1,14 @@
 {
-  "LiquidyStuffTypes": [ ],
-  "LiquidyStuffCodes": [
-    "resin",
-    "beeswax",
-    "fat",
-    "dehydratedfruit-*",
-    "dryfruit-*",
-    "wilddehydratedfruit-*",
-    "wilddryfruit-*",
-    "wildtreedryfruit-*"
+  "CollectibleTypes": [],
+  "CollectibleCodes": [
+    "game:resin",
+    "game:beeswax",
+    "game:fat",
+
+    "expandedfoods:dehydratedfruit-*",
+    "expandedfoods:dryfruit-*",
+    "expandedfoods:wilddehydratedfruit-*",
+    "expandedfoods:wilddryfruit-*",
+    "expandedfoods:wildtreedryfruit-*"
   ]
 }

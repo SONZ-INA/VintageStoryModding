@@ -2,6 +2,7 @@
   "code": "firkinrack",
   "class": "FoodShelves.BlockFirkinRack",
   "entityclass": "FoodShelves.BlockEntityFirkinRack",
+  "enabled": false,
   "creativeinventory": { "general": ["*-north"], "decorative": ["*-north"], "foodshelves": ["*-north"] },
   "variantgroups": [
     { "code": "type", "states": ["normal", "top"] },

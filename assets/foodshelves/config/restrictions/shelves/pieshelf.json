@@ -1,8 +1,7 @@
 {
-  "PieShelfTypes": [
-    "BlockPie",
-    "NotifyingPie",
-    "ItemCheese"
+  "CollectibleTypes": [
+    "game:BlockPie",
+    "game:ItemCheese"
   ],
-  "PieShelfCodes": [ ]
+  "CollectibleCodes": []
 }

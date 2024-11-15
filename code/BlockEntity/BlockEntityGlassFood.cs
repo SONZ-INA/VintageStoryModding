@@ -31,6 +31,10 @@ public class BlockEntityGlassFood : BlockEntityDisplay {
         base.Initialize(api);
     }
 
+    public override float GetPerishRate() {
+        return base.GetPerishRate() * 0.75f; // Slower perish rate
+    }
+
     protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
         if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2f : 0.5f;
         if (Api == null) return 0;

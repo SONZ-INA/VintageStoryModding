@@ -1,6 +1,6 @@
 {
-  "FirkinRackTypes": [ ],
-  "FirkinRackCodes": [
-    "firkin-*"
+  "CollectibleTypes": [],
+  "CollectibleCodes": [
+    "foodshelves:firkin-*"
   ]
 }

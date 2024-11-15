@@ -24,6 +24,10 @@ public class BlockEntityGlassFoodCase : BlockEntityDisplay {
         base.Initialize(api);
     }
 
+    public override float GetPerishRate() {
+        return base.GetPerishRate() * 0.75f; // Slower perish rate
+    }
+
     protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
         if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2f : 0.5f;
         if (Api == null) return 0;
@@ -147,7 +151,7 @@ public class BlockEntityGlassFoodCase : BlockEntityDisplay {
             }
             else {
                 float x = i % (itemsPerSegment / 2) == 0 ? -0.18f : 0.18f; 
-                float z = (i / (itemsPerSegment / 2)) % 2 == 0 ? -0.18f : 0.18f;
+                float z = i / (itemsPerSegment / 2) % 2 == 0 ? -0.18f : 0.18f;
 
                 tfMatrices[i] =
                     new Matrixf()

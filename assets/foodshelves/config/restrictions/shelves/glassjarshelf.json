@@ -1,6 +1,6 @@
 {
-  "GlassJarShelfTypes": [
-    "BlockGlassJar"
+  "CollectibleTypes": [
+    "foodshelves:BlockGlassJar"
   ],
-  "GlassJarShelfCodes": [ ]
+  "CollectibleCodes": []
 }

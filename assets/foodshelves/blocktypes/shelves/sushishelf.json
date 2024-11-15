@@ -47,13 +47,13 @@
   "replaceable": 999,
   "resistance": 1.5,
   "combustiblePropsByType": {
-    "*-normal-*": {
-      "burnTemperature": 700,
-      "burnDuration": 72
-    },
-    "*-short-*": {
+    "*-short*": {
       "burnTemperature": 700,
       "burnDuration": 36
+    },
+    "*": {
+      "burnTemperature": 700,
+      "burnDuration": 72
     }
   },
   "tpHandTransform": {
@@ -68,24 +68,11 @@
   },
   "materialDensity": 400,
   "collisionboxByType": {
-    "*-normal-*": { "x1": 0.125, "y1": 0, "z1": 0, "x2": 0.875, "y2": 1, "z2": 1, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-    "*-short-*": { "x1": 0.5, "y1": 0, "z1": 0, "x2": 0.875, "y2": 1, "z2": 1, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } }
+    "*-short*": { "x1": 0.5, "y1": 0, "z1": 0, "x2": 0.875, "y2": 1, "z2": 1, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+    "*": { "x1": 0.125, "y1": 0, "z1": 0, "x2": 0.875, "y2": 1, "z2": 1, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } }
   },
   "selectionBoxesByType": {
-    "*-normal-*": [
-	    { "x1": 0.125, "y1": 0, "z1": 0.0625, "x2": 0.9375, "y2": 0.25, "z2": 0.5, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	    { "x1": 0.125, "y1": 0, "z1": 0.5, "x2": 0.9375, "y2": 0.25, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	
-	    { "x1": 0.125, "y1": 0.25, "z1": 0.0625, "x2": 0.9375, "y2": 0.5, "z2": 0.5, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	    { "x1": 0.125, "y1": 0.25, "z1": 0.5, "x2": 0.9375, "y2": 0.5, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	
-	    { "x1": 0.125, "y1": 0.5, "z1": 0.0625, "x2": 0.9375, "y2": 0.75, "z2": 0.5, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	    { "x1": 0.125, "y1": 0.5, "z1": 0.5, "x2": 0.9375, "y2": 0.75, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	
-	    { "x1": 0.125, "y1": 0.75, "z1": 0.0625, "x2": 0.9375, "y2": 1, "z2": 0.5, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	    { "x1": 0.125, "y1": 0.75, "z1": 0.5, "x2": 0.9375, "y2": 1, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } }
-    ],
-    "*-short-*": [
+    "*-short*": [
 	    { "x1": 0.5, "y1": 0, "z1": 0.0625, "x2": 0.9375, "y2": 0.25, "z2": 0.5, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
 	    { "x1": 0.5, "y1": 0, "z1": 0.5, "x2": 0.9375, "y2": 0.25, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
 	
@@ -97,6 +84,19 @@
 	
 	    { "x1": 0.5, "y1": 0.75, "z1": 0.0625, "x2": 0.9375, "y2": 1, "z2": 0.5, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
 	    { "x1": 0.5, "y1": 0.75, "z1": 0.5, "x2": 0.9375, "y2": 1, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } }
+    ],
+    "*": [
+	    { "x1": 0.125, "y1": 0, "z1": 0.0625, "x2": 0.9375, "y2": 0.25, "z2": 0.5, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.125, "y1": 0, "z1": 0.5, "x2": 0.9375, "y2": 0.25, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	
+	    { "x1": 0.125, "y1": 0.25, "z1": 0.0625, "x2": 0.9375, "y2": 0.5, "z2": 0.5, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.125, "y1": 0.25, "z1": 0.5, "x2": 0.9375, "y2": 0.5, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	
+	    { "x1": 0.125, "y1": 0.5, "z1": 0.0625, "x2": 0.9375, "y2": 0.75, "z2": 0.5, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.125, "y1": 0.5, "z1": 0.5, "x2": 0.9375, "y2": 0.75, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	
+	    { "x1": 0.125, "y1": 0.75, "z1": 0.0625, "x2": 0.9375, "y2": 1, "z2": 0.5, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.125, "y1": 0.75, "z1": 0.5, "x2": 0.9375, "y2": 1, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } }
     ]
   }
 }

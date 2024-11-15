@@ -6,7 +6,6 @@ public static class Extensions {
     #region JSONExtensions
 
     public static void EnsureAttributesNotNull(this CollectibleObject obj) => obj.Attributes ??= new JsonObject(new JObject());
-
     public static T LoadAsset<T>(this ICoreAPI api, string path) => api.Assets.Get(new AssetLocation(path)).ToObject<T>();
 
     public static void SetTreeAttributeContents(this ItemStack stack, InventoryGeneric inv, string attributeName, int index = 1) {
@@ -342,6 +341,8 @@ public static class Extensions {
     #endregion
 
     #region CheckExtensions
+
+    public static bool CheckTypedRestriction(this CollectibleObject obj, RestrictionData data) => data.CollectibleTypes.Contains(obj.Code.Domain + ":" + obj.GetType().Name);
 
     public static bool IsLargeItem(ItemStack itemStack) {
         if (BakingProperties.ReadFrom(itemStack)?.LargeItem == true) return true;

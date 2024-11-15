@@ -1,13 +1,13 @@
 {
-  "VegetableBasketTypes": [],
-  "VegetableBasketCodes": [
-    "vegetable-carrot",
-    "vegetable-cabbage",
-    "vegetable-onion",
-    "vegetable-turnip",
-    "vegetable-parsnip",
-    "vegetable-cassava",
-    "vegetable-bellpepper",
-    "vegetable-avocado"
+  "CollectibleTypes": [],
+  "CollectibleCodes": [
+    "game:vegetable-carrot",
+    "game:vegetable-cabbage",
+    "game:vegetable-onion",
+    "game:vegetable-turnip",
+    "game:vegetable-parsnip",
+    "game:vegetable-cassava",
+    "game:vegetable-bellpepper",
+    "game:vegetable-avocado"
   ]
 }
