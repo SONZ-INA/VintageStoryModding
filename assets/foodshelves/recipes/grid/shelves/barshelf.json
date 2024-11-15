@@ -10,5 +10,27 @@
     "height": 2,
     "recipeGroup": 1,
     "output": { "type": "block", "code": "barshelf-normal-east" }
+  },
+  {
+    "enabled": false,
+    "ingredientPattern": "__,_S",
+    "ingredients": {
+      "S": { "type": "block", "code": "foodshelves:barshelf-normal-east" }
+    },
+    "width": 2,
+    "height": 2,
+    "recipeGroup": 1,
+    "output": { "type": "block", "code": "barshelf-short-east", "quantity": 2 }
+  },
+  {
+    "enabled": false,
+    "ingredientPattern": "__,_S",
+    "ingredients": {
+      "S": { "type": "block", "code": "foodshelves:barshelf-short-east", "quantity": 2 }
+    },
+    "width": 2,
+    "height": 2,
+    "recipeGroup": 2,
+    "output": { "type": "block", "code": "barshelf-normal-east" }
   }
 ]

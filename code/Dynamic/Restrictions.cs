@@ -1,14 +1,76 @@
 ﻿namespace FoodShelves;
 
+public class RestrictionData {
+    public string[] CollectibleTypes { get; set; }
+    public string[] CollectibleCodes { get; set; }
+}
+
+public static class RestrictionsCollection {
+    #region General
+    public static RestrictionData FoodUniversalData { get; set; } = new();
+    public static RestrictionData LiquidyStuffData { get; set; } = new();
+    #endregion
+
+    #region Shelves
+    public static RestrictionData PieShelfData { get; set; } = new();
+    public static RestrictionData BreadShelfData { get; set; } = new();
+    public static RestrictionData BarShelfData { get; set; } = new();
+    public static RestrictionData SushiShelfData { get; set; } = new();
+    public static RestrictionData EggShelfData { get; set; } = new();
+    public static RestrictionData SeedShelfData { get; set; } = new();
+    public static RestrictionData GlassJarShelfData { get; set; } = new();
+    #endregion
+
+    #region Baskets
+    public static RestrictionData FruitBasketData { get; set; } = new();
+    public static RestrictionData VegetableBasketData { get; set; } = new();
+    public static RestrictionData EggBasketData { get; set; } = new();
+    #endregion
+
+    #region Barrels
+    public static RestrictionData BarrelRackData { get; set; } = new();
+    public static RestrictionData BarrelRackBigData { get; set; } = new();
+    //public static FirkinRackData FirkinRackData {  get; set; } = new();
+    #endregion
+
+    public static RestrictionData PumpkinCaseData { get; set; } = new();
+}
+
 public static class Restrictions
 {
+    #region General
+
     #region Shelveable
 
     public const string Shelvable = "shelvable";
     public static bool ShelvableCheck(this CollectibleObject obj) => obj?.Attributes?[Shelvable].AsBool() == true;
     public static bool ShelvableCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[Shelvable].AsBool() == true;
 
-    #endregion 
+    #endregion
+
+    #region FoodUniversal
+
+    public const string FoodUniversal = "fooduniversalcheck";
+    public static bool FoodUniversalCheck(this CollectibleObject obj) => obj?.Attributes?[FoodUniversal].AsBool() == true;
+    public static bool FoodUniversalCheck(this ItemSlot slot) {
+        if (slot?.Itemstack?.Collectible?.Attributes?[FoodUniversal].AsBool() == false) return false;
+        if (slot?.Inventory?.ClassName == "hopper") return false;
+        return true;
+    }
+
+    #endregion
+
+    #region LiquidyStuff
+
+    public const string LiquidyStuff = "liquidystuffcheck";
+    public static bool LiquidyStuffCheck(this CollectibleObject obj) => obj?.Attributes?[LiquidyStuff].AsBool() == true;
+    public static bool LiquidyStuffCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[LiquidyStuff].AsBool() == true;
+
+    #endregion
+
+    #endregion
+
+    #region Shelves
 
     #region PieShelf
 
@@ -58,6 +120,14 @@ public static class Restrictions
 
     #endregion
 
+    #region GlassJarShelf
+
+    public const string GlassJarShelf = "glassjarshelfcheck";
+    public static bool GlassJarShelfCheck(this CollectibleObject obj) => obj?.Attributes?[GlassJarShelf].AsBool() == true;
+    public static bool GlassJarShelfCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[GlassJarShelf].AsBool() == true;
+
+    #endregion
+
     #region TableWShelf
 
     public const string TableWShelf = "tablewshelfcheck";
@@ -66,6 +136,9 @@ public static class Restrictions
 
     #endregion
 
+    #endregion
+
+    #region Baskets
 
     #region FruitBasket
 
@@ -87,6 +160,17 @@ public static class Restrictions
 
     #endregion
 
+    #region EggBasket
+
+    public const string EggBasket = "eggbasketcheck";
+    public static bool EggBasketCheck(this CollectibleObject obj) => obj?.Attributes?[EggBasket].AsBool() == true;
+    public static bool EggBasketCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[EggBasket].AsBool() == true;
+
+    #endregion
+
+    #endregion
+
+    #region Barrels
 
     #region BarrelRack
 
@@ -101,6 +185,25 @@ public static class Restrictions
     public const string BarrelRackBig = "barrelrackbigcheck";
     public static bool BarrelRackBigCheck(this CollectibleObject obj) => obj?.Attributes?[BarrelRackBig].AsBool() == true;
     public static bool BarrelRackBigCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[BarrelRackBig].AsBool() == true;
+
+    #endregion
+
+    #region FirkinRack
+
+    public const string FirkinRack = "firkinrackcheck";
+    public static bool FirkinRackCheck(this CollectibleObject obj) => obj?.Attributes?[FirkinRack].AsBool() == true;
+    public static bool FirkinRackCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[FirkinRack].AsBool() == true;
+
+    #endregion
+
+    #endregion
+
+
+    #region PumpkinCase
+
+    public const string PumpkinCase = "pumpkincasecheck";
+    public static bool PumpkinCaseCheck(this CollectibleObject obj) => obj?.Attributes?[PumpkinCase].AsBool() == true;
+    public static bool PumpkinCaseCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[PumpkinCase].AsBool() == true;
 
     #endregion
 }

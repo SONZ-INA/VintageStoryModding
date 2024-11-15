@@ -1,8 +1,8 @@
 ﻿namespace FoodShelves;
 
 public class BlockEntityBreadShelf : BlockEntityDisplay {
-    readonly InventoryGeneric inv;
-    Block block;
+    private InventoryGeneric inv;
+    private Block block;
 
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
@@ -10,15 +10,36 @@ public class BlockEntityBreadShelf : BlockEntityDisplay {
 
     private const int shelfCount = 4;
     private const int segmentsPerShelf = 3;
-    private const int itemsPerSegment = 2;
-    static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByShelf;
+    private int itemsPerSegment = 2;
 
-    public BlockEntityBreadShelf() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotBreadShelf(inv)); }
+    public BlockEntityBreadShelf() { inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotBreadShelf(inv)); }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
+
+        if (block.Code.SecondCodePart().StartsWith("short")) {
+            itemsPerSegment /= 2;
+            inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotBreadShelf(inv));
+            Inventory.LateInitialize(Inventory.InventoryID, api);
+        }
+
         base.Initialize(api);
+    }
+
+    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2f : 0.5f;
+        if (Api == null) return 0;
+
+        if (transType == EnumTransitionType.Perish || transType == EnumTransitionType.Ripen) {
+            float perishRate = GetPerishRate();
+            if (transType == EnumTransitionType.Ripen) {
+                return GameMath.Clamp((1 - perishRate - 0.5f) * 3, 0, 1);
+            }
+
+            return baseMul * perishRate;
+        }
+
+        return 1;
     }
 
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
@@ -85,7 +106,7 @@ public class BlockEntityBreadShelf : BlockEntityDisplay {
     }
 
     protected override float[][] genTransformationMatrices() {
-        float[][] tfMatrices = new float[slotCount][];
+        float[][] tfMatrices = new float[shelfCount * segmentsPerShelf * itemsPerSegment][];
 
         for (int shelf = 0; shelf < shelfCount; shelf++) {
             for (int segment = 0; segment < segmentsPerShelf; segment++) {
@@ -116,6 +137,6 @@ public class BlockEntityBreadShelf : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment);
+        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.ByShelf, shelfCount * segmentsPerShelf * itemsPerSegment, segmentsPerShelf, itemsPerSegment);
     }
 }

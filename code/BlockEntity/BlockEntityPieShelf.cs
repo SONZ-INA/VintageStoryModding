@@ -1,8 +1,8 @@
 ﻿namespace FoodShelves;
 
 public class BlockEntityPieShelf : BlockEntityDisplay {
-    readonly InventoryGeneric inv;
-    Block block;
+    private readonly InventoryGeneric inv;
+    private Block block;
     
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
@@ -12,7 +12,6 @@ public class BlockEntityPieShelf : BlockEntityDisplay {
     private const int segmentsPerShelf = 1;
     private const int itemsPerSegment = 1;
     static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlock;
 
     public BlockEntityPieShelf() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotPieShelf(inv)); }
 
@@ -120,6 +119,6 @@ public class BlockEntityPieShelf : BlockEntityDisplay {
         float ripenRate = GameMath.Clamp((1 - GetPerishRate() - 0.5f) * 3, 0, 1);
         if (ripenRate > 0) sb.Append(Lang.Get("Suitable spot for food ripening."));
 
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment);
+        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.ByBlock, slotCount, segmentsPerShelf, itemsPerSegment);
     }
 }

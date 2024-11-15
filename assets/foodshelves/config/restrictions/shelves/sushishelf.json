@@ -1,7 +1,7 @@
 {
-  "SushiShelfTypes": [ ],
-  "SushiShelfCodes": [
-    "*sushi-*",
-    "*sushiveg-*"
+  "CollectibleTypes": [],
+  "CollectibleCodes": [
+    "expandedfoods:sushi-*",
+    "expandedfoods:sushiveg-*"
   ]
 }

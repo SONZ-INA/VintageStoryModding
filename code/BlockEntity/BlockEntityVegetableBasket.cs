@@ -10,7 +10,6 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
     public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
     static readonly int slotCount = 36;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlockAverageAndSoonest;
 
     public BlockEntityVegetableBasket() { 
         inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotVegetableBasket(inv)); 
@@ -21,17 +20,33 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
         base.Initialize(api);
     }
 
-    internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
+    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2f : 0.5f;
+        if (Api == null) return 0;
+
+        if (transType == EnumTransitionType.Perish || transType == EnumTransitionType.Ripen) {
+            float perishRate = GetPerishRate();
+            if (transType == EnumTransitionType.Ripen) {
+                return GameMath.Clamp((1 - perishRate - 0.5f) * 3, 0, 1);
+            }
+
+            return baseMul * perishRate;
+        }
+
+        return 1;
+    }
+
+    internal bool OnInteract(IPlayer byPlayer) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
         if (slot.Empty) {
-            return TryTake(byPlayer, blockSel);
+            return TryTake(byPlayer);
         }
         else {
             if (slot.VegetableBasketCheck()) {
                 AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
 
-                if (TryPut(slot, blockSel)) {
+                if (TryPut(slot)) {
                     Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
                     MarkDirty();
                     return true;
@@ -43,7 +58,7 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
         }
     }
 
-    private bool TryPut(ItemSlot slot, BlockSelection blockSel) {
+    private bool TryPut(ItemSlot slot) {
         BlockVegetableBasket.GetTransformationMatrix(inv[0]?.Itemstack?.Collectible?.Code?.Path, out float[,] transformationMatrix);
         int offset = transformationMatrix.GetLength(1);
 
@@ -59,7 +74,7 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
         return false;
     }
 
-    private bool TryTake(IPlayer byPlayer, BlockSelection blockSel) {
+    private bool TryTake(IPlayer byPlayer) {
         for (int i = slotCount - 1; i >= 0; i--) {
             if (!inv[i].Empty) {
                 ItemStack stack = inv[i].TakeOut(1);
@@ -132,6 +147,6 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, 0, 0, "vegetable");
+        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.ByBlockAverageAndSoonest, slotCount);
     }
 }

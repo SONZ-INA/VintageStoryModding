@@ -1,0 +1,14 @@
+{
+  "CollectibleTypes": [],
+  "CollectibleCodes": [
+    "game:resin",
+    "game:beeswax",
+    "game:fat",
+
+    "expandedfoods:dehydratedfruit-*",
+    "expandedfoods:dryfruit-*",
+    "expandedfoods:wilddehydratedfruit-*",
+    "expandedfoods:wilddryfruit-*",
+    "expandedfoods:wildtreedryfruit-*"
+  ]
+}

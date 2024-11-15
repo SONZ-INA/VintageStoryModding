@@ -1,7 +1,7 @@
 {
-  "BarShelfTypes": [ ],
-  "BarShelfCodes": [
-    "*fruitbar-*",
-    "*bar"
+  "CollectibleTypes": [],
+  "CollectibleCodes": [
+    "expandedfoods:fruitbar-*",
+    "wildcraftfruit:nut-*bar"
   ]
 }

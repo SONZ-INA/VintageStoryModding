@@ -1,6 +1,5 @@
 {
 	"editor": {
-		"collapsedPaths": "Root/BShelf,Root/MUShelf,Root/MUShelf2,Root/MBShelf2,Root/TShelf,Root/BShelf/BRBeam,Root/TShelf/EggFenceL4,Root/TShelf/BLFence4,Root/BShelf/EggFenceL,Root/MBShelf,Root/BShelf/BLFence,Root/BShelf2",
 		"allAngles": false,
 		"entityTextureMode": false
 	},
@@ -44,7 +43,7 @@
 							"to": [ 16.0, 2.0, 14.0 ],
 							"rotationOrigin": [ 15.0, 0.0, 0.0 ],
 							"faces": {
-								"north": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 4.0 ], "rotation": 90 },
+								"north": { "texture": "#surface", "uv": [ 1.0, 15.0, 3.0, 16.0 ], "rotation": 90 },
 								"east": { "texture": "#surface", "uv": [ 14.0, 3.0, 16.0, 16.0 ], "rotation": 270, "autoUv": false },
 								"south": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 4.0 ], "rotation": 90 },
 								"west": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 15.0 ], "rotation": 90, "autoUv": false },
@@ -247,7 +246,7 @@
 							"to": [ 16.0, 2.0, 14.0 ],
 							"rotationOrigin": [ 15.0, 0.0, 0.0 ],
 							"faces": {
-								"north": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 4.0 ], "rotation": 90 },
+								"north": { "texture": "#surface", "uv": [ 1.0, 15.0, 3.0, 16.0 ], "rotation": 90 },
 								"east": { "texture": "#surface", "uv": [ 14.0, 3.0, 16.0, 16.0 ], "rotation": 270, "autoUv": false },
 								"south": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 4.0 ], "rotation": 90 },
 								"west": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 15.0 ], "rotation": 90, "autoUv": false },
@@ -450,7 +449,7 @@
 							"to": [ 16.0, 2.0, 14.0 ],
 							"rotationOrigin": [ 15.0, 0.0, 0.0 ],
 							"faces": {
-								"north": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 4.0 ], "rotation": 90 },
+								"north": { "texture": "#surface", "uv": [ 1.0, 15.0, 3.0, 16.0 ], "rotation": 90 },
 								"east": { "texture": "#surface", "uv": [ 14.0, 3.0, 16.0, 16.0 ], "rotation": 270, "autoUv": false },
 								"south": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 4.0 ], "rotation": 90 },
 								"west": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 15.0 ], "rotation": 90, "autoUv": false },
@@ -653,7 +652,7 @@
 							"to": [ 16.0, 2.0, 14.0 ],
 							"rotationOrigin": [ 15.0, 0.0, 0.0 ],
 							"faces": {
-								"north": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 4.0 ], "rotation": 90 },
+								"north": { "texture": "#surface", "uv": [ 1.0, 15.0, 3.0, 16.0 ], "rotation": 90 },
 								"east": { "texture": "#surface", "uv": [ 14.0, 3.0, 16.0, 16.0 ], "rotation": 270, "autoUv": false },
 								"south": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 4.0 ], "rotation": 90 },
 								"west": { "texture": "#surface", "uv": [ 1.0, 3.0, 3.0, 15.0 ], "rotation": 90, "autoUv": false },

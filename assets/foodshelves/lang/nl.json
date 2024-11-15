@@ -18,11 +18,6 @@
   "block-horizontalbarrelbig-*": "Groot horizontaal vat",
   "block-barrelrackbig-*": "Groot vatenrek",
 
-  "blockhelp-fruitbasket-add": "Voeg fruit toe",
-  "blockhelp-fruitbasket-remove": "Verwijder fruit",
-  "blockhelp-vegetablebasket-add": "Voeg groenten toe",
-  "blockhelp-vegetablebasket-remove": "Verwijder groenten",
-
   "blockdesc-canhold-title": "Kan bevatten:",
   "blockdesc-canbeplacedin-title": "Kan geplaatst worden in:",
 
@@ -52,26 +47,22 @@
 
   "This barrel needs to be placed in a barrel rack.": "Dit vat moet in een vatenrek worden geplaatst.",
   "The barrel must be emptied before it can be picked up.": "Het vat moet leeg zijn voordat het opgepakt kan worden.",
-  "Pour liquid into barrel.": "<font color=\"orange\">Giet vloeistof in het vat. (Shift voor deel)</font>",
-  "Pour liquid into held container.": "<font color=\"orange\">Giet vloeistof in de container. (Shift voor deel)</font>",
   "Missing barrel.": "<font color=\"orange\">Vat ontbreekt.</font>",
 
-  "Contents: ": "<font color=\"orange\">Inhoud: </font>",
-  "Soonest: ": "Binnenkort: ",
+  "Contents": "<font color=\"orange\">Inhoud: </font>",
+  "Soonest": "Binnenkort: ",
   "Empty.": "Leeg.",
-  "Average perish rate: {0} years": "Gemiddelde bederftijd: {0} jaren",
-  "Average perish rate: {0} days": "Gemiddelde bederftijd: {0} dagen",
-  "Average perish rate: {0} hours": "Gemiddelde bederftijd: {0} uren",
+  "Average perish rate {0} years": "Gemiddelde bederftijd: {0} jaren",
+  "Average perish rate {0} days": "Gemiddelde bederftijd: {0} dagen",
+  "Average perish rate {0} hours": "Gemiddelde bederftijd: {0} uren",
   "will perish in {0} years": "bederft over {0} jaren",
   "will perish in {0} days": "bederft over {0} dagen",
   "will perish in {0} hours": "bederft over {0} uren",
 
   "Fruit": "Fruit",
   "Fruits inside: {0}": "Fruits binnen: {0}",
-  "Rotten fruits: {0}": "Rot fruit: {0}",
   "No fruit will perish soon.": "Geen fruit bederft binnenkort.",
   "Vegetable": "Groente",
   "Vegetables inside: {0}": "Groenten binnen: {0}",
-  "Rotten vegetables: {0}": "Rotte groenten: {0}",
   "No vegetable will perish soon.": "Geen groente bederft binnenkort."
 }

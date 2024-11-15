@@ -5,7 +5,7 @@
   "enabled": false,
   "creativeinventory": { "general": ["*-east"], "decorative": ["*-east"], "foodshelves": ["*-east"] },
   "variantgroups": [
-    { "code": "type", "states": ["normal"] },
+    { "code": "type", "states": ["normal", "short"] },
     { "code": "side", "loadFromProperties": "abstract/horizontalorientation" }
   ],
   "attributes": {
@@ -24,9 +24,15 @@
   "behaviors": [
     { "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }
   ],
-  "shape": {
-    "base": "block/wood/shelves/barshelf",
-    "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
+  "shapeByType": {
+    "*-short*": {
+      "base": "block/wood/shelves/barshelfshort",
+      "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
+    },
+    "*": {
+      "base": "block/wood/shelves/barshelf",
+      "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
+    }
   },
   "textures": {
 	  "wood": { "base": "game:block/wood/shelf/wood" },
@@ -41,9 +47,15 @@
   "sideopaque": { "all": false },
   "replaceable": 999,
   "resistance": 1.5,
-  "combustibleProps": {
-    "burnTemperature": 700,
-    "burnDuration": 84
+  "combustiblePropsByType": {
+    "*-short*": {
+      "burnTemperature": 700,
+      "burnDuration": 42
+    },
+    "*": {
+      "burnTemperature": 700,
+      "burnDuration": 84
+    }
   },
   "tpHandTransform": {
 	  "translation": { "x": -0.8, "y": -0.68, "z": -0.41 },
@@ -56,22 +68,44 @@
     "break": "game:block/planks"
   },
   "materialDensity": 400,
-  "collisionbox": { "x1": 0.125, "y1": 0, "z1": 0, "x2": 0.875, "y2": 1, "z2": 1, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-  "selectionBoxes": [
-	  { "x1": 0.125, "y1": 0, "z1": 0.0625, "x2": 0.9375, "y2": 0.25, "z2": 0.35417, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	  { "x1": 0.125, "y1": 0, "z1": 0.35417, "x2": 0.9375, "y2": 0.25, "z2": 0.64584, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	  { "x1": 0.125, "y1": 0, "z1": 0.64584, "x2": 0.9375, "y2": 0.25, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+  "collisionboxByType": {
+    "*-short*":  { "x1": 0.5, "y1": 0, "z1": 0, "x2": 0.875, "y2": 1, "z2": 1, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+    "*": { "x1": 0.125, "y1": 0, "z1": 0, "x2": 0.875, "y2": 1, "z2": 1, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } }
+  },
+  "selectionBoxesByType": {
+    "*-short*": [
+      { "x1": 0.5, "y1": 0, "z1": 0.0625, "x2": 0.9375, "y2": 0.25, "z2": 0.35417, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.5, "y1": 0, "z1": 0.35417, "x2": 0.9375, "y2": 0.25, "z2": 0.64584, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.5, "y1": 0, "z1": 0.64584, "x2": 0.9375, "y2": 0.25, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
 	
-	  { "x1": 0.125, "y1": 0.25, "z1": 0.0625, "x2": 0.9375, "y2": 0.5, "z2": 0.35174, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	  { "x1": 0.125, "y1": 0.25, "z1": 0.35174, "x2": 0.9375, "y2": 0.5, "z2": 0.64584, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	  { "x1": 0.125, "y1": 0.25, "z1": 0.64584, "x2": 0.9375, "y2": 0.5, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.5, "y1": 0.25, "z1": 0.0625, "x2": 0.9375, "y2": 0.5, "z2": 0.35174, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.5, "y1": 0.25, "z1": 0.35174, "x2": 0.9375, "y2": 0.5, "z2": 0.64584, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.5, "y1": 0.25, "z1": 0.64584, "x2": 0.9375, "y2": 0.5, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
 	
-	  { "x1": 0.125, "y1": 0.5, "z1": 0.0625, "x2": 0.9375, "y2": 0.75, "z2": 0.35417, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	  { "x1": 0.125, "y1": 0.5, "z1": 0.35174, "x2": 0.9375, "y2": 0.75, "z2": 0.64584, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	  { "x1": 0.125, "y1": 0.5, "z1": 0.64584, "x2": 0.9375, "y2": 0.75, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.5, "y1": 0.5, "z1": 0.0625, "x2": 0.9375, "y2": 0.75, "z2": 0.35417, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.5, "y1": 0.5, "z1": 0.35174, "x2": 0.9375, "y2": 0.75, "z2": 0.64584, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.5, "y1": 0.5, "z1": 0.64584, "x2": 0.9375, "y2": 0.75, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
 	
-	  { "x1": 0.125, "y1": 0.75, "z1": 0.0625, "x2": 0.9375, "y2": 1, "z2": 0.35417, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	  { "x1": 0.125, "y1": 0.75, "z1": 0.35174, "x2": 0.9375, "y2": 1, "z2": 0.64584, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
-	  { "x1": 0.125, "y1": 0.75, "z1": 0.64584, "x2": 0.9375, "y2": 1, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } }
-  ]
+	    { "x1": 0.5, "y1": 0.75, "z1": 0.0625, "x2": 0.9375, "y2": 1, "z2": 0.35417, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.5, "y1": 0.75, "z1": 0.35174, "x2": 0.9375, "y2": 1, "z2": 0.64584, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.5, "y1": 0.75, "z1": 0.64584, "x2": 0.9375, "y2": 1, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } }
+    ],
+    "*": [
+	    { "x1": 0.125, "y1": 0, "z1": 0.0625, "x2": 0.9375, "y2": 0.25, "z2": 0.35417, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.125, "y1": 0, "z1": 0.35417, "x2": 0.9375, "y2": 0.25, "z2": 0.64584, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.125, "y1": 0, "z1": 0.64584, "x2": 0.9375, "y2": 0.25, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	
+	    { "x1": 0.125, "y1": 0.25, "z1": 0.0625, "x2": 0.9375, "y2": 0.5, "z2": 0.35174, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.125, "y1": 0.25, "z1": 0.35174, "x2": 0.9375, "y2": 0.5, "z2": 0.64584, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.125, "y1": 0.25, "z1": 0.64584, "x2": 0.9375, "y2": 0.5, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	
+	    { "x1": 0.125, "y1": 0.5, "z1": 0.0625, "x2": 0.9375, "y2": 0.75, "z2": 0.35417, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.125, "y1": 0.5, "z1": 0.35174, "x2": 0.9375, "y2": 0.75, "z2": 0.64584, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.125, "y1": 0.5, "z1": 0.64584, "x2": 0.9375, "y2": 0.75, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	
+	    { "x1": 0.125, "y1": 0.75, "z1": 0.0625, "x2": 0.9375, "y2": 1, "z2": 0.35417, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.125, "y1": 0.75, "z1": 0.35174, "x2": 0.9375, "y2": 1, "z2": 0.64584, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	    { "x1": 0.125, "y1": 0.75, "z1": 0.64584, "x2": 0.9375, "y2": 1, "z2": 0.9375, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } }
+    ]
+  } 
 }

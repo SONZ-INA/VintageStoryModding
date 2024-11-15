@@ -3,11 +3,31 @@
     "ingredientPattern": "P_P,_S_,P_P",
     "ingredients": {
       "P": { "type": "item", "code": "game:plank-*" },
-      "S": { "type": "block", "code": "foodshelves:breadshelf-normal-east" }
+      "S": { "type": "block", "code": "foodshelves:pieshelf-normal-east" }
     },
     "width": 3,
     "height": 3,
     "recipeGroup": 1,
+    "output": { "type": "block", "code": "seedshelf-normal-east" }
+  },
+  {
+    "ingredientPattern": "__,_S",
+    "ingredients": {
+      "S": { "type": "block", "code": "foodshelves:seedshelf-normal-east" }
+    },
+    "width": 2,
+    "height": 2,
+    "recipeGroup": 1,
+    "output": { "type": "block", "code": "seedshelf-short-east", "quantity": 2 }
+  },
+  {
+    "ingredientPattern": "__,_S",
+    "ingredients": {
+      "S": { "type": "block", "code": "foodshelves:seedshelf-short-east", "quantity": 2 }
+    },
+    "width": 2,
+    "height": 2,
+    "recipeGroup": 2,
     "output": { "type": "block", "code": "seedshelf-normal-east" }
   }
 ]

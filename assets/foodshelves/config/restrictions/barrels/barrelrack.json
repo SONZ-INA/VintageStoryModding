@@ -1,6 +1,6 @@
 {
-  "BarrelRackTypes": [
-    "BlockBarrel"
+  "CollectibleTypes": [
+    "game:BlockBarrel"
   ],
-  "BarrelRackCodes": [ ]
+  "CollectibleCodes": []
 }

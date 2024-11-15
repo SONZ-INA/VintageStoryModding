@@ -10,5 +10,27 @@
     "height": 2,
     "recipeGroup": 1,
     "output": { "type": "block", "code": "sushishelf-normal-east" }
+  },
+  {
+    "enabled": false,
+    "ingredientPattern": "__,_S",
+    "ingredients": {
+      "S": { "type": "block", "code": "foodshelves:sushishelf-normal-east" }
+    },
+    "width": 2,
+    "height": 2,
+    "recipeGroup": 1,
+    "output": { "type": "block", "code": "sushishelf-short-east", "quantity": 2 }
+  },
+  {
+    "enabled": false,
+    "ingredientPattern": "__,_S",
+    "ingredients": {
+      "S": { "type": "block", "code": "foodshelves:sushishelf-short-east", "quantity": 2 }
+    },
+    "width": 2,
+    "height": 2,
+    "recipeGroup": 2,
+    "output": { "type": "block", "code": "sushishelf-normal-east" }
   }
 ]

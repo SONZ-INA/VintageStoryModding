@@ -7,7 +7,7 @@
   ],
   "attributes": {
     "handbook": {
-      "groupBy": [ "horizontalbarrelrack-*" ],
+      "groupBy": [ "horizontalbarrelbig-*" ],
       "extraSections": [
         {
           "title": "foodshelves:blockdesc-canbeplacedin-title",

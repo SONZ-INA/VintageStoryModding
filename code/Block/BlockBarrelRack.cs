@@ -25,8 +25,8 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
     }
 
     public override string GetHeldItemName(ItemStack itemStack) {
-        string variantName = itemStack.GetMaterialNameLocalized(new string[] { "type" }, new string[] { "normal", "top" });
-        return base.GetHeldItemName(itemStack) + variantName;
+        string variantName = itemStack.GetMaterialNameLocalized(new[] { "type" }, new[] { "normal", "top" });
+        return base.GetHeldItemName(itemStack) + " " + variantName;
     }
 
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
@@ -59,6 +59,7 @@ public class BlockBarrelRack : BlockLiquidContainerBase {
         world.BlockAccessor.SetBlock(0, pos);
     }
 
+    // Dynamic change of collision boxes, when there's a barrel inside
     public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
         Block block = blockAccessor.GetBlock(pos);
         if (block.Code.Path.StartsWith("barrelrack-top")) {

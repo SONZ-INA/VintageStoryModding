@@ -1,0 +1,19 @@
+{
+  "CollectibleTypes": [
+    "game:BlockPie",
+    "game:ItemCheese"
+  ],
+  "CollectibleCodes": [
+    "*bread-*",
+    "*dough-*",
+
+    "expandedfoods:muffin-*",
+    "expandedfoods:breadedball-*",
+    "expandedfoods:dumpling-*",
+    "expandedfoods:doughball-*",
+
+    "wildcraftfruit:nut-halva",
+    "wildcraftfruit:nut-pacoca",
+    "wildcraftfruit:nut-marzipan"
+  ]
+}

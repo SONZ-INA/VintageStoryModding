@@ -7,26 +7,26 @@ public class BlockFruitBasket : BlockContainer {
         base.OnLoaded(api);
         PlacedPriorityInteract = true; // Needed to call OnBlockInteractStart when shifting with an item in hand
 
-        interactions = ObjectCacheUtil.GetOrCreate(api, "fruitbasketBlockInteractions", () => {
+        interactions = ObjectCacheUtil.GetOrCreate(api, "basketBlockInteractions", () => {
             List<ItemStack> fruitStackList = new();
 
             foreach(Item item in api.World.Items) {
                 if (item.Code == null) continue;
 
-                if (WildcardUtil.Match(FruitBasketData.FruitBasketCodes, item.Code.Path.ToString())) {
+                if (WildcardUtil.Match(FruitBasketData.CollectibleCodes, item.Code.Path.ToString())) {
                     fruitStackList.Add(new ItemStack(item));
                 }
             }
 
             return new WorldInteraction[] {
                 new() {
-                    ActionLangCode = "foodshelves:blockhelp-fruitbasket-add",
+                    ActionLangCode = "blockhelp-groundstorage-add",
                     MouseButton = EnumMouseButton.Right,
                     HotKeyCode = "shift",
                     Itemstacks = fruitStackList.ToArray()
                 },
                 new() {
-                    ActionLangCode = "foodshelves:blockhelp-fruitbasket-remove",
+                    ActionLangCode = "blockhelp-groundstorage-remove",
                     MouseButton = EnumMouseButton.Right,
                     HotKeyCode = "shift"
                 }
@@ -56,7 +56,7 @@ public class BlockFruitBasket : BlockContainer {
 
     public override string GetHeldItemName(ItemStack itemStack) {
         string variantName = itemStack.GetMaterialNameLocalized();
-        return base.GetHeldItemName(itemStack) + variantName;
+        return base.GetHeldItemName(itemStack) + " " + variantName;
     }
 
     // Rotation logic
@@ -71,7 +71,7 @@ public class BlockFruitBasket : BlockContainer {
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
         if (byPlayer.Entity.Controls.ShiftKey) {
             if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityFruitBasket frbasket) 
-                return frbasket.OnInteract(byPlayer, blockSel);
+                return frbasket.OnInteract(byPlayer);
         }
 
         return base.OnBlockInteractStart(world, byPlayer, blockSel);
@@ -80,20 +80,19 @@ public class BlockFruitBasket : BlockContainer {
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo) {
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
 
-        dsc.Append(Lang.Get("Contents: "));
+        dsc.Append(Lang.Get("foodshelves:Contents"));
 
         if (inSlot.Itemstack == null) {
-            dsc.AppendLine(Lang.Get("Empty."));
+            dsc.AppendLine(Lang.Get("foodshelves:Empty."));
             return;
         }
 
         ItemStack[] contents = GetContents(world, inSlot.Itemstack);
-        PerishableInfoAverageAndSoonest(contents, dsc, world, "fruit");
+        PerishableInfoAverageAndSoonest(contents.ToDummySlots(), dsc, world);
     }
 
     // Mesh rendering for items when inside inventory
     private string MeshRefsCacheKey => this.Code.ToShortString() + "meshRefs";
-
     public override void OnBeforeRender(ICoreClientAPI capi, ItemStack itemstack, EnumItemRenderTarget target, ref ItemRenderInfo renderinfo) {
         Dictionary<int, MultiTextureMeshRef> meshrefs;
 
@@ -109,9 +108,13 @@ public class BlockFruitBasket : BlockContainer {
 
         if (!meshrefs.TryGetValue(hashcode, out MultiTextureMeshRef meshRef)) {
             GetTransformationMatrix(out float[,] transformationMatrix);
-            MeshData meshdata = GenBlockWContentMesh(capi, this, contents, transformationMatrix, FruitBasketTransformations);
-            if (meshdata != null) { 
-                meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(meshdata);
+
+            capi.Tesselator.TesselateBlock(this, out MeshData basketMesh);
+            MeshData contentMesh = GenContentMesh(capi, contents, transformationMatrix, 0.5f, FruitBasketTransformations);
+            if (contentMesh != null) basketMesh.AddMeshData(contentMesh);
+
+            if (basketMesh != null) { 
+                meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(basketMesh);
             }
         }
 

@@ -6,7 +6,6 @@ public static class Extensions {
     #region JSONExtensions
 
     public static void EnsureAttributesNotNull(this CollectibleObject obj) => obj.Attributes ??= new JsonObject(new JObject());
-
     public static T LoadAsset<T>(this ICoreAPI api, string path) => api.Assets.Get(new AssetLocation(path)).ToObject<T>();
 
     public static void SetTreeAttributeContents(this ItemStack stack, InventoryGeneric inv, string attributeName, int index = 1) {
@@ -67,6 +66,18 @@ public static class Extensions {
         }
 
         return 0;
+    }
+
+    public static void ChangeShapeTextureKey(Shape shape, string key) {
+        foreach (var face in shape.Elements[0].FacesResolved) {
+            face.Texture = key;
+        }
+
+        foreach (var child in shape.Elements[0].Children) {
+            foreach (var face in child.FacesResolved) {
+                if (face != null) face.Texture = key;
+            }
+        }
     }
 
     public static int GetStackCacheHashCodeFNV(ItemStack[] contentStack) {
@@ -159,8 +170,9 @@ public static class Extensions {
         return null;
     }
 
-    public static string GetMaterialNameLocalized(this ItemStack itemStack, string[] variantKeys = null, string[] toExclude = null) { // Needs to be revised.
+    public static string GetMaterialNameLocalized(this ItemStack itemStack, string[] variantKeys = null, string[] toExclude = null, bool includeParenthesis = true) {
         string material = "";
+        string[] materialCheck = { "material-", "rock-", "ore-" };
 
         if (variantKeys == null) {
             material = itemStack.Collectible.Variant["type"];
@@ -176,6 +188,7 @@ public static class Extensions {
 
         if (toExclude == null) {
             material = material.Replace("normal", "");
+            material = material.Replace("short", "");
         }
         else {
             for (int i = 0; i < toExclude.Length; i++) {
@@ -184,7 +197,14 @@ public static class Extensions {
         }
 
         if (material == "") return "";
-        return " (" + Lang.Get("material-" + material) + ")";
+
+        string toReturn = "";
+        foreach (string check in materialCheck) {
+            toReturn = Lang.Get(check + material);
+            if (toReturn != check + material) break;
+        }
+
+        return (includeParenthesis ? "(" : "") + toReturn + (includeParenthesis ? ")" : "");
     }
 
     public static float[,] GenTransformationMatrix(float[] x, float[] y, float[] z, float[] rX, float[] rY, float[] rZ) {
@@ -229,6 +249,110 @@ public static class Extensions {
             270 => new Cuboidf(z1, y1, 1 - x2, z2, y2, 1 - x1),
             _ => throw new ArgumentException("Angle must be 0, 90, 180, or 270 degrees"),
         };
+    }
+
+    #endregion
+
+    #region BlockInventoryExtensions
+
+    public static ItemStack[] GetContents(IWorldAccessor world, ItemStack itemstack) {
+        ITreeAttribute treeAttr = itemstack?.Attributes?.GetTreeAttribute("contents");
+        if (treeAttr == null) {
+            return ResolveUcontents(world, itemstack);
+        }
+
+        ItemStack[] stacks = new ItemStack[treeAttr.Count];
+        foreach (var val in treeAttr) {
+            ItemStack stack = (val.Value as ItemstackAttribute).value;
+            stack?.ResolveBlockOrItem(world);
+
+            if (int.TryParse(val.Key, out int index)) stacks[index] = stack;
+        }
+
+        return stacks;
+    }
+
+    public static void SetContents(ItemStack containerStack, ItemStack[] stacks) {
+        if (stacks == null || stacks.Length == 0) {
+            containerStack.Attributes.RemoveAttribute("contents");
+            return;
+        }
+
+        TreeAttribute stacksTree = new TreeAttribute();
+        for (int i = 0; i < stacks.Length; i++) {
+            stacksTree[i + ""] = new ItemstackAttribute(stacks[i]);
+        }
+
+        containerStack.Attributes["contents"] = stacksTree;
+    }
+
+    public static ItemStack[] ResolveUcontents(IWorldAccessor world, ItemStack itemstack) {
+        if (itemstack?.Attributes.HasAttribute("ucontents") == true) {
+            List<ItemStack> stacks = new();
+
+            var attrs = itemstack.Attributes["ucontents"] as TreeArrayAttribute;
+
+            foreach (ITreeAttribute stackAttr in attrs.value) {
+                stacks.Add(CreateItemStackFromJson(stackAttr, world, itemstack.Collectible.Code.Domain));
+            }
+            ItemStack[] stacksAsArray = stacks.ToArray();
+            SetContents(itemstack, stacksAsArray);
+            itemstack.Attributes.RemoveAttribute("ucontents");
+
+            return stacksAsArray;
+        }
+        else {
+            return Array.Empty<ItemStack>();
+        }
+    }
+
+    private static ItemStack CreateItemStackFromJson(ITreeAttribute stackAttr, IWorldAccessor world, string defaultDomain) {
+        CollectibleObject collObj;
+        var loc = AssetLocation.Create(stackAttr.GetString("code"), defaultDomain);
+        if (stackAttr.GetString("type") == "item") {
+            collObj = world.GetItem(loc);
+        }
+        else {
+            collObj = world.GetBlock(loc);
+        }
+
+        ItemStack stack = new(collObj, (int)stackAttr.GetDecimal("quantity", 1));
+        var attr = (stackAttr["attributes"] as TreeAttribute)?.Clone();
+        if (attr != null) stack.Attributes = attr;
+
+        return stack;
+    }
+
+    #endregion
+
+    #region ItemStackExtensions
+
+    public static DummySlot[] ToDummySlots(this ItemStack[] contents) {
+        if (contents == null || contents.Length == 0) return Array.Empty<DummySlot>();
+
+        DummySlot[] dummySlots = new DummySlot[contents.Length];
+        for (int i = 0; i < contents.Length; i++) {
+            dummySlots[i] = new DummySlot(contents[i]?.Clone());
+        }
+
+        return dummySlots;
+    }
+
+    #endregion
+
+    #region CheckExtensions
+
+    public static bool CheckTypedRestriction(this CollectibleObject obj, RestrictionData data) => data.CollectibleTypes.Contains(obj.Code.Domain + ":" + obj.GetType().Name);
+
+    public static bool IsLargeItem(ItemStack itemStack) {
+        if (BakingProperties.ReadFrom(itemStack)?.LargeItem == true) return true;
+        if (itemStack?.Collectible?.GetType().Name == "ItemCheese") return true;
+        
+        return false;
+    }
+
+    public static bool IsFull(this ItemSlot slot) {
+        return slot.StackSize == slot.MaxSlotStackSize;
     }
 
     #endregion

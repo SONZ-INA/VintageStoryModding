@@ -1,8 +1,8 @@
 ﻿namespace FoodShelves;
 
 public class BlockEntitySeedShelf : BlockEntityDisplay {
-    readonly InventoryGeneric inv;
-    Block block;
+    private InventoryGeneric inv;
+    private Block block;
     
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
@@ -10,14 +10,19 @@ public class BlockEntitySeedShelf : BlockEntityDisplay {
 
     private const int shelfCount = 3;
     private const int segmentsPerShelf = 3;
-    private const int itemsPerSegment = 4;
-    static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.BySegment;
+    private int itemsPerSegment = 4;
 
-    public BlockEntitySeedShelf() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotSeedShelf(inv)); }
+    public BlockEntitySeedShelf() { inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotSeedShelf(inv)); }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
+
+        if (block.Code.SecondCodePart().StartsWith("short")) {
+            itemsPerSegment /= 2;
+            inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotSeedShelf(inv));
+            Inventory.LateInitialize(Inventory.InventoryID, api);
+        }
+
         base.Initialize(api);
     }
 
@@ -48,12 +53,10 @@ public class BlockEntitySeedShelf : BlockEntityDisplay {
 
         for (int i = 0; i < itemsPerSegment; i++) {
             int currentIndex = startIndex + i;
-            if (!inv[currentIndex].Empty &&
-                inv[currentIndex].Itemstack.Collectible.Equals(slot.Itemstack.Collectible) &&
-                inv[currentIndex].Itemstack.StackSize < inv[currentIndex].Itemstack.Collectible.MaxStackSize) {
-
+            ItemStack currentStack = inv[currentIndex].Itemstack;
+            if (!inv[currentIndex].Empty && currentStack.Collectible.Equals(slot.Itemstack.Collectible) && currentStack.StackSize < currentStack.Collectible.MaxStackSize) {
                 int moved;
-                if (byPlayer.Entity.Controls.Sneak)
+                if (byPlayer.Entity.Controls.ShiftKey)
                     moved = slot.TryPutInto(Api.World, inv[currentIndex], inv[currentIndex].Itemstack.Collectible.MaxStackSize - inv[currentIndex].Itemstack.StackSize);
                 else
                     moved = slot.TryPutInto(Api.World, inv[currentIndex], 1);
@@ -83,7 +86,7 @@ public class BlockEntitySeedShelf : BlockEntityDisplay {
             int currentIndex = startIndex + i;
             if (!inv[currentIndex].Empty) {
                 ItemStack stack;
-                if (byPlayer.Entity.Controls.Sneak)
+                if (byPlayer.Entity.Controls.ShiftKey)
                     stack = inv[currentIndex].TakeOutWhole();
                 else
                     stack = inv[currentIndex].TakeOut(1);
@@ -107,7 +110,7 @@ public class BlockEntitySeedShelf : BlockEntityDisplay {
     }
 
     protected override float[][] genTransformationMatrices() {
-        float[][] tfMatrices = new float[slotCount][];
+        float[][] tfMatrices = new float[shelfCount * segmentsPerShelf * itemsPerSegment][];
 
         for (int shelf = 0; shelf < shelfCount; shelf++) {
             for (int segment = 0; segment < segmentsPerShelf; segment++) {
@@ -139,6 +142,6 @@ public class BlockEntitySeedShelf : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, segmentsPerShelf, itemsPerSegment);
+        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.BySegment, shelfCount * segmentsPerShelf * itemsPerSegment, segmentsPerShelf, itemsPerSegment);
     }
 }

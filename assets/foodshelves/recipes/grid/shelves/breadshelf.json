@@ -8,5 +8,25 @@
     "height": 3,
     "recipeGroup": 1,
     "output": { "type": "block", "code": "breadshelf-normal-east" }
+  },
+  {
+    "ingredientPattern": "__,_S",
+    "ingredients": {
+      "S": { "type": "block", "code": "foodshelves:breadshelf-normal-east" }
+    },
+    "width": 2,
+    "height": 2,
+    "recipeGroup": 1,
+    "output": { "type": "block", "code": "breadshelf-short-east", "quantity": 2 }
+  },
+  {
+    "ingredientPattern": "__,_S",
+    "ingredients": {
+      "S": { "type": "block", "code": "foodshelves:breadshelf-short-east", "quantity": 2 }
+    },
+    "width": 2,
+    "height": 2,
+    "recipeGroup": 2,
+    "output": { "type": "block", "code": "breadshelf-normal-east" }
   }
 ]

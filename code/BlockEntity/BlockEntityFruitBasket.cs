@@ -1,8 +1,8 @@
 ﻿namespace FoodShelves;
 
 public class BlockEntityFruitBasket : BlockEntityDisplay {
-    readonly InventoryGeneric inv;
-    BlockFruitBasket block;
+    private readonly InventoryGeneric inv;
+    private BlockFruitBasket block;
     public float MeshAngle { get; set; }
 
     public override InventoryBase Inventory => inv;
@@ -10,7 +10,6 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
     public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
 
     static readonly int slotCount = 22;
-    private readonly InfoDisplayOptions displaySelection = InfoDisplayOptions.ByBlockAverageAndSoonest;
 
     public BlockEntityFruitBasket() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotFruitBasket(inv)); }
 
@@ -19,7 +18,23 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
         base.Initialize(api);
     }
 
-    internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
+    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2f : 0.5f;
+        if (Api == null) return 0;
+
+        if (transType == EnumTransitionType.Perish || transType == EnumTransitionType.Ripen) {
+            float perishRate = GetPerishRate();
+            if (transType == EnumTransitionType.Ripen) {
+                return GameMath.Clamp((1 - perishRate - 0.5f) * 3, 0, 1);
+            }
+
+            return baseMul * perishRate;
+        }
+
+        return 1;
+    }
+
+    internal bool OnInteract(IPlayer byPlayer) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
         if (slot.Empty) {
@@ -126,6 +141,6 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);
-        DisplayInfo(forPlayer, sb, inv, displaySelection, slotCount, 0, 0, "fruit");
+        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.ByBlockAverageAndSoonest, slotCount);
     }
 }

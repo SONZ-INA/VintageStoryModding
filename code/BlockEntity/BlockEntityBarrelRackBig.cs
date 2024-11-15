@@ -1,8 +1,8 @@
 ﻿namespace FoodShelves;
 
 public class BlockEntityBarrelRackBig : BlockEntityContainer {
-    readonly InventoryGeneric inv;
-    BlockBarrelRackBig block;
+    private readonly InventoryGeneric inv;
+    private BlockBarrelRackBig block;
 
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
@@ -32,6 +32,11 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
         }
     }
 
+    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Perish) return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.4f);
+        else return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.75f); // Expanded Foods curing compitability
+    }
+
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
@@ -41,7 +46,7 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
             }
             else {
                 ItemStack owncontentStack = block.GetContent(blockSel.Position);
-                if (owncontentStack?.Collectible?.Code?.Path?.StartsWith("rot") == true) {
+                if (owncontentStack?.Collectible?.Code.Path.StartsWith("rot") == true) {
                     return TryTake(byPlayer, 1);
                 }
 
@@ -81,8 +86,8 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
         return false;
     }
 
-    private bool TryTake(IPlayer byPlayer, int index = 0) {
-        for (int i = index; i < slotCount; i++) {
+    private bool TryTake(IPlayer byPlayer, int rotTakeout = 0) {
+        for (int i = rotTakeout; i < slotCount; i++) {
             if (!inv[i].Empty) {
                 ItemStack stack = inv[i].TakeOut(1);
                 if (byPlayer.InventoryManager.TryGiveItemstack(stack)) {
@@ -101,11 +106,6 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
         }
 
         return false;
-    }
-
-    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        if (transType == EnumTransitionType.Perish) return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.4f);
-        else return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.75f); // Expanded Foods curing compitability
     }
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
