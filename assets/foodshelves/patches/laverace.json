@@ -2,7 +2,7 @@
   {
     "file": "foodshelves:config/restrictions/shelves/pieshelf.json",
     "op": "addmerge",
-    "path": "/CollectibleTypes/0",
+    "path": "/CollectibleTypes/-",
     "value": "laverace:BlockPizza",
     "dependsOn": [ { "modid": "laverace" } ]
   }

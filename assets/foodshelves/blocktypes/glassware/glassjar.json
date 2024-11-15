@@ -13,7 +13,7 @@
       "extraSections": [
         {
           "title": "foodshelves:blockdesc-canhold-title",
-          "text": "foodshelves:blockdesc-glassjar-text"
+          "text": "foodshelves:blockdesc-liquidystuff-text"
         }
       ]
     },

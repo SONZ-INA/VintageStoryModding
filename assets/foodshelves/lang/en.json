@@ -44,6 +44,9 @@
   "blockdesc-barrelrack-text": "  -Can only hold barrels. These barrels can only hold liquids.",
   "blockdesc-barrelrackbig-text": "  -Can only hold big horizontal barrels. These barrels can only hold liquids.",
   "blockdesc-horizontalbarrelbig-text": "  -This barrel can only be placed inside a big barrel rack.",
+  "blockdesc-liquidystuff-text": "  -Can hold resin, beeswax, animal fat, and all dehydrated/dry fruits from Expanded Foods.",
+  "blockdesc-pumpkincase-text": "  -Can only hold pumpkins.",
+  "blockdesc-fooduniversal-text": "  -Pies, Cheese, all bread types<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings.",
 
   "Only pies or cheese can be placed on this shelf.": "Only pies or cheese can be placed on this shelf.",
   "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.": "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.",
