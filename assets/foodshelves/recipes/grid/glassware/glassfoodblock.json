@@ -4,7 +4,7 @@
     "ingredients": {
       "P": { "type": "item", "code": "game:plank-*" },
       "S": { "type": "item", "code": "game:stick" },
-      "G": { "type": "item", "code": "game:glass-*" }
+      "G": { "type": "block", "code": "game:glass-*" }
     },
     "width": 3,
     "height": 3,
@@ -16,7 +16,7 @@
     "ingredients": {
       "P": { "type": "item", "code": "game:plank-*" },
       "S": { "type": "item", "code": "game:stick" },
-      "G": { "type": "item", "code": "game:glass-*" }
+      "G": { "type": "block", "code": "game:glass-*" }
     },
     "width": 3,
     "height": 3,

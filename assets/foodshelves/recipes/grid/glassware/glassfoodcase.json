@@ -4,7 +4,7 @@
     "ingredients": {
       "P": { "type": "item", "code": "game:plank-*" },
       "S": { "type": "item", "code": "game:stick" },
-      "G": { "type": "item", "code": "game:glassslab-*-down-free" }
+      "G": { "type": "block", "code": "game:glassslab-*-down-free" }
     },
     "width": 3,
     "height": 3,
