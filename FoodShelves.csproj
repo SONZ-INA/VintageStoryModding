@@ -68,6 +68,7 @@
   <None Remove="assets\foodshelves\blocktypes\horizontalbarrelrackbig.json" />
   <None Remove="assets\foodshelves\blocktypes\seedshelf.json" />
   <None Remove="assets\foodshelves\blocktypes\shelves\glassjarshelf.json" />
+  <None Remove="assets\foodshelves\blocktypes\shelves\pieshelfattr.json" />
   <None Remove="assets\foodshelves\blocktypes\vegetablebasket.json" />
   <None Remove="assets\foodshelves\config\restrictions\barrels\barrelrack.json" />
   <None Remove="assets\foodshelves\config\restrictions\barrels\barrelrackbig.json" />
@@ -90,7 +91,6 @@
   <None Remove="assets\foodshelves\config\transformations\pieshelf.json" />
   <None Remove="assets\foodshelves\config\transformations\shelves\barshelf.json" />
   <None Remove="assets\foodshelves\config\transformations\shelves\breadshelf.json" />
-  <None Remove="assets\foodshelves\patches\gourmand.json" />
   <None Remove="assets\foodshelves\patches\laverace.json" />
   <None Remove="assets\foodshelves\patches\variants\glassware.json" />
   <None Remove="assets\foodshelves\patches\variants\pumpkincase.json" />
@@ -185,6 +185,12 @@
 
 <ItemGroup>
   <Content Update="assets\foodshelves\blocktypes\glassware\ceilingjar.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+</ItemGroup>
+
+<ItemGroup>
+  <Content Update="assets\foodshelves\blocktypes\shelves\pieshelfattr.json">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
 </ItemGroup>

@@ -19,7 +19,19 @@ public class BlockEntityEggShelf : BlockEntityDisplay {
 
         if (block.Code.SecondCodePart().StartsWith("short")) {
             itemsPerSegment /= 2;
+
+            // Need to save items and transfer it over to new inventory, they disappear otherwise
+            List<ItemStack> stack = new();
+            foreach (var slot in inv) stack.Add(slot.Itemstack);
+            stack.ToArray();
+
             inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotEggShelf(inv));
+
+            for (int i = 0; i < shelfCount * segmentsPerShelf * itemsPerSegment; i++) {
+                if (i >= stack.Count) break;
+                inv[i].Itemstack = stack[i];
+            }
+
             Inventory.LateInitialize(Inventory.InventoryID, api);
         }
 
