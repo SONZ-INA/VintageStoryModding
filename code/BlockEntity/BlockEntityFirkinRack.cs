@@ -28,6 +28,8 @@ public class BlockEntityFirkinRack : BlockEntityDisplay {
                 (inv[i] as ItemSlotLiquidOnly).CapacityLitres = CapacityLitres;
             }
         }
+
+        inv.OnAcquireTransitionSpeed += Inventory_OnAcquireTransitionSpeed;
     }
 
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
@@ -103,9 +105,13 @@ public class BlockEntityFirkinRack : BlockEntityDisplay {
         return false;
     }
 
-    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        if (transType == EnumTransitionType.Perish) return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.5f);
-        else return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.8f); // Expanded Foods curing compitability
+    private float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        float multiplier = baseMul;
+
+        if (transType == EnumTransitionType.Perish) multiplier *= 0.5f;
+        else multiplier *= 0.8f; // Expanded foods compatibility
+
+        return multiplier;
     }
 
     protected override float[][] genTransformationMatrices() {

@@ -30,11 +30,13 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
         if (block?.Code.Path.StartsWith("barrelrackbig-top-") == true) {
             block.SideSolid = new SmallBoolArray(0); 
         }
+
+        inv.OnAcquireTransitionSpeed += Inventory_OnAcquireTransitionSpeed;
     }
 
-    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        if (transType == EnumTransitionType.Perish) return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.4f);
-        else return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.75f); // Expanded Foods curing compitability
+    private float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Perish) return baseMul * 0.4f;
+        else return baseMul * 0.75f; // Expanded foods compatibility
     }
 
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {

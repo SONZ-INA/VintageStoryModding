@@ -146,6 +146,7 @@
   <None Remove="assets\foodshelves\shapes\block\wood\shelves\PumpkinShelf.json" />
   <None Remove="assets\foodshelves\shapes\block\wood\shelves\SeedShelfShort.json" />
   <None Remove="assets\foodshelves\shapes\block\wood\shelves\SushiShelfShort.json" />
+  <None Remove="assets\foodshelves\shapes\block\wood\TableWShelf.json" />
   <None Remove="assets\foodshelves\shapes\block\wood\VegetableBasket.json" />
   <None Remove="assets\foodshelves\shapes\block\wood\wshelf.json" />
   <None Remove="assets\foodshelves\shapes\util\CeilingJarContentCube.json" />

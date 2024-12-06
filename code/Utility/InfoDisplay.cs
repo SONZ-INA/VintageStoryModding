@@ -9,6 +9,10 @@ public static class InfoDisplay {
         ByBlockMerged
     }
 
+    public static void DisplayPerishMultiplier(float perishMul, StringBuilder dsc) {
+        dsc.AppendLine(Lang.Get("Stored food perish speed: {0}x", Math.Round(perishMul, 2)));
+    }
+
     public static void DisplayInfo(IPlayer forPlayer, StringBuilder sb, InventoryGeneric inv, InfoDisplayOptions displaySelection, int slotCount, int segmentsPerShelf = 0, int itemsPerSegment = 0, bool skipLine = true) {
         if (skipLine) sb.AppendLine(); // Space in between to be in line with vanilla
 

@@ -20,14 +20,16 @@ public class BlockEntityTableWShelf : BlockEntityDisplay {
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
         base.Initialize(api);
+
+        inv.OnAcquireTransitionSpeed += Inventory_OnAcquireTransitionSpeed;
     }
 
-    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2f : 0.5f;
+    private float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return container.Room?.ExitCount == 0 ? 2f : 0.5f;
         if (Api == null) return 0;
 
         if (transType == EnumTransitionType.Perish || transType == EnumTransitionType.Ripen) {
-            float perishRate = GetPerishRate();
+            float perishRate = container.GetPerishRate();
             if (transType == EnumTransitionType.Ripen) {
                 return GameMath.Clamp((1 - perishRate - 0.5f) * 3, 0, 1);
             }
@@ -103,17 +105,21 @@ public class BlockEntityTableWShelf : BlockEntityDisplay {
 
         for (int index = 0; index < slotCount; index++) {
             float scaleValue = 1f;
+            float offset = 0;
 
             // Using vanilla shelf transformations, the pot is too big so need to adjust it
             ItemSlot slot = inv[index];
-            if (slot?.Itemstack?.Collectible?.Code.Path.StartsWith("claypot-") == true) scaleValue = 0.85f;
+            if (slot?.Itemstack?.Collectible?.Code.Path.StartsWith("claypot-") == true) {
+                scaleValue = 0.85f;
+                offset = 0.03f;
+            }
 
             tfMatrices[index] =
                 new Matrixf()
                 .Translate(0.5f, 0, 0.5f)
                 .RotateYDeg(block.Shape.rotateY)
                 .Scale(scaleValue, scaleValue, scaleValue)
-                .Translate(- 0.5f, 0.36f, index * 0.5f - 0.75f)
+                .Translate(- 0.5f, 0.185f + offset, index * 0.5f - 0.75f)
                 .Values;
         }
 

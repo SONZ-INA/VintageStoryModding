@@ -7,7 +7,7 @@
 	  "*": { "general": ["*-north"], "decorative": ["*-north"], "foodshelves": ["*-north"] }
   },
   "variantgroups": [
-    { "code": "type", "states": ["normal", "aged", "whitemarble", "redmarble", "greenmarble"] },
+    { "code": "type", "states": ["normal", "whitemarble", "redmarble", "greenmarble"] },
     { "code": "side", "loadFromProperties": "abstract/horizontalorientation" }
   ],
   "attributes": {
@@ -33,33 +33,21 @@
     "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
   },
   "texturesByType": {
-	  "*-whitemarble-*": {
-	    "sides": { "base": "game:block/wood/table/normal/sides-{type}" },
-	    "top": { "base": "game:block/stone/polishedrock/{type}-inside" },
-	    "bottom": { "base": "game:block/wood/table/normal/bottom" },
-	    "legs": { "base": "game:block/wood/table/normal/legs" },
-	    "shelftop": { "base": "game:block/wood/table/normal/top" }
-	  },
-	  "*-redmarble-*": {
-	    "sides": { "base": "game:block/wood/table/normal/sides-{type}" },
-	    "top": { "base": "game:block/stone/polishedrock/{type}-inside" },
-	    "bottom": { "base": "game:block/wood/table/normal/bottom" },
-	    "legs": { "base": "game:block/wood/table/normal/legs" },
-	    "shelftop": { "base": "game:block/wood/table/normal/top" }
-	  },
-	  "*-greenmarble-*": {
-	    "sides": { "base": "game:block/wood/table/normal/sides-{type}" },
-	    "top": { "base": "game:block/stone/polishedrock/{type}-inside" },
-	    "bottom": { "base": "game:block/wood/table/normal/bottom" },
-	    "legs": { "base": "game:block/wood/table/normal/legs" },
-	    "shelftop": { "base": "game:block/wood/table/normal/top" }
-	  },
+    "*-whitemarble-*": {
+      "top": { "base": "game:block/stone/polishedrock/{type}-inside" },
+      "wood": { "base": "game:block/wood/debarked/oak" }
+    },
+    "*-redmarble-*": {
+      "top": { "base": "game:block/stone/polishedrock/{type}-inside" },
+      "wood": { "base": "game:block/wood/debarked/oak" }
+    },
+    "*-greenmarble-*": {
+      "top": { "base": "game:block/stone/polishedrock/{type}-inside" },
+      "wood": { "base": "game:block/wood/debarked/oak" }
+    },
 	  "*": {
-	    "sides": { "base": "game:block/wood/table/{type}/sides" },
-	    "top": { "base": "game:block/wood/table/{type}/top" },
-      "bottom": { "base": "game:block/wood/table/{type}/bottom" },
-      "legs": { "base": "game:block/wood/table/{type}/legs" },
-      "shelftop": { "base": "game:block/wood/table/{type}/top" }
+	    "top": { "base": "game:block/wood/table/normal/top" },
+      "wood": { "base": "game:block/wood/debarked/oak" }
 	  }
   },
   "heldTpIdleAnimation": "holdunderarm",
@@ -94,7 +82,7 @@
   "materialDensity": 400,
   "collisionbox": { "x1": 0.125, "y1": 0, "z1": 0, "x2": 0.875, "y2": 1, "z2": 1, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
   "selectionBoxes": [
-	  { "x1": 0, "y1": 0.3125, "z1": 0.28, "x2": 0.975, "y2": 0.75, "z2": 0.72, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
+	  { "x1": 0, "y1": 0.125, "z1": 0.28, "x2": 0.975, "y2": 0.5625, "z2": 0.72, "rotateYByType": { "*-north": 90, "*-east": 0, "*-west": 180, "*-south": 270 } },
     { "x1": 0, "y1": 0, "z1": 0, "x2": 1, "y2": 1, "z2": 1 }
   ]
 }

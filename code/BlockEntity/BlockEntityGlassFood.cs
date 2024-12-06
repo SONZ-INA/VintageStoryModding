@@ -29,14 +29,16 @@ public class BlockEntityGlassFood : BlockEntityDisplay {
         }
 
         base.Initialize(api);
+
+        inv.OnAcquireTransitionSpeed += Inventory_OnAcquireTransitionSpeed;
     }
 
-    public override float GetPerishRate() {
-        return base.GetPerishRate() * 0.75f; // Slower perish rate
+    private float GetPerishRate() {
+        return container.GetPerishRate() * 0.75f; // Slower perish rate
     }
 
-    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2f : 0.5f;
+    private float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return container.Room?.ExitCount == 0 ? 2f : 0.5f;
         if (Api == null) return 0;
 
         if (transType == EnumTransitionType.Perish || transType == EnumTransitionType.Ripen) {
@@ -179,7 +181,7 @@ public class BlockEntityGlassFood : BlockEntityDisplay {
     }
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
-        base.GetBlockInfo(forPlayer, sb);
+        DisplayPerishMultiplier(GetPerishRate(), sb);
 
         float ripenRate = GameMath.Clamp((1 - GetPerishRate() - 0.5f) * 3, 0, 1);
         if (ripenRate > 0) sb.Append(Lang.Get("Suitable spot for food ripening."));

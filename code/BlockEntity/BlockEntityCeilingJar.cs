@@ -15,14 +15,16 @@ public class BlockEntityCeilingJar : BlockEntityDisplay {
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
         base.Initialize(api);
+
+        inv.OnAcquireTransitionSpeed += Inventory_OnAcquireTransitionSpeed;
     }
 
-    public override float GetPerishRate() {
-        return base.GetPerishRate() * 0.75f; // Slower perish rate
+    private float GetPerishRate() {
+        return container.GetPerishRate() * 0.75f; // Slower perish rate
     }
 
-    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2.5f : 0.5f; // Faster dry/melt rate
+    private float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return container.Room?.ExitCount == 0 ? 2.5f : 0.5f; // Faster dry/melt rate
         if (Api == null) return 0;
 
         if (transType == EnumTransitionType.Perish || transType == EnumTransitionType.Ripen) {
@@ -70,12 +72,11 @@ public class BlockEntityCeilingJar : BlockEntityDisplay {
                     if (inv[i].StackSize < inv[0].Itemstack.Collectible.MaxStackSize) break;
                 }
             }
-            else
-            {
+            else { 
                 for (int i = 0; i < inv.Count; i++) {
                     if (inv[i].StackSize < inv[i].MaxSlotStackSize) {
                         moved = slot.TryPutInto(Api.World, inv[i], 1);
-                        break;
+                        if (moved > 0) break;
                     }
                 }
             }
@@ -141,7 +142,7 @@ public class BlockEntityCeilingJar : BlockEntityDisplay {
     }
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
-        base.GetBlockInfo(forPlayer, sb);
+        DisplayPerishMultiplier(GetPerishRate(), sb);
         DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.ByBlockMerged, slotCount);
     }
 }

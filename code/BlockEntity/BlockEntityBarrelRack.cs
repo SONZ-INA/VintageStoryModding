@@ -25,11 +25,13 @@ public class BlockEntityBarrelRack : BlockEntityContainer {
             CapacityLitres = block.Attributes["capacityLitres"].AsInt(50);
             (inv[1] as ItemSlotLiquidOnly).CapacityLitres = CapacityLitres;
         }
+
+        inv.OnAcquireTransitionSpeed += Inventory_OnAcquireTransitionSpeed;
     }
 
-    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        if (transType == EnumTransitionType.Perish) return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.5f);
-        else return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.8f); // Expanded Foods curing compitability
+    private float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Perish) return baseMul * 0.5f;
+        else return baseMul * 0.8f; // Expanded foods compatibility
     }
 
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {

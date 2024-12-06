@@ -15,6 +15,8 @@ public class BlockEntityGlassJar : BlockEntityDisplay {
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
         base.Initialize(api);
+
+        inv.OnAcquireTransitionSpeed += Inventory_OnAcquireTransitionSpeed;
     }
 
     internal bool OnInteract(IPlayer byPlayer) {
@@ -122,11 +124,11 @@ public class BlockEntityGlassJar : BlockEntityDisplay {
     }
 
     // Check this method for dehydrated fruit -> dry fruit
-    protected override float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return room?.ExitCount == 0 ? 2f : 0.5f;
+    private float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return container.Room?.ExitCount == 0 ? 2f : 0.5f;
         if (Api == null) return 0;
 
-        return base.Inventory_OnAcquireTransitionSpeed(transType, stack, 0.75f);
+        return baseMul * 0.75f;
     }
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
