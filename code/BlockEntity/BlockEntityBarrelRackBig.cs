@@ -35,7 +35,7 @@ public class BlockEntityBarrelRackBig : BlockEntityContainer {
     }
 
     private float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        if (transType == EnumTransitionType.Perish) return baseMul * 0.4f;
+        if (transType == EnumTransitionType.Perish) return 0.4f;
         else return baseMul * 0.75f; // Expanded foods compatibility
     }
 

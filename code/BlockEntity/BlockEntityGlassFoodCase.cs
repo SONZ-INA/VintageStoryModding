@@ -16,6 +16,7 @@ public class BlockEntityGlassFoodCase : BlockEntityDisplay {
     private const int shelfCount = 2;
     private const int segmentsPerShelf = 1;
     private const int itemsPerSegment = 4;
+    private const float perishMultiplier = 0.75f;
 
     public BlockEntityGlassFoodCase() { inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotFoodUniversal(inv)); }
 
@@ -27,23 +28,19 @@ public class BlockEntityGlassFoodCase : BlockEntityDisplay {
     }
 
     private float GetPerishRate() {
-        return container.GetPerishRate() * 0.75f; // Slower perish rate
+        return container.GetPerishRate() * perishMultiplier; // Slower perish rate
     }
 
     private float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
         if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return container.Room?.ExitCount == 0 ? 2f : 0.5f;
         if (Api == null) return 0;
 
-        if (transType == EnumTransitionType.Perish || transType == EnumTransitionType.Ripen) {
+        if (transType == EnumTransitionType.Ripen) {
             float perishRate = GetPerishRate();
-            if (transType == EnumTransitionType.Ripen) {
-                return GameMath.Clamp((1 - perishRate - 0.5f) * 3, 0, 1);
-            }
-
-            return baseMul * perishRate;
+            return GameMath.Clamp((1 - perishRate - 0.5f) * 3, 0, 1);
         }
 
-        return 1;
+        return perishMultiplier;
     }
 
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
