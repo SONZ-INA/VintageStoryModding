@@ -1,9 +1,0 @@
-[
-  {
-    "file": "foodshelves:config/restrictions/shelves/pieshelf.json",
-    "op": "addmerge",
-    "path": "/CollectibleTypes/0",
-    "value": "game:NotifyingPie",
-    "dependsOn": [ { "modid": "gourmand" } ]
-  }
-]

@@ -29,6 +29,13 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBox
         return base.GetHeldItemName(itemStack) + " " + variantName;
     }
 
+    public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo) {
+        base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+
+        dsc.AppendLine("");
+        dsc.AppendLine(Lang.Get("foodshelves:helddesc-barrelrackbig"));
+    }
+
     public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1) {
         // First, check for behaviors preventing default, for example Reinforcement system
         bool preventDefault = false;

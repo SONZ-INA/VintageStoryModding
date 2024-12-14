@@ -44,6 +44,11 @@
   "blockdesc-pumpkincase-text": "  -Може држати само бундеве.",
   "blockdesc-fooduniversal-text": "  -Пите, Сир, сви типови хлеба<br>Проширена Храна:<br>  -Мафини<br>  -кифле.",
 
+  "helddesc-barrelrack": "Течности складиштене у овом држачу буради имају стопу кварења од 0,5x и стопу сазревања од 0,8x.",
+  "helddesc-barrelrackbig": "Течности складиштене у овом великом држачу буради имају стопу кварења од 0,4x и стопу сазревања од 0,75x.",
+  "helddesc-ceilingjar": "Дехидрирано воће постављено у плафонску теглу се суши/топи 2,5x брже и има стопу кварења од 0,75x.",
+  "helddesc-glassfoodcase": "Храна складиштена у ову витрину има стопу кварења од 0,75x.",
+
   "Only pies or cheese can be placed on this shelf.": "Само пите или сир могу бити постављени на ову полицу.",
   "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.": "Само хлеб, мафини, кнедле, паћока, халва или марципан могу бити постављени на ову полицу.",
   "Only food bars can be placed on this shelf.": "Само штанглице могу бити постављене на ову полицу.",

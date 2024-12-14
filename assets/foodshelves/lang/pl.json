@@ -48,6 +48,11 @@
   "blockdesc-pumpkincase-text": "  -Może pomieścić tylko dynie.",
   "blockdesc-fooduniversal-text": "  -Ciasta, sery, wszystkie rodzaje chleba<br>Rozszerzone jedzenie:<br>  -Muffiny<br>  -Pierogi.",
 
+  "helddesc-barrelrack": "Ciecze przechowywane w tym stojaku na beczki mają wskaźnik psucia 0,5x i szybkość dojrzewania 0,8x.",
+  "helddesc-barrelrackbig": "Ciecze przechowywane w tym dużym stojaku na beczki mają wskaźnik psucia 0,4x i szybkość dojrzewania 0,75x.",
+  "helddesc-ceilingjar": "Owoce suszone umieszczone w słoju sufitowym schną/topią się 2,5 razy szybciej i mają wskaźnik psucia 0,75x.",
+  "helddesc-glassfoodcase": "Żywność umieszczona w tej gablocie ma wskaźnik psucia 0,75x.",
+
   "Only pies or cheese can be placed on this shelf.": "Na tej półce można umieścić tylko ciasta lub sery.",
   "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.": "Na tej półce można umieścić tylko chleb, muffiny, pierogi, pacoca, halva lub marzipan.",
   "Only food bars can be placed on this shelf.": "Na tej półce można umieścić tylko batony energetyczne.",
@@ -59,7 +64,7 @@
   "Only vegetables can be placed in this basket.": "W tym koszu można umieścić tylko warzywa.",
   "Only eggs can be placed in this basket.": "W tym koszu można umieścić tylko jajka.",
   "Only barrels can be placed on this rack.": "Na tej półce można umieścić tylko beczki.",
-  
+
   "This barrel needs to be placed in a barrel rack.": "Ta beczka musi być umieszczona na półce na beczki.",
   "The barrel must be emptied before it can be picked up.": "Beczka musi zostać opróżniona, zanim będzie mogła zostać podniesiona.",
   "Missing barrel.": "<font color=\"orange\">Brak beczki.</font>",

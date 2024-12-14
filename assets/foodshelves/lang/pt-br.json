@@ -47,6 +47,11 @@
   "blockdesc-pumpkincase-text": "  - Só pode conter abóboras.",
   "blockdesc-fooduniversal-text": "  - Tortas, queijos, todos os tipos de pão<br>Comidas ampliadas:<br>  - Muffins<br>  - Empanadas.",
 
+  "helddesc-barrelrack": "Líquidos armazenados neste suporte de barril têm uma taxa de deterioração de 0,5x e uma taxa de cura de 0,8x.",
+  "helddesc-barrelrackbig": "Líquidos armazenados neste grande suporte de barril têm uma taxa de deterioração de 0,4x e uma taxa de cura de 0,75x.",
+  "helddesc-ceilingjar": "Frutas desidratadas colocadas no jarro de teto secam/derretem 2,5x mais rápido e têm uma taxa de deterioração de 0,75x.",
+  "helddesc-glassfoodcase": "Alimentos colocados nesta vitrine têm uma taxa de deterioração de 0,75x.",
+
   "Only pies or cheese can be placed on this shelf.": "Somente tortas ou queijos podem ser colocados nesta prateleira.",
   "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.": "Somente pães, muffins, empanadas, pacoca, halva ou marzipã podem ser colocados nesta prateleira.",
   "Only food bars can be placed on this shelf.": "Somente barras alimentícias podem ser colocadas nesta prateleira.",

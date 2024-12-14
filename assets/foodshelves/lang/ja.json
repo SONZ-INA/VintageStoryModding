@@ -47,6 +47,11 @@
   "blockdesc-pumpkincase-text": "  - カボチャのみを収納できます。",
   "blockdesc-fooduniversal-text": "  - パイ、チーズ、すべてのパンタイプ<br>拡張食品：<br>  - マフィン<br>  - 餃子。",
 
+  "helddesc-barrelrack": "このバレルラックに保管された液体は、腐敗率が0.5倍で、熟成率が0.8倍になります。",
+  "helddesc-barrelrackbig": "この大型バレルラックに保管された液体は、腐敗率が0.4倍で、熟成率が0.75倍になります。",
+  "helddesc-ceilingjar": "天井瓶に置かれた乾燥果物は、乾燥/融解速度が2.5倍速くなり、腐敗率が0.75倍になります。",
+  "helddesc-glassfoodcase": "このケースに置かれた食品は、腐敗率が0.75倍になります。",
+
   "Only pies or cheese can be placed on this shelf.": "この棚にはパイまたはチーズのみ置けます。",
   "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.": "この棚にはパン、マフィン、餃子、パコカ、ハルヴァ、またはマルジパンのみ置けます。",
   "Only food bars can be placed on this shelf.": "この棚には食品バーのみ置けます。",

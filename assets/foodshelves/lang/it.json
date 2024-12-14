@@ -47,6 +47,11 @@
   "blockdesc-pumpkincase-text": "  - Può contenere solo zucche.",
   "blockdesc-fooduniversal-text": "  - Torte, formaggi, tutti i tipi di pane<br>Alimenti aggiuntivi:<br>  - Muffin<br>  - Gnocchi.",
 
+  "helddesc-barrelrack": "I liquidi conservati in questo supporto per barili hanno un tasso di deterioramento di 0,5x e un tasso di cura di 0,8x.",
+  "helddesc-barrelrackbig": "I liquidi conservati in questo grande supporto per barili hanno un tasso di deterioramento di 0,4x e un tasso di cura di 0,75x.",
+  "helddesc-ceilingjar": "La frutta disidratata posta nel barattolo da soffitto si asciuga/scioglie a una velocità 2,5x più rapida e ha un tasso di deterioramento di 0,75x.",
+  "helddesc-glassfoodcase": "Il cibo posto in questa vetrina ha un tasso di deterioramento di 0,75x.",
+
   "Only pies or cheese can be placed on this shelf.": "Solo torte o formaggi possono essere posizionati su questo scaffale.",
   "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.": "Solo pane, muffin, gnocchi, pacoca, halva o marzapane possono essere posizionati su questo scaffale.",
   "Only food bars can be placed on this shelf.": "Solo barrette alimentari possono essere posizionate su questo scaffale.",

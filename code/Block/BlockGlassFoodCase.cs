@@ -14,4 +14,11 @@ public class BlockGlassFoodCase : Block {
         string variantName = itemStack.GetMaterialNameLocalized();
         return base.GetHeldItemName(itemStack) + " " + variantName;
     }
+
+    public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo) {
+        base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+
+        dsc.AppendLine("");
+        dsc.AppendLine(Lang.Get("foodshelves:helddesc-glassfoodcase"));
+    }
 }

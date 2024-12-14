@@ -48,6 +48,11 @@
   "blockdesc-pumpkincase-text": "  -Can only hold pumpkins.",
   "blockdesc-fooduniversal-text": "  -Pies, Cheese, all bread types<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings.",
 
+  "helddesc-barrelrack": "Liquids stored in this Barrel rack have 0.5x perish rate and 0.8x curing rate.",
+  "helddesc-barrelrackbig": "Liquids stored in this Big barrel rack have 0.4x perish rate and 0.75x curing rate.",
+  "helddesc-ceilingjar": "Dehydrated fruit placed in the Ceiling Jar has a 2.5x faster dry/melt rate, and 0.75x perish rate.",
+  "helddesc-glassfoodcase": "Food placed in this case has a 0.75x perish rate.",
+
   "Only pies or cheese can be placed on this shelf.": "Only pies or cheese can be placed on this shelf.",
   "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.": "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.",
   "Only food bars can be placed on this shelf.": "Only food bars can be placed on this shelf.",
