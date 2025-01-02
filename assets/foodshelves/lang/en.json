@@ -28,6 +28,7 @@
   "block-glassfoodcase-*": "Glass Food Case",
   "block-glassjar-*": "Glass Jar",
   "block-ceilingjar-*": "Ceiling Jar",
+  "block-fridge-*": "Fridge",
 
   "blockdesc-canhold-title": "Can hold:",
   "blockdesc-canbeplacedin-title": "Can be placed in:",
@@ -47,12 +48,15 @@
   "blockdesc-liquidystuff-text": "  -Can hold resin, beeswax, animal fat, and all dehydrated/dry fruits from Expanded Foods.",
   "blockdesc-pumpkincase-text": "  -Can only hold pumpkins.",
   "blockdesc-fooduniversal-text": "  -Pies, Cheese, all bread types<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings.",
+  "blockdesc-holderuniversal-text": "null",
 
   "helddesc-barrelrack": "Liquids stored in this Barrel rack have 0.5x perish rate and 0.8x curing rate.",
   "helddesc-barrelrackbig": "Liquids stored in this Big barrel rack have 0.4x perish rate and 0.75x curing rate.",
   "helddesc-ceilingjar": "Dehydrated fruit placed in the Ceiling Jar has a 2.5x faster dry/melt rate, and 0.75x perish rate.",
   "helddesc-glassfoodcase": "Food placed in this case has a 0.75x perish rate.",
+  "helddesc-fridge": "null",
 
+  "This item cannot be placed in this container.": "This item cannot be placed in this container.",
   "Only pies or cheese can be placed on this shelf.": "Only pies or cheese can be placed on this shelf.",
   "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.": "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.",
   "Only food bars can be placed on this shelf.": "Only food bars can be placed on this shelf.",
@@ -68,6 +72,8 @@
   "This barrel needs to be placed in a barrel rack.": "This barrel needs to be placed in a barrel rack.",
   "The barrel must be emptied before it can be picked up.": "The barrel must be emptied before it can be picked up.",
   "Missing barrel.": "<font color=\"orange\">Missing barrel.</font>",
+
+  "placefailure-requireceilingattachable": "Cannot place this block here. It has to be attached to the ceiling of an unchiseled block.",
 
   "Contents": "<font color=\"orange\">Contents: </font>",
   "Soonest": "Soonest: ",

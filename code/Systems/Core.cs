@@ -76,6 +76,9 @@ public class Core : ModSystem {
         //api.RegisterBlockEntityClass("FoodShelves.BlockEntityGlassJar", typeof(BlockEntityGlassJar));
         api.RegisterBlockClass("FoodShelves.BlockCeilingJar", typeof(BlockCeilingJar));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityCeilingJar", typeof(BlockEntityCeilingJar));
+
+        api.RegisterBlockClass("FoodShelves.BlockFridge", typeof(BlockFridge));
+        api.RegisterBlockEntityClass("FoodShelves.BlockEntityFridge", typeof(BlockEntityFridge));
     }
 
     public override void StartClientSide(ICoreClientAPI api) {
@@ -93,6 +96,8 @@ public class Core : ModSystem {
 
         FoodUniversalData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/general/fooduniversal.json");
         FoodUniversalTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/general/fooduniversal.json");
+        HolderUniversalData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/general/holderuniversal.json");
+        HolderUniversalTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/general/holderuniversal.json");
         LiquidyStuffData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/general/liquidystuff.json");
 
         PieShelfData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/shelves/pieshelf.json");
@@ -117,6 +122,7 @@ public class Core : ModSystem {
         //FirkinRackData = api.LoadAsset<RestrictionData.FirkinRackData>("foodshelves:config/restrictions/barrels/firkinrack.json");
 
         PumpkinCaseData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/pumpkincase.json");
+
     }
 
     public override void AssetsFinalize(ICoreAPI api) {
@@ -124,6 +130,7 @@ public class Core : ModSystem {
 
         foreach (CollectibleObject obj in api.World.Collectibles) {
             PatchFoodUniversal(obj, FoodUniversalData);
+            PatchHolderUniversal(obj, HolderUniversalData);
             PatchLiquidyStuff(obj, LiquidyStuffData);
 
             PatchPieShelf(obj, PieShelfData);

@@ -47,10 +47,10 @@
   "blockdesc-pumpkincase-text": "  -只能装南瓜。",
   "blockdesc-fooduniversal-text": "  -馅饼、奶酪、所有面包类型<br>扩展食品：<br>-松饼<br>-饺子",
 
-  "helddesc-barrelrack": "储存在此架中的液体，腐败速度为0.5倍，熟化速度为0.8倍。",
-  "helddesc-barrelrackbig": "储存在此大架中的液体，腐败速度为0.4倍，熟化速度为0.75倍。",
-  "helddesc-ceilingjar": "放置在此罐中的脱水水果，干燥/融化速度加快2.5倍，腐败速度为0.75倍。",
-  "helddesc-glassfoodcase": "放置在此柜中的食物，腐败速度为0.75倍。",
+  "helddesc-barrelrack": "储存在这种桶架中的液体的腐烂率为 0.5 倍，硬化率为 0.8 倍。",
+  "helddesc-barrelrackbig": "储存在这种大桶架中的液体的腐烂率为 0.4 倍，硬化率为 0.75 倍。",
+  "helddesc-ceilingjar": "放置在天花板罐中的脱水水果的干燥/融化速度是原来的 2.5 倍，腐烂速度是原来的 0.75 倍。",
+  "helddesc-glassfoodcase": "在这种情况下，食物的腐烂率为 0.75 倍。",
 
   "Only pies or cheese can be placed on this shelf.": "这个架子上只能放馅饼或奶酪.",
   "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.": "这个架子上只能放面包、松饼、饺子、花生酥、炸蔬菜丸子或杏仁膏。",

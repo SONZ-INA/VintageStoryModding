@@ -8,6 +8,7 @@ public class RestrictionData {
 public static class RestrictionsCollection {
     #region General
     public static RestrictionData FoodUniversalData { get; set; } = new();
+    public static RestrictionData HolderUniversalData { get; set; } = new();
     public static RestrictionData LiquidyStuffData { get; set; } = new();
     #endregion
 
@@ -54,6 +55,18 @@ public static class Restrictions
     public static bool FoodUniversalCheck(this CollectibleObject obj) => obj?.Attributes?[FoodUniversal].AsBool() == true;
     public static bool FoodUniversalCheck(this ItemSlot slot) {
         if (slot?.Itemstack?.Collectible?.Attributes?[FoodUniversal].AsBool() == false) return false;
+        if (slot?.Inventory?.ClassName == "hopper") return false;
+        return true;
+    }
+
+    #endregion
+
+    #region HolderUniversal
+
+    public const string HolderUniversal = "holderuniversalcheck";
+    public static bool HolderUniversalCheck(this CollectibleObject obj) => obj?.Attributes?[HolderUniversal].AsBool() == true;
+    public static bool HolderUniversalCheck(this ItemSlot slot) {
+        if (slot?.Itemstack?.Collectible?.Attributes?[HolderUniversal].AsBool() == false) return false;
         if (slot?.Inventory?.ClassName == "hopper") return false;
         return true;
     }

@@ -1,0 +1,77 @@
+{
+  "code": "fridge",
+  "class": "FoodShelves.BlockFridge",
+  "entityclass": "FoodShelves.BlockEntityFridge",
+  "creativeinventory": { "general": ["*-east"], "decorative": ["*-east"], "foodshelves": ["*-east"] },
+  "variantgroups": [
+    { "code": "type", "states": ["normal"] },
+    { "code": "side", "loadFromProperties": "abstract/horizontalorientation" }
+  ],
+  "attributes": {
+    "handbook": {
+      "groupBy": [ "fridge-*" ],
+      "extraSections": [
+        {
+          "title": "foodshelves:blockdesc-canhold-title",
+          "text": "foodshelves:blockdesc-fridge-text"
+        }
+      ]
+    },
+    "inventoryClassName": "foodshelvesfridge",
+    "attributeTransformCode": "onFridgeTransform"
+  },
+  "behaviors": [
+    { "name": "UnstableFalling" },
+    { "name": "HorizontalOrientable" },
+    { "name": "Multiblock",
+      "propertiesByType": {
+        "*-north": { "sizex": 2, "sizey": 2, "sizez": 1, "cposition": { "x": 0, "y": 0, "z": 0 } },
+        "*-east": { "sizex": 1, "sizey": 2, "sizez": 2, "cposition": { "x": 0, "y": 0, "z": 0 } },
+        "*-south": { "sizex": 2, "sizey": 2, "sizez": 1, "cposition": { "x": 1, "y": 0, "z": 0 } },
+        "*-west": { "sizex": 1, "sizey": 2, "sizez": 2, "cposition": { "x": 0, "y": 0, "z": 1 } }
+      }
+    }
+  ],
+  "shape": {
+    "base": "block/wood/fridge",
+    "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
+  },
+  "textures": {
+    "surface_long": { "base": "foodshelves:block/wood/fridge/surface_long" },
+    "frame-slab": { "base": "game:block/glass/frame-slab" },
+    "plain": { "base": "game:block/glass/plain" },
+    "chalk": { "base": "game:block/stone/polishedrock/chalk" },
+    "surface": { "base": "game:block/wood/shelf/surface" }
+  },
+  "heldTpIdleAnimation": "holdbothhandslarge",
+  "heldRightReadyAnimation": "heldblockready", 
+  "heldTpUseAnimation": "twohandplaceblock",
+  "blockmaterial": "Wood",
+  "lightAbsorption": 0,
+  "faceCullMode": "NeverCull",
+  "emitSideAo": { "all": false },
+  "sidesolid": { "all": false },
+  "sideopaque": { "all": false },
+  "replaceable": 999,
+  "resistance": 1.5,
+  "guiTransform": {
+		"origin": { "x": 0.1, "y": 1.2, "z": 0.5 },
+		"scale": 0.55
+	},
+  "tpHandTransform": {
+	  "translation": { "x": -0.6, "y": -1.78, "z": -1.11 },
+	  "rotation": { "x": 99, "y": -4, "z": -76 },
+	  "scale": 0.35
+  },
+  "sounds": {
+    "place": "game:block/planks",
+    "hit": "game:block/planks",
+    "break": "game:block/planks"
+  },
+  "materialDensity": 400,
+  "collisionbox": { "x1": 0, "y1": 0, "z1": 0, "x2": 2, "y2": 2, "z2": 1, "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 } },
+  "selectionBoxes": [
+	  { "x1": 0.0625, "y1": 0, "z1": 0, "x2": 1.9375, "y2": 0.5, "z2": 0.9375, "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 } },
+	  { "x1": 0.0625, "y1": 0.5, "z1": 0, "x2": 1.9375, "y2": 1.9375, "z2": 0.9375, "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 } }
+  ]
+}

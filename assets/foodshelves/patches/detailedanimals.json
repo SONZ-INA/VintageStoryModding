@@ -1,0 +1,16 @@
+[
+  {
+    "file": "detailedanimals:itemtypes/egg-ceramic.json",
+    "op": "addmerge",
+    "path": "/attributes/eggbasketcheck",
+    "value": true,
+    "dependsOn": [ { "modid": "detailedanimals" } ]
+  },
+  {
+    "file": "detailedanimals:itemtypes/egg-chicken.json",
+    "op": "addmerge",
+    "path": "/attributes/eggbasketcheck",
+    "value": true,
+    "dependsOn": [ { "modid": "detailedanimals" } ]
+  }
+]
