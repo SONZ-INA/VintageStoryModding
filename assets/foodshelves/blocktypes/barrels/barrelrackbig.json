@@ -21,7 +21,6 @@
     "capacityLitres": 500
   },
   "behaviors": [
-    { "name": "UnstableFalling" },
     { "name": "HorizontalOrientable" },
     { "name": "Multiblock",
       "propertiesByType": {
@@ -56,10 +55,7 @@
   "maxStackSize": 32,
   "faceCullMode": "NeverCull",
   "emitSideAo": { "all": false },
-  "sidesolid": {
-    "verticals": true,
-    "horizontals": false
-  },	
+  "sidesolid": { "all": false },	
   "sideopaque": { "all": false },
   "replaceable": 999,
   "resistance": 1.5,

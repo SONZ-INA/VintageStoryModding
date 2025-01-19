@@ -28,7 +28,7 @@
   "block-glassfoodcase-*": "Glass Food Case",
   "block-glassjar-*": "Glass Jar",
   "block-ceilingjar-*": "Ceiling Jar",
-  "block-fridge-*": "Fridge",
+  "block-coolingcabinet-*": "Cooling Cabinet",
 
   "blockdesc-canhold-title": "Can hold:",
   "blockdesc-canbeplacedin-title": "Can be placed in:",
@@ -54,7 +54,7 @@
   "helddesc-barrelrackbig": "Liquids stored in this Big barrel rack have 0.4x perish rate and 0.75x curing rate.",
   "helddesc-ceilingjar": "Dehydrated fruit placed in the Ceiling Jar has a 2.5x faster dry/melt rate, and 0.75x perish rate.",
   "helddesc-glassfoodcase": "Food placed in this case has a 0.75x perish rate.",
-  "helddesc-fridge": "null",
+  "helddesc-coolingcabinet": "null",
 
   "This item cannot be placed in this container.": "This item cannot be placed in this container.",
   "Only pies or cheese can be placed on this shelf.": "Only pies or cheese can be placed on this shelf.",

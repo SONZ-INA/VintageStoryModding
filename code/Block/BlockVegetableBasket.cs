@@ -109,8 +109,12 @@ public class BlockVegetableBasket : BlockContainer {
 
         if (!meshrefs.TryGetValue(hashcode, out MultiTextureMeshRef meshRef)) {
             string itemPath = "";
-            if (contents != null && contents.Length > 0 && contents[0] != null) itemPath = contents[0].Collectible.Code.Path.ToString();
-            GetTransformationMatrix(itemPath, out float[,] transformationMatrix);
+
+            if (contents != null && contents.Length > 0 && contents[0] != null) {
+                itemPath = contents[0].Collectible.Code.Path.ToString();
+            } 
+            
+            float[,] transformationMatrix = GetTransformationMatrix(itemPath);
 
             capi.Tesselator.TesselateBlock(this, out MeshData basketMesh);
             MeshData contentMesh = GenContentMesh(capi, contents, transformationMatrix, 0.5f, VegetableBasketTransformations);
@@ -124,7 +128,7 @@ public class BlockVegetableBasket : BlockContainer {
         renderinfo.ModelRef = meshRef;
     }
 
-    public static void GetTransformationMatrix(string path, out float[,] transformationMatrix) {
+    public static float[,] GetTransformationMatrix(string path) {
         float[] x, y, z, rX, rY, rZ;
 
         switch (path) {
@@ -139,6 +143,7 @@ public class BlockVegetableBasket : BlockContainer {
                 break;
             case "vegetable-bellpepper":
             case "vegetable-avocado":
+            case "vegetable-onion":
                 x = new float[] { .75f, .3f, .19f,  .3f, .51f, .35f,  .05f,  .85f,   .7f,  .9f, .58f,   .4f };
                 y = new float[] {    0,   0,    0, .25f,    0, .35f,   .2f, -.25f, -.35f, .15f,  .4f, -.35f };
                 z = new float[] { .05f,   0,  .3f, .05f,  .4f, .25f, -.05f,  .05f,  .05f, .35f,  .3f,  -.3f };
@@ -158,6 +163,6 @@ public class BlockVegetableBasket : BlockContainer {
                 break;
         }
 
-        transformationMatrix = GenTransformationMatrix(x, y, z, rX, rY, rZ);
+        return GenTransformationMatrix(x, y, z, rX, rY, rZ);
     }
 }

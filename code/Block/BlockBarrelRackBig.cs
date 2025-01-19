@@ -1,4 +1,6 @@
-﻿namespace FoodShelves;
+﻿using System.Linq;
+
+namespace FoodShelves;
 
 public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBoxes {
     public override bool AllowHeldLiquidTransfer => false;
@@ -68,21 +70,6 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBox
 
     // Selection box for master block
     public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
-        BlockEntityBarrelRackBig be = blockAccessor.GetBlockEntity<BlockEntityBarrelRackBig>(pos);
-        if (be != null) {
-            int[] transformedIndex = GetMultiblockIndex(new Vec3i() { X = 0, Y = 0, Z = 0 }, be);
-            Cuboidf singleSelectionBox = new(
-                transformedIndex[0],
-                transformedIndex[1],
-                transformedIndex[2] - 1,
-                transformedIndex[0] + 2,
-                transformedIndex[1] + 2,
-                transformedIndex[2] + 1
-            );
-
-            return new Cuboidf[] { singleSelectionBox };
-        }
-
         return base.GetSelectionBoxes(blockAccessor, pos);
     }
 
@@ -90,18 +77,16 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBox
     public Cuboidf[] MBGetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos, Vec3i offset) {
         BlockEntityBarrelRackBig be = blockAccessor.GetBlockEntityExt<BlockEntityBarrelRackBig>(pos);
         if (be != null) {
-            int[] transformedIndex = GetMultiblockIndex(offset, be);
+            Cuboidf currentSelBox = base.GetSelectionBoxes(blockAccessor, pos).FirstOrDefault().Clone();
 
-            Cuboidf singleSelectionBox = new(
-                transformedIndex[0],
-                transformedIndex[1],
-                transformedIndex[2] - 1,
-                transformedIndex[0] + 2,
-                transformedIndex[1] + 2,
-                transformedIndex[2] + 1
-            );
+            currentSelBox.X1 += offset.X;
+            currentSelBox.X2 += offset.X;
+            currentSelBox.Y1 += offset.Y;
+            currentSelBox.Y2 += offset.Y;
+            currentSelBox.Z1 += offset.Z;
+            currentSelBox.Z2 += offset.Z;
 
-            return new Cuboidf[] { singleSelectionBox };
+            return new Cuboidf[] { currentSelBox };
         }
 
         return base.GetSelectionBoxes(blockAccessor, pos);

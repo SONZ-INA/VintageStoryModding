@@ -103,48 +103,6 @@ public static class Extensions {
         }
     }
 
-    private static char GetFacingFromBlockCode(BlockEntity block) {
-        string codePath = block.Block.Code.ToString();
-        if (codePath == null) return 'n';
-
-        string[] parts = codePath.Split('-');
-        string facingStr = parts.Last().ToLowerInvariant();
-
-        return facingStr switch {
-            "north" => 'n',
-            "east" => 'e',
-            "south" => 's',
-            "west" => 'w',
-            _ => 'n'
-        };
-    }
-
-    // currently hardcoded for BarrelRackBig
-    public static int[] GetMultiblockIndex(Vec3i offset, BlockEntity block) {
-        char facing = GetFacingFromBlockCode(block);
-
-        int transformedX = offset.X;
-        int transformedY = offset.Y;
-        int transformedZ = offset.Z;
-
-        switch (facing) {
-            case 'n':
-                break; // No change needed for North
-            case 's':
-                transformedX -= 1;
-                transformedZ += 1;
-                break;
-            case 'e':
-                transformedZ += 1;
-                break;
-            case 'w':
-                transformedX -= 1;
-                break;
-        }
-
-        return new int[3] { transformedX, transformedY, transformedZ };
-    }
-
     #endregion
 
     #region GeneralBlockExtensions

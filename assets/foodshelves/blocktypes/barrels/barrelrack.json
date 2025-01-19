@@ -21,7 +21,6 @@
     "capacityLitres": 50
   },
   "behaviors": [
-    { "name": "UnstableFalling" },
     { "name": "HorizontalOrientable" }
   ],
   "shapeByType": {
@@ -47,23 +46,17 @@
   "lightAbsorption": 1,
   "faceCullMode": "NeverCull",
   "emitSideAo": { "all": false },
-  "sidesolidByType": {
-    "barrelrack-normal-*": {
-      "verticals": true,
-      "horizontals": false
-    },
-    "barrelrack-top-*": { "all": false }
-  },
+  "sidesolid":{ "all": false },
   "sideopaque": { "all": false },
   "replaceable": 999,
   "resistance": 1.5,
   "tpHandTransformByType": {
-    "barrelrack-normal*": {
+    "*-normal*": {
       "translation": { "x": -1.23, "y": -0.91, "z": -0.8 },
 	    "rotation": { "x": 88, "y": 25, "z": -78 },
 	    "scale": 0.4
     },
-    "barrelrack-top*": {
+    "*-top*": {
 	    "translation": { "x": -1.2, "y": -0.6, "z": -0.5 },
 	    "rotation": { "x": 93, "y": -15, "z": 0 },
 	    "scale": 0.45

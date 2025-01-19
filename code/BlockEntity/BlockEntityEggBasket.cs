@@ -90,7 +90,7 @@ public class BlockEntityEggBasket : BlockEntityDisplay {
     }
 
     protected override float[][] genTransformationMatrices() {
-        BlockEggBasket.GetTransformationMatrix(out float[,] transformationMatrix);
+        float[,] transformationMatrix = BlockEggBasket.GetTransformationMatrix();
         float[][] tfMatrices = new float[slotCount][];
 
         for (int item = 0; item < slotCount; item++) {

@@ -22,7 +22,6 @@
     "capacityLitres": 10
   },
   "behaviors": [
-    { "name": "UnstableFalling" },
     { "name": "HorizontalOrientable" }
   ],
   "shapeByType": {
@@ -48,13 +47,7 @@
   "lightAbsorption": 1,
   "faceCullMode": "NeverCull",
   "emitSideAo": { "all": false },
-  "sidesolidByType": {
-    "firkinrack-normal-*": {
-      "verticals": true,
-      "horizontals": false
-    },
-    "firkinrack-top-*": { "all": false }
-  },
+  "sidesolid": { "all": false },
   "sideopaque": { "all": false },
   "replaceable": 999,
   "resistance": 1.5,

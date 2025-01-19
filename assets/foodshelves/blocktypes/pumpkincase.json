@@ -19,9 +19,6 @@
     "inventoryClassName": "pumpkincase",
     "attributeTransformCode": "onPumpkinCaseTransform"
   },
-  "behaviors": [
-    { "name": "UnstableFalling" }
-  ],
   "shape": {
     "base": "block/wood/pumpkincase"
   },
@@ -36,10 +33,7 @@
   "lightAbsorption": 0,
   "faceCullMode": "NeverCull",
   "emitSideAo": { "all": false },
-  "sidesolid": {
-	  "up": true,
-	  "all": false
-  },
+  "sidesolid": { "all": false },
   "sideopaque": {
     "down": true,
     "all": false

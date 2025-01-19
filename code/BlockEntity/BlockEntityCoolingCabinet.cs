@@ -1,6 +1,6 @@
 ﻿namespace FoodShelves;
 
-public class BlockEntityFridge : BlockEntityDisplay {
+public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     private readonly InventoryGeneric inv;
     private Block block;
     
@@ -13,7 +13,7 @@ public class BlockEntityFridge : BlockEntityDisplay {
     private const int itemsPerSegment = 2;
     static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
 
-    public BlockEntityFridge() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotHolderUniversal(inv)); }
+    public BlockEntityCoolingCabinet() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotHolderUniversal(inv)); }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);

@@ -77,8 +77,8 @@ public class Core : ModSystem {
         api.RegisterBlockClass("FoodShelves.BlockCeilingJar", typeof(BlockCeilingJar));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityCeilingJar", typeof(BlockEntityCeilingJar));
 
-        api.RegisterBlockClass("FoodShelves.BlockFridge", typeof(BlockFridge));
-        api.RegisterBlockEntityClass("FoodShelves.BlockEntityFridge", typeof(BlockEntityFridge));
+        api.RegisterBlockClass("FoodShelves.BlockCoolingCabinet", typeof(BlockCoolingCabinet));
+        api.RegisterBlockEntityClass("FoodShelves.BlockEntityCoolingCabinet", typeof(BlockEntityCoolingCabinet));
     }
 
     public override void StartClientSide(ICoreClientAPI api) {
@@ -122,7 +122,6 @@ public class Core : ModSystem {
         //FirkinRackData = api.LoadAsset<RestrictionData.FirkinRackData>("foodshelves:config/restrictions/barrels/firkinrack.json");
 
         PumpkinCaseData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/pumpkincase.json");
-
     }
 
     public override void AssetsFinalize(ICoreAPI api) {

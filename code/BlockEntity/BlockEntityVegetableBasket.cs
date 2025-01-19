@@ -57,7 +57,7 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
     }
 
     private bool TryPut(ItemSlot slot) {
-        BlockVegetableBasket.GetTransformationMatrix(inv[0]?.Itemstack?.Collectible?.Code?.Path, out float[,] transformationMatrix);
+        float[,] transformationMatrix = BlockVegetableBasket.GetTransformationMatrix(inv[0]?.Itemstack?.Collectible?.Code?.Path);
         int offset = transformationMatrix.GetLength(1);
 
         for (int i = 0; i < offset; i++) {
@@ -95,9 +95,10 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
     }
 
     protected override float[][] genTransformationMatrices() {
-        BlockVegetableBasket.GetTransformationMatrix(inv[0]?.Itemstack?.Collectible?.Code?.Path, out float[,] transformationMatrix);
+        float[,] transformationMatrix = BlockVegetableBasket.GetTransformationMatrix(inv[0]?.Itemstack?.Collectible?.Code?.Path);
+        
         int offset = transformationMatrix.GetLength(1);
-        float[][] tfMatrices = new float[offset][];
+        float[][] tfMatrices = new float[36][];
         
         for (int i = 0; i < offset; i++) {
             tfMatrices[i] = 
