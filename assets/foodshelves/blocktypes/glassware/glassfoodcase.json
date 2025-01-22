@@ -21,6 +21,7 @@
     "attributeTransformCode": "onGlassFoodCaseTransform"
   },
   "behaviors": [
+    { "name": "UnstableFalling" },
     { "name": "HorizontalOrientable", "properties": { "dropBlockFace": "east" } }
   ],
   "shape": {

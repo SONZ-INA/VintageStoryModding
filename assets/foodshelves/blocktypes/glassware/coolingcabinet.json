@@ -18,7 +18,8 @@
       ]
     },
     "inventoryClassName": "foodshelvescoolingcabinet",
-    "attributeTransformCode": "onCoolingCabinetTransform"
+    "attributeTransformCode": "onCoolingCabinetTransform",
+    "cabinetOpened": false
   },
   "behaviors": [
     { "name": "HorizontalOrientable" },
@@ -31,6 +32,7 @@
       }
     }
   ],
+  "entityBehaviors": [{ "name": "Animatable" }],
   "shape": {
     "base": "block/wood/glassware/coolingcabinet",
     "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
@@ -49,7 +51,10 @@
   "lightAbsorption": 0,
   "faceCullMode": "NeverCull",
   "emitSideAo": { "all": false },
-  "sidesolid": { "all": false },
+  "sidesolid": {
+    "verticals": true,
+    "horizontals": false
+  },	
   "sideopaque": {
     "north": true,
     "all": false
@@ -61,8 +66,8 @@
 		"scale": 0.55
 	},
   "tpHandTransform": {
-	  "translation": { "x": -0.6, "y": -1.78, "z": -1.11 },
-	  "rotation": { "x": 99, "y": -4, "z": -76 },
+	  "translation": { "x": -0.7, "y": -2.18, "z": -1.11 },
+	  "rotation": { "x": 99, "y": -15, "z": -76 },
 	  "scale": 0.35
   },
   "sounds": {

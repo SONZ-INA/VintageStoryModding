@@ -10,6 +10,10 @@ public class BlockFirkinRack : BlockLiquidContainerBase {
         PlacedPriorityInteract = true; // Needed to call OnBlockInteractStart when shifting with an item in hand
     }
 
+    public override int GetRetention(BlockPos pos, BlockFacing facing, EnumRetentionType type) {
+        return 0; // To prevent the block reducing the cellar rating
+    }
+
     public override bool DoParticalSelection(IWorldAccessor world, BlockPos pos) {
         return true;
     }

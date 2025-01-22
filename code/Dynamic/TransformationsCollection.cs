@@ -14,7 +14,7 @@ public class TransformationsCollection {
     public const string onBarrelRackTransform = "onHorizontalBarrelRackTransform";
     public const string onGlassFoodBlockTransform = "onGlassFoodBlockTransform";
     public const string onGlassFoodCaseTransform = "onGlassFoodCaseTransform";
-    public const string onFridgeTransform = "onFridgeTransform";
+    public const string onCoolingCabinetTransform = "onCoolingCabinetTransform";
 
     public static Dictionary<string, ModelTransform> FoodUniversalTransformations { get; set; } = new();
     public static Dictionary<string, ModelTransform> HolderUniversalTransformations { get; set; } = new();

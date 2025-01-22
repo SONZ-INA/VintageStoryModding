@@ -19,6 +19,9 @@
     "inventoryClassName": "glassfoodblock",
     "attributeTransformCode": "onGlassFoodBlockTransform"
   },
+  "behaviors": [
+    { "name": "UnstableFalling" }
+  ],
   "shapeByType": {
     "*-top*": { "base": "block/wood/glassware/glassfoodblocktop" },
     "*": { "base": "block/wood/glassware/glassfoodblock" }
@@ -37,7 +40,13 @@
   "drawtype": "json",
   "emitSideAo": { "all": false },
   "sideao": { "all": true },
-  "sidesolid": { "all": false },
+  "sidesolidByType": {
+    "*-normal*": {
+      "up": true,
+      "all": false
+    },
+    "*-top*": { "all": false }
+  },
   "sideopaqueByType": {
     "*-normal*": {
       "up": true,

@@ -1,6 +1,6 @@
 {
 	"editor": {
-		"collapsedPaths": ",Root/originCabinet/cOriginDoor/doorleft,Root/originCabinet2/cOriginShelves2,Root/originCabinet2/cOriginDoor2,Root/origin,Root/originCabinet2/cOriginDoor2/doorright2,Root/origin2,Root/originCabinet/cOriginFrame,Root/originIceBox/ibOriginStone/ibsT1,Root/originCabinet/cOriginDoor/doorright,Root/originIceBox/ibOriginStone,Root/originCabinet/cOriginShelves/csOriginL,Root/originCabinet2/cOriginDoor2/doorleft2,Root/originCabinet/cOriginShelves/csOriginM,Root/originCabinet/cOriginShelves,Root/originIceBox/ibOriginWood,Root/origin3,Root/originIceBox/ibOriginStone/ibOriginHandle,Root/originCabinet/cOriginShelves/csOriginT,Root/originCabinet2/cOriginFrame2,Root/originCabinet/cOriginDoor,Root/originIceBox2",
+		"collapsedPaths": ",Root/originCabinet/cOriginDoor/doorleft,Root/originCabinet2/cOriginShelves2,Root/originIceBox/ibOriginStone/ibsT1,Root/originIceBox/ibOriginStone,Root/originCabinet/cOriginShelves/csOriginL,Root/originCabinet/cOriginShelves/csOriginM,Root/originCabinet/cOriginShelves,Root/origin3,Root/originIceBox/ibOriginStone/ibOriginHandle,Root/originCabinet/cOriginShelves/csOriginT,Root/originCabinet2/cOriginFrame2,Root/originCabinet2/cOriginDoor2,Root/origin,Root/originCabinet2/cOriginDoor2/doorright2,Root/originIceBox,Root/transparencyAnim,Root/origin2,Root/originCabinet/cOriginFrame,Root/originCabinet/cOriginDoor/doorright,Root/originCabinet2/cOriginDoor2/doorleft2,Root/originIceBox/ibOriginWood,Root/originIceBox2",
 		"allAngles": false,
 		"entityTextureMode": false
 	},
@@ -9,11 +9,6 @@
 	"textureSizes": {
 	},
 	"textures": {
-		"surface_long": "foodshelves:block/wood/fridge/surface_long",
-		"frame-slab": "game:block/glass/frame-slab",
-		"plain": "game:block/glass/plain",
-		"chalk": "game:block/stone/polishedrock/chalk",
-		"surface": "game:block/wood/shelf/surface"
 	},
 	"elements": [
 		{
@@ -34,7 +29,7 @@
 							"name": "doorleft",
 							"from": [ 0.0, 0.0, 0.0 ],
 							"to": [ 0.0, 0.0, 0.0 ],
-							"rotationOrigin": [ 0.3, 0.0, 0.4 ],
+							"rotationOrigin": [ 1.0, 9.0, 14.0 ],
 							"faces": {
 							},
 							"children": [
@@ -89,28 +84,6 @@
 										"south": { "texture": "#surface", "uv": [ 0.0, 14.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false },
 										"west": { "texture": "#surface", "uv": [ 0.0, 5.5, 16.0, 6.5 ], "rotation": 90, "autoUv": false, "windMode": [-1,-1,-1,-1], "windData": [0,0,1,1] }
 									}
-								},
-								{
-									"name": "cdFrameL",
-									"from": [ 3.0, 10.0, 13.2 ],
-									"to": [ 14.0, 29.0, 13.8 ],
-									"renderPass": 1,
-									"rotationOrigin": [ 3.0, 10.0, 13.0 ],
-									"faces": {
-										"north": { "texture": "#frame-slab", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false },
-										"south": { "texture": "#frame-slab", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false }
-									}
-								},
-								{
-									"name": "cdGlassL",
-									"from": [ 3.0, 10.0, 13.25 ],
-									"to": [ 14.0, 29.0, 13.75 ],
-									"renderPass": 3,
-									"rotationOrigin": [ 3.0, 10.0, 13.0 ],
-									"faces": {
-										"north": { "texture": "#plain", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false },
-										"south": { "texture": "#plain", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false }
-									}
 								}
 							]
 						},
@@ -118,6 +91,7 @@
 							"name": "doorright",
 							"from": [ 0.0, 0.0, 0.0 ],
 							"to": [ 0.0, 0.0, 0.0 ],
+							"rotationOrigin": [ 31.0, 9.0, 14.0 ],
 							"faces": {
 							},
 							"children": [
@@ -171,28 +145,6 @@
 										"east": { "texture": "#surface", "uv": [ 0.0, 6.5, 16.0, 7.5 ], "rotation": 90, "autoUv": false },
 										"south": { "texture": "#surface", "uv": [ 0.0, 14.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false },
 										"west": { "texture": "#surface", "uv": [ 0.0, 7.0, 16.0, 8.0 ], "rotation": 90, "autoUv": false, "windMode": [-1,-1,-1,-1], "windData": [0,0,1,1] }
-									}
-								},
-								{
-									"name": "cdFrameR",
-									"from": [ 18.0, 10.0, 13.2 ],
-									"to": [ 29.0, 29.0, 13.8 ],
-									"renderPass": 1,
-									"rotationOrigin": [ 18.0, 10.0, 13.0 ],
-									"faces": {
-										"north": { "texture": "#frame-slab", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false, "windMode": [-1,-1,-1,-1], "windData": [0,1,1,0] },
-										"south": { "texture": "#frame-slab", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false }
-									}
-								},
-								{
-									"name": "cdGlassR",
-									"from": [ 18.0, 10.0, 13.25 ],
-									"to": [ 29.0, 29.0, 13.75 ],
-									"renderPass": 3,
-									"rotationOrigin": [ 18.0, 10.0, 13.0 ],
-									"faces": {
-										"north": { "texture": "#plain", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false, "windMode": [-1,-1,-1,-1], "windData": [0,1,1,0] },
-										"south": { "texture": "#plain", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false }
 									}
 								}
 							]
@@ -338,7 +290,6 @@
 									"to": [ 32.0, 15.0, 15.0 ],
 									"rotationOrigin": [ 31.0, 14.0, 10.0 ],
 									"rotationX": -180.0,
-									"rotationY": 0.0,
 									"rotationZ": -180.0,
 									"faces": {
 										"north": { "texture": "#surface_long", "uv": [ 5.3333, 3.0, 6.3333, 4.0 ], "windMode": [-1,-1,-1,-1] },
@@ -395,7 +346,6 @@
 									"to": [ 32.0, 23.0, 15.0 ],
 									"rotationOrigin": [ 31.0, 22.0, 10.0 ],
 									"rotationX": -180.0,
-									"rotationY": 0.0,
 									"rotationZ": -180.0,
 									"faces": {
 										"north": { "texture": "#surface_long", "uv": [ 5.3333, 3.0, 6.3333, 4.0 ], "windMode": [-1,-1,-1,-1] },
@@ -452,7 +402,6 @@
 									"to": [ 32.0, 23.0, 15.0 ],
 									"rotationOrigin": [ 31.0, 22.0, 10.0 ],
 									"rotationX": -180.0,
-									"rotationY": 0.0,
 									"rotationZ": -180.0,
 									"faces": {
 										"north": { "texture": "#surface_long", "uv": [ 5.3333, 3.0, 6.3333, 4.0 ], "windMode": [-1,-1,-1,-1] },
@@ -753,5 +702,105 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "cdFrameL",
+			"from": [ 3.0, 10.0, 13.2 ],
+			"to": [ 14.0, 29.0, 13.8 ],
+			"renderPass": 1,
+			"rotationOrigin": [ 1.0, 9.0, 14.0 ],
+			"faces": {
+				"north": { "texture": "#frame-slab", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false },
+				"south": { "texture": "#frame-slab", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false }
+			}
+		},
+		{
+			"name": "cdGlassL",
+			"from": [ 3.0, 10.0, 13.25 ],
+			"to": [ 14.0, 29.0, 13.75 ],
+			"renderPass": 3,
+			"rotationOrigin": [ 1.0, 9.0, 14.0 ],
+			"faces": {
+				"north": { "texture": "#plain", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false },
+				"south": { "texture": "#plain", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false }
+			}
+		},
+		{
+			"name": "cdFrameR",
+			"from": [ 18.0, 10.0, 13.2 ],
+			"to": [ 29.0, 29.0, 13.8 ],
+			"renderPass": 1,
+			"rotationOrigin": [ 31.0, 9.0, 14.0 ],
+			"faces": {
+				"north": { "texture": "#frame-slab", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false, "windMode": [-1,-1,-1,-1], "windData": [0,1,1,0] },
+				"south": { "texture": "#frame-slab", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false }
+			}
+		},
+		{
+			"name": "cdGlassR",
+			"from": [ 18.0, 10.0, 13.25 ],
+			"to": [ 29.0, 29.0, 13.75 ],
+			"renderPass": 3,
+			"rotationOrigin": [ 31.0, 9.0, 14.0 ],
+			"faces": {
+				"north": { "texture": "#plain", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false, "windMode": [-1,-1,-1,-1], "windData": [0,1,1,0] },
+				"south": { "texture": "#plain", "uv": [ 0.0, 8.0, 16.0, 16.0 ], "rotation": 90, "autoUv": false }
+			}
 		}
-	]}
+	],
+	"animations": [
+		{
+			"name": "drawerOpen",
+			"code": "draweropen",
+			"quantityframes": 30,
+			"onActivityStopped": "Rewind",
+			"onAnimationEnd": "Hold",
+			"keyframes": [
+				{
+					"frame": 0,
+					"elements": {
+						"ibOriginStone": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0 }
+					}
+				},
+				{
+					"frame": 29,
+					"elements": {
+						"ibOriginStone": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 10.0 }
+					}
+				}
+			]
+		},
+
+		{
+			"name": "cabinetOpen",
+			"code": "cabinetopen",
+			"quantityframes": 30,
+			"onActivityStopped": "Rewind",
+			"onAnimationEnd": "Hold",
+			"keyframes": [
+				{
+					"frame": 0,
+					"elements": {
+						"doorleft": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"cdFrameL": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"cdGlassL": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"doorright": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"cdFrameR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"cdGlassR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 }
+					}
+				},
+				{
+					"frame": 29,
+					"elements": {
+						"cdFrameL": { "rotationX": 0.0, "rotationY": -112.5, "rotationZ": 0.0 },
+						"cdGlassL": { "rotationX": 0.0, "rotationY": -112.5, "rotationZ": 0.0 },
+						"cdFrameR": { "rotationX": 0.0, "rotationY": 112.5, "rotationZ": 0.0 },
+						"cdGlassR": { "rotationX": 0.0, "rotationY": 112.5, "rotationZ": 0.0 },
+						"doorleft": { "rotationX": 0.0, "rotationY": -112.5, "rotationZ": 0.0 },
+						"doorright": { "rotationX": 0.0, "rotationY": 112.5, "rotationZ": 0.0 }
+					}
+				}
+			]
+		}
+	]
+}

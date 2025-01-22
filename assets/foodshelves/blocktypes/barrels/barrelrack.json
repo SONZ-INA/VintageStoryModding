@@ -21,6 +21,7 @@
     "capacityLitres": 50
   },
   "behaviors": [
+    { "name": "UnstableFalling" },
     { "name": "HorizontalOrientable" }
   ],
   "shapeByType": {
@@ -37,8 +38,8 @@
     "surface": { "base": "game:block/wood/shelf/surface" }
   },
   "heldTpIdleAnimationByType": {
-    "barrelrack-normal-*": "holdbothhandslarge",
-    "barrelrack-top-*": "holdunderarm"
+    "*-normal-*": "holdbothhandslarge",
+    "*-top-*": "holdunderarm"
   },
   "heldRightReadyAnimation": "heldblockready", 
   "heldTpUseAnimation": "twohandplaceblock",
@@ -46,7 +47,13 @@
   "lightAbsorption": 1,
   "faceCullMode": "NeverCull",
   "emitSideAo": { "all": false },
-  "sidesolid":{ "all": false },
+  "sidesolidByType": {
+    "*-normal-*": {
+      "verticals": true,
+      "horizontals": false
+    },
+    "*-top-*": { "all": false }
+  },
   "sideopaque": { "all": false },
   "replaceable": 999,
   "resistance": 1.5,

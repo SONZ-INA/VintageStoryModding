@@ -13,6 +13,117 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     private const int itemsPerSegment = 2;
     static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
 
+    #region Animations
+
+    MeshData ownMesh;
+    private bool drawerOpen = false;
+    private bool cabinetOpen = false;
+
+    BlockEntityAnimationUtil animUtil {
+        get { return GetBehavior<BEBehaviorAnimatable>()?.animUtil; }
+    }
+
+    private void OpenCabinet() {
+        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("cabinetopen") == false) {
+            animUtil?.StartAnimation(new AnimationMetaData() {
+                Animation = "cabinetopen",
+                Code = "cabinetopen",
+                AnimationSpeed = 3f,
+                EaseOutSpeed = 1,
+                EaseInSpeed = 2
+            });
+
+            cabinetOpen = true;
+        }
+    }
+
+    private void CloseCabinet() {
+        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("cabinetopen") == true) {
+            animUtil?.StopAnimation("cabinetopen");
+
+            cabinetOpen = false;
+        }
+    }
+
+    private void OpenDrawer() {
+        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("draweropen") == false) {
+            animUtil?.StartAnimation(new AnimationMetaData() {
+                Animation = "draweropen",
+                Code = "draweropen",
+                AnimationSpeed = 3f,
+                EaseOutSpeed = 1,
+                EaseInSpeed = 2
+            });
+
+            drawerOpen = true;
+        }
+    }
+
+    private void CloseDrawer() {
+        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("draweropen") == true) {
+            animUtil?.StopAnimation("draweropen");
+
+            drawerOpen = false;
+        }
+    }
+
+    private MeshData GenMesh(ITesselatorAPI tesselator) {
+        Block block = Block;
+        if (Block == null) {
+            block = Api.World.BlockAccessor.GetBlock(Pos);
+            Block = block;
+        }
+        if (block == null) return null;
+        
+        int rndTexNum = Block.Attributes?["rndTexNum"]?.AsInt(0) ?? 0;
+
+        string key = "coolingCabinetMeshes" + Block.Code;
+        Dictionary<string, MeshData> meshes = ObjectCacheUtil.GetOrCreate(Api, key, () => {
+            return new Dictionary<string, MeshData>();
+        });
+
+        Shape shape = null;
+        if (animUtil != null) {
+            string skeydict = "coolingCabinetMeshes";
+            Dictionary<string, Shape> shapes = ObjectCacheUtil.GetOrCreate(Api, skeydict, () => {
+                return new Dictionary<string, Shape>();
+            });
+
+            string skey = Block.Code + "-random-" + rndTexNum;
+            if (!shapes.TryGetValue(skey, out shape)) {
+                AssetLocation shapeLocation = new(ShapeReferences.CoolingCabinet);
+                ITexPositionSource textureSource = tesselator.GetTextureSource(block);
+                shape = Api.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
+
+                shapes[skey] = shape;
+            }
+        }
+
+        string meshKey = block.Code + "-" + rndTexNum;
+        if (meshes.TryGetValue(meshKey, out MeshData mesh)) {
+            if (animUtil != null && animUtil.renderer == null) {
+                animUtil.InitializeAnimator(key, mesh, shape, new Vec3f(0, GetRotationAngle(block), 0));
+            }
+
+            return mesh;
+        }
+
+        if (rndTexNum > 0) rndTexNum = GameMath.MurmurHash3Mod(Pos.X, Pos.Y, Pos.Z, rndTexNum);
+
+        if (animUtil != null) {
+            if (animUtil.renderer == null) {
+                ITexPositionSource texSource = tesselator.GetTextureSource(block);
+                mesh = animUtil.InitializeAnimator(key, shape, texSource, new Vec3f(0, GetRotationAngle(block), 0));
+            }
+
+            return meshes[meshKey] = mesh;
+        }
+
+        return null;
+    }
+
+    #endregion
+
     public BlockEntityCoolingCabinet() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotHolderUniversal(inv)); }
 
     public override void Initialize(ICoreAPI api) {
@@ -38,6 +149,19 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
         if (slot.Empty) {
+            if (blockSel.SelectionBoxIndex == 0) {
+                if (!drawerOpen)
+                    OpenDrawer();
+                else
+                    CloseDrawer();
+            }
+            else {
+                if (!cabinetOpen)
+                    OpenCabinet();
+                else
+                    CloseCabinet();
+            }
+
             return TryTake(byPlayer, blockSel);
         }
         else {
@@ -104,6 +228,21 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         }
 
         return tfMatrices;
+    }
+
+    public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
+        bool skipmesh = base.OnTesselation(mesher, tesselator);
+
+        if (!skipmesh) {
+            if (ownMesh == null) {
+                ownMesh = GenMesh(tesselator);
+                if (ownMesh == null) return false;
+            }
+
+            mesher.AddMeshData(ownMesh.Clone().Rotate(new Vec3f(.5f, .5f, .5f), 0, GameMath.DEG2RAD * GetRotationAngle(block), 0));
+        }
+
+        return true;
     }
 
     public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {

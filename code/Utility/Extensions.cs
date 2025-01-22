@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Vintagestory.API.Common;
 
 namespace FoodShelves; 
 
@@ -64,7 +65,6 @@ public static class Extensions {
             float roundRad = ((int)Math.Round(angleHor / deg22dot5rad)) * deg22dot5rad;
             return roundRad;
         }
-
         return 0;
     }
 
@@ -181,11 +181,12 @@ public static class Extensions {
     }
 
     public static int GetRotationAngle(Block block) {
+        // This one's more-less hardcoded that these rotations always have to "align" with the ones defined in blocktype but oh well.
         string blockPath = block.Code.Path;
-        if (blockPath.EndsWith("-north")) return 270;
-        if (blockPath.EndsWith("-south")) return 90;
-        if (blockPath.EndsWith("-east")) return 0;
-        if (blockPath.EndsWith("-west")) return 180;
+        if (blockPath.EndsWith("-north")) return 0;
+        if (blockPath.EndsWith("-south")) return 180;
+        if (blockPath.EndsWith("-east")) return 270;
+        if (blockPath.EndsWith("-west")) return 90;
         return 0;
     }
 
