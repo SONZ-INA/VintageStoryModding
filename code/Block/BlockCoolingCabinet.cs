@@ -31,8 +31,8 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
         // All of this needs to be in a specific static method for easier management.
         BlockEntityCoolingCabinet be = blockAccessor.GetBlockEntityExt<BlockEntityCoolingCabinet>(pos);
         if (be != null) {
-            Cuboidf drawerSelBox = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(0).Clone();
-            Cuboidf cabinetSelBox = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(1).Clone();
+            Cuboidf cabinetSelBox = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(0).Clone();
+            Cuboidf drawerSelBox = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(1).Clone();
 
             Cuboidf currentSelBox = offset.Y == 0 ? drawerSelBox : cabinetSelBox;
 
@@ -54,7 +54,7 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
                 cabinetSelBox.Z1 += offset.Z;
                 cabinetSelBox.Z2 += offset.Z;
 
-                return new Cuboidf[] { drawerSelBox, cabinetSelBox };
+                return new Cuboidf[] { cabinetSelBox, drawerSelBox };
             }
 
             return new Cuboidf[] { currentSelBox };

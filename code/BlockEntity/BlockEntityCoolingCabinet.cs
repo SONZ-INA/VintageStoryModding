@@ -15,9 +15,9 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
 
     #region Animations
 
-    MeshData ownMesh;
+    private MeshData ownMesh;
+    public bool CabinetOpen { get; set; }
     private bool drawerOpen = false;
-    private bool cabinetOpen = false;
 
     BlockEntityAnimationUtil animUtil {
         get { return GetBehavior<BEBehaviorAnimatable>()?.animUtil; }
@@ -32,17 +32,17 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                 EaseOutSpeed = 1,
                 EaseInSpeed = 2
             });
-
-            cabinetOpen = true;
         }
+
+        CabinetOpen = true;
     }
 
     private void CloseCabinet() {
         if (animUtil?.activeAnimationsByAnimCode.ContainsKey("cabinetopen") == true) {
             animUtil?.StopAnimation("cabinetopen");
-
-            cabinetOpen = false;
         }
+        
+        CabinetOpen = false;
     }
 
     private void OpenDrawer() {
@@ -55,16 +55,17 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                 EaseInSpeed = 2
             });
 
-            drawerOpen = true;
         }
+
+        drawerOpen = true;
     }
 
     private void CloseDrawer() {
         if (animUtil?.activeAnimationsByAnimCode.ContainsKey("draweropen") == true) {
             animUtil?.StopAnimation("draweropen");
-
-            drawerOpen = false;
         }
+        
+        drawerOpen = false;
     }
 
     private MeshData GenMesh(ITesselatorAPI tesselator) {
@@ -74,8 +75,8 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
             Block = block;
         }
         if (block == null) return null;
-        
-        int rndTexNum = Block.Attributes?["rndTexNum"]?.AsInt(0) ?? 0;
+
+        int rndTexNum = GameMath.MurmurHash3Mod(Pos.X, Pos.Y, Pos.Z, 85378);
 
         string key = "coolingCabinetMeshes" + Block.Code;
         Dictionary<string, MeshData> meshes = ObjectCacheUtil.GetOrCreate(Api, key, () => {
@@ -107,8 +108,6 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
 
             return mesh;
         }
-
-        if (rndTexNum > 0) rndTexNum = GameMath.MurmurHash3Mod(Pos.X, Pos.Y, Pos.Z, rndTexNum);
 
         if (animUtil != null) {
             if (animUtil.renderer == null) {
@@ -149,14 +148,14 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
         if (slot.Empty) {
-            if (blockSel.SelectionBoxIndex == 0) {
+            if (blockSel.SelectionBoxIndex == 1) {
                 if (!drawerOpen)
                     OpenDrawer();
                 else
                     CloseDrawer();
             }
             else {
-                if (!cabinetOpen)
+                if (!CabinetOpen)
                     OpenCabinet();
                 else
                     CloseCabinet();
@@ -237,6 +236,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
             if (ownMesh == null) {
                 ownMesh = GenMesh(tesselator);
                 if (ownMesh == null) return false;
+                if (CabinetOpen) OpenCabinet();
             }
 
             mesher.AddMeshData(ownMesh.Clone().Rotate(new Vec3f(.5f, .5f, .5f), 0, GameMath.DEG2RAD * GetRotationAngle(block), 0));
@@ -247,7 +247,14 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
 
     public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
         base.FromTreeAttributes(tree, worldForResolving);
+        CabinetOpen = tree.GetBool("cabinetOpen", false);
         RedrawAfterReceivingTreeAttributes(worldForResolving);
+    }
+
+    public override void ToTreeAttributes(ITreeAttribute tree) {
+        base.ToTreeAttributes(tree);
+        tree.SetBool("cabinetOpen", CabinetOpen);
+        Api.Logger.Debug($"Saved: \"{CabinetOpen}\" for the cabinet.");
     }
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
