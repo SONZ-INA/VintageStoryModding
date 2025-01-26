@@ -82,13 +82,7 @@ public class BlockBarrelRackBig : BlockLiquidContainerBase, IMultiBlockColSelBox
         BlockEntityBarrelRackBig be = blockAccessor.GetBlockEntityExt<BlockEntityBarrelRackBig>(pos);
         if (be != null) {
             Cuboidf currentSelBox = base.GetSelectionBoxes(blockAccessor, pos).FirstOrDefault().Clone();
-
-            currentSelBox.X1 += offset.X;
-            currentSelBox.X2 += offset.X;
-            currentSelBox.Y1 += offset.Y;
-            currentSelBox.Y2 += offset.Y;
-            currentSelBox.Z1 += offset.Z;
-            currentSelBox.Z2 += offset.Z;
+            currentSelBox.MBNormalizeSelectionBox(offset);
 
             return new Cuboidf[] { currentSelBox };
         }

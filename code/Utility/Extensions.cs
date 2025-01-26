@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Vintagestory.API.Common;
 
 namespace FoodShelves; 
 
@@ -180,6 +179,18 @@ public static class Extensions {
         return transformationMatrix;
     }
 
+    public static void MBNormalizeSelectionBox(this Cuboidf selectionBox, Vec3i offset) {
+        // Make sure that the selection boxes defined in blocktype .json file are defined with the following rotations:
+        // { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
+        // Otherwise, the selection boxes won't correctly normalize
+        selectionBox.X1 += offset.X;
+        selectionBox.X2 += offset.X;
+        selectionBox.Y1 += offset.Y;
+        selectionBox.Y2 += offset.Y;
+        selectionBox.Z1 += offset.Z;
+        selectionBox.Z2 += offset.Z;
+    }
+
     public static int GetRotationAngle(Block block) {
         // This one's more-less hardcoded that these rotations always have to "align" with the ones defined in blocktype but oh well.
         string blockPath = block.Code.Path;
@@ -188,26 +199,6 @@ public static class Extensions {
         if (blockPath.EndsWith("-east")) return 270;
         if (blockPath.EndsWith("-west")) return 90;
         return 0;
-    }
-
-    public static Cuboidf RotateCuboid90Deg(Cuboidf cuboid, int angle) {
-        if (angle == 0) {
-            return cuboid;
-        }
-
-        float x1 = cuboid.X1;
-        float y1 = cuboid.Y1;
-        float z1 = cuboid.Z1;
-        float x2 = cuboid.X2;
-        float y2 = cuboid.Y2;
-        float z2 = cuboid.Z2;
-
-        return angle switch {
-            90 => new Cuboidf(1 - z2, y1, x1, 1 - z1, y2, x2),
-            180 => new Cuboidf(1 - x2, y1, 1 - z2, 1 - x1, y2, 1 - z1),
-            270 => new Cuboidf(z1, y1, 1 - x2, z2, y2, 1 - x1),
-            _ => throw new ArgumentException("Angle must be 0, 90, 180, or 270 degrees"),
-        };
     }
 
     #endregion

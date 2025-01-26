@@ -1,4 +1,6 @@
-﻿namespace FoodShelves;
+﻿using System.Runtime.Intrinsics.X86;
+
+namespace FoodShelves;
 
 public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     private readonly InventoryGeneric inv;
@@ -83,21 +85,15 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
             return new Dictionary<string, MeshData>();
         });
 
-        Shape shape = null;
-        if (animUtil != null) {
-            string skeydict = "coolingCabinetMeshes";
-            Dictionary<string, Shape> shapes = ObjectCacheUtil.GetOrCreate(Api, skeydict, () => {
-                return new Dictionary<string, Shape>();
-            });
+        string sKey = "coolingCabinetShape" + Block.Code;
+        Dictionary<string, Shape> shapes = ObjectCacheUtil.GetOrCreate(Api, sKey, () => {
+            return new Dictionary<string, Shape>();
+        });
 
-            string skey = Block.Code + "-random-" + rndTexNum;
-            if (!shapes.TryGetValue(skey, out shape)) {
-                AssetLocation shapeLocation = new(ShapeReferences.CoolingCabinet);
-                ITexPositionSource textureSource = tesselator.GetTextureSource(block);
-                shape = Api.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
-
-                shapes[skey] = shape;
-            }
+        if (!shapes.TryGetValue(sKey, out Shape shape)) {
+            AssetLocation shapeLocation = new(ShapeReferences.CoolingCabinet);
+            ITexPositionSource textureSource = tesselator.GetTextureSource(block);
+            shapes[sKey] = Api.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
         }
 
         string meshKey = block.Code + "-" + rndTexNum;
@@ -148,17 +144,20 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
         if (slot.Empty) {
-            if (blockSel.SelectionBoxIndex == 1) {
-                if (!drawerOpen)
-                    OpenDrawer();
-                else
-                    CloseDrawer();
-            }
-            else {
-                if (!CabinetOpen)
-                    OpenCabinet();
-                else
-                    CloseCabinet();
+            if (byPlayer.Entity.Controls.ShiftKey) {
+                switch (blockSel.SelectionBoxIndex) {
+                    case 0: // Cabinet when closed
+                    case 2: // Top shelf when cabinet is open
+                    case 3: // Middle shelf when cabinet is open
+                    case 4: // Bottom shelf when cabinet is open
+                        if (!CabinetOpen) OpenCabinet(); 
+                        else CloseCabinet();
+                        break;
+                    case 1:
+                        if (!drawerOpen) OpenDrawer();
+                        else CloseDrawer();
+                        break;
+                }
             }
 
             return TryTake(byPlayer, blockSel);
@@ -217,13 +216,23 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     protected override float[][] genTransformationMatrices() {
         float[][] tfMatrices = new float[slotCount][];
 
-        for (int i = 0; i < slotCount; i++) {
-            tfMatrices[i] =
-                new Matrixf()
-                .Translate(0.5f, 0, 0.5f)
-                .RotateYDeg(block.Shape.rotateY)
-                .Translate(- 0.5f, i * 0.313f + 0.0525f, - 0.5f)
-                .Values;
+        for (int shelf = 0; shelf < shelfCount; shelf++) {
+            for (int segment = 0; segment < segmentsPerShelf; segment++) {
+                for (int item = 0; item < itemsPerSegment; item++) {
+                    int index = shelf * (segmentsPerShelf * itemsPerSegment) + segment * itemsPerSegment + item;
+
+                    float x = item * 0.575f;
+                    float y = shelf;
+                    float z = segment * 0.4125f;
+
+                    tfMatrices[index] =
+                        new Matrixf()
+                        .Translate(0.5f, 0, 0.5f)
+                        .RotateYDeg(block.Shape.rotateY)
+                        .Translate(x - 0.575f, y + 0.625f, z - 0.925f)
+                        .Values;
+                }
+            }
         }
 
         return tfMatrices;
@@ -253,8 +262,10 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
 
     public override void ToTreeAttributes(ITreeAttribute tree) {
         base.ToTreeAttributes(tree);
-        tree.SetBool("cabinetOpen", CabinetOpen);
-        Api.Logger.Debug($"Saved: \"{CabinetOpen}\" for the cabinet.");
+        if (Api.Side == EnumAppSide.Server) {
+            tree.SetBool("cabinetOpen", CabinetOpen);
+            Api.Logger.Debug($"Saved: \"{CabinetOpen}\" for the cabinet.");
+        }
     }
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {

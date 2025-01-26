@@ -1,7 +1,10 @@
 {
   "CollectibleTypes": [
     "game:BlockPie",
-    "game:ItemCheese"
+    "game:ItemCheese",
+    "foodshelves:BlockFruitBasket",
+    "foodshelves:BlockVegetableBasket",
+    "foodshelves:BlockEggBasket"
   ],
   "CollectibleCodes": [
     "*bread-*",
