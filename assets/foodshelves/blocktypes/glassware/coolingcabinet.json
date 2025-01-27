@@ -50,14 +50,13 @@
   "lightAbsorption": 0,
   "faceCullMode": "NeverCull",
   "emitSideAo": { "all": false },
-  "sidesolid": {
-    "verticals": true,
-    "horizontals": false
-  },	
-  "sideopaque": {
-    "north": true,
-    "all": false
+  "sidesolidByType": {
+    "*-north": { "verticals": true, "north": true, "horizontals": false },
+    "*-east": { "verticals": true, "east": true, "horizontals": false },
+    "*-west": { "verticals": true, "west": true, "horizontals": false },
+    "*-south": { "verticals": true, "south": true, "horizontals": false }
   },
+  "sideopaque": { "all": false },
   "replaceable": 999,
   "resistance": 1.5,
   "guiTransform": {

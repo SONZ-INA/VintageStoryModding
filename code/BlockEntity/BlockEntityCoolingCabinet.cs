@@ -10,14 +10,131 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
 
     private const int shelfCount = 3;
     private const int segmentsPerShelf = 3;
-    private const int itemsPerSegment = 1;
+    private const int itemsPerSegment = 4;
     static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
-
-    #region Animations
-
-    private MeshData ownMesh;
+    private float perishMultiplier = 0.75f;
+    
     public bool CabinetOpen { get; set; }
     private bool drawerOpen = false;
+
+    public BlockEntityCoolingCabinet() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotHolderUniversal(inv)); }
+
+    public override void Initialize(ICoreAPI api) {
+        block = api.World.BlockAccessor.GetBlock(Pos);
+        base.Initialize(api);
+
+        if (CabinetOpen) perishMultiplier = 1f;
+        inv.OnAcquireTransitionSpeed += Inventory_OnAcquireTransitionSpeed;
+    }
+
+    private float GetPerishRate() {
+        return container.GetPerishRate() * perishMultiplier; // Slower perish rate
+    }
+
+    private float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
+        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return container.Room?.ExitCount == 0 ? 2f : 0.5f;
+        if (Api == null) return 0;
+
+        if (transType == EnumTransitionType.Ripen) {
+            return GameMath.Clamp((1 - GetPerishRate() - 0.5f) * 3, 0, 1);
+        }
+
+        return perishMultiplier;
+    }
+
+    internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
+        ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
+
+        // Open/Close cabinet or drawer
+        if (byPlayer.Entity.Controls.ShiftKey) {
+            switch (blockSel.SelectionBoxIndex) {
+                case 9:
+                    if (!drawerOpen) OpenDrawer();
+                    else CloseDrawer();
+                    break;
+                default:
+                    if (!CabinetOpen) OpenCabinet();
+                    else CloseCabinet();
+                    MarkDirty();
+                    break;
+            }
+
+            return true;
+        }
+
+        if (!CabinetOpen) return false;
+
+        // Take/Put items
+        if (slot.Empty) {
+            return TryTake(byPlayer, blockSel);;
+        }
+        else {
+            if (slot.HolderUniversalCheck()) {
+                AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
+
+                if (TryPut(slot, blockSel)) {
+                    Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
+                    MarkDirty();
+                    return true;
+                }
+            }
+
+            (Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:This item cannot be placed in this container."));
+            return false;
+        }
+    }
+
+    private bool TryPut(ItemSlot slot, BlockSelection blockSel) {
+        int startIndex = blockSel.SelectionBoxIndex;
+        if (startIndex > 8) return false; // If it's cabinet or drawer selection box, return
+
+        startIndex *= itemsPerSegment;
+        if (!inv[startIndex].Empty && (IsLargeItem(slot.Itemstack) || IsLargeItem(inv[startIndex].Itemstack))) return false;
+
+        for (int i = 0; i < itemsPerSegment; i++) {
+            int currentIndex = startIndex + i;
+            if (inv[currentIndex].Empty) {
+                int moved = slot.TryPutInto(Api.World, inv[currentIndex]);
+                MarkDirty();
+                (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
+                return moved > 0;
+            }
+        }
+
+        return false;
+    }
+
+    private bool TryTake(IPlayer byPlayer, BlockSelection blockSel) {
+        int startIndex = blockSel.SelectionBoxIndex;
+        if (startIndex > 8) return false; // If it's cabinet or drawer selection box, return
+
+        startIndex *= itemsPerSegment;
+
+        for (int i = itemsPerSegment - 1; i >= 0; i--) {
+            int currentIndex = startIndex + i;
+            if (!inv[currentIndex].Empty) {
+                ItemStack stack = inv[currentIndex].TakeOut(1);
+                if (byPlayer.InventoryManager.TryGiveItemstack(stack)) {
+                    AssetLocation sound = stack.Block?.Sounds?.Place;
+                    Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
+                }
+
+                if (stack.StackSize > 0) {
+                    Api.World.SpawnItemEntity(stack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                }
+
+            (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
+                MarkDirty();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    #region Animation & Meshing
+
+    private MeshData ownMesh;
 
     BlockEntityAnimationUtil animUtil {
         get { return GetBehavior<BEBehaviorAnimatable>()?.animUtil; }
@@ -34,6 +151,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
             });
         }
 
+        perishMultiplier = 1f;
         CabinetOpen = true;
     }
 
@@ -42,6 +160,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
             animUtil?.StopAnimation("cabinetopen");
         }
 
+        perishMultiplier = 0.75f;
         CabinetOpen = false;
     }
 
@@ -114,118 +233,6 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         return null;
     }
 
-    #endregion
-
-    public BlockEntityCoolingCabinet() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotHolderUniversal(inv)); }
-
-    public override void Initialize(ICoreAPI api) {
-        block = api.World.BlockAccessor.GetBlock(Pos);
-        base.Initialize(api);
-
-        inv.OnAcquireTransitionSpeed += Inventory_OnAcquireTransitionSpeed;
-    }
-
-    private float Inventory_OnAcquireTransitionSpeed(EnumTransitionType transType, ItemStack stack, float baseMul) {
-        if (transType == EnumTransitionType.Dry || transType == EnumTransitionType.Melt) return container.Room?.ExitCount == 0 ? 2f : 0.5f;
-        if (Api == null) return 0;
-
-        if (transType == EnumTransitionType.Ripen) {
-            float perishRate = container.GetPerishRate();
-            return GameMath.Clamp((1 - perishRate - 0.5f) * 3, 0, 1);
-        }
-
-        return 1;
-    }
-
-    internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel) {
-        ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
-
-        Api.Logger.Debug(blockSel.SelectionBoxIndex.ToString());
-
-        // Open/Close cabinet or drawer
-        if (byPlayer.Entity.Controls.ShiftKey) {
-            switch (blockSel.SelectionBoxIndex) {
-                case 9:
-                    if (!drawerOpen) OpenDrawer();
-                    else CloseDrawer();
-                    break;
-                default:
-                    if (!CabinetOpen) OpenCabinet();
-                    else CloseCabinet();
-                    MarkDirty();
-                    break;
-            }
-
-            return true;
-        }
-
-        // Take/Put items
-        if (slot.Empty) {
-            return TryTake(byPlayer, blockSel);;
-        }
-        else {
-            if (slot.HolderUniversalCheck()) {
-                AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
-
-                if (TryPut(slot, blockSel)) {
-                    Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
-                    MarkDirty();
-                    return true;
-                }
-            }
-
-            (Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:This item cannot be placed in this container."));
-            return false;
-        }
-    }
-
-    private bool TryPut(ItemSlot slot, BlockSelection blockSel) {
-        int startIndex = blockSel.SelectionBoxIndex;
-        if (startIndex > 8) return false; // If it's cabinet or drawer selection box, return
-
-        startIndex *= itemsPerSegment;
-
-        for (int i = 0; i < itemsPerSegment; i++) {
-            int currentIndex = startIndex + i;
-            if (inv[currentIndex].Empty) {
-                int moved = slot.TryPutInto(Api.World, inv[currentIndex]);
-                MarkDirty();
-                (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
-                return moved > 0;
-            }
-        }
-
-        return false;
-    }
-
-    private bool TryTake(IPlayer byPlayer, BlockSelection blockSel) {
-        int startIndex = blockSel.SelectionBoxIndex;
-        if (startIndex > 8) return false; // If it's cabinet or drawer selection box, return
-
-        startIndex *= itemsPerSegment;
-
-        for (int i = 0; i <= itemsPerSegment - 1; i++) {
-            int currentIndex = startIndex + i;
-            if (!inv[currentIndex].Empty) {
-                ItemStack stack = inv[currentIndex].TakeOut(1);
-                if (byPlayer.InventoryManager.TryGiveItemstack(stack)) {
-                    AssetLocation sound = stack.Block?.Sounds?.Place;
-                    Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
-                }
-
-                if (stack.StackSize > 0) {
-                    Api.World.SpawnItemEntity(stack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
-                }
-
-            (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
-                MarkDirty();
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     protected override float[][] genTransformationMatrices() {
         float[][] tfMatrices = new float[slotCount][];
 
@@ -234,17 +241,42 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                 for (int item = 0; item < itemsPerSegment; item++) {
                     int index = shelf * (segmentsPerShelf * itemsPerSegment) + segment * itemsPerSegment + item;
 
-                    float x = segment * 0.65f;
                     float y = shelf * 0.4921875f;
-                    float z = item * 0.65f;
+                    ModelTransform transformation = null;
 
-                    tfMatrices[index] =
-                        new Matrixf()
-                        .Translate(0.5f, 0, 0.5f)
-                        .RotateYDeg(block.Shape.rotateY)
-                        .Scale(0.95f, 0.95f, 0.95f)
-                        .Translate(x - 0.625f, y + 0.66f, z - 0.5325f)
-                        .Values;
+                    if (HolderUniversalTransformations != null) {
+                        transformation = inv[index].Itemstack?.Collectible.GetTransformation(HolderUniversalTransformations);
+                    }
+
+                    if ((index < itemsPerSegment && IsLargeItem(inv[index].Itemstack)) || (index >= itemsPerSegment && IsLargeItem(inv[index].Itemstack))) {
+                        float x = segment * 0.65f;
+                        float z = item * 0.65f;
+
+                        var matrix =
+                            new Matrixf()
+                            .Translate(0.5f, 0, 0.5f)
+                            .RotateYDeg(block.Shape.rotateY)
+                            .Scale(0.95f, 0.95f, 0.95f)
+                            .Translate(x - 0.625f, y + 0.66f, z - 0.5325f);
+
+                        if (transformation != null) matrix.ApplyModelTransformToMatrixF(transformation);
+                        tfMatrices[index] = matrix.Values;
+                    }
+                    else {
+                        float x = segment * 0.65f + (index % (itemsPerSegment / 2) == 0 ? -0.16f : 0.16f);
+                        float z = (index / (itemsPerSegment / 2)) % 2 == 0 ? -0.18f : 0.18f;
+
+                        var matrix =
+                            new Matrixf()
+                            .Translate(0.5f, 0, 0.5f)
+                            .RotateYDeg(block.Shape.rotateY)
+                            .Scale(0.95f, 0.95f, 0.95f)
+                            .Translate(x - 0.625f, y + 0.66f, z - 0.5325f);
+
+
+                        if (transformation != null) matrix.ApplyModelTransformToMatrixF(transformation);
+                        tfMatrices[index] = matrix.Values;
+                    }
                 }
             }
         }
@@ -268,6 +300,8 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         return true;
     }
 
+    #endregion
+
     public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
         base.FromTreeAttributes(tree, worldForResolving);
         CabinetOpen = tree.GetBool("cabinetOpen", false);
@@ -280,9 +314,9 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     }
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
-        base.GetBlockInfo(forPlayer, sb);
+        DisplayPerishMultiplier(GetPerishRate(), sb);
 
-        float ripenRate = GameMath.Clamp((1 - container.GetPerishRate() - 0.5f) * 3, 0, 1);
+        float ripenRate = GameMath.Clamp((1 - GetPerishRate() - 0.5f) * 3, 0, 1);
         if (ripenRate > 0) sb.Append(Lang.Get("Suitable spot for food ripening."));
 
         DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.BySegment, slotCount, segmentsPerShelf, itemsPerSegment);

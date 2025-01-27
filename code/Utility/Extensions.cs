@@ -79,6 +79,28 @@ public static class Extensions {
         }
     }
 
+    public static void ApplyModelTransformToMatrixF(this Matrixf mat, ModelTransform transformation) {
+        if (transformation == null) return;
+
+        mat.Translate(0.5f, 0, 0.5f);
+
+        if (transformation.Translation != null) {
+            mat.Translate(transformation.Translation.X, transformation.Translation.Y, transformation.Translation.Z);
+        }
+        
+        if (transformation.Rotation != null) {
+            mat.RotateXDeg(transformation.Rotation.X);
+            mat.RotateYDeg(transformation.Rotation.Y);
+            mat.RotateZDeg(transformation.Rotation.Z);
+        }
+
+        if (transformation.ScaleXYZ != null) {
+            mat.Scale(transformation.ScaleXYZ.X, transformation.ScaleXYZ.Y, transformation.ScaleXYZ.Z);
+        }
+
+        mat.Translate(-0.5f, 0, -0.5f);
+    }
+
     public static int GetStackCacheHashCodeFNV(ItemStack[] contentStack) {
         if (contentStack == null) return 0;
 
@@ -297,7 +319,10 @@ public static class Extensions {
     public static bool IsLargeItem(ItemStack itemStack) {
         if (BakingProperties.ReadFrom(itemStack)?.LargeItem == true) return true;
         if (itemStack?.Collectible?.GetType().Name == "ItemCheese") return true;
-        
+        if (itemStack?.Collectible?.GetType().Name == "BlockFruitBasket") return true;
+        if (itemStack?.Collectible?.GetType().Name == "BlockVegetableBasket") return true;
+        if (itemStack?.Collectible?.GetType().Name == "BlockEggBasket") return true;
+
         return false;
     }
 

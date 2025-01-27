@@ -21,7 +21,6 @@
     "capacityLitres": 500
   },
   "behaviors": [
-    { "name": "UnstableFalling" },
     { "name": "HorizontalOrientable" },
     { "name": "Multiblock",
       "propertiesByType": {

@@ -7,6 +7,10 @@
     "foodshelves:BlockEggBasket"
   ],
   "CollectibleCodes": [
+    "game:crock-burned*",
+    "game:claypot-burned",
+    "game:claypot-cooked",
+
     "*bread-*",
     "*dough-*",
 
