@@ -144,6 +144,7 @@ public class BlockVegetableBasket : BlockContainer {
             case "vegetable-bellpepper":
             case "vegetable-avocado":
             case "vegetable-onion":
+            case "vegetable-turnip":
                 x = new float[] { .75f, .3f, .19f,  .3f, .51f, .35f,  .05f,  .85f,   .7f,  .9f, .58f,   .4f };
                 y = new float[] {    0,   0,    0, .25f,    0, .35f,   .2f, -.25f, -.35f, .15f,  .4f, -.35f };
                 z = new float[] { .05f,   0,  .3f, .05f,  .4f, .25f, -.05f,  .05f,  .05f, .35f,  .3f,  -.3f };

@@ -69,7 +69,7 @@
   "Missing barrel.": "<font color=\"orange\">缺少桶</font>",
 
   "Contents": "<font color=\"orange\">内容： </font>",
-  "Soonest": "最快: ",
+  "Soonest": "最快:",
   "Empty.": "空的。",
   "Average perish rate {0} years": "平均腐烂速度：{0}年",
   "Average perish rate {0} days": "平均腐烂速度：{0}天",

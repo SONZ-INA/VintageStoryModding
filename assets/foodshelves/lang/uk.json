@@ -69,7 +69,7 @@
   "Missing barrel.": "<font color=\"orange\">Бочка відсутня.</font>",
 
   "Contents": "<font color=\"orange\">Вміст: </font>",
-  "Soonest": "Найближчим часом: ",
+  "Soonest": "Найближчим часом:",
   "Empty.": "Порожньо.",
   "Average perish rate {0} years": "Середній термін зберігання: {0} років",
   "Average perish rate {0} days": "Середній термін зберігання: {0} днів",

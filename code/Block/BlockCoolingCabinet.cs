@@ -58,9 +58,7 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
     }
 
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
-        if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityCoolingCabinet becb)
-            return becb.OnInteract(byPlayer, blockSel);
-
+        if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityCoolingCabinet becb) return becb.OnInteract(byPlayer, blockSel);
         return base.OnBlockInteractStart(world, byPlayer, blockSel);
     }
 
@@ -73,11 +71,12 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
     public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
         BlockEntityCoolingCabinet be = blockAccessor.GetBlockEntityExt<BlockEntityCoolingCabinet>(pos);
         if (be != null && be.CabinetOpen) {
-            Cuboidf drawerSelBox = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(1).Clone();
-            Cuboidf bottomShelf = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(2).Clone();
-            Cuboidf skip = new(); // Skip selectionBox, to keep consistency between selectionBox indexes (0-cabinet 1-drawer 2,3,4-shelves)
+            Cuboidf drawerSelBox = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(9).Clone();
+            Cuboidf bottomShelfL = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(0).Clone();
+            Cuboidf bottomShelfM = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(1).Clone();
+            Cuboidf skip = new(); // Skip selectionBox, to keep consistency between selectionBox indexes
 
-            return new Cuboidf[] { skip, drawerSelBox, skip, skip, bottomShelf };
+            return new Cuboidf[] { bottomShelfL, bottomShelfM, skip, skip, skip, skip, skip, skip, skip, drawerSelBox };
         }
 
         return base.GetSelectionBoxes(blockAccessor, pos);
@@ -85,11 +84,17 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
 
     // Selection boxes for multiblock parts
     public Cuboidf[] MBGetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos, Vec3i offset) {
+        // Selection Box indexes:
+        // Drawer - 9 / Cabinet - 10
+        // Top    - 6 7 8
+        // Middle - 3 4 5
+        // Bottom - 0 1 2
+
         BlockEntityCoolingCabinet be = blockAccessor.GetBlockEntityExt<BlockEntityCoolingCabinet>(pos);
         if (be != null) {
             if (!be.CabinetOpen) {
-                Cuboidf cabinetSelBox = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(0).Clone();
-                Cuboidf drawerSelBox = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(1).Clone();
+                Cuboidf cabinetSelBox = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(10).Clone();
+                Cuboidf drawerSelBox = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(9).Clone();
 
                 Cuboidf currentSelBox = offset.Y == 0 ? drawerSelBox : cabinetSelBox;
                 currentSelBox.MBNormalizeSelectionBox(offset);
@@ -103,22 +108,19 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
                 return new Cuboidf[] { currentSelBox };
             }
             else {
-                Cuboidf drawerSelBox = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(1).Clone();
-                Cuboidf bottomShelf = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(2).Clone();
-                Cuboidf middleShelf = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(3).Clone();
-                Cuboidf topShelf = base.GetSelectionBoxes(blockAccessor, pos).ElementAt(4).Clone();
-                Cuboidf skip = new(); // Skip selectionBox, to keep consistency between selectionBox indexes (0-cabinet 1-drawer 2,3,4-shelves)
+                List<Cuboidf> sBs = new();
 
-                bottomShelf.MBNormalizeSelectionBox(offset);
-                middleShelf.MBNormalizeSelectionBox(offset);
-                topShelf.MBNormalizeSelectionBox(offset);
-                drawerSelBox.MBNormalizeSelectionBox(offset);
+                for (int i = 0; i < 10; i++) {
+                    sBs.Add(base.GetSelectionBoxes(blockAccessor, pos).ElementAt(i).Clone());
+                    sBs[i].MBNormalizeSelectionBox(offset);
+                }
+                sBs.Add(new Cuboidf()); // Skip selectionBox, to keep consistency between selectionBox indexes (0-cabinet 1-drawer 2-10-shelves)
 
                 if (offset.Y != 0) {
-                    return new Cuboidf[] { skip, skip, topShelf, middleShelf };
+                    return new Cuboidf[] { sBs[10], sBs[10], sBs[10], sBs[3], sBs[4], sBs[5], sBs[6], sBs[7], sBs[8] };
                 }
 
-                return new Cuboidf[] { skip, drawerSelBox, skip, middleShelf, bottomShelf };
+                return new Cuboidf[] { sBs[10], sBs[1], sBs[2], sBs[10], sBs[10], sBs[10], sBs[10], sBs[10], sBs[10], sBs[9] };
             }
         }
 

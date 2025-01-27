@@ -69,7 +69,7 @@
   "Missing barrel.": "<font color=\"orange\">Отсутствует бочка.</font>",
 
   "Contents": "<font color=\"orange\">Содержимое: </font>",
-  "Soonest": "Самое раннее: ",
+  "Soonest": "Самое раннее:",
   "Empty.": "Пусто.",
   "Average perish rate {0} years": "Средний срок хранения: {0} лет",
   "Average perish rate {0} days": "Средний срок хранения: {0} дней",

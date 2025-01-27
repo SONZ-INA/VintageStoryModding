@@ -76,7 +76,7 @@
   "placefailure-requireceilingattachable": "Cannot place this block here. It has to be attached to the ceiling of an unchiseled block.",
 
   "Contents": "<font color=\"orange\">Contents: </font>",
-  "Soonest": "Soonest: ",
+  "Soonest": "Soonest:",
   "Empty.": "Empty.",
   "Average perish rate {0} years": "Average perish rate: {0} years",
   "Average perish rate {0} days": "Average perish rate: {0} days",
