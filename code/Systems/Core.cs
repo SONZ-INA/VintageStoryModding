@@ -99,6 +99,7 @@ public class Core : ModSystem {
         HolderUniversalData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/general/holderuniversal.json");
         HolderUniversalTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/general/holderuniversal.json");
         LiquidyStuffData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/general/liquidystuff.json");
+        CoolingOnlyData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/general/coolingonly.json");
 
         PieShelfData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/shelves/pieshelf.json");
         PieShelfTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/shelves/pieshelf.json");
@@ -131,6 +132,7 @@ public class Core : ModSystem {
             PatchFoodUniversal(obj, FoodUniversalData);
             PatchHolderUniversal(obj, HolderUniversalData);
             PatchLiquidyStuff(obj, LiquidyStuffData);
+            PatchCoolingOnly(obj, CoolingOnlyData);
 
             PatchPieShelf(obj, PieShelfData);
             PatchBreadShelf(obj, BreadShelfData);

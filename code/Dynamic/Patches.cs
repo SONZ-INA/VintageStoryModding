@@ -36,6 +36,13 @@ public static class Patches {
         }
     }
 
+    public static void PatchCoolingOnly(CollectibleObject obj, RestrictionData data) {
+        if (obj.CheckTypedRestriction(data) || WildcardUtil.Match(data.CollectibleCodes, obj.Code.ToString())) {
+            obj.EnsureAttributesNotNull();
+            obj.Attributes.Token[CoolingOnly] = JToken.FromObject(true);
+        }
+    }
+
     #endregion
 
     #region Shelves

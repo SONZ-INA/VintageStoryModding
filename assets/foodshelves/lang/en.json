@@ -3,6 +3,8 @@
 
   "foodshelvesserver": "FoodShelves Server",
 
+  "item-cutice": "Cut ice",
+
   "block-pieshelf-*": "Pie/Cheese Shelf",
   "block-breadshelf-*": "Bread Shelf",
   "block-barshelf-*": "Bar Shelf",
@@ -50,10 +52,10 @@
   "blockdesc-fooduniversal-text": "  -Pies, Cheese, all bread types<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings.",
   "blockdesc-holderuniversal-text": "null",
 
-  "helddesc-barrelrack": "Liquids stored in this Barrel rack have 0.5x perish rate and 0.8x curing rate.",
-  "helddesc-barrelrackbig": "Liquids stored in this Big barrel rack have 0.4x perish rate and 0.75x curing rate.",
-  "helddesc-ceilingjar": "Dehydrated fruit placed in the Ceiling Jar has a 2.5x faster dry/melt rate, and 0.75x perish rate.",
-  "helddesc-glassfoodcase": "Food placed in this case has a 0.75x perish rate.",
+  "helddesc-barrelrack": "Liquids stored in this Barrel rack stay fresh for 50% longer and cure 20% slower.",
+  "helddesc-barrelrackbig": "Liquids stored in this Big barrel rack stay fresh for 60% longer and cure 25% slower.",
+  "helddesc-ceilingjar": "Dehydrated fruit placed in the Ceiling Jar dries or melts 2.5x faster, and stays fresh for 25% longer.",
+  "helddesc-glassfoodcase": "Food placed in this case stays fresh for 25% longer.",
   "helddesc-coolingcabinet": "null",
 
   "This item cannot be placed in this container.": "This item cannot be placed in this container.",

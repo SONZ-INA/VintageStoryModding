@@ -315,19 +315,16 @@ public static class Extensions {
     #region CheckExtensions
 
     public static bool CheckTypedRestriction(this CollectibleObject obj, RestrictionData data) => data.CollectibleTypes.Contains(obj.Code.Domain + ":" + obj.GetType().Name);
+    public static bool IsFull(this ItemSlot slot) => slot.StackSize == slot.MaxSlotStackSize;
 
-    public static bool IsLargeItem(ItemStack itemStack) {
-        if (BakingProperties.ReadFrom(itemStack)?.LargeItem == true) return true;
-        if (itemStack?.Collectible?.GetType().Name == "ItemCheese") return true;
-        if (itemStack?.Collectible?.GetType().Name == "BlockFruitBasket") return true;
-        if (itemStack?.Collectible?.GetType().Name == "BlockVegetableBasket") return true;
-        if (itemStack?.Collectible?.GetType().Name == "BlockEggBasket") return true;
+    public static bool IsLargeItem(ItemStack stack) {
+        if (BakingProperties.ReadFrom(stack)?.LargeItem == true) return true;
+        if (stack?.Collectible?.GetType().Name == "ItemCheese") return true;
+        if (stack?.Collectible?.GetType().Name == "BlockFruitBasket") return true;
+        if (stack?.Collectible?.GetType().Name == "BlockVegetableBasket") return true;
+        if (stack?.Collectible?.GetType().Name == "BlockEggBasket") return true;
 
         return false;
-    }
-
-    public static bool IsFull(this ItemSlot slot) {
-        return slot.StackSize == slot.MaxSlotStackSize;
     }
 
     #endregion

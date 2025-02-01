@@ -11,13 +11,19 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     private const int shelfCount = 3;
     private const int segmentsPerShelf = 3;
     private const int itemsPerSegment = 4;
-    static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment;
+    private const int bonusSlots = 1;
+    static readonly int slotCount = shelfCount * segmentsPerShelf * itemsPerSegment + bonusSlots;
     private float perishMultiplier = 0.75f;
     
     public bool CabinetOpen { get; set; }
-    private bool drawerOpen = false;
+    public bool drawerOpen = false;
 
-    public BlockEntityCoolingCabinet() { inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotHolderUniversal(inv)); }
+    public BlockEntityCoolingCabinet() {
+        inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (id, inv) => {
+            if (id != 36) return new ItemSlotHolderUniversal(inv);
+            else return new ItemSlotCoolingOnly(inv);
+        });
+    }
 
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
@@ -51,6 +57,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                 case 9:
                     if (!drawerOpen) OpenDrawer();
                     else CloseDrawer();
+                    MarkDirty();
                     break;
                 default:
                     if (!CabinetOpen) OpenCabinet();
@@ -68,6 +75,10 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         if (slot.Empty) {
             return TryTake(byPlayer, blockSel);;
         }
+        else if (slot.Itemstack is ILiquidSink) { // Take water from drawer
+            Api.Logger.Debug("TODO");
+            return false;
+        }
         else {
             if (slot.HolderUniversalCheck()) {
                 AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
@@ -77,6 +88,10 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                     MarkDirty();
                     return true;
                 }
+            }
+
+            if (slot.CoolingOnlyCheck()) { // Putting ice in the drawer
+
             }
 
             (Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:This item cannot be placed in this container."));
@@ -123,7 +138,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                     Api.World.SpawnItemEntity(stack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
                 }
 
-            (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
+                (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
                 MarkDirty();
                 return true;
             }
