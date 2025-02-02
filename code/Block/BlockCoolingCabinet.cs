@@ -5,6 +5,7 @@ namespace FoodShelves;
 public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
     private WorldInteraction[] itemSlottableInteractions;
     private WorldInteraction[] cabinetInteractions;
+    private WorldInteraction[] drawerInteractions;
 
     public override void OnLoaded(ICoreAPI api) {
         base.OnLoaded(api);
@@ -33,7 +34,7 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
             };
         });
 
-        cabinetInteractions = ObjectCacheUtil.GetOrCreate(api, "coolingCabinetBlockInteractions", () => {
+        cabinetInteractions = ObjectCacheUtil.GetOrCreate(api, "coolingCabinetCabinetInteractions", () => {
             return new WorldInteraction[] {
                 new() {
                     ActionLangCode = "blockhelp-door-openclose",
@@ -42,9 +43,39 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
                 }
             };
         });
+
+        drawerInteractions = ObjectCacheUtil.GetOrCreate(api, "coolingCabinetDrawerInteractions", () => {
+            List<ItemStack> coolingOnlyStackList = new();
+
+            foreach (var obj in api.World.Collectibles) {
+                if (obj.Code == null) continue;
+
+                if (obj.CoolingOnlyCheck()) {
+                    coolingOnlyStackList.Add(new ItemStack(obj));
+                }
+            }
+
+            return new WorldInteraction[] {
+                new() {
+                    ActionLangCode = "blockhelp-groundstorage-addone",
+                    MouseButton = EnumMouseButton.Right,
+                    Itemstacks = coolingOnlyStackList.ToArray()
+                },
+                new() {
+                    ActionLangCode = "blockhelp-groundstorage-addbulk",
+                    MouseButton = EnumMouseButton.Right,
+                    Itemstacks = coolingOnlyStackList.ToArray(),
+                    HotKeyCode = "ctrl",
+                }
+            };
+        });
     }
 
     public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer) {
+        if (selection.SelectionBoxIndex == 9 && world.BlockAccessor.GetBlockEntity(selection.Position) is BlockEntityCoolingCabinet becc) {
+            if (becc.drawerOpen) return cabinetInteractions.Append(drawerInteractions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer)));
+        }
+        
         if (selection.SelectionBoxIndex > 8) return cabinetInteractions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer));
         else return cabinetInteractions.Append(itemSlottableInteractions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer)));
     }

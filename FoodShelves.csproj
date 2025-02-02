@@ -124,6 +124,7 @@
   <None Remove="assets\foodshelves\recipes\grid\barrelrackbig.json" />
   <None Remove="assets\foodshelves\recipes\grid\baskets\eggbasket.json" />
   <None Remove="assets\foodshelves\recipes\grid\baskets\vegetablebasket.json" />
+  <None Remove="assets\foodshelves\recipes\grid\cutice.json" />
   <None Remove="assets\foodshelves\recipes\grid\fruitbasket.json" />
   <None Remove="assets\foodshelves\recipes\grid\glassware\ceilingjar.json" />
   <None Remove="assets\foodshelves\recipes\grid\glassware\glassfoodblock.json" />

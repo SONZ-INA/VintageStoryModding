@@ -1,8 +1,6 @@
 {
   "CollectibleTypes": [],
   "CollectibleCodes": [
-    "game:glacierice",
-    "game:lakeice",
-    "game:packedglacierice"
+    "foodshelves:cutice"
   ]
 }

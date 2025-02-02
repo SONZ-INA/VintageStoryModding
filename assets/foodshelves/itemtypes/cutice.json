@@ -3,6 +3,7 @@
 	"creativeinventory": { "general": [ "*" ], "foodshelves": [ "*" ] },
 	"shape": { "base": "item/cutice" },
 	"textures": { "ice": { "base": "game:block/liquid/ice/packedglacier1" } },
+	"maxStackSize": 64,
 	"transitionableProps": [
 		{
 			"type": "Melt",

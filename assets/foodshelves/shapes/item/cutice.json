@@ -1,10 +1,8 @@
 {
 	"textureWidth": 16,
 	"textureHeight": 16,
-	"textureSizes": {
-	},
-	"textures": {
-	},
+	"textureSizes": {},
+	"textures": {},
 	"elements": [
 		{
 			"name": "Cube2",

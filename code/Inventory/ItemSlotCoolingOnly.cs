@@ -1,7 +1,7 @@
 ﻿namespace FoodShelves;
 
 public class ItemSlotCoolingOnly : ItemSlot {
-    public override int MaxSlotStackSize => 1;
+    public override int MaxSlotStackSize => 64;
 
     public ItemSlotCoolingOnly(InventoryBase inventory) : base(inventory) {
         this.inventory = inventory;
