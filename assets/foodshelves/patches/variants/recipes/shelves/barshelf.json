@@ -250,7 +250,7 @@
       "recipeGroup": 2,
       "output": { "type": "block", "code": "barshelf-short-east", "quantity": 2 }
     },
-		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+		"condition": { "when": "FoodShelves.EForWFNVariants", "isValue": "true" }
   },
   {
     "file": "foodshelves:recipes/grid/shelves/barshelf.json",

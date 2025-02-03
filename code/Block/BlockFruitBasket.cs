@@ -107,7 +107,7 @@ public class BlockFruitBasket : BlockContainer {
         int hashcode = GetStackCacheHashCodeFNV(contents);
 
         if (!meshrefs.TryGetValue(hashcode, out MultiTextureMeshRef meshRef)) {
-            GetTransformationMatrix(out float[,] transformationMatrix);
+            float[,] transformationMatrix = GetTransformationMatrix();
 
             capi.Tesselator.TesselateBlock(this, out MeshData basketMesh);
             MeshData contentMesh = GenContentMesh(capi, contents, transformationMatrix, 0.5f, FruitBasketTransformations);
@@ -121,7 +121,7 @@ public class BlockFruitBasket : BlockContainer {
         renderinfo.ModelRef = meshRef;
     }
 
-    public static void GetTransformationMatrix(out float[,] transformationMatrix) {
+    public static float[,] GetTransformationMatrix() {
         float[] x = { .65f, .3f, .3f,  .3f,  .6f, .35f,  .5f, .65f, .35f, .1f,  .6f, .58f, .3f,   .2f, -.1f,  .1f, .1f, .25f,  .2f, .55f,   .6f, .3f };
         float[] y = {    0,   0,   0, .25f,    0, .35f,  .2f, -.3f,  .3f, .2f,  .4f,  .4f, .4f,   .5f, .57f, .05f, .3f, .52f, .55f, .45f, -.65f, .5f };
         float[] z = { .05f,   0, .4f,  .1f, .45f, .35f, .18f,  .7f, .55f, .1f, .02f,  .3f, .7f, -.15f, .15f, -.2f, .9f, .05f,  .6f, .35f,  -.2f, .6f };
@@ -130,6 +130,6 @@ public class BlockFruitBasket : BlockContainer {
         float[] rY = {   4,  -2,  15,   -4,   10,   12,   30,    3,   -2,   4,   -5,   -2,   2,    20,   55,    2,  50,   15,    0,    0,    22,  10 };
         float[] rZ = {   1,  -1,   0,   45,    1,   41,    5,   70,   10,  17,   -2,  -20,   3,    16,    7,    6, -20,    8,  -25,   15,    45, -10 };
 
-        transformationMatrix = GenTransformationMatrix(x, y, z, rX, rY, rZ);
+        return GenTransformationMatrix(x, y, z, rX, rY, rZ);
     }
 }

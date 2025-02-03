@@ -64,7 +64,6 @@ public static class Extensions {
             float roundRad = ((int)Math.Round(angleHor / deg22dot5rad)) * deg22dot5rad;
             return roundRad;
         }
-
         return 0;
     }
 
@@ -78,6 +77,28 @@ public static class Extensions {
                 if (face != null) face.Texture = key;
             }
         }
+    }
+
+    public static void ApplyModelTransformToMatrixF(this Matrixf mat, ModelTransform transformation) {
+        if (transformation == null) return;
+
+        mat.Translate(0.5f, 0, 0.5f);
+
+        if (transformation.Translation != null) {
+            mat.Translate(transformation.Translation.X, transformation.Translation.Y, transformation.Translation.Z);
+        }
+        
+        if (transformation.Rotation != null) {
+            mat.RotateXDeg(transformation.Rotation.X);
+            mat.RotateYDeg(transformation.Rotation.Y);
+            mat.RotateZDeg(transformation.Rotation.Z);
+        }
+
+        if (transformation.ScaleXYZ != null) {
+            mat.Scale(transformation.ScaleXYZ.X, transformation.ScaleXYZ.Y, transformation.ScaleXYZ.Z);
+        }
+
+        mat.Translate(-0.5f, 0, -0.5f);
     }
 
     public static int GetStackCacheHashCodeFNV(ItemStack[] contentStack) {
@@ -101,48 +122,6 @@ public static class Extensions {
 
             return (int)hash;
         }
-    }
-
-    private static char GetFacingFromBlockCode(BlockEntity block) {
-        string codePath = block.Block.Code.ToString();
-        if (codePath == null) return 'n';
-
-        string[] parts = codePath.Split('-');
-        string facingStr = parts.Last().ToLowerInvariant();
-
-        return facingStr switch {
-            "north" => 'n',
-            "east" => 'e',
-            "south" => 's',
-            "west" => 'w',
-            _ => 'n'
-        };
-    }
-
-    // currently hardcoded for BarrelRackBig
-    public static int[] GetMultiblockIndex(Vec3i offset, BlockEntity block) {
-        char facing = GetFacingFromBlockCode(block);
-
-        int transformedX = offset.X;
-        int transformedY = offset.Y;
-        int transformedZ = offset.Z;
-
-        switch (facing) {
-            case 'n':
-                break; // No change needed for North
-            case 's':
-                transformedX -= 1;
-                transformedZ += 1;
-                break;
-            case 'e':
-                transformedZ += 1;
-                break;
-            case 'w':
-                transformedX -= 1;
-                break;
-        }
-
-        return new int[3] { transformedX, transformedY, transformedZ };
     }
 
     #endregion
@@ -189,6 +168,7 @@ public static class Extensions {
         if (toExclude == null) {
             material = material.Replace("normal", "");
             material = material.Replace("short", "");
+            material = material.Replace("very", "");
         }
         else {
             for (int i = 0; i < toExclude.Length; i++) {
@@ -222,33 +202,26 @@ public static class Extensions {
         return transformationMatrix;
     }
 
-    public static int GetRotationAngle(Block block) {
-        string blockPath = block.Code.Path;
-        if (blockPath.EndsWith("-north")) return 270;
-        if (blockPath.EndsWith("-south")) return 90;
-        if (blockPath.EndsWith("-east")) return 0;
-        if (blockPath.EndsWith("-west")) return 180;
-        return 0;
+    public static void MBNormalizeSelectionBox(this Cuboidf selectionBox, Vec3i offset) {
+        // Make sure that the selection boxes defined in blocktype .json file are defined with the following rotations:
+        // { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
+        // Otherwise, the selection boxes won't correctly normalize
+        selectionBox.X1 += offset.X;
+        selectionBox.X2 += offset.X;
+        selectionBox.Y1 += offset.Y;
+        selectionBox.Y2 += offset.Y;
+        selectionBox.Z1 += offset.Z;
+        selectionBox.Z2 += offset.Z;
     }
 
-    public static Cuboidf RotateCuboid90Deg(Cuboidf cuboid, int angle) {
-        if (angle == 0) {
-            return cuboid;
-        }
-
-        float x1 = cuboid.X1;
-        float y1 = cuboid.Y1;
-        float z1 = cuboid.Z1;
-        float x2 = cuboid.X2;
-        float y2 = cuboid.Y2;
-        float z2 = cuboid.Z2;
-
-        return angle switch {
-            90 => new Cuboidf(1 - z2, y1, x1, 1 - z1, y2, x2),
-            180 => new Cuboidf(1 - x2, y1, 1 - z2, 1 - x1, y2, 1 - z1),
-            270 => new Cuboidf(z1, y1, 1 - x2, z2, y2, 1 - x1),
-            _ => throw new ArgumentException("Angle must be 0, 90, 180, or 270 degrees"),
-        };
+    public static int GetRotationAngle(Block block) {
+        // This one's more-less hardcoded that these rotations always have to "align" with the ones defined in blocktype but oh well.
+        string blockPath = block.Code.Path;
+        if (blockPath.EndsWith("-north")) return 0;
+        if (blockPath.EndsWith("-south")) return 180;
+        if (blockPath.EndsWith("-east")) return 270;
+        if (blockPath.EndsWith("-west")) return 90;
+        return 0;
     }
 
     #endregion
@@ -343,16 +316,16 @@ public static class Extensions {
     #region CheckExtensions
 
     public static bool CheckTypedRestriction(this CollectibleObject obj, RestrictionData data) => data.CollectibleTypes.Contains(obj.Code.Domain + ":" + obj.GetType().Name);
+    public static bool IsFull(this ItemSlot slot) => slot.StackSize == slot.MaxSlotStackSize;
 
-    public static bool IsLargeItem(ItemStack itemStack) {
-        if (BakingProperties.ReadFrom(itemStack)?.LargeItem == true) return true;
-        if (itemStack?.Collectible?.GetType().Name == "ItemCheese") return true;
-        
+    public static bool IsLargeItem(ItemStack stack) {
+        if (BakingProperties.ReadFrom(stack)?.LargeItem == true) return true;
+        if (stack?.Collectible?.GetType().Name == "ItemCheese") return true;
+        if (stack?.Collectible?.GetType().Name == "BlockFruitBasket") return true;
+        if (stack?.Collectible?.GetType().Name == "BlockVegetableBasket") return true;
+        if (stack?.Collectible?.GetType().Name == "BlockEggBasket") return true;
+
         return false;
-    }
-
-    public static bool IsFull(this ItemSlot slot) {
-        return slot.StackSize == slot.MaxSlotStackSize;
     }
 
     #endregion

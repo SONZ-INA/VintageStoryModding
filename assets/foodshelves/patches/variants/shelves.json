@@ -7,6 +7,13 @@
     "condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
   },
   {
+    "file": "foodshelves:blocktypes/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/variantgroups/0/states",
+    "value": [ "veryshort", "veryshortaged", "veryshortbirch", "veryshortoak", "veryshortmaple", "veryshortpine", "veryshortacacia", "veryshortkapok", "veryshortbaldcypress", "veryshortlarch", "veryshortredwood", "veryshortebony", "veryshortwalnut", "veryshortpurpleheart" ],
+    "condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
     "file": "foodshelves:blocktypes/shelves/pieshelf.json",
     "op": "replace",
     "path": "/variantgroups/0/states",
@@ -77,6 +84,18 @@
       "*purpleheart-*": {
         "surface": { "base": "game:block/wood/debarked/purpleheart", "blendedOverlays": [{ "base": "foodshelves:variants/shelves/surface" }] },
         "wood": { "base": "game:block/wood/debarked/purpleheart", "blendedOverlays": [{ "base": "foodshelves:variants/shelves/wood" }] }
+      }
+    },
+    "condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }
+  },
+  {
+    "file": "foodshelves:blocktypes/shelves/seedshelf.json",
+    "op": "addmerge",
+    "path": "/texturesByType",
+    "value": {
+      "*-veryshort-*": {
+        "wood": { "base": "game:block/wood/shelf/wood" },
+        "surface": { "base": "game:block/wood/shelf/surface" }
       }
     },
     "condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }

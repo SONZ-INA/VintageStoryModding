@@ -16,10 +16,30 @@ public static class Patches {
         }
     }
 
+    public static void PatchHolderUniversal(CollectibleObject obj, RestrictionData data) {
+        if (obj.CheckTypedRestriction(data) || WildcardUtil.Match(data.CollectibleCodes, obj.Code.ToString())) {
+            obj.EnsureAttributesNotNull();
+            obj.Attributes.Token[HolderUniversal] = JToken.FromObject(true);
+        }
+
+        ModelTransform transformation = obj.GetTransformation(HolderUniversalTransformations);
+        if (transformation != null) {
+            obj.Attributes.Token[onGlassFoodBlockTransform] = JToken.FromObject(transformation);
+            obj.Attributes.Token[onGlassFoodCaseTransform] = JToken.FromObject(transformation);
+        }
+    }
+
     public static void PatchLiquidyStuff(CollectibleObject obj, RestrictionData data) {
         if (obj.CheckTypedRestriction(data) || WildcardUtil.Match(data.CollectibleCodes, obj.Code.ToString())) {
             obj.EnsureAttributesNotNull();
             obj.Attributes.Token[LiquidyStuff] = JToken.FromObject(true);
+        }
+    }
+
+    public static void PatchCoolingOnly(CollectibleObject obj, RestrictionData data) {
+        if (obj.CheckTypedRestriction(data) || WildcardUtil.Match(data.CollectibleCodes, obj.Code.ToString())) {
+            obj.EnsureAttributesNotNull();
+            obj.Attributes.Token[CoolingOnly] = JToken.FromObject(true);
         }
     }
 

@@ -43,8 +43,7 @@ public class BlockEntityGlassFood : BlockEntityDisplay {
         if (Api == null) return 0;
 
         if (transType == EnumTransitionType.Ripen) {
-            float perishRate = GetPerishRate();
-            return GameMath.Clamp((1 - perishRate - 0.5f) * 3, 0, 1);
+            return GameMath.Clamp((1 - GetPerishRate() - 0.5f) * 3, 0, 1);
         }
 
         return perishMultiplier;

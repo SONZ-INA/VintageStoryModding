@@ -27,10 +27,14 @@ public static class Meshing {
         if (block == null) return null;
 
         ITexPositionSource texSource = capi.Tesselator.GetTextureSource(block);
-        string shapeLocation = block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json").ToString();
-
-        Shape shape = capi.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
-        if (shape == null) return null;
+        Shape shape = capi.TesselatorManager.GetCachedShape(block.Shape.Base);
+        
+        if (shape == null) {
+            string shapeLocation = block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json").ToString();
+            shape = capi.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
+            if (shape == null) return null;
+        }
+        
         Shape shapeClone = shape.Clone();
 
         ShapeElement[] RemoveElements(ShapeElement[] elementArray) {
@@ -142,8 +146,10 @@ public static class Meshing {
 
         // Re-sizing the textures
         if (itemPath == "beeswax") { // Hardcoded stuff for beeswax
-            for (int i = 0; i < 6; i++) {
-                shapeClone.Elements[0].FacesResolved[i].Uv[0] = 6f;
+            if (pathToFillShape == ShapeReferences.CeilingJarUtil) {
+                for (int i = 0; i < 6; i++) {
+                    shapeClone.Elements[0].FacesResolved[i].Uv[0] = 6f;
+                }
             }
         }
 
@@ -154,7 +160,12 @@ public static class Meshing {
         }
 
         for (int i = 0; i < 4; i++) {
-            shapeClone.Elements[0].FacesResolved[i].Uv[3] = (float)shapeHeight + textureOffset;
+            float offset = 0; // Another hardcode for beeswax texture height
+            if (pathToFillShape == ShapeReferences.GlassJarUtil && contents[0].Collectible.Code.Path == "beeswax") {
+                offset = -1.5f;
+            }
+
+            shapeClone.Elements[0].FacesResolved[i].Uv[3] = (float)shapeHeight + textureOffset + offset;
         }
 
         capi.Tesselator.TesselateShape("liquidymesh", shapeClone, out MeshData contentMesh, texSource);

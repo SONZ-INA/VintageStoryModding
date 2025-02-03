@@ -29,5 +29,25 @@
     "height": 2,
     "recipeGroup": 2,
     "output": { "type": "block", "code": "seedshelf-normal-east" }
+  },
+  {
+    "ingredientPattern": "__,S_",
+    "ingredients": {
+      "S": { "type": "block", "code": "foodshelves:seedshelf-short-east" }
+    },
+    "width": 2,
+    "height": 2,
+    "recipeGroup": 2,
+    "output": { "type": "block", "code": "seedshelf-veryshort-east", "quantity": 2 }
+  },
+  {
+    "ingredientPattern": "__,_S",
+    "ingredients": {
+      "S": { "type": "block", "code": "foodshelves:seedshelf-veryshort-east", "quantity": 2 }
+    },
+    "width": 2,
+    "height": 2,
+    "recipeGroup": 2,
+    "output": { "type": "block", "code": "seedshelf-short-east" }
   }
 ]

@@ -1,0 +1,26 @@
+{
+  "CollectibleTypes": [
+    "game:BlockPie",
+    "game:ItemCheese",
+    "foodshelves:BlockFruitBasket",
+    "foodshelves:BlockVegetableBasket",
+    "foodshelves:BlockEggBasket"
+  ],
+  "CollectibleCodes": [
+    "game:crock-burned*",
+    "game:claypot-burned",
+    "game:claypot-cooked",
+
+    "*bread-*",
+    "*dough-*",
+
+    "expandedfoods:muffin-*",
+    "expandedfoods:breadedball-*",
+    "expandedfoods:dumpling-*",
+    "expandedfoods:doughball-*",
+
+    "wildcraftfruit:nut-halva",
+    "wildcraftfruit:nut-pacoca",
+    "wildcraftfruit:nut-marzipan"
+  ]
+}

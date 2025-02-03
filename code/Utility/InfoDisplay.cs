@@ -9,11 +9,12 @@ public static class InfoDisplay {
         ByBlockMerged
     }
 
-    public static void DisplayPerishMultiplier(float perishMul, StringBuilder dsc) {
+    public static void DisplayPerishMultiplier(float perishMul, StringBuilder dsc, InWorldContainer container = null) {
+        container?.ReloadRoom();
         dsc.AppendLine(Lang.Get("Stored food perish speed: {0}x", Math.Round(perishMul, 2)));
     }
 
-    public static void DisplayInfo(IPlayer forPlayer, StringBuilder sb, InventoryGeneric inv, InfoDisplayOptions displaySelection, int slotCount, int segmentsPerShelf = 0, int itemsPerSegment = 0, bool skipLine = true) {
+    public static void DisplayInfo(IPlayer forPlayer, StringBuilder sb, InventoryGeneric inv, InfoDisplayOptions displaySelection, int slotCount, int segmentsPerShelf = 0, int itemsPerSegment = 0, bool skipLine = true, int[] skipSlots = null) {
         if (skipLine) sb.AppendLine(); // Space in between to be in line with vanilla
 
         IWorldAccessor world = inv.Api.World;
@@ -61,13 +62,16 @@ public static class InfoDisplay {
         for (int i = start; i != end; i = displaySelection == InfoDisplayOptions.ByBlock ? i - 1 : i + 1) {
             if (i >= slotCount) break;
             if (inv[i].Empty) continue;
+            if (skipSlots?.Contains(i) == true) continue;
 
             ItemStack stack = inv[i].Itemstack;
             float ripenRate = stack.Collectible.GetTransitionRateMul(world, inv[i], EnumTransitionType.Ripen); // Get ripen rate
 
-            if (stack.Collectible.TransitionableProps != null &&
-                stack.Collectible.TransitionableProps.Length > 0) {
+            if (stack.Collectible.TransitionableProps != null && stack.Collectible.TransitionableProps.Length > 0) {
                 sb.Append(PerishableInfoCompact(world, inv[i], ripenRate));
+            }
+            else if (WildcardUtil.Match("game:crock-burned*", stack.Collectible.Code.ToString())) {
+                sb.Append(CrockInfoCompact(inv, world, inv[i]));
             }
             else {
                 sb.Append(stack.GetName());
@@ -77,14 +81,46 @@ public static class InfoDisplay {
         }
     }
 
+    public static string GetUntilMelted(ItemSlot slot) {
+        if (slot.Empty) return "";
+
+        IWorldAccessor world = slot.Inventory.Api.World;
+
+        TransitionState meltTransitionState = slot.Itemstack.Collectible.UpdateAndGetTransitionState(world, slot, EnumTransitionType.Melt);
+        if (meltTransitionState != null) {
+            float meltRate = slot.Itemstack.Collectible.GetTransitionRateMul(world, slot, EnumTransitionType.Melt);
+            if (meltRate <= 0) return Lang.Get("foodshelves:Will not melt");
+
+            double hoursLeft = meltTransitionState.TransitionHours / meltRate * (1 - meltTransitionState.TransitionLevel);
+            double daysLeft = hoursLeft / world.Calendar.HoursPerDay;
+
+            if (daysLeft >= world.Calendar.DaysPerYear) {
+                return Lang.Get("foodshelves:Will melt in {0} years", Math.Round(daysLeft / world.Calendar.DaysPerYear, 1));
+            }
+            else if (daysLeft > 1) {
+                return Lang.Get("foodshelves:Will melt in {0} days", Math.Round(daysLeft, 1));
+            }
+            else {
+                return Lang.Get("foodshelves:Will melt in {0} hours", Math.Round(hoursLeft, 1));
+            }
+        }
+
+        return Lang.Get("foodshelves:Will not melt");
+    }
+
+    public static string GetNameAndStackSize(ItemStack stack) {
+        return stack.GetName() + " x" + stack.StackSize;
+    }
+
+    public static string GetAmountOfLiters(ItemStack stack) {
+        return stack.GetName() + " (" + (float)stack.StackSize / 100 + " L)";
+    }
+
     public static string PerishableInfoCompact(IWorldAccessor world, ItemSlot contentSlot, float ripenRate, bool withStackName = true) {
         if (contentSlot.Empty) return "";
 
         StringBuilder dsc = new();
-
-        if (withStackName) {
-            dsc.Append(contentSlot.Itemstack.GetName());
-        }
+        if (withStackName) dsc.Append(contentSlot.Itemstack.GetName());
 
         TransitionState[] transitionStates = contentSlot.Itemstack?.Collectible.UpdateAndGetTransitionStates(world, contentSlot);
 
@@ -124,7 +160,6 @@ public static class InfoDisplay {
                             }
                         }
                         break;
-
                     case EnumTransitionType.Ripen:
                         if (nowSpoiling) break;
 
@@ -151,6 +186,92 @@ public static class InfoDisplay {
             }
 
             if (appendLine) dsc.AppendLine();
+        }
+
+        return dsc.ToString();
+    }
+
+    public static string CrockInfoCompact(InventoryGeneric inv, IWorldAccessor world, ItemSlot inSlot) {
+        BlockMeal mealblock = world.GetBlock(new AssetLocation("bowl-meal")) as BlockMeal;
+        BlockCrock crock = inSlot.Itemstack.Collectible as BlockCrock;
+
+        CookingRecipe recipe = crock.GetCookingRecipe(world, inSlot.Itemstack);
+        ItemStack[] stacks = crock.GetNonEmptyContents(world, inSlot.Itemstack);
+
+        if (stacks == null || stacks.Length == 0) {
+            return Lang.Get("Empty Crock") + "\n";
+        }
+
+        StringBuilder dsc = new();
+
+        if (recipe != null) {
+            double servings = inSlot.Itemstack.Attributes.GetDecimal("quantityServings");
+
+            if (recipe != null) {
+                if (servings == 1) {
+                    dsc.Append(Lang.Get("{0:0.#}x {1}.", servings, recipe.GetOutputName(world, stacks)));
+                }
+                else {
+                    dsc.Append(Lang.Get("{0:0.#}x {1}.", servings, recipe.GetOutputName(world, stacks)));
+                }
+            }
+        }
+        else {
+            int i = 0;
+            foreach (var stack in stacks) {
+                if (stack == null) continue;
+                if (i++ > 0) dsc.Append(", ");
+                dsc.Append(stack.StackSize + "x " + stack.GetName());
+            }
+
+            dsc.Append('.');
+        }
+
+        DummyInventory dummyInv = new(world.Api);
+
+        ItemSlot contentSlot = BlockCrock.GetDummySlotForFirstPerishableStack(world, stacks, null, dummyInv);
+        dummyInv.OnAcquireTransitionSpeed += (transType, stack, mul) => {
+            return mul * crock.GetContainingTransitionModifierContained(world, inSlot, transType) * inv.GetTransitionSpeedMul(transType, stack);
+        };
+
+        TransitionState[] transitionStates = contentSlot.Itemstack?.Collectible.UpdateAndGetTransitionStates(world, contentSlot);
+        bool addNewLine = true;
+        if (transitionStates != null) {
+            for (int i = 0; i < transitionStates.Length; i++) {
+                TransitionState state = transitionStates[i];
+
+                TransitionableProperties prop = state.Props;
+                float perishRate = contentSlot.Itemstack.Collectible.GetTransitionRateMul(world, contentSlot, prop.Type);
+
+                if (perishRate <= 0) continue;
+
+                addNewLine = false;
+                float transitionLevel = state.TransitionLevel;
+                float freshHoursLeft = state.FreshHoursLeft / perishRate;
+
+                if (prop.Type == EnumTransitionType.Perish) {
+                    if (transitionLevel > 0) {
+                        dsc.AppendLine(" " + Lang.Get("{0}% spoiled", (int)Math.Round(transitionLevel * 100)));
+                    }
+                    else {
+                        double hoursPerday = world.Calendar.HoursPerDay;
+
+                        if (freshHoursLeft / hoursPerday >= world.Calendar.DaysPerYear) {
+                            dsc.AppendLine(" " + Lang.Get("Fresh for {0} years", Math.Round(freshHoursLeft / hoursPerday / world.Calendar.DaysPerYear, 1)));
+                        }
+                        else if (freshHoursLeft > hoursPerday) {
+                            dsc.AppendLine(" " + Lang.Get("Fresh for {0} days", Math.Round(freshHoursLeft / hoursPerday, 1)));
+                        }
+                        else {
+                            dsc.AppendLine(" " + Lang.Get("Fresh for {0} hours", Math.Round(freshHoursLeft, 1)));
+                        }
+                    }
+                }
+            }
+        }
+
+        if (addNewLine) {
+            dsc.AppendLine("");
         }
 
         return dsc.ToString();

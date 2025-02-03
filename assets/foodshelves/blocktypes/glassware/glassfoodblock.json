@@ -47,7 +47,13 @@
     },
     "*-top*": { "all": false }
   },
-  "sideopaque": { "all": false },
+  "sideopaqueByType": {
+    "*-normal*": {
+      "up": true,
+      "all": false
+    },
+    "*-top*": { "all": false }
+  },
   "replaceable": 999,
   "resistance": 1.5,
   "tpHandTransform": {

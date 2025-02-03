@@ -3,6 +3,8 @@
 
   "foodshelvesserver": "FoodShelves Server",
 
+  "item-cutice": "Cut ice",
+
   "block-pieshelf-*": "Pie/Cheese Shelf",
   "block-breadshelf-*": "Bread Shelf",
   "block-barshelf-*": "Bar Shelf",
@@ -28,6 +30,7 @@
   "block-glassfoodcase-*": "Glass Food Case",
   "block-glassjar-*": "Glass Jar",
   "block-ceilingjar-*": "Ceiling Jar",
+  "block-coolingcabinet-*": "Cooling Cabinet",
 
   "blockdesc-canhold-title": "Can hold:",
   "blockdesc-canbeplacedin-title": "Can be placed in:",
@@ -47,12 +50,15 @@
   "blockdesc-liquidystuff-text": "  -Can hold resin, beeswax, animal fat, and all dehydrated/dry fruits from Expanded Foods.",
   "blockdesc-pumpkincase-text": "  -Can only hold pumpkins.",
   "blockdesc-fooduniversal-text": "  -Pies, Cheese, all bread types<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings.",
+  "blockdesc-holderuniversal-text": "  -Pies, Cheese, all bread types, crocks and pots<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings<br>Wildcraft: Fruits and Nuts:<br>  -Pacoca<br>  -Halva<br>  -Marzipam",
 
-  "helddesc-barrelrack": "Liquids stored in this Barrel rack have 0.5x perish rate and 0.8x curing rate.",
-  "helddesc-barrelrackbig": "Liquids stored in this Big barrel rack have 0.4x perish rate and 0.75x curing rate.",
-  "helddesc-ceilingjar": "Dehydrated fruit placed in the Ceiling Jar has a 2.5x faster dry/melt rate, and 0.75x perish rate.",
-  "helddesc-glassfoodcase": "Food placed in this case has a 0.75x perish rate.",
+  "helddesc-barrelrack": "Liquids stored in this Barrel rack stay fresh for 50% longer and cure 20% slower.",
+  "helddesc-barrelrackbig": "Liquids stored in this Big barrel rack stay fresh for 60% longer and cure 25% slower.",
+  "helddesc-ceilingjar": "Dehydrated fruit placed in the Ceiling Jar dries or melts 2.5x faster, and stays fresh for 25% longer.",
+  "helddesc-glassfoodcase": "Food placed in this case stays fresh for 25% longer.",
+  "helddesc-coolingcabinet": "Food stored in this cabinet stays fresh 25% longer, or up to 60% longer when ice is added.<br>Make sure to keep it closed!",
 
+  "This item cannot be placed in this container.": "This item cannot be placed in this container.",
   "Only pies or cheese can be placed on this shelf.": "Only pies or cheese can be placed on this shelf.",
   "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.": "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.",
   "Only food bars can be placed on this shelf.": "Only food bars can be placed on this shelf.",
@@ -69,9 +75,19 @@
   "The barrel must be emptied before it can be picked up.": "The barrel must be emptied before it can be picked up.",
   "Missing barrel.": "<font color=\"orange\">Missing barrel.</font>",
 
+  "placefailure-requireceilingattachable": "Cannot place this block here. It has to be attached to the ceiling of an unchiseled block.",
+
   "Contents": "<font color=\"orange\">Contents: </font>",
-  "Soonest": "Soonest: ",
+  "Soonest": "Soonest:",
   "Empty.": "Empty.",
+  "Short": "Short",
+  "Very Short": "Very Short",
+
+  "Will melt in {0} years": "Will melt in {0} years",
+  "Will melt in {0} days": "Will melt in {0} days",
+  "Will melt in {0} hours": "Will melt in {0} hours",
+  "Will not melt": "Will not melt",
+
   "Average perish rate {0} years": "Average perish rate: {0} years",
   "Average perish rate {0} days": "Average perish rate: {0} days",
   "Average perish rate {0} hours": "Average perish rate: {0} hours",

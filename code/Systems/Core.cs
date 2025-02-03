@@ -76,6 +76,9 @@ public class Core : ModSystem {
         //api.RegisterBlockEntityClass("FoodShelves.BlockEntityGlassJar", typeof(BlockEntityGlassJar));
         api.RegisterBlockClass("FoodShelves.BlockCeilingJar", typeof(BlockCeilingJar));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityCeilingJar", typeof(BlockEntityCeilingJar));
+
+        api.RegisterBlockClass("FoodShelves.BlockCoolingCabinet", typeof(BlockCoolingCabinet));
+        api.RegisterBlockEntityClass("FoodShelves.BlockEntityCoolingCabinet", typeof(BlockEntityCoolingCabinet));
     }
 
     public override void StartClientSide(ICoreClientAPI api) {
@@ -93,7 +96,10 @@ public class Core : ModSystem {
 
         FoodUniversalData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/general/fooduniversal.json");
         FoodUniversalTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/general/fooduniversal.json");
+        HolderUniversalData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/general/holderuniversal.json");
+        HolderUniversalTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/general/holderuniversal.json");
         LiquidyStuffData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/general/liquidystuff.json");
+        CoolingOnlyData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/general/coolingonly.json");
 
         PieShelfData = api.LoadAsset<RestrictionData>("foodshelves:config/restrictions/shelves/pieshelf.json");
         PieShelfTransformations = api.LoadAsset<Dictionary<string, ModelTransform>>("foodshelves:config/transformations/shelves/pieshelf.json");
@@ -124,7 +130,9 @@ public class Core : ModSystem {
 
         foreach (CollectibleObject obj in api.World.Collectibles) {
             PatchFoodUniversal(obj, FoodUniversalData);
+            PatchHolderUniversal(obj, HolderUniversalData);
             PatchLiquidyStuff(obj, LiquidyStuffData);
+            PatchCoolingOnly(obj, CoolingOnlyData);
 
             PatchPieShelf(obj, PieShelfData);
             PatchBreadShelf(obj, BreadShelfData);

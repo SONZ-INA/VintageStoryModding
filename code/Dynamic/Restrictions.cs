@@ -8,7 +8,9 @@ public class RestrictionData {
 public static class RestrictionsCollection {
     #region General
     public static RestrictionData FoodUniversalData { get; set; } = new();
+    public static RestrictionData HolderUniversalData { get; set; } = new();
     public static RestrictionData LiquidyStuffData { get; set; } = new();
+    public static RestrictionData CoolingOnlyData { get; set; } = new();
     #endregion
 
     #region Shelves
@@ -60,11 +62,35 @@ public static class Restrictions
 
     #endregion
 
+    #region HolderUniversal
+
+    public const string HolderUniversal = "holderuniversalcheck";
+    public static bool HolderUniversalCheck(this CollectibleObject obj) => obj?.Attributes?[HolderUniversal].AsBool() == true;
+    public static bool HolderUniversalCheck(this ItemSlot slot) {
+        if (slot?.Itemstack?.Collectible?.Attributes?[HolderUniversal].AsBool() == false) return false;
+        if (slot?.Inventory?.ClassName == "hopper") return false;
+        return true;
+    }
+
+    #endregion
+
     #region LiquidyStuff
 
     public const string LiquidyStuff = "liquidystuffcheck";
     public static bool LiquidyStuffCheck(this CollectibleObject obj) => obj?.Attributes?[LiquidyStuff].AsBool() == true;
     public static bool LiquidyStuffCheck(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[LiquidyStuff].AsBool() == true;
+
+    #endregion
+
+    #region CoolingOnly
+
+    public const string CoolingOnly = "coolingonlycheck";
+    public static bool CoolingOnlyCheck(this CollectibleObject obj) => obj?.Attributes?[CoolingOnly].AsBool() == true;
+    public static bool CoolingOnlyCheck(this ItemSlot slot) {
+        if (slot?.Itemstack?.Collectible?.Attributes?[CoolingOnly].AsBool() == false) return false;
+        if (slot?.Inventory?.ClassName == "hopper") return false;
+        return true;
+    }
 
     #endregion
 

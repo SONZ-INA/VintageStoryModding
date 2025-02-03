@@ -38,8 +38,8 @@
     "surface": { "base": "game:block/wood/shelf/surface" }
   },
   "heldTpIdleAnimationByType": {
-    "barrelrack-normal-*": "holdbothhandslarge",
-    "barrelrack-top-*": "holdunderarm"
+    "*-normal-*": "holdbothhandslarge",
+    "*-top-*": "holdunderarm"
   },
   "heldRightReadyAnimation": "heldblockready", 
   "heldTpUseAnimation": "twohandplaceblock",
@@ -48,22 +48,22 @@
   "faceCullMode": "NeverCull",
   "emitSideAo": { "all": false },
   "sidesolidByType": {
-    "barrelrack-normal-*": {
+    "*-normal-*": {
       "verticals": true,
       "horizontals": false
     },
-    "barrelrack-top-*": { "all": false }
+    "*-top-*": { "all": false }
   },
   "sideopaque": { "all": false },
   "replaceable": 999,
   "resistance": 1.5,
   "tpHandTransformByType": {
-    "barrelrack-normal*": {
+    "*-normal*": {
       "translation": { "x": -1.23, "y": -0.91, "z": -0.8 },
 	    "rotation": { "x": 88, "y": 25, "z": -78 },
 	    "scale": 0.4
     },
-    "barrelrack-top*": {
+    "*-top*": {
 	    "translation": { "x": -1.2, "y": -0.6, "z": -0.5 },
 	    "rotation": { "x": 93, "y": -15, "z": 0 },
 	    "scale": 0.45

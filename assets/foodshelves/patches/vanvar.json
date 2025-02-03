@@ -1,0 +1,9 @@
+[
+  {
+    "file": "foodshelves:config/restrictions/barrels/barrelrack.json",
+    "op": "addmerge",
+    "path": "/CollectibleTypes/-",
+    "value": "vanvar:BlockBarrel",
+    "dependsOn": [ { "modid": "vanvar" } ]
+  }
+]

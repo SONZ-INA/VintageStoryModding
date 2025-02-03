@@ -17,8 +17,9 @@ public class BlockEntitySeedShelf : BlockEntityDisplay {
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
 
-        if (block.Code.SecondCodePart().StartsWith("short")) {
-            itemsPerSegment /= 2;
+        if (block.Code.SecondCodePart().StartsWith("short") || block.Code.SecondCodePart().StartsWith("veryshort")) {
+            if (block.Code.SecondCodePart().StartsWith("short")) itemsPerSegment /= 2;
+            else itemsPerSegment /= 4;
 
             // Need to save items and transfer it over to new inventory, they disappear otherwise
             List<ItemStack> stack = new();
@@ -66,10 +67,10 @@ public class BlockEntitySeedShelf : BlockEntityDisplay {
         for (int i = 0; i < itemsPerSegment; i++) {
             int currentIndex = startIndex + i;
             ItemStack currentStack = inv[currentIndex].Itemstack;
-            if (!inv[currentIndex].Empty && currentStack.Collectible.Equals(slot.Itemstack.Collectible) && currentStack.StackSize < currentStack.Collectible.MaxStackSize) {
+            if (inv[currentIndex].Empty || (currentStack.Collectible.Equals(slot.Itemstack.Collectible) && currentStack.StackSize < currentStack.Collectible.MaxStackSize)) {
                 int moved;
                 if (byPlayer.Entity.Controls.ShiftKey)
-                    moved = slot.TryPutInto(Api.World, inv[currentIndex], inv[currentIndex].Itemstack.Collectible.MaxStackSize - inv[currentIndex].Itemstack.StackSize);
+                    moved = slot.TryPutInto(Api.World, inv[currentIndex], inv[currentIndex].MaxSlotStackSize - inv[currentIndex].Itemstack?.StackSize ?? 64);
                 else
                     moved = slot.TryPutInto(Api.World, inv[currentIndex], 1);
                 

@@ -49,11 +49,11 @@
   "faceCullMode": "NeverCull",
   "emitSideAo": { "all": false },
   "sidesolidByType": {
-    "firkinrack-normal-*": {
+    "*-normal-*": {
       "verticals": true,
       "horizontals": false
     },
-    "firkinrack-top-*": { "all": false }
+    "*-top-*": { "all": false }
   },
   "sideopaque": { "all": false },
   "replaceable": 999,

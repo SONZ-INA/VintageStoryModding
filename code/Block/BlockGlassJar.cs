@@ -1,4 +1,6 @@
-﻿namespace FoodShelves;
+﻿using System.Linq;
+
+namespace FoodShelves;
 
 public class BlockGlassJar : BlockContainer {
     public override void OnLoaded(ICoreAPI api) {
@@ -30,8 +32,7 @@ public class BlockGlassJar : BlockContainer {
         int hashcode = GetStackCacheHashCodeFNV(contents);
 
         if (!meshrefs.TryGetValue(hashcode, out MultiTextureMeshRef meshRef)) {
-            // Need to rething this approach altogether.
-            capi.Tesselator.TesselateBlock(this, out MeshData jarMesh);
+            MeshData jarMesh = GenBlockMeshWithoutElements(capi, this, new[] { "Glass1" }); // Glass hides the content in GUI
             MeshData contentMesh = GenLiquidyMesh(capi, contents, ShapeReferences.GlassJarUtil);
             if (contentMesh != null) jarMesh.AddMeshData(contentMesh);
 
