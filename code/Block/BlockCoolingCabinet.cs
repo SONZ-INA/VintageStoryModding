@@ -6,6 +6,7 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
     private WorldInteraction[] itemSlottableInteractions;
     private WorldInteraction[] cabinetInteractions;
     private WorldInteraction[] drawerInteractions;
+    private WorldInteraction[] bucketInteractions;
 
     public override void OnLoaded(ICoreAPI api) {
         base.OnLoaded(api);
@@ -14,8 +15,6 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
             List<ItemStack> holderUniversalStackList = new();
 
             foreach (var obj in api.World.Collectibles) {
-                if (obj.Code == null) continue;
-                
                 if (obj.HolderUniversalCheck()) {
                     holderUniversalStackList.Add(new ItemStack(obj));
                 }
@@ -48,8 +47,6 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
             List<ItemStack> coolingOnlyStackList = new();
 
             foreach (var obj in api.World.Collectibles) {
-                if (obj.Code == null) continue;
-
                 if (obj.CoolingOnlyCheck()) {
                     coolingOnlyStackList.Add(new ItemStack(obj));
                 }
@@ -69,11 +66,36 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
                 }
             };
         });
+
+        bucketInteractions = ObjectCacheUtil.GetOrCreate(api, "coolingCabinetBucketInteractions", () => {
+            List<ItemStack> liquidContainerStackList = new();
+
+            foreach (var obj in api.World.Collectibles) {
+                if (obj.Code == "game:woodbucket" || obj.Code == "game:bowl-fired") {
+                    liquidContainerStackList.Add(new ItemStack(obj));
+                }
+            }
+
+            return new WorldInteraction[] {
+                new() {
+                    ActionLangCode = "blockhelp-meal-pickup",
+                    MouseButton = EnumMouseButton.Right,
+                    Itemstacks = liquidContainerStackList.ToArray()
+                }
+            };
+        });
     }
 
     public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer) {
         if (selection.SelectionBoxIndex == 9 && world.BlockAccessor.GetBlockEntity(selection.Position) is BlockEntityCoolingCabinet becc) {
-            if (becc.drawerOpen) return cabinetInteractions.Append(drawerInteractions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer)));
+            if (becc.drawerOpen) {
+                if (becc.Inventory?[36].Empty == true || WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, becc.Inventory?[36].Itemstack.Collectible.Code)) {
+                    return cabinetInteractions.Append(drawerInteractions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer)));
+                }
+                else {
+                    return bucketInteractions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer));
+                }
+            }
         }
         
         if (selection.SelectionBoxIndex > 8) return cabinetInteractions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer));

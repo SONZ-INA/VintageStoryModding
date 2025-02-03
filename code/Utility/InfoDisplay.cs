@@ -14,7 +14,7 @@ public static class InfoDisplay {
         dsc.AppendLine(Lang.Get("Stored food perish speed: {0}x", Math.Round(perishMul, 2)));
     }
 
-    public static void DisplayInfo(IPlayer forPlayer, StringBuilder sb, InventoryGeneric inv, InfoDisplayOptions displaySelection, int slotCount, int segmentsPerShelf = 0, int itemsPerSegment = 0, bool skipLine = true) {
+    public static void DisplayInfo(IPlayer forPlayer, StringBuilder sb, InventoryGeneric inv, InfoDisplayOptions displaySelection, int slotCount, int segmentsPerShelf = 0, int itemsPerSegment = 0, bool skipLine = true, int[] skipSlots = null) {
         if (skipLine) sb.AppendLine(); // Space in between to be in line with vanilla
 
         IWorldAccessor world = inv.Api.World;
@@ -62,6 +62,7 @@ public static class InfoDisplay {
         for (int i = start; i != end; i = displaySelection == InfoDisplayOptions.ByBlock ? i - 1 : i + 1) {
             if (i >= slotCount) break;
             if (inv[i].Empty) continue;
+            if (skipSlots?.Contains(i) == true) continue;
 
             ItemStack stack = inv[i].Itemstack;
             float ripenRate = stack.Collectible.GetTransitionRateMul(world, inv[i], EnumTransitionType.Ripen); // Get ripen rate
@@ -78,6 +79,14 @@ public static class InfoDisplay {
                 sb.AppendLine();
             }
         }
+    }
+
+    public static string GetNameAndStackSize(ItemStack stack) {
+        return stack.GetName() + " x" + stack.StackSize;
+    }
+
+    public static string GetAmountOfLiters(ItemStack stack) {
+        return stack.GetName() + " (" + (float)stack.StackSize / 100 + " L)";
     }
 
     public static string PerishableInfoCompact(IWorldAccessor world, ItemSlot contentSlot, float ripenRate, bool withStackName = true) {

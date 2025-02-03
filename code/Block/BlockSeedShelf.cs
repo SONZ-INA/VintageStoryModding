@@ -18,7 +18,9 @@ public class BlockSeedShelf : Block {
     public override string GetHeldItemName(ItemStack itemStack) {
         string variantType = "";
         if (this.Code.SecondCodePart().StartsWith("short"))
-            variantType = Lang.Get("skinpart-hairbase-short") + " ";
+            variantType = Lang.Get("foodshelves:Short") + " ";
+        if (this.Code.SecondCodePart().StartsWith("veryshort"))
+            variantType = Lang.Get("foodshelves:Very Short") + " ";
 
         return variantType + base.GetHeldItemName(itemStack) + " " + itemStack.GetMaterialNameLocalized();
     }

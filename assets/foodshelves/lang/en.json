@@ -80,6 +80,9 @@
   "Contents": "<font color=\"orange\">Contents: </font>",
   "Soonest": "Soonest:",
   "Empty.": "Empty.",
+  "Short": "Short",
+  "Very Short": "Very Short",
+
   "Average perish rate {0} years": "Average perish rate: {0} years",
   "Average perish rate {0} days": "Average perish rate: {0} days",
   "Average perish rate {0} hours": "Average perish rate: {0} hours",

@@ -41,7 +41,9 @@
     "frame-slab": { "base": "game:block/glass/frame-slab" },
     "plain": { "base": "game:block/glass/plain" },
     "chalk": { "base": "game:block/stone/polishedrock/chalk" },
-    "surface": { "base": "game:block/wood/shelf/surface" }
+    "surface": { "base": "game:block/wood/shelf/surface" },
+    "ice": { "base": "game:block/liquid/ice/packedglacier1" },
+    "water": { "base": "game:block/liquid/waterportion" }
   },
   "heldTpIdleAnimation": "holdbothhandslarge",
   "heldRightReadyAnimation": "heldblockready", 

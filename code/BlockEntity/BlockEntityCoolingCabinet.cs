@@ -45,6 +45,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         if (!inv[36].Empty && perishMultiplier < 0.75f && !WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
             if (CabinetOpen) perishMultiplier = 1f;
             else perishMultiplier = 0.75f;
+            WaterHeightUp();
             MarkDirty();
         }
 
@@ -139,6 +140,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
 
     private bool TryPutIce(IPlayer byPlayer, ItemSlot slot, BlockSelection selection) {
         if (selection.SelectionBoxIndex != 9) return false;
+        if (slot.Empty) return false;
         ItemStack stack = inv[36].Itemstack;
 
         if (inv[36].Empty 
@@ -156,8 +158,14 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                 stack.Collectible.TryMergeStacks(op);
             }
 
+            if (inv[36].Empty) IceHeightAllDown();
+            else if (inv[36].Itemstack?.StackSize < 20) IceHeight1Up();
+            else if (inv[36].Itemstack?.StackSize < 40) IceHeight2Up();
+            else if (inv[36].Itemstack?.StackSize >= 40) IceHeight3Up();
+
             MarkDirty();
             (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
+
             return moved > 0;
         }
 
@@ -206,6 +214,8 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         if (num > 0) {
             TryTakeContent(num);
             DoLiquidMovedEffects(byPlayer, contentStack, num, EnumLiquidDirection.Fill);
+            if (inv[36].Empty) WaterHeightDown();
+
             return true;
         }
 
@@ -220,7 +230,13 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         get { return GetBehavior<BEBehaviorAnimatable>()?.animUtil; }
     }
 
+    #region Animation Methods
+
     private void OpenCabinet() {
+        if (!inv[36].Empty && !WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
+            WaterHeightUp(); // Unfortunately inside Inventory_OnAcquireTransitionSpeed this updates only when you look at it. Forcing it here too.
+        }
+
         if (animUtil?.activeAnimationsByAnimCode.ContainsKey("cabinetopen") == false) {
             animUtil?.StartAnimation(new AnimationMetaData() {
                 Animation = "cabinetopen",
@@ -236,6 +252,10 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     }
 
     private void CloseCabinet() {
+        if (!inv[36].Empty && !WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
+            WaterHeightUp(); // Unfortunately inside Inventory_OnAcquireTransitionSpeed this updates only when you look at it. Forcing it here too.
+        }
+
         if (animUtil?.activeAnimationsByAnimCode.ContainsKey("cabinetopen") == true) {
             animUtil?.StopAnimation("cabinetopen");
         }
@@ -251,6 +271,10 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     }
 
     private void OpenDrawer() {
+        if (!inv[36].Empty && !WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
+            WaterHeightUp(); // Unfortunately inside Inventory_OnAcquireTransitionSpeed this updates only when you look at it. Forcing it here too.
+        }
+
         if (animUtil?.activeAnimationsByAnimCode.ContainsKey("draweropen") == false) {
             animUtil?.StartAnimation(new AnimationMetaData() {
                 Animation = "draweropen",
@@ -266,6 +290,10 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     }
 
     private void CloseDrawer() {
+        if (!inv[36].Empty && !WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
+            WaterHeightUp(); // Unfortunately inside Inventory_OnAcquireTransitionSpeed this updates only when you look at it. Forcing it here too.
+        }
+
         if (animUtil?.activeAnimationsByAnimCode.ContainsKey("draweropen") == true) {
             animUtil?.StopAnimation("draweropen");
         }
@@ -278,6 +306,100 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         drawerOpen = false;
     }
 
+    private void IceHeight1Up() {
+        IceHeight2Down();
+        IceHeight3Down();
+        WaterHeightDown();
+
+        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("iceheight1") == false) {
+            animUtil?.StartAnimation(new AnimationMetaData() {
+                Animation = "iceheight1",
+                Code = "iceheight1",
+                AnimationSpeed = 3f,
+                EaseOutSpeed = 1,
+                EaseInSpeed = 2
+            });
+        }
+    }
+
+    private void IceHeight1Down() {
+        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("iceheight1") == true) {
+            animUtil?.StopAnimation("iceheight1");
+        }
+    }
+
+    private void IceHeight2Up() {
+        IceHeight1Down();
+        IceHeight3Down();
+        WaterHeightDown();
+
+        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("iceheight2") == false) {
+            animUtil?.StartAnimation(new AnimationMetaData() {
+                Animation = "iceheight2",
+                Code = "iceheight2",
+                AnimationSpeed = 8f,
+                EaseOutSpeed = 1,
+                EaseInSpeed = 2
+            });
+        }
+    }
+
+    private void IceHeight2Down() {
+        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("iceheight2") == true) {
+            animUtil?.StopAnimation("iceheight2");
+        }
+    }
+
+    private void IceHeight3Up() {
+        IceHeight1Down();
+        IceHeight2Down();
+        WaterHeightDown();
+
+        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("iceheight3") == false) {
+            animUtil?.StartAnimation(new AnimationMetaData() {
+                Animation = "iceheight3",
+                Code = "iceheight3",
+                AnimationSpeed = 6f,
+                EaseOutSpeed = 1,
+                EaseInSpeed = 2
+            });
+        }
+    }
+
+    private void IceHeight3Down() {
+        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("iceheight3") == true) {
+            animUtil?.StopAnimation("iceheight3");
+        }
+    }
+
+    private void IceHeightAllDown() {
+        IceHeight1Down();
+        IceHeight2Down();
+        IceHeight3Down();
+    }
+
+    private void WaterHeightUp() {
+        IceHeightAllDown();
+
+        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("waterheight") == false) {
+            animUtil?.StartAnimation(new AnimationMetaData() {
+                Animation = "waterheight",
+                Code = "waterheight",
+                AnimationSpeed = 6f,
+                EaseOutSpeed = 1,
+                EaseInSpeed = 2
+            });
+        }
+    }
+
+    private void WaterHeightDown() {
+        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("waterheight") == true) {
+            animUtil?.StopAnimation("waterheight");
+        }
+    }
+
+    #endregion
+
     private MeshData GenMesh(ITesselatorAPI tesselator) {
         Block block = Block;
         if (Block == null) {
@@ -285,7 +407,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
             Block = block;
         }
         if (block == null) return null;
-
+        
         int rndTexNum = GameMath.MurmurHash3Mod(Pos.X, Pos.Y, Pos.Z, 85378);
 
         string key = "coolingCabinetMeshes" + Block.Code;
@@ -373,35 +495,34 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
             }
         }
 
-        tfMatrices[36] = new Matrixf().Scale(0.01f, 0.01f, 0.01f).Values; // Hide original cut ice shape
+        tfMatrices[36] = new Matrixf().Scale(0.01f, 0.01f, 0.01f).Values; // Hide original cut ice shape, can't bother to custom mesh it out
 
         return tfMatrices;
     }
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
-        bool skipmesh = false;
-
-        if (!inv[36].Empty) {
-            Shape shape = Api.Assets.TryGet(ShapeReferences.CoolingCabinetUtil).ToObject<Shape>();
-            if (shape != null) {
-                ShapeTextureSource iceTS = new(Api as ICoreClientAPI, shape, "ccIceTexSource");
-                tesselator.TesselateShape("ccIceMeshing", shape, out MeshData iceMesh, iceTS);
-
-                mesher.AddMeshData(iceMesh);
-            }
-        }
-
-        if (!skipmesh) skipmesh = base.OnTesselation(mesher, tesselator);
+        bool skipmesh = base.OnTesselation(mesher, tesselator);
 
         if (!skipmesh) {
-            Api.Logger.Debug("skipmesh");
             if (ownMesh == null) {
                 ownMesh = GenMesh(tesselator);
                 if (ownMesh == null) return false;
             }
 
             mesher.AddMeshData(ownMesh.Clone().Rotate(new Vec3f(.5f, .5f, .5f), 0, GameMath.DEG2RAD * GetRotationAngle(block), 0));
+            
             if (CabinetOpen) OpenCabinet();
+
+            if (!inv[36].Empty) {
+                if (WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
+                    if (inv[36].Itemstack?.StackSize < 20) IceHeight1Up();
+                    else if (inv[36].Itemstack?.StackSize < 40) IceHeight2Up();
+                    else if (inv[36].Itemstack?.StackSize >= 40) IceHeight3Up();
+                }
+                else {
+                    WaterHeightUp();
+                }
+            }
         }
 
         return true;
@@ -426,7 +547,19 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         float ripenRate = GameMath.Clamp((1 - GetPerishRate() - 0.5f) * 3, 0, 1);
         if (ripenRate > 0) sb.Append(Lang.Get("Suitable spot for food ripening."));
 
-        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.BySegment, slotCount, segmentsPerShelf, itemsPerSegment);
+        DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.BySegment, slotCount, segmentsPerShelf, itemsPerSegment, true, new[] { 36 });
+
+        // For ice & water
+        if (forPlayer.CurrentBlockSelection.SelectionBoxIndex == 9) {
+            if (!inv[36].Empty) {
+                if (WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
+                    sb.AppendLine(GetNameAndStackSize(inv[36].Itemstack));
+                }
+                else {
+                    sb.AppendLine(GetAmountOfLiters(inv[36].Itemstack));
+                }
+            }
+        }
     }
 
     #region Liquid Handlers

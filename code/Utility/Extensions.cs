@@ -168,6 +168,7 @@ public static class Extensions {
         if (toExclude == null) {
             material = material.Replace("normal", "");
             material = material.Replace("short", "");
+            material = material.Replace("very", "");
         }
         else {
             for (int i = 0; i < toExclude.Length; i++) {
