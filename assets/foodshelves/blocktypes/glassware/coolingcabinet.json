@@ -13,7 +13,7 @@
       "extraSections": [
         {
           "title": "foodshelves:blockdesc-canhold-title",
-          "text": "foodshelves:blockdesc-coolingcabinet-text"
+          "text": "foodshelves:blockdesc-holderuniversal-text"
         }
       ]
     },

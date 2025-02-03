@@ -24,10 +24,10 @@
   "block-glassfoodcase-*": "Стаклeна сталажа за храну",
   "block-glassjar-*": "Стаклeна тeгла",
   "block-ceilingjar-*": "Плафонска тeгла",
+  "block-coolingcabinet-*": "Расхладни ормар",
 
   "blockdesc-canhold-title": "Може да садржи:",
   "blockdesc-canbeplacedin-title": "Може се поставити у:",
-
   "blockdesc-breadshelf-text": "  -Све врсте хлеба<br>Проширена Храна:<br>  -Мафини<br>  -Кнедле<br>Wildcraft: Воће и Орашасти Плодови:<br>  -Пачока<br>  -Халва<br>  -Марципан",
   "blockdesc-eggshelf-text": "  -Сировa или кувана јаја",
   "blockdesc-sushishelf-text": "Проширена Храна:<br>  -Сви суши",
@@ -43,12 +43,15 @@
   "blockdesc-liquidystuff-text": "  -Може држати смолу, восак, маст, и сво дехидрирано или суво воће из Проширене Хране.",
   "blockdesc-pumpkincase-text": "  -Може држати само бундеве.",
   "blockdesc-fooduniversal-text": "  -Пите, Сир, сви типови хлеба<br>Проширена Храна:<br>  -Мафини<br>  -кифле.",
+  "blockdesc-holderuniversal-text": "  -Пите, сиреви, све врсте хлеба, лонци и тегле<br>Проширена храна:<br>  -Мафини<br>  -Кнедле<br>Wildcraft: Воће и Орашасти плодови:<br>  -Пацока<br>  -Халва<br>  -Марципан",
 
-  "helddesc-barrelrack": "Течности складиштене у овом држачу буради имају стопу кварења од 0,5x и стопу сазревања од 0,8x.",
-  "helddesc-barrelrackbig": "Течности складиштене у овом великом држачу буради имају стопу кварења од 0,4x и стопу сазревања од 0,75x.",
-  "helddesc-ceilingjar": "Дехидрирано воће постављено у плафонску теглу се суши/топи 2,5x брже и има стопу кварења од 0,75x.",
-  "helddesc-glassfoodcase": "Храна складиштена у ову витрину има стопу кварења од 0,75x.",
+  "helddesc-barrelrack": "Течности ускладиштене у овом носачу за буре остају свеже 50% дуже и сазревају 20% спорије.",
+  "helddesc-barrelrackbig": "Течности ускладиштене у овом великом носачу за буре остају свеже 60% дуже и сазревају 25% спорије.",
+  "helddesc-ceilingjar": "Сушено воће у Плафонској тегли суши се или топи 2,5x брже и остаје свеже 25% дуже.",
+  "helddesc-glassfoodcase": "Храна смештена у ову витрину остаје свежа 25% дуже.",
+  "helddesc-coolingcabinet": "Храна ускладиштена у овом ормару остаје свежа 25% дуже, или до 60% дуже ако се дода лед.<br>Обавезно га држите затвореним!",
 
+  "This item cannot be placed in this container.": "Овај предмет се не може ставити у овај контејнер.",
   "Only pies or cheese can be placed on this shelf.": "Само пите или сир могу бити постављени на ову полицу.",
   "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.": "Само хлеб, мафини, кнедле, паћока, халва или марципан могу бити постављени на ову полицу.",
   "Only food bars can be placed on this shelf.": "Само штанглице могу бити постављене на ову полицу.",
@@ -65,9 +68,19 @@
   "The barrel must be emptied before it can be picked up.": "Буре мора бити испражњено пре него што се подигне.",
   "Missing barrel.": "<font color=\"orange\">Недостаје буре.</font>",
 
+  "placefailure-requireceilingattachable": "Овај блок се не може поставити овде. Мора бити причвршћен за плафон необрађеног блока.",
+
   "Contents": "<font color=\"orange\">Садржи: </font>",
   "Soonest": "Најскорије:",
   "Empty.": "Празно.",
+  "Short": "Кратка",
+  "Very Short": "Врло кратка",
+
+  "Will melt in {0} years": "Истопиће се за {0} година",
+  "Will melt in {0} days": "Истопиће се за {0} дана",
+  "Will melt in {0} hours": "Истопиће се за {0} сати",
+  "Will not melt": "Неће се истопити",
+
   "Average perish rate {0} years": "Просечна стопа пропадања: {0} година",
   "Average perish rate {0} days": "Просечна стопа пропадања: {0} дана",
   "Average perish rate {0} hours": "Просечна стопа пропадања: {0} сати",

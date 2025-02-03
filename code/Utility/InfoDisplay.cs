@@ -81,6 +81,33 @@ public static class InfoDisplay {
         }
     }
 
+    public static string GetUntilMelted(ItemSlot slot) {
+        if (slot.Empty) return "";
+
+        IWorldAccessor world = slot.Inventory.Api.World;
+
+        TransitionState meltTransitionState = slot.Itemstack.Collectible.UpdateAndGetTransitionState(world, slot, EnumTransitionType.Melt);
+        if (meltTransitionState != null) {
+            float meltRate = slot.Itemstack.Collectible.GetTransitionRateMul(world, slot, EnumTransitionType.Melt);
+            if (meltRate <= 0) return Lang.Get("foodshelves:Will not melt");
+
+            double hoursLeft = meltTransitionState.TransitionHours / meltRate * (1 - meltTransitionState.TransitionLevel);
+            double daysLeft = hoursLeft / world.Calendar.HoursPerDay;
+
+            if (daysLeft >= world.Calendar.DaysPerYear) {
+                return Lang.Get("foodshelves:Will melt in {0} years", Math.Round(daysLeft / world.Calendar.DaysPerYear, 1));
+            }
+            else if (daysLeft > 1) {
+                return Lang.Get("foodshelves:Will melt in {0} days", Math.Round(daysLeft, 1));
+            }
+            else {
+                return Lang.Get("foodshelves:Will melt in {0} hours", Math.Round(hoursLeft, 1));
+            }
+        }
+
+        return Lang.Get("foodshelves:Will not melt");
+    }
+
     public static string GetNameAndStackSize(ItemStack stack) {
         return stack.GetName() + " x" + stack.StackSize;
     }

@@ -113,6 +113,7 @@
   <None Remove="assets\foodshelves\patches\variants\recipes\breadshelf.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\eggshelf.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\glassware\ceilingjar.json" />
+  <None Remove="assets\foodshelves\patches\variants\recipes\glassware\coolingcabinet.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\glassware\glassfoodblock.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\glassware\glassfoodcase.json" />
   <None Remove="assets\foodshelves\patches\variants\recipes\pumpkincase.json" />
@@ -127,6 +128,7 @@
   <None Remove="assets\foodshelves\recipes\grid\cutice.json" />
   <None Remove="assets\foodshelves\recipes\grid\fruitbasket.json" />
   <None Remove="assets\foodshelves\recipes\grid\glassware\ceilingjar.json" />
+  <None Remove="assets\foodshelves\recipes\grid\glassware\coolingcabinet.json" />
   <None Remove="assets\foodshelves\recipes\grid\glassware\glassfoodblock.json" />
   <None Remove="assets\foodshelves\recipes\grid\glassware\glassfoodcase.json" />
   <None Remove="assets\foodshelves\recipes\grid\horizontalbarel.json" />

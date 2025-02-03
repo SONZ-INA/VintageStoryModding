@@ -120,6 +120,13 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
         return base.GetHeldItemName(itemStack) + " " + variantName;
     }
 
+    public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo) {
+        base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+
+        dsc.AppendLine("");
+        dsc.AppendLine(Lang.Get("foodshelves:helddesc-coolingcabinet"));
+    }
+
     // Selection box for master block
     public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos) {
         BlockEntityCoolingCabinet be = blockAccessor.GetBlockEntityExt<BlockEntityCoolingCabinet>(pos);

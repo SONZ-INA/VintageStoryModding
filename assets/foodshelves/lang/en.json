@@ -50,13 +50,13 @@
   "blockdesc-liquidystuff-text": "  -Can hold resin, beeswax, animal fat, and all dehydrated/dry fruits from Expanded Foods.",
   "blockdesc-pumpkincase-text": "  -Can only hold pumpkins.",
   "blockdesc-fooduniversal-text": "  -Pies, Cheese, all bread types<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings.",
-  "blockdesc-holderuniversal-text": "null",
+  "blockdesc-holderuniversal-text": "  -Pies, Cheese, all bread types, crocks and pots<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings<br>Wildcraft: Fruits and Nuts:<br>  -Pacoca<br>  -Halva<br>  -Marzipam",
 
   "helddesc-barrelrack": "Liquids stored in this Barrel rack stay fresh for 50% longer and cure 20% slower.",
   "helddesc-barrelrackbig": "Liquids stored in this Big barrel rack stay fresh for 60% longer and cure 25% slower.",
   "helddesc-ceilingjar": "Dehydrated fruit placed in the Ceiling Jar dries or melts 2.5x faster, and stays fresh for 25% longer.",
   "helddesc-glassfoodcase": "Food placed in this case stays fresh for 25% longer.",
-  "helddesc-coolingcabinet": "null",
+  "helddesc-coolingcabinet": "Food stored in this cabinet stays fresh 25% longer, or up to 60% longer when ice is added.<br>Make sure to keep it closed!",
 
   "This item cannot be placed in this container.": "This item cannot be placed in this container.",
   "Only pies or cheese can be placed on this shelf.": "Only pies or cheese can be placed on this shelf.",
@@ -82,6 +82,11 @@
   "Empty.": "Empty.",
   "Short": "Short",
   "Very Short": "Very Short",
+
+  "Will melt in {0} years": "Will melt in {0} years",
+  "Will melt in {0} days": "Will melt in {0} days",
+  "Will melt in {0} hours": "Will melt in {0} hours",
+  "Will not melt": "Will not melt",
 
   "Average perish rate {0} years": "Average perish rate: {0} years",
   "Average perish rate {0} days": "Average perish rate: {0} days",

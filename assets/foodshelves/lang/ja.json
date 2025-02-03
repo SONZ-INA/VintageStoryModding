@@ -28,6 +28,7 @@
   "block-glassfoodcase-*": "ガラス食品ケース",
   "block-glassjar-*": "ガラス瓶",
   "block-ceilingjar-*": "天井吊り瓶",
+  "block-coolingcabinet-*": "冷蔵キャビネット",
 
   "blockdesc-canhold-title": "収納できるもの：",
   "blockdesc-canbeplacedin-title": "置ける場所：",
@@ -46,12 +47,15 @@
   "blockdesc-liquidystuff-text": "  - 樹脂、蜜蝋、動物性脂肪、およびすべての乾燥または脱水された果物を収納できます。",
   "blockdesc-pumpkincase-text": "  - カボチャのみを収納できます。",
   "blockdesc-fooduniversal-text": "  - パイ、チーズ、すべてのパンタイプ<br>拡張食品：<br>  - マフィン<br>  - 餃子。",
+  "blockdesc-holderuniversal-text": "  -パイ、チーズ、すべてのパンの種類、クロックとポット<br>拡張食品:<br>  -マフィン<br>  -餃子<br>ワイルドクラフト: フルーツとナッツ:<br>  -パソカ<br>  -ハルヴァ<br>  -マジパン",
 
-  "helddesc-barrelrack": "このバレルラックに保管された液体は、腐敗率が0.5倍で、熟成率が0.8倍になります。",
-  "helddesc-barrelrackbig": "この大型バレルラックに保管された液体は、腐敗率が0.4倍で、熟成率が0.75倍になります。",
-  "helddesc-ceilingjar": "天井瓶に置かれた乾燥果物は、乾燥/融解速度が2.5倍速くなり、腐敗率が0.75倍になります。",
-  "helddesc-glassfoodcase": "このケースに置かれた食品は、腐敗率が0.75倍になります。",
+  "helddesc-barrelrack": "この樽ラックに保存された液体は50%長持ちし、熟成が20%遅くなります。",
+  "helddesc-barrelrackbig": "この大型樽ラックに保存された液体は60%長持ちし、熟成が25%遅くなります。",
+  "helddesc-ceilingjar": "天井ジャーに置かれた乾燥フルーツは2.5倍速く乾燥または溶け、25%長持ちします。",
+  "helddesc-glassfoodcase": "このケースに置かれた食品は25%長持ちします。",
+  "helddesc-coolingcabinet": "このキャビネットに保存された食品は25%長持ちし、氷を追加すると最大60%長持ちします。<br>必ず閉めておきましょう！",
 
+  "This item cannot be placed in this container.": "このアイテムはこのコンテナに配置できません。",
   "Only pies or cheese can be placed on this shelf.": "この棚にはパイまたはチーズのみ置けます。",
   "Only bread, muffins, dumplings, pacoca, halva or marzipam can be placed on this shelf.": "この棚にはパン、マフィン、餃子、パコカ、ハルヴァ、またはマルジパンのみ置けます。",
   "Only food bars can be placed on this shelf.": "この棚には食品バーのみ置けます。",
@@ -68,9 +72,19 @@
   "The barrel must be emptied before it can be picked up.": "樽を拾う前に空にする必要があります。",
   "Missing barrel.": "<font color=\"orange\">樽がありません。</font>",
 
+  "placefailure-requireceilingattachable": "このブロックはここに配置できません。未加工のブロックの天井に取り付ける必要があります。",
+
   "Contents": "<font color=\"orange\">内容：</font>",
   "Soonest": "最速：",
   "Empty.": "空っぽ。",
+  "Short": "短い",
+  "Very Short": "とても短い",
+
+  "Will melt in {0} years": "{0}年後に溶けます",
+  "Will melt in {0} days": "{0}日後に溶けます",
+  "Will melt in {0} hours": "{0}時間後に溶けます",
+  "Will not melt": "溶けません",
+
   "Average perish rate {0} years": "平均腐敗率：{0} 年",
   "Average perish rate {0} days": "平均腐敗率：{0} 日",
   "Average perish rate {0} hours": "平均腐敗率：{0} 時間",

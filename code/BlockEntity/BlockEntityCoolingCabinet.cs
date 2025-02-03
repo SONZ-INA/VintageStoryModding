@@ -50,6 +50,8 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         }
 
         if (transType == EnumTransitionType.Dry) return container.Room?.ExitCount == 0 ? 2f : 0.5f;
+        if (transType == EnumTransitionType.Perish) return perishMultiplier;
+
         if (Api == null) return 0;
 
         if (transType == EnumTransitionType.Ripen) {
@@ -86,8 +88,11 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         }
 
         // Take/Put items
-        if (CabinetOpen && slot.Empty) {
-            return TryTake(byPlayer, blockSel); ;
+        if (CabinetOpen && slot.Empty && blockSel.SelectionBoxIndex <= 8) {
+            return TryTake(byPlayer, blockSel);
+        }
+        else if (drawerOpen && slot.Empty &&blockSel.SelectionBoxIndex == 9) {
+            return TryTakeIce(byPlayer);
         }
         else if (drawerOpen && slot.Itemstack?.Collectible is ILiquidSink) {
             return TryTakeWater(byPlayer, slot, blockSel);
@@ -174,8 +179,6 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
 
     private bool TryTake(IPlayer byPlayer, BlockSelection blockSel) {
         int startIndex = blockSel.SelectionBoxIndex;
-        if (startIndex > 8) return false; // If it's cabinet or drawer selection box, return
-
         startIndex *= itemsPerSegment;
 
         for (int i = itemsPerSegment - 1; i >= 0; i--) {
@@ -196,6 +199,29 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                 return true;
             }
         }
+        return false;
+    }
+
+    private bool TryTakeIce(IPlayer byPlayer) {
+        if (!inv[36].Empty) {
+            if (!WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) return false;
+
+            ItemStack stack = inv[36].TakeOutWhole();
+            if (byPlayer.InventoryManager.TryGiveItemstack(stack)) {
+                AssetLocation sound = stack.Block?.Sounds?.Place;
+                Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
+            }
+
+            if (stack.StackSize > 0) {
+                Api.World.SpawnItemEntity(stack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+            }
+
+            (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
+            IceHeightAllDown();
+            MarkDirty();
+            return true;
+        }
+
         return false;
     }
 
@@ -553,7 +579,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         if (forPlayer.CurrentBlockSelection.SelectionBoxIndex == 9) {
             if (!inv[36].Empty) {
                 if (WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
-                    sb.AppendLine(GetNameAndStackSize(inv[36].Itemstack));
+                    sb.AppendLine(GetNameAndStackSize(inv[36].Itemstack) + " - " + GetUntilMelted(inv[36]));
                 }
                 else {
                     sb.AppendLine(GetAmountOfLiters(inv[36].Itemstack));
