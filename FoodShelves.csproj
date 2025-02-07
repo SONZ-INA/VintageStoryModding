@@ -96,7 +96,9 @@
   <None Remove="assets\foodshelves\config\transformations\shelves\barshelf.json" />
   <None Remove="assets\foodshelves\config\transformations\shelves\breadshelf.json" />
   <None Remove="assets\foodshelves\itemtypes\cutice.json" />
+  <None Remove="assets\foodshelves\patches\artofgrowing.json" />
   <None Remove="assets\foodshelves\patches\detailedanimals.json" />
+  <None Remove="assets\foodshelves\patches\gourmand.json" />
   <None Remove="assets\foodshelves\patches\laverace.json" />
   <None Remove="assets\foodshelves\patches\moreanimals.json" />
   <None Remove="assets\foodshelves\patches\vanvar.json" />

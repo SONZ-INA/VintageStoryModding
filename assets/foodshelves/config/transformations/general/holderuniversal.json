@@ -1,16 +1,16 @@
 {
-  "game:claypot-burned": { "scale": 0.8 },
-  "game:claypot-cooked": { "scale": 0.8 },
+  "game:claypot-burned": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "scale": 0.8 },
+  "game:claypot-cooked": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "scale": 0.8 },
 
-  "foodshelves:fruitbasket-*": { "scale": 0.9 },
-  "foodshelves:vegetablebasket-*": { "scale": 0.9 },
+  "foodshelves:fruitbasket-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "scale": 0.9 },
+  "foodshelves:vegetablebasket-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "scale": 0.9 },
   
-  "*muffin-*": { "scale": 0.7 },
-  "*dumpling-*": { "scale": 0.8 },
-  "*doughball-*": { "rotation": { "x": 0, "y": 45, "z": 0 }, "scale": 0.95 },
-  "*breadedball-*": { "rotation": { "x": 0, "y": -65, "z": 0 }, "scale": 0.45 },
+  "*muffin-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "rotation": { "x": 0, "y": 30, "z": 0 }, "scale": 0.7 },
+  "*dumpling-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "scale": 0.8 },
+  "*doughball-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "rotation": { "x": 0, "y": 45, "z": 0 }, "scale": 0.95 },
+  "*breadedball-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "rotation": { "x": 0, "y": -65, "z": 0 }, "scale": 0.45 },
   
-  "*halva": { "translation": { "x": 0, "y": 0, "z": -0.05 }, "rotation": { "x": 0, "y": 35, "z": 0 }, "scale": 0.7 },
-  "*pacoca": { "translation": { "x": 0, "y": 0, "z": -0.05 }, "rotation": { "x": 0, "y": -45, "z": 0 }, "scale": 0.65 },
-  "*marzipan": { "translation": { "x": 0, "y": 0, "z": -0.05 }, "scalexyz": { "x": 0.7, "y": 0.7, "z": 0.58 } }
+  "*halva": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "translation": { "x": 0, "y": 0, "z": -0.05 }, "rotation": { "x": 0, "y": 35, "z": 0 }, "scale": 0.7 },
+  "*pacoca": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "translation": { "x": 0, "y": 0, "z": -0.05 }, "rotation": { "x": 0, "y": -45, "z": 0 }, "scale": 0.65 },
+  "*marzipan": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "translation": { "x": 0, "y": 0, "z": -0.05 }, "scalexyz": { "x": 0.7, "y": 0.7, "z": 0.58 } }
 }

@@ -24,8 +24,7 @@ public static class Patches {
 
         ModelTransform transformation = obj.GetTransformation(HolderUniversalTransformations);
         if (transformation != null) {
-            obj.Attributes.Token[onGlassFoodBlockTransform] = JToken.FromObject(transformation);
-            obj.Attributes.Token[onGlassFoodCaseTransform] = JToken.FromObject(transformation);
+            obj.Attributes.Token[onCoolingCabinetTransform] = JToken.FromObject(transformation);
         }
     }
 
@@ -128,7 +127,20 @@ public static class Patches {
     }
 
     public static void PatchVegetableBasket(CollectibleObject obj, RestrictionData data) {
-        if (obj.CheckTypedRestriction(data) || WildcardUtil.Match(data.CollectibleCodes, obj.Code.ToString())) {
+        bool passedByGrouping = false;
+
+        foreach (var group in data.GroupingCodes.Values) {
+            foreach (var code in group) {
+                if (WildcardUtil.Match(code, obj.Code.ToString())) {
+                    passedByGrouping = true;
+                    break;
+                }
+            }
+
+            if (passedByGrouping) break;
+        }
+
+        if (passedByGrouping) {
             obj.EnsureAttributesNotNull();
             obj.Attributes.Token[VegetableBasket] = JToken.FromObject(true);
 

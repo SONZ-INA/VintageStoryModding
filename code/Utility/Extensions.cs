@@ -315,7 +315,7 @@ public static class Extensions {
 
     #region CheckExtensions
 
-    public static bool CheckTypedRestriction(this CollectibleObject obj, RestrictionData data) => data.CollectibleTypes.Contains(obj.Code.Domain + ":" + obj.GetType().Name);
+    public static bool CheckTypedRestriction(this CollectibleObject obj, RestrictionData data) => data.CollectibleTypes?.Contains(obj.Code.Domain + ":" + obj.GetType().Name) == true;
     public static bool IsFull(this ItemSlot slot) => slot.StackSize == slot.MaxSlotStackSize;
 
     public static bool IsLargeItem(ItemStack stack) {

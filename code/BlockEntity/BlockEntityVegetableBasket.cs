@@ -46,7 +46,7 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
 
                 if (TryPut(slot)) {
                     Api.World.PlaySoundAt(sound ?? new AssetLocation("sounds/player/build"), byPlayer.Entity, byPlayer, true, 16);
-                    MarkDirty();
+                    MarkDirty(true);
                     return true;
                 }
             }
@@ -57,13 +57,12 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
     }
 
     private bool TryPut(ItemSlot slot) {
-        float[,] transformationMatrix = BlockVegetableBasket.GetTransformationMatrix(inv[0]?.Itemstack?.Collectible?.Code?.Path);
+        float[,] transformationMatrix = BlockVegetableBasket.GetTransformationMatrix(inv[0]?.Itemstack?.Collectible?.Code);
         int offset = transformationMatrix.GetLength(1);
 
         for (int i = 0; i < offset; i++) {
             if (inv[i].Empty && (inv[0].Empty || slot?.Itemstack?.Collectible?.Code == inv[0]?.Itemstack?.Collectible?.Code)) {
                 int moved = slot.TryPutInto(Api.World, inv[i]);
-                MarkDirty();
                 (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
                 return moved > 0;
             }
@@ -95,11 +94,11 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
     }
 
     protected override float[][] genTransformationMatrices() {
-        float[,] transformationMatrix = BlockVegetableBasket.GetTransformationMatrix(inv[0]?.Itemstack?.Collectible?.Code?.Path);
-        
-        int offset = transformationMatrix.GetLength(1);
+        float[,] transformationMatrix = BlockVegetableBasket.GetTransformationMatrix(inv[0]?.Itemstack?.Collectible?.Code);
+
         float[][] tfMatrices = new float[36][];
-        
+        int offset = transformationMatrix.GetLength(1);
+
         for (int i = 0; i < offset; i++) {
             tfMatrices[i] = 
                 new Matrixf()

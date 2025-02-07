@@ -18,6 +18,8 @@ public class ConfigLibCompatibility {
     }
 
     private void BuildSettingsServer(ConfigServer config, string id) {
+        if (config == null) return;
+
         config.EnableVariants = OnCheckBox(id, config.EnableVariants, nameof(config.EnableVariants));
     }
 
@@ -25,12 +27,6 @@ public class ConfigLibCompatibility {
         bool newValue = value;
         ImGui.Checkbox(Lang.Get(name) + $"##{name}-{id}", ref newValue);
         return newValue;
-    }
-
-    private float OnInputFloat(string id, float value, string name, float minValue = default) {
-        float newValue = value;
-        ImGui.InputFloat(Lang.Get(name) + $"##{name}-{id}", ref newValue, step: 0.01f, step_fast: 1.0f);
-        return newValue < minValue ? minValue : newValue;
     }
 }
 

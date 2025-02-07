@@ -1,13 +1,7 @@
 {
-  "CollectibleTypes": [],
-  "CollectibleCodes": [
-    "game:vegetable-carrot",
-    "game:vegetable-cabbage",
-    "game:vegetable-onion",
-    "game:vegetable-turnip",
-    "game:vegetable-parsnip",
-    "game:vegetable-cassava",
-    "game:vegetable-bellpepper",
-    "game:vegetable-avocado"
-  ]
+  "GroupingCodes": {
+    "group1": [ "game:vegetable-cabbage" ],
+    "group2": [ "game:vegetable-bellpepper", "game:vegetable-avocado", "game:vegetable-onion", "game:vegetable-turnip" ],
+    "group3": [ "game:vegetable-carrot", "game:vegetable-parsnip", "game:vegetable-cassava" ]
+  }
 }

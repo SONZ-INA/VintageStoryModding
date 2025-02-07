@@ -35,7 +35,7 @@
   "blockdesc-canhold-title": "Can hold:",
   "blockdesc-canbeplacedin-title": "Can be placed in:",
 
-  "blockdesc-breadshelf-text": "  -All bread types<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings<br>Wildcraft: Fruits and Nuts:<br>  -Pacoca<br>  -Halva<br>  -Marzipam",
+  "blockdesc-breadshelf-text": "  -All bread types<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings<br>  -Soft bread<br>Wildcraft: Fruits and Nuts:<br>  -Pacoca<br>  -Halva<br>  -Marzipam",
   "blockdesc-eggshelf-text": "  -Raw or boiled eggs",
   "blockdesc-sushishelf-text": "Expanded Foods:<br>  -All Sushi",
   "blockdesc-barshelf-text": "Expanded Foods:<br>  -Fruit bar<br>Wildcraft: Fruits and Nuts:<br>  -All food bars",
@@ -49,8 +49,8 @@
   "blockdesc-horizontalbarrelbig-text": "  -This barrel can only be placed inside a big barrel rack.",
   "blockdesc-liquidystuff-text": "  -Can hold resin, beeswax, animal fat, and all dehydrated/dry fruits from Expanded Foods.",
   "blockdesc-pumpkincase-text": "  -Can only hold pumpkins.",
-  "blockdesc-fooduniversal-text": "  -Pies, Cheese, all bread types<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings.",
-  "blockdesc-holderuniversal-text": "  -Pies, Cheese, all bread types, crocks and pots<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings<br>Wildcraft: Fruits and Nuts:<br>  -Pacoca<br>  -Halva<br>  -Marzipam",
+  "blockdesc-fooduniversal-text": "  -Pies, Cheese, all bread types<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings<br>  -Soft bread",
+  "blockdesc-holderuniversal-text": "  -Pies, Cheese, all bread types, crocks and pots<br>Expanded Foods:<br>  -Muffins<br>  -Dumplings<br>  -Soft bread<br>Wildcraft: Fruits and Nuts:<br>  -Pacoca<br>  -Halva<br>  -Marzipam",
 
   "helddesc-barrelrack": "Liquids stored in this Barrel rack stay fresh for 50% longer and cure 20% slower.",
   "helddesc-barrelrackbig": "Liquids stored in this Big barrel rack stay fresh for 60% longer and cure 25% slower.",

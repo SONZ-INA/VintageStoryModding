@@ -434,14 +434,14 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         }
         if (block == null) return null;
         
-        int rndTexNum = GameMath.MurmurHash3Mod(Pos.X, Pos.Y, Pos.Z, 85378);
+        int rndTexNum = GameMath.MurmurHash3Mod(Pos.X, Pos.Y, Pos.Z, 4637);
 
-        string key = "coolingCabinetMeshes" + Block.Code;
+        string key = "coolingCabinetMeshes" + "-" + Block.Code;
         Dictionary<string, MeshData> meshes = ObjectCacheUtil.GetOrCreate(Api, key, () => {
             return new Dictionary<string, MeshData>();
         });
 
-        string sKey = "coolingCabinetShape" + Block.Code;
+        string sKey = "coolingCabinetShape" + "-" + Block.Code;
         Dictionary<string, Shape> shapes = ObjectCacheUtil.GetOrCreate(Api, sKey, () => {
             return new Dictionary<string, Shape>();
         });
@@ -452,7 +452,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
             shapes[sKey] = Api.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
         }
 
-        string meshKey = block.Code + "-" + rndTexNum;
+        string meshKey = "coolingCabinetAnimInitMesh" + "-" + block.Code + "-" + rndTexNum;
         if (meshes.TryGetValue(meshKey, out MeshData mesh)) {
             if (animUtil != null && animUtil.renderer == null) {
                 animUtil.InitializeAnimator(key, mesh, shape, new Vec3f(0, GetRotationAngle(block), 0));
@@ -492,30 +492,25 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                         float x = segment * 0.65f;
                         float z = item * 0.65f;
 
-                        var matrix =
+                        tfMatrices[index] =
                             new Matrixf()
                             .Translate(0.5f, 0, 0.5f)
                             .RotateYDeg(block.Shape.rotateY)
                             .Scale(0.95f, 0.95f, 0.95f)
-                            .Translate(x - 0.625f, y + 0.66f, z - 0.5325f);
-
-                        if (transformation != null) matrix.ApplyModelTransformToMatrixF(transformation);
-                        tfMatrices[index] = matrix.Values;
+                            .Translate(x - 0.625f, y + 0.66f, z - 0.5325f)
+                            .Values;
                     }
                     else {
                         float x = segment * 0.65f + (index % (itemsPerSegment / 2) == 0 ? -0.16f : 0.16f);
                         float z = (index / (itemsPerSegment / 2)) % 2 == 0 ? -0.18f : 0.18f;
 
-                        var matrix =
+                        tfMatrices[index] =
                             new Matrixf()
                             .Translate(0.5f, 0, 0.5f)
                             .RotateYDeg(block.Shape.rotateY)
                             .Scale(0.95f, 0.95f, 0.95f)
-                            .Translate(x - 0.625f, y + 0.66f, z - 0.5325f);
-
-
-                        if (transformation != null) matrix.ApplyModelTransformToMatrixF(transformation);
-                        tfMatrices[index] = matrix.Values;
+                            .Translate(x - 0.625f, y + 0.66f, z - 0.5325f)
+                            .Values;
                     }
                 }
             }
