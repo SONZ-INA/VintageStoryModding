@@ -7,13 +7,13 @@ public class BlockEggBasket : BlockContainer {
         base.OnLoaded(api);
         PlacedPriorityInteract = true; // Needed to call OnBlockInteractStart when shifting with an item in hand
 
-        interactions = ObjectCacheUtil.GetOrCreate(api, "basketBlockInteractions", () => {
+        interactions = ObjectCacheUtil.GetOrCreate(api, "eggBasketBlockInteractions", () => {
             List<ItemStack> eggStackList = new();
 
             foreach(Item item in api.World.Items) {
                 if (item.Code == null) continue;
 
-                if (WildcardUtil.Match(EggBasketData.CollectibleCodes, item.Code.Path.ToString())) {
+                if (WildcardUtil.Match(EggBasketData.CollectibleCodes, item.Code)) {
                     eggStackList.Add(new ItemStack(item));
                 }
             }

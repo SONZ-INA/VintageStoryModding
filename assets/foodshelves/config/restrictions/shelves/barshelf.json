@@ -2,6 +2,13 @@
   "CollectibleTypes": [],
   "CollectibleCodes": [
     "expandedfoods:fruitbar-*",
+    "expandedfoods:pemmican-partbaked",
+    "expandedfoods:pemmican-cooked",
+    "expandedfoods:pemmican-charred",
+    "expandedfoods:fishpemmican-partbaked",
+    "expandedfoods:fishpemmican-cooked",
+    "expandedfoods:fishpemmican-charred",
+
     "wildcraftfruit:nut-*bar"
   ]
 }

@@ -1,4 +1,6 @@
-﻿namespace FoodShelves;
+﻿using System.Linq;
+
+namespace FoodShelves;
 
 public class BlockVegetableBasket : BlockContainer {
     WorldInteraction[] interactions;
@@ -7,13 +9,16 @@ public class BlockVegetableBasket : BlockContainer {
         base.OnLoaded(api);
         PlacedPriorityInteract = true; // Needed to call OnBlockInteractStart when shifting with an item in hand
 
-        interactions = ObjectCacheUtil.GetOrCreate(api, "basketBlockInteractions", () => {
+        interactions = ObjectCacheUtil.GetOrCreate(api, "vegetableBasketBlockInteractions", () => {
             List<ItemStack> vegetableStackList = new();
+            var allGroupedCodes = VegetableBasketData.GroupingCodes
+                .SelectMany(g => g.Value)
+                .ToArray();
 
             foreach(Item item in api.World.Items) {
                 if (item.Code == null) continue;
 
-                if (WildcardUtil.Match(VegetableBasketData.CollectibleCodes, item.Code.Path.ToString())) {
+                if (WildcardUtil.Match(allGroupedCodes, item.Code)) {
                     vegetableStackList.Add(new ItemStack(item));
                 }
             }
@@ -52,6 +57,18 @@ public class BlockVegetableBasket : BlockContainer {
         }
 
         world.BlockAccessor.SetBlock(0, pos);
+    }
+
+    public override void OnNeighbourBlockChange(IWorldAccessor world, BlockPos pos, BlockPos neibpos) {
+        BlockEntityVegetableBasket be = GetBlockEntity<BlockEntityVegetableBasket>(pos);
+        if (be != null) {
+            BlockBehaviorCanCeilingAttachFalling beh = GetBehavior<BlockBehaviorCanCeilingAttachFalling>();
+            beh.CanBlockStay(world, pos, out bool isCeilingAttached);
+            be.IsCeilingAttached = isCeilingAttached;
+            be.MarkDirty(true);
+        }
+
+        base.OnNeighbourBlockChange(world, pos, neibpos);
     }
 
     public override string GetHeldItemName(ItemStack itemStack) {
@@ -111,7 +128,7 @@ public class BlockVegetableBasket : BlockContainer {
             string itemPath = "";
 
             if (contents != null && contents.Length > 0 && contents[0] != null) {
-                itemPath = contents[0].Collectible.Code.Path.ToString();
+                itemPath = contents[0].Collectible.Code;
             } 
             
             float[,] transformationMatrix = GetTransformationMatrix(itemPath);

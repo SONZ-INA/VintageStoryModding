@@ -1,3 +1,5 @@
 {
-  "*fruitbar-*": { "origin": { "x": 0.481, "y": 0.055, "z": 0.4875 }, "scale": 0.65, "rotation": { "x": 0, "y": 0, "z": 180 } }
+  "expandedfoods:fruitbar-*": { "origin": { "x": 0.481, "y": 0.055, "z": 0.4875 }, "scale": 0.65, "rotation": { "x": 0, "y": 0, "z": 180 } },
+  "expandedfoods:pemmican-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "translation": { "x": 0.05, "y": 0.025, "z": 0.03 }, "scale": 1.1 },
+  "expandedfoods:fishpemmican-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "translation": { "x": 0.05, "y": 0.025, "z": 0.03 }, "scale": 1.1 }
 }

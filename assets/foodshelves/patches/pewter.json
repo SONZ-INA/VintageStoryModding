@@ -1,0 +1,13 @@
+[
+  {
+    "file": "foodshelves:config/restrictions/general/holderuniversal.json",
+    "op": "addmerge",
+    "path": "/CollectibleCodes",
+    "value": [
+      "pewter:bowl-pewter",
+      "pewter:bowl-meal-pewter",
+      "pewter:crock-pewter*"
+    ],
+    "dependsOn": [ { "modid": "pewter" } ]
+  }
+]

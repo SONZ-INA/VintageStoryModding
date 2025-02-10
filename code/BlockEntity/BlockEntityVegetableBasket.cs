@@ -4,6 +4,7 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
     readonly InventoryGeneric inv;
     BlockVegetableBasket block;
     public float MeshAngle { get; set; }
+    public bool IsCeilingAttached { get; set; }
 
     public override InventoryBase Inventory => inv;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
@@ -32,6 +33,13 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
         }
 
         return 1;
+    }
+
+    public override void OnBlockPlaced(ItemStack byItemStack = null) {
+        base.OnBlockPlaced(byItemStack);
+
+        Block attachingBlock = Api.World.BlockAccessor.GetBlock(Pos.UpCopy());
+        IsCeilingAttached = attachingBlock.CanAttachBlockAt(Api.World.BlockAccessor, Block, Pos, BlockFacing.DOWN);
     }
 
     internal bool OnInteract(IPlayer byPlayer) {
@@ -115,13 +123,26 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
         return tfMatrices;
     }
 
-    #region RotationRender
+    #region Rotation/Ceiling Render
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
         bool skipmesh = base.OnTesselation(mesher, tesselator);
 
         if (!skipmesh) {
-            tesselator.TesselateBlock(Api.World.BlockAccessor.GetBlock(this.Pos), out MeshData blockMesh);
+            MeshData blockMesh = null;
+            bool skip = false;
+
+            if (IsCeilingAttached) {
+                AssetLocation shapeLocation = new(ShapeReferences.VegetableBasketHanged);
+                Shape shape = Api.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
+                if (shape != null) {
+                    skip = true;
+                    tesselator.TesselateShape(block, shape, out blockMesh);
+                    blockMesh.Scale(new Vec3f(0.5f, 0, 0.5f), 0.8f, 0.8f, 0.8f);
+                }
+            }
+
+            if (!skip) tesselator.TesselateBlock(block, out blockMesh);
             if (blockMesh == null) return false;
 
             mesher.AddMeshData(blockMesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0));
@@ -133,12 +154,14 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
     public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
         base.FromTreeAttributes(tree, worldForResolving);
         MeshAngle = tree.GetFloat("meshAngle", 0f);
+        IsCeilingAttached = tree.GetBool("isCeilingAttached", false);
         RedrawAfterReceivingTreeAttributes(worldForResolving);
     }
 
     public override void ToTreeAttributes(ITreeAttribute tree) {
         base.ToTreeAttributes(tree);
         tree.SetFloat("meshAngle", MeshAngle);
+        tree.SetBool("isCeilingAttached", IsCeilingAttached);
     }
 
     #endregion

@@ -1,15 +1,14 @@
 {
   "CollectibleTypes": [
     "game:BlockPie",
-    "game:ItemCheese",
-    "foodshelves:BlockFruitBasket",
-    "foodshelves:BlockVegetableBasket",
-    "foodshelves:BlockEggBasket"
+    "game:ItemCheese"
   ],
   "CollectibleCodes": [
     "game:crock-burned*",
     "game:claypot-burned",
     "game:claypot-cooked",
+    "game:bowl-fired",
+    "game:bowl-meal",
 
     "*bread-*",
     "*dough-*",

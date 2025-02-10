@@ -10,7 +10,7 @@ public class BlockBehaviorCeilingAttachable : BlockBehavior {
             if (TryAttachTo(world, byPlayer, blockSel, itemstack, ref failureCode)) return true;
         }
 
-        (world.Api as ICoreClientAPI).TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:placefailure-requireceilingattachable"));
+        (world.Api as ICoreClientAPI)?.TriggerIngameError(this, "cantplace", Lang.Get("foodshelves:placefailure-requireceilingattachable"));
         failureCode = "__ignore__";
 
         return false;
@@ -23,10 +23,6 @@ public class BlockBehaviorCeilingAttachable : BlockBehavior {
 
         block.DoPlaceBlock(world, byPlayer, blockSel, itemstack);
         return true;
-    }
-
-    public override bool CanPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handling, ref string failureCode) {
-        return base.CanPlaceBlock(world, byPlayer, blockSel, ref handling, ref failureCode);
     }
 
     public override void OnNeighbourBlockChange(IWorldAccessor world, BlockPos pos, BlockPos neibpos, ref EnumHandling handled) {

@@ -30,6 +30,7 @@ public class Core : ModSystem {
         base.Start(api);
 
         api.RegisterBlockBehaviorClass("FoodShelves.CeilingAttachable", typeof(BlockBehaviorCeilingAttachable));
+        api.RegisterBlockBehaviorClass("FoodShelves.CanCeilingAttachFalling", typeof(BlockBehaviorCanCeilingAttachFalling));
 
         api.RegisterBlockClass("FoodShelves.BlockPieShelf", typeof(BlockPieShelf));
         api.RegisterBlockEntityClass("FoodShelves.BlockEntityPieShelf", typeof(BlockEntityPieShelf));

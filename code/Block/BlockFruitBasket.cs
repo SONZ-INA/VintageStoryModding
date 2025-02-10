@@ -7,13 +7,13 @@ public class BlockFruitBasket : BlockContainer {
         base.OnLoaded(api);
         PlacedPriorityInteract = true; // Needed to call OnBlockInteractStart when shifting with an item in hand
 
-        interactions = ObjectCacheUtil.GetOrCreate(api, "basketBlockInteractions", () => {
+        interactions = ObjectCacheUtil.GetOrCreate(api, "fruitBasketBlockInteractions", () => {
             List<ItemStack> fruitStackList = new();
 
             foreach(Item item in api.World.Items) {
                 if (item.Code == null) continue;
 
-                if (WildcardUtil.Match(FruitBasketData.CollectibleCodes, item.Code.Path.ToString())) {
+                if (WildcardUtil.Match(FruitBasketData.CollectibleCodes, item.Code)) {
                     fruitStackList.Add(new ItemStack(item));
                 }
             }
@@ -42,9 +42,10 @@ public class BlockFruitBasket : BlockContainer {
         // Prevent duplicating of items inside
         if (byPlayer.WorldData.CurrentGameMode == EnumGameMode.Survival) {
             if (world.BlockAccessor.GetBlockEntity(pos) is BlockEntityFruitBasket frbasket) {
-                ItemStack[] contents = frbasket.GetContentStacks();
                 ItemStack emptyFruitBasket = new(this);
                 world.SpawnItemEntity(emptyFruitBasket, pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                
+                ItemStack[] contents = frbasket.GetContentStacks();
                 for (int i = 0; i < contents.Length; i++) {
                     world.SpawnItemEntity(contents[i], pos.ToVec3d().Add(0.5, 0.5, 0.5));
                 }
@@ -52,6 +53,18 @@ public class BlockFruitBasket : BlockContainer {
         }
 
         world.BlockAccessor.SetBlock(0, pos);
+    }
+
+    public override void OnNeighbourBlockChange(IWorldAccessor world, BlockPos pos, BlockPos neibpos) {
+        BlockEntityFruitBasket be = GetBlockEntity<BlockEntityFruitBasket>(pos);
+        if (be != null) {
+            BlockBehaviorCanCeilingAttachFalling beh = GetBehavior<BlockBehaviorCanCeilingAttachFalling>();
+            beh.CanBlockStay(world, pos, out bool isCeilingAttached);
+            be.IsCeilingAttached = isCeilingAttached;
+            be.MarkDirty(true);
+        }
+
+        base.OnNeighbourBlockChange(world, pos, neibpos);
     }
 
     public override string GetHeldItemName(ItemStack itemStack) {

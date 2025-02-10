@@ -20,8 +20,8 @@
     "attributeTransformCode": "onVegetableBasketTransform"
   },
   "behaviors": [
-    { "name": "UnstableFalling" },
-    { "name": "RightClickPickup" }
+    { "name": "RightClickPickup" },
+    { "name": "FoodShelves.CanCeilingAttachFalling" }
   ],
   "shape": {
     "base": "block/wood/baskets/vegetablebasket",
@@ -29,7 +29,8 @@
   },
   "textures": {
     "sides": { "base": "game:block/wood/table/normal/sides" },
-    "top": { "base": "foodshelves:block/wood/vegetablebasket/top" }
+    "top": { "base": "foodshelves:block/wood/vegetablebasket/top" },
+    "rope": { "base": "game:item/resource/rope" }
   },
   "heldRightReadyAnimation": "helditemreadybucket", 
   "blockmaterial": "Wood",

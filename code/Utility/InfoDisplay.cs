@@ -40,6 +40,7 @@ public static class InfoDisplay {
 
         if (displaySelection != InfoDisplayOptions.ByBlock && selectedSegment == -1) return;
 
+        string[] crockCheck = { "game:crock-burned*", "pewter:crock-pewter*" };
         int start = 0, end = slotCount;
 
         switch (displaySelection) {
@@ -70,7 +71,7 @@ public static class InfoDisplay {
             if (stack.Collectible.TransitionableProps != null && stack.Collectible.TransitionableProps.Length > 0) {
                 sb.Append(PerishableInfoCompact(world, inv[i], ripenRate));
             }
-            else if (WildcardUtil.Match("game:crock-burned*", stack.Collectible.Code.ToString())) {
+            else if (WildcardUtil.Match(crockCheck, stack.Collectible.Code.ToString())) {
                 sb.Append(CrockInfoCompact(inv, world, inv[i]));
             }
             else {

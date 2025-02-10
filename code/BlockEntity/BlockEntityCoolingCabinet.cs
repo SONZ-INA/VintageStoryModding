@@ -46,7 +46,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
             if (CabinetOpen) perishMultiplier = 1f;
             else perishMultiplier = 0.75f;
             WaterHeightUp();
-            MarkDirty();
+            MarkDirty(true);
         }
 
         if (transType == EnumTransitionType.Dry) return container.Room?.ExitCount == 0 ? 2f : 0.5f;
@@ -75,15 +75,14 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                 case 9:
                     if (!drawerOpen) OpenDrawer();
                     else CloseDrawer();
-                    MarkDirty();
                     break;
                 default:
                     if (!CabinetOpen) OpenCabinet();
                     else CloseCabinet();
-                    MarkDirty();
                     break;
             }
 
+            MarkDirty(true);
             return true;
         }
 
@@ -218,7 +217,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
 
             (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
             IceHeightAllDown();
-            MarkDirty();
+            MarkDirty(true);
             return true;
         }
 
@@ -427,32 +426,34 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     #endregion
 
     private MeshData GenMesh(ITesselatorAPI tesselator) {
-        Block block = Block;
+        BlockCoolingCabinet block = Block as BlockCoolingCabinet;
         if (Block == null) {
-            block = Api.World.BlockAccessor.GetBlock(Pos);
+            block = Api.World.BlockAccessor.GetBlock(Pos) as BlockCoolingCabinet;
             Block = block;
         }
         if (block == null) return null;
-        
-        int rndTexNum = GameMath.MurmurHash3Mod(Pos.X, Pos.Y, Pos.Z, 4637);
 
-        string key = "coolingCabinetMeshes" + "-" + Block.Code;
+        string key = "coolingCabinetMeshes" + Block.Code.ToShortString();
         Dictionary<string, MeshData> meshes = ObjectCacheUtil.GetOrCreate(Api, key, () => {
             return new Dictionary<string, MeshData>();
         });
 
-        string sKey = "coolingCabinetShape" + "-" + Block.Code;
-        Dictionary<string, Shape> shapes = ObjectCacheUtil.GetOrCreate(Api, sKey, () => {
-            return new Dictionary<string, Shape>();
-        });
+        Shape shape = null;
+        if (animUtil != null) {
+            string skeydict = "coolingCabinetMeshes";
+            Dictionary<string, Shape> shapes = ObjectCacheUtil.GetOrCreate(Api, skeydict, () => {
+                return new Dictionary<string, Shape>();
+            });
 
-        if (!shapes.TryGetValue(sKey, out Shape shape)) {
-            AssetLocation shapeLocation = new(ShapeReferences.CoolingCabinet);
-            ITexPositionSource textureSource = tesselator.GetTextureSource(block);
-            shapes[sKey] = Api.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
+            string sKey = "coolingCabinetShape" + "-" + Block.Code.ToShortString();
+            if (!shapes.TryGetValue(sKey, out shape)) {
+                AssetLocation shapeLocation = new(ShapeReferences.CoolingCabinet);
+                shape = Shape.TryGet(capi, shapeLocation);
+                shapes[sKey] = shape;
+            }
         }
 
-        string meshKey = "coolingCabinetAnimInitMesh" + "-" + block.Code + "-" + rndTexNum;
+        string meshKey = "coolingCabinetAnim" + "-" + block.Code.ToShortString();
         if (meshes.TryGetValue(meshKey, out MeshData mesh)) {
             if (animUtil != null && animUtil.renderer == null) {
                 animUtil.InitializeAnimator(key, mesh, shape, new Vec3f(0, GetRotationAngle(block), 0));
@@ -461,6 +462,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
             return mesh;
         }
 
+        // int rndTexNum = GameMath.MurmurHash3Mod(Pos.X, Pos.Y, Pos.Z, 4637);
         if (animUtil != null) {
             if (animUtil.renderer == null) {
                 ITexPositionSource texSource = tesselator.GetTextureSource(block);
@@ -482,11 +484,6 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                     int index = shelf * (segmentsPerShelf * itemsPerSegment) + segment * itemsPerSegment + item;
 
                     float y = shelf * 0.4921875f;
-                    ModelTransform transformation = null;
-
-                    if (HolderUniversalTransformations != null) {
-                        transformation = inv[index].Itemstack?.Collectible.GetTransformation(HolderUniversalTransformations);
-                    }
 
                     if ((index < itemsPerSegment && IsLargeItem(inv[index].Itemstack)) || (index >= itemsPerSegment && IsLargeItem(inv[index].Itemstack))) {
                         float x = segment * 0.65f;

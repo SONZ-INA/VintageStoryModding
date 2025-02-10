@@ -20,8 +20,8 @@
     "attributeTransformCode": "onFruitBasketTransform"
   },
   "behaviors": [
-    { "name": "UnstableFalling" },
-    { "name": "RightClickPickup" }
+    { "name": "RightClickPickup" },
+    { "name": "FoodShelves.CanCeilingAttachFalling" }
   ],
   "shape": {
     "base": "block/wood/baskets/fruitbasket",
@@ -29,7 +29,8 @@
   },
   "textures": {
     "sides": { "base": "game:block/wood/table/normal/sides" },
-    "top": { "base": "foodshelves:block/wood/fruitbasket/top" }
+    "top": { "base": "foodshelves:block/wood/fruitbasket/top" },
+    "rope": { "base": "game:item/resource/rope" }
   },
   "heldTpIdleAnimation": "holdbothhandslarge",
   "heldRightReadyAnimation": "heldblockready", 
