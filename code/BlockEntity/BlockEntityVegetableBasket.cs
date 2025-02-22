@@ -130,19 +130,19 @@ public class BlockEntityVegetableBasket : BlockEntityDisplay {
 
         if (!skipmesh) {
             MeshData blockMesh = null;
-            bool skip = false;
 
             if (IsCeilingAttached) {
                 AssetLocation shapeLocation = new(ShapeReferences.VegetableBasketHanged);
                 Shape shape = Api.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
                 if (shape != null) {
-                    skip = true;
                     tesselator.TesselateShape(block, shape, out blockMesh);
                     blockMesh.Scale(new Vec3f(0.5f, 0, 0.5f), 0.8f, 0.8f, 0.8f);
                 }
             }
+            else {
+                tesselator.TesselateBlock(block, out blockMesh);
+            }
 
-            if (!skip) tesselator.TesselateBlock(block, out blockMesh);
             if (blockMesh == null) return false;
 
             mesher.AddMeshData(blockMesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0));

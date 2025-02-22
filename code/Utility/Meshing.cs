@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using Vintagestory.API.Common;
+using Vintagestory.Common;
 
 namespace FoodShelves;
 
@@ -281,6 +283,33 @@ public static class Meshing {
         capi.Tesselator.TesselateShape(null, shapeClone, out MeshData contentMesh, texSource);
 
         return contentMesh;
+    }
+
+    public static MeshData GenNestedContentMesh(ICoreClientAPI capi, ItemStack[] stack) {
+        if (capi == null) return null;
+
+        MeshData nestedContentMesh = null;
+        foreach (ItemStack itemStack in stack) {
+            if (itemStack == null || itemStack.Item == null) continue;
+
+            Shape shape = capi.TesselatorManager.GetCachedShape(itemStack.Item.Shape.Base).Clone();
+            if (shape == null) return null;
+
+            UniversalShapeTextureSource texSource = new(capi, capi.ItemTextureAtlas, shape, "inContainerTexSource");
+
+            foreach (var textureDict in shape.Textures) {
+                CompositeTexture cTex = new(textureDict.Value);
+                cTex.Bake(capi.Assets);
+                texSource.textures[textureDict.Key] = cTex;
+            }
+
+            capi.Tesselator.TesselateShape("InContainerTesselate", shape, out MeshData collectibleMesh, texSource);
+
+            if (nestedContentMesh == null) nestedContentMesh = collectibleMesh;
+            else nestedContentMesh.AddMeshData(collectibleMesh);
+        }
+
+        return nestedContentMesh;
     }
 
     // GeneralizedTexturedGenMesh written specifically for expanded foods, i might need it so it's here

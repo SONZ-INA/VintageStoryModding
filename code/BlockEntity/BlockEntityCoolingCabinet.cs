@@ -21,6 +21,11 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     public bool CabinetOpen { get; set; }
     public bool drawerOpen = false;
 
+    private readonly AssetLocation soundCabinetOpen = new(SoundReferences.CoolingCabinetOpen);
+    private readonly AssetLocation soundCabinetClose = new(SoundReferences.CoolingCabinetClose);
+    private readonly AssetLocation soundDrawerOpen = new(SoundReferences.IceDrawerOpen);
+    private readonly AssetLocation soundDrawerClose = new(SoundReferences.IceDrawerClose);
+
     public BlockEntityCoolingCabinet() {
         inv = new InventoryGeneric(slotCount, InventoryClassName + "-0", Api, (id, inv) => {
             if (id != 36) return new ItemSlotHolderUniversal(inv);
@@ -73,12 +78,12 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         if (byPlayer.Entity.Controls.ShiftKey) {
             switch (blockSel.SelectionBoxIndex) {
                 case 9:
-                    if (!drawerOpen) OpenDrawer();
-                    else CloseDrawer();
+                    if (!drawerOpen) OpenDrawer(byPlayer);
+                    else CloseDrawer(byPlayer);
                     break;
                 default:
-                    if (!CabinetOpen) OpenCabinet();
-                    else CloseCabinet();
+                    if (!CabinetOpen) OpenCabinet(byPlayer);
+                    else CloseCabinet(byPlayer);
                     break;
             }
 
@@ -257,11 +262,12 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
 
     #region Animation Methods
 
-    private void OpenCabinet() {
+    private void OpenCabinet(IPlayer byPlayer = null) {
         if (!inv[36].Empty && !WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
             WaterHeightUp(); // Unfortunately inside Inventory_OnAcquireTransitionSpeed this updates only when you look at it. Forcing it here too.
         }
 
+        if (byPlayer != null) Api.World.PlaySoundAt(soundCabinetOpen, byPlayer.Entity, byPlayer, true, 16);
         if (animUtil?.activeAnimationsByAnimCode.ContainsKey("cabinetopen") == false) {
             animUtil?.StartAnimation(new AnimationMetaData() {
                 Animation = "cabinetopen",
@@ -276,17 +282,18 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         CabinetOpen = true;
     }
 
-    private void CloseCabinet() {
+    private void CloseCabinet(IPlayer byPlayer) {
         if (!inv[36].Empty && !WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
             WaterHeightUp(); // Unfortunately inside Inventory_OnAcquireTransitionSpeed this updates only when you look at it. Forcing it here too.
         }
 
+        Api.World.PlaySoundAt(soundCabinetClose, byPlayer.Entity, byPlayer, true, 16);
         if (animUtil?.activeAnimationsByAnimCode.ContainsKey("cabinetopen") == true) {
             animUtil?.StopAnimation("cabinetopen");
         }
 
         perishMultiplier = 0.75f;
-        
+
         if (!drawerOpen && !inv[36].Empty) {
             if (WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) 
                 perishMultiplier = 0.4f;
@@ -295,11 +302,12 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         CabinetOpen = false;
     }
 
-    private void OpenDrawer() {
+    private void OpenDrawer(IPlayer byPlayer) {
         if (!inv[36].Empty && !WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
             WaterHeightUp(); // Unfortunately inside Inventory_OnAcquireTransitionSpeed this updates only when you look at it. Forcing it here too.
         }
 
+        Api.World.PlaySoundAt(soundDrawerOpen, byPlayer.Entity, byPlayer, true, 16);
         if (animUtil?.activeAnimationsByAnimCode.ContainsKey("draweropen") == false) {
             animUtil?.StartAnimation(new AnimationMetaData() {
                 Animation = "draweropen",
@@ -314,11 +322,12 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         drawerOpen = true;
     }
 
-    private void CloseDrawer() {
+    private void CloseDrawer(IPlayer byPlayer) {
         if (!inv[36].Empty && !WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
             WaterHeightUp(); // Unfortunately inside Inventory_OnAcquireTransitionSpeed this updates only when you look at it. Forcing it here too.
         }
 
+        Api.World.PlaySoundAt(soundDrawerClose, byPlayer.Entity, byPlayer, true, 16);
         if (animUtil?.activeAnimationsByAnimCode.ContainsKey("draweropen") == true) {
             animUtil?.StopAnimation("draweropen");
         }
@@ -462,7 +471,6 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
             return mesh;
         }
 
-        // int rndTexNum = GameMath.MurmurHash3Mod(Pos.X, Pos.Y, Pos.Z, 4637);
         if (animUtil != null) {
             if (animUtil.renderer == null) {
                 ITexPositionSource texSource = tesselator.GetTextureSource(block);
@@ -519,6 +527,16 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     }
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
+        foreach (var slot in inv) { // testing part to see if it'll mesh the contents properly.
+            if (slot.Itemstack?.Collectible.Code == "foodshelves:fruitbasket-normal") {
+                ItemStack[] stack = GetContents(Api.World, slot.Itemstack);
+                if (stack.Length == 0) continue;
+
+                MeshData mesh = GenNestedContentMesh(Api as ICoreClientAPI, stack);
+                if (mesh != null) mesher.AddMeshData(mesh);
+            }
+        }
+
         bool skipmesh = base.OnTesselation(mesher, tesselator);
 
         if (!skipmesh) {

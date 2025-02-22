@@ -1,7 +1,8 @@
 {
   "CollectibleTypes": [
     "game:BlockPie",
-    "game:ItemCheese"
+    "game:ItemCheese",
+    "foodshelves:BlockFruitBasket"
   ],
   "CollectibleCodes": [
     "game:crock-burned*",
@@ -14,6 +15,7 @@
     "*dough-*",
 
     "expandedfoods:muffin-*",
+    "expandedfoods:acornmuffin-*",
     "expandedfoods:breadedball-*",
     "expandedfoods:dumpling-*",
     "expandedfoods:plaindoughball-*",

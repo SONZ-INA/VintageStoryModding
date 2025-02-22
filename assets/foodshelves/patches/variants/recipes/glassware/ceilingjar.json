@@ -9,7 +9,7 @@
         "P": { "type": "item", "code": "game:plank-*", "name": "wood" },
         "R": { "type": "item", "code": "game:rope" },
         "S": { "type": "item", "code": "game:stick" },
-        "G": { "type": "item", "code": "game:glass-*" }
+        "G": { "type": "block", "code": "game:glass-*" }
       },
       "width": 3,
       "height": 3,

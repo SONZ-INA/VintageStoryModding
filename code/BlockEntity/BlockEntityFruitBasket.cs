@@ -110,7 +110,7 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
                 .RotateYDeg(transformationMatrix[4, item])
                 .RotateZDeg(transformationMatrix[5, item])
                 .Scale(0.5f, 0.5f, 0.5f)
-                .Translate(transformationMatrix[0, item] - 0.84375f, transformationMatrix[1, item], transformationMatrix[2, item] - 0.8125f)
+                .Translate(transformationMatrix[0, item] - 0.84375f, transformationMatrix[1, item] + 0.1f, transformationMatrix[2, item] - 0.8125f)
                 .Values;
         }
 
@@ -124,19 +124,19 @@ public class BlockEntityFruitBasket : BlockEntityDisplay {
 
         if (!skipmesh) {
             MeshData blockMesh = null;
-            bool skip = false;
 
             if (IsCeilingAttached) {
                 AssetLocation shapeLocation = new(ShapeReferences.FruitBasketHanged);
                 Shape shape = Api.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
                 if (shape != null) {
-                    skip = true; // Don't mesh the default block
                     tesselator.TesselateShape(block, shape, out blockMesh);
                     blockMesh.Scale(new Vec3f(0.5f, 0, 0.5f), 0.8f, 0.8f, 0.8f);
                 }
             }
+            else {
+                tesselator.TesselateBlock(block, out blockMesh);
+            }
 
-            if (!skip) tesselator.TesselateBlock(block, out blockMesh);
             if (blockMesh == null) return false;
 
             mesher.AddMeshData(blockMesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0));

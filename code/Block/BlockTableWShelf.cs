@@ -1,6 +1,10 @@
 ﻿namespace FoodShelves;
 
 public class BlockTableWShelf : Block {
+    public override int GetRetention(BlockPos pos, BlockFacing facing, EnumRetentionType type) {
+        return 0; // To prevent the block reducing the cellar rating
+    }
+
     public override bool DoParticalSelection(IWorldAccessor world, BlockPos pos) {
         return true;
     }

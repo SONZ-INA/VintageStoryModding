@@ -170,6 +170,10 @@
   <None Remove="assets\foodshelves\shapes\item\CutIce.json" />
   <None Remove="assets\foodshelves\shapes\util\CeilingJarContentCube.json" />
   <None Remove="assets\foodshelves\shapes\util\GlassJarContentCube.json" />
+  <None Remove="assets\foodshelves\sounds\block\glasscabinetclose.ogg" />
+  <None Remove="assets\foodshelves\sounds\block\glassCabinetOpen.ogg" />
+  <None Remove="assets\foodshelves\sounds\block\icedrawerclose.ogg" />
+  <None Remove="assets\foodshelves\sounds\block\icedraweropen.ogg" />
   <None Remove="assets\foodshelves\textures\block\wood\coolingcabinet\surface_long.png" />
   <None Remove="assets\foodshelves\textures\block\wood\fruitbasket\top.png" />
   <None Remove="assets\foodshelves\textures\block\wood\horizontalbarrelbig\bottom.png" />

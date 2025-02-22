@@ -25,7 +25,18 @@ public class BlockEntityGlassFood : BlockEntityDisplay {
 
         if (block.Code.SecondCodePart().Contains("top")) {
             shelfCount = 1;
+
+            List<ItemStack> stack = new();
+            foreach (var slot in inv) stack.Add(slot.Itemstack);
+            stack.ToArray();
+
             inv = new InventoryGeneric(shelfCount * segmentsPerShelf * itemsPerSegment, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotFoodUniversal(inv));
+
+            for (int i = 0; i < shelfCount * segmentsPerShelf * itemsPerSegment; i++) {
+                if (i >= stack.Count) break;
+                inv[i].Itemstack = stack[i];
+            }
+
             Inventory.LateInitialize(Inventory.InventoryID, api);
         }
 

@@ -8,7 +8,7 @@
       "ingredients": {
         "P": { "type": "item", "code": "game:plank-*", "name": "wood" },
         "S": { "type": "item", "code": "game:stick" },
-        "G": { "type": "item", "code": "game:glass-*" }
+        "G": { "type": "block", "code": "game:glass-*" }
       },
       "width": 3,
       "height": 3,
@@ -26,11 +26,11 @@
       "ingredients": {
         "P": { "type": "item", "code": "game:plank-*", "name": "wood" },
         "S": { "type": "item", "code": "game:stick" },
-        "G": { "type": "item", "code": "game:glass-*" }
+        "G": { "type": "block", "code": "game:glass-*" }
       },
       "width": 3,
       "height": 3,
-      "recipeGroup": 1,
+      "recipeGroup": 2,
       "output": { "type": "block", "code": "glassfoodblock-top{wood}" }
     },
 		"condition": { "when": "FoodShelves.EnableVariants", "isValue": "true" }

@@ -124,7 +124,10 @@ public class BlockFruitBasket : BlockContainer {
 
             capi.Tesselator.TesselateBlock(this, out MeshData basketMesh);
             MeshData contentMesh = GenContentMesh(capi, contents, transformationMatrix, 0.5f, FruitBasketTransformations);
-            if (contentMesh != null) basketMesh.AddMeshData(contentMesh);
+            if (contentMesh != null) {
+                contentMesh.Translate(0, 0.02f, 0);
+                basketMesh.AddMeshData(contentMesh);
+            }
 
             if (basketMesh != null) { 
                 meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(basketMesh);
