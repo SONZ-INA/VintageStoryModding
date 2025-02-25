@@ -57,15 +57,15 @@ public class BlockEntityCeilingJar : BlockEntityDisplay {
     }
 
     private bool TryPut(IPlayer byPlayer, ItemSlot slot) {
-        if (!inv[0].Empty && inv[0].Itemstack.Collectible.Equals(slot.Itemstack.Collectible)) {
+        if (inv[0].Empty || inv[0].Itemstack.Collectible.Equals(slot.Itemstack.Collectible)) {
             int moved = 0;
 
             if (byPlayer.Entity.Controls.ShiftKey) {
                 for (int i = 0; i < inv.Count; i++) {
-                    int availableSpace = inv[0].Itemstack.Collectible.MaxStackSize - inv[i].StackSize;
+                    int availableSpace = inv[i].MaxSlotStackSize - inv[i].StackSize;
                     moved += slot.TryPutInto(Api.World, inv[i], availableSpace);
 
-                    if (inv[i].StackSize < inv[0].Itemstack.Collectible.MaxStackSize) break;
+                    if (slot.StackSize == 0) break;
                 }
             }
             else { 
@@ -76,16 +76,6 @@ public class BlockEntityCeilingJar : BlockEntityDisplay {
                     }
                 }
             }
-
-            if (moved > 0) {
-                MarkDirty();
-                (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
-                return true;
-            }
-        }
-
-        if (inv[0].Empty) {
-            int moved = slot.TryPutInto(Api.World, inv[0]);
 
             if (moved > 0) {
                 MarkDirty();

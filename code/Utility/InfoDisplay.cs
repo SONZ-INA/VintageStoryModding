@@ -40,7 +40,7 @@ public static class InfoDisplay {
 
         if (displaySelection != InfoDisplayOptions.ByBlock && selectedSegment == -1) return;
 
-        string[] crockCheck = { "game:crock-burned*", "pewter:crock-pewter*" };
+        string[] crockCheck = { "game:crock-burned*", "pewter:crock-*" };
         int start = 0, end = slotCount;
 
         switch (displaySelection) {

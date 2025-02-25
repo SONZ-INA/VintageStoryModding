@@ -4,9 +4,8 @@
     "op": "addmerge",
     "path": "/CollectibleCodes",
     "value": [
-      "pewter:bowl-pewter",
-      "pewter:bowl-meal-pewter",
-      "pewter:crock-pewter*"
+      "pewter:bowl-*",
+      "pewter:crock-*"
     ],
     "dependsOn": [ { "modid": "pewter" } ]
   }

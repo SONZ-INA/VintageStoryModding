@@ -7,8 +7,7 @@
   "foodshelves:fruitbasket-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "scale": 0.9 },
   "foodshelves:vegetablebasket-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "scale": 0.9 },
 
-  "pewter:bowl-pewter": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "scale": 0.9 },
-  "pewter:bowl-meal-pewter": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "scale": 0.9 },
+  "pewter:bowl-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "scale": 0.9 },
   
   "*muffin-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "rotation": { "x": 0, "y": 30, "z": 0 }, "scale": 0.7 },
   "*dumpling-*": { "origin": { "x": 0.5, "y": 0, "z": 0.5 }, "scale": 0.8 },

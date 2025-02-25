@@ -19,7 +19,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     private float perishMultiplier = 0.75f;
     
     public bool CabinetOpen { get; set; }
-    public bool drawerOpen = false;
+    public bool DrawerOpen { get; set; } 
 
     private readonly AssetLocation soundCabinetOpen = new(SoundReferences.CoolingCabinetOpen);
     private readonly AssetLocation soundCabinetClose = new(SoundReferences.CoolingCabinetClose);
@@ -36,8 +36,8 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     public override void Initialize(ICoreAPI api) {
         block = api.World.BlockAccessor.GetBlock(Pos);
         base.Initialize(api);
-
-        if (!inv[36].Empty && WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) perishMultiplier = 0.4f;
+        
+        if (!DrawerOpen && !inv[36].Empty && WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) perishMultiplier = 0.4f;
         if (CabinetOpen) perishMultiplier = 1f;
         inv.OnAcquireTransitionSpeed += Inventory_OnAcquireTransitionSpeed;
     }
@@ -78,7 +78,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         if (byPlayer.Entity.Controls.ShiftKey) {
             switch (blockSel.SelectionBoxIndex) {
                 case 9:
-                    if (!drawerOpen) OpenDrawer(byPlayer);
+                    if (!DrawerOpen) OpenDrawer(byPlayer);
                     else CloseDrawer(byPlayer);
                     break;
                 default:
@@ -95,10 +95,10 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         if (CabinetOpen && slot.Empty && blockSel.SelectionBoxIndex <= 8) {
             return TryTake(byPlayer, blockSel);
         }
-        else if (drawerOpen && slot.Empty &&blockSel.SelectionBoxIndex == 9) {
+        else if (DrawerOpen && slot.Empty &&blockSel.SelectionBoxIndex == 9) {
             return TryTakeIce(byPlayer);
         }
-        else if (drawerOpen && slot.Itemstack?.Collectible is ILiquidSink) {
+        else if (DrawerOpen && slot.Itemstack?.Collectible is ILiquidSink) {
             return TryTakeWater(byPlayer, slot, blockSel);
         }
         else {
@@ -112,7 +112,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                 }
             }
 
-            if (drawerOpen && slot.CoolingOnlyCheck()) {
+            if (DrawerOpen && slot.CoolingOnlyCheck()) {
                 AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
 
                 if (TryPutIce(byPlayer, slot, blockSel)) {
@@ -167,12 +167,11 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                 stack.Collectible.TryMergeStacks(op);
             }
 
-            if (inv[36].Empty) IceHeightAllDown();
-            else if (inv[36].Itemstack?.StackSize < 20) IceHeight1Up();
+            if (inv[36].Itemstack?.StackSize < 20) IceHeight1Up();
             else if (inv[36].Itemstack?.StackSize < 40) IceHeight2Up();
             else if (inv[36].Itemstack?.StackSize >= 40) IceHeight3Up();
 
-            MarkDirty();
+            MarkDirty(true);
             (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
 
             return moved > 0;
@@ -203,6 +202,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -222,6 +222,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
 
             (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
             IceHeightAllDown();
+
             MarkDirty(true);
             return true;
         }
@@ -262,14 +263,39 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
 
     #region Animation Methods
 
+    private void HandleAnimations() {
+        if (animUtil != null) {
+            if (CabinetOpen) OpenCabinet();
+            else CloseCabinet();
+
+            if (DrawerOpen) OpenDrawer();
+            else CloseDrawer();
+
+            if (!inv[36].Empty) {
+                if (WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
+                    if (inv[36].Itemstack?.StackSize < 20) IceHeight1Up();
+                    else if (inv[36].Itemstack?.StackSize < 40) IceHeight2Up();
+                    else if (inv[36].Itemstack?.StackSize >= 40) IceHeight3Up();
+                }
+                else {
+                    WaterHeightUp();
+                }
+            }
+            else {
+                IceHeightAllDown();
+                WaterHeightDown();
+            }
+        }
+    }
+
     private void OpenCabinet(IPlayer byPlayer = null) {
         if (!inv[36].Empty && !WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
             WaterHeightUp(); // Unfortunately inside Inventory_OnAcquireTransitionSpeed this updates only when you look at it. Forcing it here too.
         }
 
         if (byPlayer != null) Api.World.PlaySoundAt(soundCabinetOpen, byPlayer.Entity, byPlayer, true, 16);
-        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("cabinetopen") == false) {
-            animUtil?.StartAnimation(new AnimationMetaData() {
+        if (animUtil.activeAnimationsByAnimCode.ContainsKey("cabinetopen") == false) {
+            animUtil.StartAnimation(new AnimationMetaData() {
                 Animation = "cabinetopen",
                 Code = "cabinetopen",
                 AnimationSpeed = 3f,
@@ -282,19 +308,19 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         CabinetOpen = true;
     }
 
-    private void CloseCabinet(IPlayer byPlayer) {
+    private void CloseCabinet(IPlayer byPlayer = null) {
         if (!inv[36].Empty && !WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
             WaterHeightUp(); // Unfortunately inside Inventory_OnAcquireTransitionSpeed this updates only when you look at it. Forcing it here too.
         }
 
-        Api.World.PlaySoundAt(soundCabinetClose, byPlayer.Entity, byPlayer, true, 16);
-        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("cabinetopen") == true) {
-            animUtil?.StopAnimation("cabinetopen");
+        if (byPlayer != null) Api.World.PlaySoundAt(soundCabinetClose, byPlayer.Entity, byPlayer, true, 16);
+        if (animUtil.activeAnimationsByAnimCode.ContainsKey("cabinetopen") == true) {
+            animUtil.StopAnimation("cabinetopen");
         }
 
         perishMultiplier = 0.75f;
 
-        if (!drawerOpen && !inv[36].Empty) {
+        if (!DrawerOpen && !inv[36].Empty) {
             if (WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) 
                 perishMultiplier = 0.4f;
         }
@@ -302,14 +328,14 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         CabinetOpen = false;
     }
 
-    private void OpenDrawer(IPlayer byPlayer) {
+    private void OpenDrawer(IPlayer byPlayer = null) {
         if (!inv[36].Empty && !WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
             WaterHeightUp(); // Unfortunately inside Inventory_OnAcquireTransitionSpeed this updates only when you look at it. Forcing it here too.
         }
 
-        Api.World.PlaySoundAt(soundDrawerOpen, byPlayer.Entity, byPlayer, true, 16);
-        if (animUtil?.activeAnimationsByAnimCode.ContainsKey("draweropen") == false) {
-            animUtil?.StartAnimation(new AnimationMetaData() {
+        if (byPlayer != null) Api.World.PlaySoundAt(soundDrawerOpen, byPlayer.Entity, byPlayer, true, 16);
+        if (animUtil.activeAnimationsByAnimCode.ContainsKey("draweropen") == false) {
+            animUtil.StartAnimation(new AnimationMetaData() {
                 Animation = "draweropen",
                 Code = "draweropen",
                 AnimationSpeed = 3f,
@@ -319,15 +345,15 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         }
 
         if (!CabinetOpen) perishMultiplier = 0.75f;
-        drawerOpen = true;
+        DrawerOpen = true;
     }
 
-    private void CloseDrawer(IPlayer byPlayer) {
+    private void CloseDrawer(IPlayer byPlayer = null) {
         if (!inv[36].Empty && !WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
             WaterHeightUp(); // Unfortunately inside Inventory_OnAcquireTransitionSpeed this updates only when you look at it. Forcing it here too.
         }
 
-        Api.World.PlaySoundAt(soundDrawerClose, byPlayer.Entity, byPlayer, true, 16);
+        if (byPlayer != null) Api.World.PlaySoundAt(soundDrawerClose, byPlayer.Entity, byPlayer, true, 16);
         if (animUtil?.activeAnimationsByAnimCode.ContainsKey("draweropen") == true) {
             animUtil?.StopAnimation("draweropen");
         }
@@ -337,7 +363,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
                 perishMultiplier = 0.4f;
         }
 
-        drawerOpen = false;
+        DrawerOpen = false;
     }
 
     private void IceHeight1Up() {
@@ -527,16 +553,6 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     }
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
-        foreach (var slot in inv) { // testing part to see if it'll mesh the contents properly.
-            if (slot.Itemstack?.Collectible.Code == "foodshelves:fruitbasket-normal") {
-                ItemStack[] stack = GetContents(Api.World, slot.Itemstack);
-                if (stack.Length == 0) continue;
-
-                MeshData mesh = GenNestedContentMesh(Api as ICoreClientAPI, stack);
-                if (mesh != null) mesher.AddMeshData(mesh);
-            }
-        }
-
         bool skipmesh = base.OnTesselation(mesher, tesselator);
 
         if (!skipmesh) {
@@ -546,19 +562,7 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
             }
 
             mesher.AddMeshData(ownMesh.Clone().Rotate(new Vec3f(.5f, .5f, .5f), 0, GameMath.DEG2RAD * GetRotationAngle(block), 0));
-            
-            if (CabinetOpen) OpenCabinet();
-
-            if (!inv[36].Empty) {
-                if (WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
-                    if (inv[36].Itemstack?.StackSize < 20) IceHeight1Up();
-                    else if (inv[36].Itemstack?.StackSize < 40) IceHeight2Up();
-                    else if (inv[36].Itemstack?.StackSize >= 40) IceHeight3Up();
-                }
-                else {
-                    WaterHeightUp();
-                }
-            }
+            HandleAnimations(); // When loading into a world for the first time
         }
 
         return true;
@@ -569,12 +573,16 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
     public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving) {
         base.FromTreeAttributes(tree, worldForResolving);
         CabinetOpen = tree.GetBool("cabinetOpen", false);
+        DrawerOpen = tree.GetBool("drawerOpen", false);
+
+        HandleAnimations();
         RedrawAfterReceivingTreeAttributes(worldForResolving);
     }
 
     public override void ToTreeAttributes(ITreeAttribute tree) {
         base.ToTreeAttributes(tree);
         tree.SetBool("cabinetOpen", CabinetOpen);
+        tree.SetBool("drawerOpen", DrawerOpen);
     }
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
@@ -586,14 +594,12 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
         DisplayInfo(forPlayer, sb, inv, InfoDisplayOptions.BySegment, slotCount, segmentsPerShelf, itemsPerSegment, true, new[] { 36 });
 
         // For ice & water
-        if (forPlayer.CurrentBlockSelection.SelectionBoxIndex == 9) {
-            if (!inv[36].Empty) {
-                if (WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
-                    sb.AppendLine(GetNameAndStackSize(inv[36].Itemstack) + " - " + GetUntilMelted(inv[36]));
-                }
-                else {
-                    sb.AppendLine(GetAmountOfLiters(inv[36].Itemstack));
-                }
+        if (forPlayer.CurrentBlockSelection.SelectionBoxIndex == 9 && !inv[36].Empty) {
+            if (WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, inv[36].Itemstack.Collectible.Code)) {
+                sb.AppendLine(GetNameAndStackSize(inv[36].Itemstack) + " - " + GetUntilMelted(inv[36]));
+            }
+            else {
+                sb.AppendLine(GetAmountOfLiters(inv[36].Itemstack));
             }
         }
     }
@@ -681,3 +687,81 @@ public class BlockEntityCoolingCabinet : BlockEntityDisplay {
 
     #endregion
 }
+
+#region SyncResolver
+
+// Unused code
+
+//public override void OnReceivedClientPacket(IPlayer fromPlayer, int packetid, byte[] data) {
+//    base.OnReceivedClientPacket(fromPlayer, packetid, data);
+
+//    if (packetid == (int)CoolingCabinetPacket.CabinetOpen) {
+//        data = SerializerUtil.Serialize(true);
+//        ((ICoreServerAPI)Api).Network.BroadcastBlockEntityPacket(Pos, (int)CoolingCabinetPacket.CabinetOpenOthers, data, (IServerPlayer)fromPlayer);
+//    }
+
+//    if (packetid == (int)CoolingCabinetPacket.CabinetClose) {
+//        data = SerializerUtil.Serialize(false);
+//        ((ICoreServerAPI)Api).Network.BroadcastBlockEntityPacket(Pos, (int)CoolingCabinetPacket.CabinetOpenOthers, data, (IServerPlayer)fromPlayer);
+//    }
+
+//    if (packetid == (int)CoolingCabinetPacket.DrawerOpen) {
+//        data = SerializerUtil.Serialize(true);
+//        ((ICoreServerAPI)Api).Network.BroadcastBlockEntityPacket(Pos, (int)CoolingCabinetPacket.DrawerOpenOthers, data, (IServerPlayer)fromPlayer);
+//    }
+
+//    if (packetid == (int)CoolingCabinetPacket.DrawerClose) {
+//        data = SerializerUtil.Serialize(false);
+//        ((ICoreServerAPI)Api).Network.BroadcastBlockEntityPacket(Pos, (int)CoolingCabinetPacket.DrawerOpenOthers, data, (IServerPlayer)fromPlayer);
+//    }
+
+//    if (packetid == (int)CoolingCabinetPacket.DrawerInteracted) {
+//        data = SerializerUtil.Serialize(new Dictionary<string, int>() {
+//            { inv[36].Itemstack?.Collectible.Code ?? "", inv[36].Itemstack?.StackSize ?? 0 } 
+//        });
+//        ((ICoreServerAPI)Api).Network.BroadcastBlockEntityPacket(Pos, (int)CoolingCabinetPacket.DrawerInteractedOthers, data, (IServerPlayer)fromPlayer);
+//    }
+//}
+
+//public override void OnReceivedServerPacket(int packetid, byte[] data) {
+
+//    if (this is BlockEntityCoolingCabinet becc) {
+//        if (packetid == (int)CoolingCabinetPacket.CabinetOpenOthers) {
+//            bool containerOpened = SerializerUtil.Deserialize<bool>(data);
+//            if (containerOpened) becc.OpenCabinet(null);
+//            else becc.CloseCabinet(null);
+//        }
+
+//        if (packetid == (int)CoolingCabinetPacket.DrawerOpenOthers) {
+//            bool containerOpened = SerializerUtil.Deserialize<bool>(data);
+//            if (containerOpened) becc.OpenDrawer(null);
+//            else becc.CloseDrawer(null);
+//        }
+
+//        if (packetid == (int)CoolingCabinetPacket.DrawerInteractedOthers) {
+//            var drawerProps = SerializerUtil.Deserialize<Dictionary<string, int>>(data);
+
+
+//            string collectibleCode = drawerProps.Keys.FirstOrDefault();
+//            int stackSize = drawerProps.Values.FirstOrDefault();
+//            Api.Logger.Debug($"Got: {drawerProps} - {collectibleCode} - {stackSize}.");
+
+//            if (collectibleCode == "") {
+//                IceHeightAllDown();
+//                WaterHeightDown();
+//            }
+//            else {
+//                if (WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, collectibleCode)) {
+//                    if (stackSize < 20) IceHeight1Up();
+//                    else if (stackSize < 40) IceHeight2Up();
+//                    else if (stackSize >= 40) IceHeight3Up();
+//                }
+//                else {
+//                    WaterHeightUp();
+//                }
+//            }
+//        }
+//    }
+//}
+
+#endregion

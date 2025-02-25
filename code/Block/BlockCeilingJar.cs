@@ -1,6 +1,6 @@
 ﻿namespace FoodShelves;
 
-public class BlockCeilingJar : Block {
+public class BlockCeilingJar : BlockContainer, IContainedMeshSource {
     public override void OnLoaded(ICoreAPI api) {
         base.OnLoaded(api);
         PlacedPriorityInteract = true; // Needed to call OnBlockInteractStart when shifting with an item in hand
@@ -25,5 +25,27 @@ public class BlockCeilingJar : Block {
 
         dsc.AppendLine("");
         dsc.AppendLine(Lang.Get("foodshelves:helddesc-ceilingjar"));
+    }
+
+    public MeshData GenMesh(ItemStack itemstack, ITextureAtlasAPI targetAtlas, BlockPos atBlockPos) {
+        ICoreClientAPI capi = api as ICoreClientAPI;
+
+        capi.Tesselator.TesselateBlock(this, out MeshData basketMesh);
+
+        ItemStack[] contents = GetContents(api.World, itemstack);
+        MeshData contentMesh = GenLiquidyMesh(capi, contents, ShapeReferences.CeilingJarUtil);
+
+        if (contentMesh != null) {
+            basketMesh.AddMeshData(contentMesh);
+        }
+
+        return basketMesh;
+    }
+
+    public string GetMeshCacheKey(ItemStack itemstack) {
+        ItemStack[] contents = GetContents(api.World, itemstack);
+        int hashcode = GetStackCacheHashCodeFNV(contents);
+
+        return $"{itemstack.Collectible.Code}-{hashcode}";
     }
 }

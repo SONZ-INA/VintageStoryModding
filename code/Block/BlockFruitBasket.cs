@@ -1,6 +1,6 @@
 ﻿namespace FoodShelves;
 
-public class BlockFruitBasket : BlockContainer {
+public class BlockFruitBasket : BlockContainer, IContainedMeshSource {
     WorldInteraction[] interactions;
 
     public override void OnLoaded(ICoreAPI api) {
@@ -104,34 +104,24 @@ public class BlockFruitBasket : BlockContainer {
         PerishableInfoAverageAndSoonest(contents.ToDummySlots(), dsc, world);
     }
 
-    // Mesh rendering for items when inside inventory
-    private string MeshRefsCacheKey => this.Code.ToShortString() + "meshRefs";
     public override void OnBeforeRender(ICoreClientAPI capi, ItemStack itemstack, EnumItemRenderTarget target, ref ItemRenderInfo renderinfo) {
         Dictionary<int, MultiTextureMeshRef> meshrefs;
 
-        if (capi.ObjectCache.TryGetValue(MeshRefsCacheKey, out object obj)) {
+        string meshCacheKey = GetMeshCacheKey(itemstack);
+
+        if (capi.ObjectCache.TryGetValue(meshCacheKey, out object obj)) {
             meshrefs = obj as Dictionary<int, MultiTextureMeshRef>;
         }
         else {
-            capi.ObjectCache[MeshRefsCacheKey] = meshrefs = new Dictionary<int, MultiTextureMeshRef>();
+            capi.ObjectCache[meshCacheKey] = meshrefs = new Dictionary<int, MultiTextureMeshRef>();
         }
 
         ItemStack[] contents = GetContents(api.World, itemstack);
         int hashcode = GetStackCacheHashCodeFNV(contents);
 
         if (!meshrefs.TryGetValue(hashcode, out MultiTextureMeshRef meshRef)) {
-            float[,] transformationMatrix = GetTransformationMatrix();
-
-            capi.Tesselator.TesselateBlock(this, out MeshData basketMesh);
-            MeshData contentMesh = GenContentMesh(capi, contents, transformationMatrix, 0.5f, FruitBasketTransformations);
-            if (contentMesh != null) {
-                contentMesh.Translate(0, 0.02f, 0);
-                basketMesh.AddMeshData(contentMesh);
-            }
-
-            if (basketMesh != null) { 
-                meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(basketMesh);
-            }
+            MeshData mesh = GenMesh(itemstack, capi.BlockTextureAtlas, null);
+            if (mesh != null) meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(mesh);
         }
 
         renderinfo.ModelRef = meshRef;
@@ -147,5 +137,28 @@ public class BlockFruitBasket : BlockContainer {
         float[] rZ = {   1,  -1,   0,   45,    1,   41,    5,   70,   10,  17,   -2,  -20,   3,    16,    7,    6, -20,    8,  -25,   15,    45, -10 };
 
         return GenTransformationMatrix(x, y, z, rX, rY, rZ);
+    }
+
+    public MeshData GenMesh(ItemStack itemstack, ITextureAtlasAPI targetAtlas, BlockPos atBlockPos) {
+        ICoreClientAPI capi = api as ICoreClientAPI;
+
+        capi.Tesselator.TesselateBlock(this, out MeshData basketMesh);
+
+        ItemStack[] contents = GetContents(api.World, itemstack);
+        MeshData contentMesh = GenContentMesh(capi, targetAtlas, contents, GetTransformationMatrix(), 0.5f, FruitBasketTransformations);
+
+        if (contentMesh != null) {
+            contentMesh.Translate(0, 0.02f, 0);
+            basketMesh.AddMeshData(contentMesh);
+        }
+
+        return basketMesh;
+    }
+
+    public string GetMeshCacheKey(ItemStack itemstack) {
+        ItemStack[] contents = GetContents(api.World, itemstack);
+        int hashcode = GetStackCacheHashCodeFNV(contents);
+
+        return $"{itemstack.Collectible.Code}-{hashcode}";
     }
 }

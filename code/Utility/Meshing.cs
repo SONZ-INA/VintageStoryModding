@@ -1,6 +1,4 @@
 ﻿using System.Linq;
-using Vintagestory.API.Common;
-using Vintagestory.Common;
 
 namespace FoodShelves;
 
@@ -55,43 +53,51 @@ public static class Meshing {
         return mesh;
     }
 
-    public static MeshData GenContentMesh(ICoreClientAPI capi, ItemStack[] contents, float[,] transformationMatrix, float scaleValue = 1f, Dictionary<string, ModelTransform> modelTransformations = null) {
-        MeshData contentMesh = null;
-        
-        if (contents != null) {
-            int offset = transformationMatrix.GetLength(1);
+    public static MeshData GenContentMesh(ICoreClientAPI capi, ITextureAtlasAPI targetAtlas, ItemStack[] contents, float[,] transformationMatrix, float scaleValue = 1f, Dictionary<string, ModelTransform> modelTransformations = null) {
+        if (capi == null) return null;
 
-            for (int i = 0; i < contents.Length; i++) {
-                if (contents[i] != null) {
-                    if (contents[i].Item == null) continue; // To fix the damn pumpkin bug on existing worlds
-                    capi.Tesselator.TesselateItem(contents[i].Item, out MeshData itemMesh);
+        MeshData nestedContentMesh = null;
+        for (int i = 0; i < contents.Length; i++) {
+            if (contents[i] == null || contents[i].Item == null) continue;
 
-                    if (i < offset) {
-                        if (modelTransformations != null) {
-                            ModelTransform transformation = contents[i].Item.GetTransformation(modelTransformations);
-                            if (transformation != null) itemMesh.ModelTransform(transformation);
-                        }
+            Shape shape = capi.TesselatorManager.GetCachedShape(contents[i].Item.Shape.Base).Clone();
+            if (shape == null) return null;
 
-                        float[] matrixTransform =
-                            new Matrixf()
-                            .Translate(0.5f, 0, 0.5f)
-                            .RotateXDeg(transformationMatrix[3, i])
-                            .RotateYDeg(transformationMatrix[4, i])
-                            .RotateZDeg(transformationMatrix[5, i])
-                            .Scale(scaleValue, scaleValue, scaleValue)
-                            .Translate(transformationMatrix[0, i] - 0.84375f, transformationMatrix[1, i], transformationMatrix[2, i] - 0.8125f)
-                            .Values;
+            UniversalShapeTextureSource texSource = new(capi, targetAtlas, shape, "inContainerTexSource");
 
-                        itemMesh.MatrixTransform(matrixTransform);
-                    }
-
-                    if (contentMesh == null) contentMesh = itemMesh;
-                    else contentMesh.AddMeshData(itemMesh);
-                }
+            foreach (var textureDict in shape.Textures) {
+                CompositeTexture cTex = new(textureDict.Value);
+                cTex.Bake(capi.Assets);
+                texSource.textures[textureDict.Key] = cTex;
             }
+
+            capi.Tesselator.TesselateShape("InContainerTesselate", shape, out MeshData collectibleMesh, texSource);
+
+            int offset = transformationMatrix.GetLength(1);
+            if (i < offset) {
+                if (modelTransformations != null) {
+                    ModelTransform transformation = contents[i].Item.GetTransformation(modelTransformations);
+                    if (transformation != null) collectibleMesh.ModelTransform(transformation);
+                }
+
+                float[] matrixTransform =
+                    new Matrixf()
+                    .Translate(0.5f, 0, 0.5f)
+                    .RotateXDeg(transformationMatrix[3, i])
+                    .RotateYDeg(transformationMatrix[4, i])
+                    .RotateZDeg(transformationMatrix[5, i])
+                    .Scale(scaleValue, scaleValue, scaleValue)
+                    .Translate(transformationMatrix[0, i] - 0.84375f, transformationMatrix[1, i], transformationMatrix[2, i] - 0.8125f)
+                    .Values;
+
+                collectibleMesh.MatrixTransform(matrixTransform);
+            }
+
+            if (nestedContentMesh == null) nestedContentMesh = collectibleMesh;
+            else nestedContentMesh.AddMeshData(collectibleMesh);
         }
 
-        return contentMesh;
+        return nestedContentMesh;
     }
 
     public static MeshData GenLiquidyMesh(ICoreClientAPI capi, ItemStack[] contents, string pathToFillShape) {
@@ -100,7 +106,7 @@ public static class Meshing {
 
         // Shape location of a simple cube, meant to "fill" the Glass Jar
         AssetLocation shapeLocation = new(pathToFillShape);
-        Shape shape = capi.Assets.TryGet(shapeLocation)?.ToObject<Shape>();
+        Shape shape = Shape.TryGet(capi, shapeLocation);
         if (shape == null) return null;
         Shape shapeClone = shape.Clone();
         string itemPath = contents[0].Item.Code.Path;
@@ -123,10 +129,6 @@ public static class Meshing {
             // For some reason, ITexPositionSource is throwing a null error when simply getting it with a simple fucking method, so this is needed
             var textures = contents[0].Item.Textures;
             texSource = new ContainerTextureSource(capi, contents[0], textures.Values.FirstOrDefault());
-
-            // Modifying the texture key of the shape to fit the key of the item
-            string textureKey = textures.Keys.FirstOrDefault();
-            ChangeShapeTextureKey(shapeClone, textureKey);
         }
 
         // Adjusting the cube height
@@ -171,6 +173,47 @@ public static class Meshing {
         }
 
         capi.Tesselator.TesselateShape("liquidymesh", shapeClone, out MeshData contentMesh, texSource);
+        return contentMesh;
+    }
+
+    #region OldMethods
+
+    public static MeshData GenContentMeshOLD(ICoreClientAPI capi, ItemStack[] contents, float[,] transformationMatrix, float scaleValue = 1f, Dictionary<string, ModelTransform> modelTransformations = null) {
+        MeshData contentMesh = null;
+
+        if (contents != null) {
+            int offset = transformationMatrix.GetLength(1);
+
+            for (int i = 0; i < contents.Length; i++) {
+                if (contents[i] != null) {
+                    if (contents[i].Item == null) continue; // To fix the damn pumpkin bug on existing worlds
+                    capi.Tesselator.TesselateItem(contents[i].Item, out MeshData itemMesh);
+
+                    if (i < offset) {
+                        if (modelTransformations != null) {
+                            ModelTransform transformation = contents[i].Item.GetTransformation(modelTransformations);
+                            if (transformation != null) itemMesh.ModelTransform(transformation);
+                        }
+
+                        float[] matrixTransform =
+                            new Matrixf()
+                            .Translate(0.5f, 0, 0.5f)
+                            .RotateXDeg(transformationMatrix[3, i])
+                            .RotateYDeg(transformationMatrix[4, i])
+                            .RotateZDeg(transformationMatrix[5, i])
+                            .Scale(scaleValue, scaleValue, scaleValue)
+                            .Translate(transformationMatrix[0, i] - 0.84375f, transformationMatrix[1, i], transformationMatrix[2, i] - 0.8125f)
+                            .Values;
+
+                        itemMesh.MatrixTransform(matrixTransform);
+                    }
+
+                    if (contentMesh == null) contentMesh = itemMesh;
+                    else contentMesh.AddMeshData(itemMesh);
+                }
+            }
+        }
+
         return contentMesh;
     }
 
@@ -285,33 +328,6 @@ public static class Meshing {
         return contentMesh;
     }
 
-    public static MeshData GenNestedContentMesh(ICoreClientAPI capi, ItemStack[] stack) {
-        if (capi == null) return null;
-
-        MeshData nestedContentMesh = null;
-        foreach (ItemStack itemStack in stack) {
-            if (itemStack == null || itemStack.Item == null) continue;
-
-            Shape shape = capi.TesselatorManager.GetCachedShape(itemStack.Item.Shape.Base).Clone();
-            if (shape == null) return null;
-
-            UniversalShapeTextureSource texSource = new(capi, capi.ItemTextureAtlas, shape, "inContainerTexSource");
-
-            foreach (var textureDict in shape.Textures) {
-                CompositeTexture cTex = new(textureDict.Value);
-                cTex.Bake(capi.Assets);
-                texSource.textures[textureDict.Key] = cTex;
-            }
-
-            capi.Tesselator.TesselateShape("InContainerTesselate", shape, out MeshData collectibleMesh, texSource);
-
-            if (nestedContentMesh == null) nestedContentMesh = collectibleMesh;
-            else nestedContentMesh.AddMeshData(collectibleMesh);
-        }
-
-        return nestedContentMesh;
-    }
-
     // GeneralizedTexturedGenMesh written specifically for expanded foods, i might need it so it's here
     public static MeshData GeneralizedTexturedGenMesh(ICoreClientAPI capi, Item item) { // third passed attribute would be a Dictionary of keys and texture paths and
                                                                                         // then iterate through them after Textures.Clear()
@@ -339,4 +355,6 @@ public static class Meshing {
 
         return block2;
     }
+
+    #endregion
 }

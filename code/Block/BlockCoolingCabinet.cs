@@ -88,7 +88,7 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
 
     public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer) {
         if (selection.SelectionBoxIndex == 9 && world.BlockAccessor.GetBlockEntity(selection.Position) is BlockEntityCoolingCabinet becc) {
-            if (becc.drawerOpen) {
+            if (becc.DrawerOpen) {
                 if (becc.Inventory?[36].Empty == true || WildcardUtil.Match(CoolingOnlyData.CollectibleCodes, becc.Inventory?[36].Itemstack.Collectible.Code)) {
                     return cabinetInteractions.Append(drawerInteractions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer)));
                 }
@@ -136,7 +136,7 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
         Cuboidf skip = new(); // Skip selectionBox, to keep consistency between selectionBox indexes (1-8-shelves 9-drawer 10-cabinet)
 
         if (be != null) {
-            if (be.drawerOpen) {
+            if (be.DrawerOpen) {
                 int rotAngle = GetRotationAngle(this);
 
                 switch(rotAngle) {
@@ -175,7 +175,7 @@ public class BlockCoolingCabinet : Block, IMultiBlockColSelBoxes {
             
             drawerSelBox.MBNormalizeSelectionBox(offset);
             
-            if (be.drawerOpen) {
+            if (be.DrawerOpen) {
                 int rotAngle = GetRotationAngle(this);
 
                 switch (rotAngle) {

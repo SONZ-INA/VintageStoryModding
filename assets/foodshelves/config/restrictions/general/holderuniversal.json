@@ -2,7 +2,9 @@
   "CollectibleTypes": [
     "game:BlockPie",
     "game:ItemCheese",
-    "foodshelves:BlockFruitBasket"
+    "foodshelves:BlockFruitBasket",
+    "foodshelves:BlockVegetableBasket",
+    "foodshelves:BlockEggBasket"
   ],
   "CollectibleCodes": [
     "game:crock-burned*",
